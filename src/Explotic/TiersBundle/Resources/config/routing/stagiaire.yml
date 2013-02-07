@@ -33,4 +33,19 @@ stagiaire_programmation:
     pattern: /{id}/programmation
     defaults: {_controller: "ExploticTiersBundle:Stagiaire:programmation"}
     requirements: { _method: get }
+
+stagiaire_entreprise:
+    pattern: /entreprise/{id}
+    defaults: {_controller: "ExploticTiersBundle:Stagiaire:voirEntreprise"}
+    requirements: { _method: get }
+
+stagiaire_bureau:
+    pattern: /bureau/{id}
+    defaults: {_controller: "ExploticTiersBundle:Stagiaire:voirBureau"}
+    requirements: { _method: get }
+
+stagiaire_postes:
+    pattern: /postes/{id}
+    defaults: {_controller: "ExploticTiersBundle:Stagiaire:voirPostes"}
+    requirements: { _method: get }
   

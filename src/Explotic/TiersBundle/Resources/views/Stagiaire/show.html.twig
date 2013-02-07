@@ -42,13 +42,19 @@
 
 <ul class="record_actions">
     <li>
-        <a href="{{ path('stagiaire_programmation', { 'id': entity.id }) }}">Voir Programme</a>
+        <a href="{{ path('stagiaire_programmation', { 'id': entity.id }) }}">Voir le programme</a>
     </li>
     <li>
-        <a href="{{ path('programme_new', { 'idStg': entity.id }) }}">Ajouter Programme</a>
+        <a href="{{ path('programme_new', { 'idStg': entity.id }) }}">Ajouter un module</a>
     </li>
     <li>
-        <a href="{{ path('programme_new', { 'idStg': entity.id }) }}">Ajouter Programme</a>
+        <a href="{{ path('poste_new', { 'idStg': entity.id }) }}">Ajouter un poste</a>
+    </li>
+    <li>
+        <a href="{{ path('stagiaire_postes', { 'id': entity.id }) }}">Voir les postes</a>
+    </li>
+    <li>
+        <a href="{{ path('stagiaire_entreprise', { 'id': entity.id }) }}">Fiche Entreprise</a>
     </li>
     <li>
         <a href="{{ path('stagiaire') }}">

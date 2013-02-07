@@ -8,23 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ProgrammeType extends AbstractType
 {
-    private $disabledField; //bool
-    
-    public function __construct($_disabledField){
-        $this->setDisabledField($_disabledField);
-    }
-
-    public function setDisabledField($disabledField)
-    {
-        $this->disabledField = $disabledField;
-        return $this;
-    }
-
-    public function getDisabledField()
-    {
-        return $this->disabledField;
-    }
-    
+       
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -43,8 +27,6 @@ class ProgrammeType extends AbstractType
             ->add('module')
             ->add('stagiaire', 'entity', array(
                     'class' => 'ExploticTiersBundle:Stagiaire',
-                    'read_only' => true,// Définit par le controller
-                    //'disabled' => $this->getDisabledField(),// Définit par le controller
             ));
             
     }

@@ -12,4 +12,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class EntrepriseRepository extends EntityRepository
 {
+    public function findByStagiaire($id){
+        $query = $this->getEntityManager()
+                ->createQuery('
+                    SELECT e 
+                    FROM ExploticTiersBundle:Stagiaire s JOIN s.entreprise e
+                    WHERE s.id=1'
+                )->setParameter('id', $id);
+        try{
+            return $query->getSingleResult();
+        }catch (\Doctrine\ORM\NoResultException $e){
+            return null;
+        }
+        
+    }
+       
 }

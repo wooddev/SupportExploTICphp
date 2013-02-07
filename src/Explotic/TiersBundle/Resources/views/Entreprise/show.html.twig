@@ -32,16 +32,13 @@
 
 {% block bodyOpt %}onload="initialize()"{% endblock %}    
 {% block body %}
-    <h1>Entreprise</h1>
-
-
+    <h1>Fiche de l'entreprise {{ entity.raisonSociale }}</h1>
+    {% if stagiaire is defined %}    
+    <h2> employeur de {{stagiaire.prenom}} {{stagiaire.nom}} </h2>
+    {% endif %}
                   
     <table class="record_properties">
         <tbody>
-            <tr>            
-                <th>Raisonsociale:   </th>
-                <td> {{ entity.raisonSociale }}</td>
-            </tr>
             <tr>
                 <th>Commune:   </th>
                 <td>{{ entity.bureau.localisation.commune }}</td>

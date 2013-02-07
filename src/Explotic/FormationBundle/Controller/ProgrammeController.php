@@ -91,10 +91,10 @@ class ProgrammeController extends Controller
                 }
             $entity->setStagiaire($stagiaire);
             //on génére un formulaire où le choix du stagiaire est disabled
-            $form   = $this->createForm(new ProgrammeType(TRUE), $entity);            
+            $form   = $this->createForm(new ProgrammeType(), $entity);            
         }
         else {
-            $form   = $this->createForm(new ProgrammeType(FALSE), $entity, array(
+            $form   = $this->createForm(new ProgrammeType(), $entity, array(
                 'disabled'=> false,
                 ));                        
         }
@@ -112,7 +112,7 @@ class ProgrammeController extends Controller
     public function createAction(Request $request)
     {
         $entity  = new Programme();
-        $form = $this->createForm(new ProgrammeType(FALSE), $entity);
+        $form = $this->createForm(new ProgrammeType(), $entity);
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -143,7 +143,7 @@ class ProgrammeController extends Controller
             throw $this->createNotFoundException('Unable to find Programme entity.');
         }
 
-        $editForm = $this->createForm(new ProgrammeType(FALSE), $entity);
+        $editForm = $this->createForm(new ProgrammeType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('ExploticFormationBundle:Programme:edit.html.twig', array(
@@ -168,7 +168,7 @@ class ProgrammeController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new ProgrammeType(FALSE), $entity);
+        $editForm = $this->createForm(new ProgrammeType(), $entity);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {

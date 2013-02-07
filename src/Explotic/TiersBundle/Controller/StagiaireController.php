@@ -196,8 +196,48 @@ class StagiaireController extends Controller
             'entities'      => $programmes,
             'stagiaire' => $stagiaire,
         ));
-               
+    }
         
+    public function voirEntrepriseAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $stagiaire = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);      
+        
+        if (!$stagiaire) {
+            throw $this->createNotFoundException('Unable to find Stagiaire entity.');
+        }
+        
+        $entreprise = $em->getRepository('ExploticTiersBundle:Entreprise')->findByStagiaire($id);
+        
+        if (!$entreprise) {
+            throw $this->createNotFoundException('Unable to find entreprise entity.');
+        }
+        
+        return $this->render('ExploticTiersBundle:Entreprise:show.html.twig', array(
+            'entity'      => $entreprise,
+            'stagiaire' => $stagiaire,
+        ));
+    }
+                
+    public function voirPostesAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $stagiaire = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);      
+        
+        if (!$stagiaire) {
+            throw $this->createNotFoundException('Unable to find Stagiaire entity.');
+        }
+        
+        $postes = $em->getRepository('ExploticTiersBundle:Postes')->findByStagiaire($id);
+        
+        if (!$postes) {
+            throw $this->createNotFoundException('Unable to find programmes entities.');
+        }
+        
+        return $this->render('ExploticTiersBundle:Postes:indexStagiaire.html.twig', array(
+            'entities'      => $postes,
+            'stagiaire' => $stagiaire,
+        ));                    
     }
 
 }

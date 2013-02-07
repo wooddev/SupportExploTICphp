@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Explotic\TiersBundle\ExploticTiersBundle(),
             new Explotic\PlanningBundle\ExploticPlanningBundle(),
             new Explotic\FormationBundle\ExploticFormationBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
