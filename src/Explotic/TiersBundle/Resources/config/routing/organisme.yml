@@ -1,0 +1,30 @@
+organisme:
+    pattern:  /
+    defaults: { _controller: "ExploticTiersBundle:Organisme:index" }
+
+organisme_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticTiersBundle:Organisme:show" }
+
+organisme_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticTiersBundle:Organisme:new" }
+
+organisme_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticTiersBundle:Organisme:create" }
+    requirements: { _method: post }
+
+organisme_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticTiersBundle:Organisme:edit" }
+
+organisme_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticTiersBundle:Organisme:update" }
+    requirements: { _method: post }
+
+organisme_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticTiersBundle:Organisme:delete" }
+    requirements: { _method: post }

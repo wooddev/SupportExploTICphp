@@ -1,0 +1,30 @@
+Explotic\TiersBundle\Entity\Entreprise:
+    type: entity
+    table: null
+    repositoryClass: Explotic\TiersBundle\Entity\EntrepriseRepository
+    oneToOne:
+      bureau:
+        targetEntity: Explotic\TiersBundle\Entity\Bureau
+        joinColumn:
+          name: bureau_id
+          referencedColumnName: id
+        cascade: ["persist"]
+    manyToOne:
+      creditTemps:
+        targetEntity: Explotic\PlanningBundle\Entity\CreditTemps
+        joinColumn:
+          name: creditTemps_id
+          referencedColumnName: id
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        raisonSociale:
+            type: string
+            length: 255            
+        telephone:
+            type: string
+            length: 255            
+    lifecycleCallbacks: {  }

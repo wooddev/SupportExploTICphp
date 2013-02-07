@@ -1,0 +1,30 @@
+Explotic\FormationBundle\Entity\Module:
+    type: entity
+    table: null
+    repositoryClass: Explotic\FormationBundle\Entity\ModuleRepository
+    oneToMany:
+      interventionSalles:
+        targetEntity: InterventionSalle
+        mappedBy: module
+        cascade: ["persist"]
+      interventionEntreprises:
+        targetEntity: InterventionEntreprise
+        mappedBy: module
+        cascade: ["persist"]
+      programmes:
+        targetEntity: Programme
+        mappedBy: module
+        cascade: ["persist"]
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        nom:
+            type: string
+            length: 255
+        tarif:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

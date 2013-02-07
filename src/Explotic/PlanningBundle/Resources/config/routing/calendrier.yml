@@ -1,0 +1,30 @@
+calendrier:
+    pattern:  /
+    defaults: { _controller: "ExploticPlanningBundle:Calendrier:index" }
+
+calendrier_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticPlanningBundle:Calendrier:show" }
+
+calendrier_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticPlanningBundle:Calendrier:new" }
+
+calendrier_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticPlanningBundle:Calendrier:create" }
+    requirements: { _method: post }
+
+calendrier_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticPlanningBundle:Calendrier:edit" }
+
+calendrier_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticPlanningBundle:Calendrier:update" }
+    requirements: { _method: post }
+
+calendrier_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticPlanningBundle:Calendrier:delete" }
+    requirements: { _method: post }

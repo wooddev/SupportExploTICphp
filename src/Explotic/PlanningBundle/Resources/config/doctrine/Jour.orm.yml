@@ -1,0 +1,20 @@
+Explotic\PlanningBundle\Entity\Jour:
+    type: entity
+    table: null
+    repositoryClass: Explotic\PlanningBundle\Entity\JourRepository
+    manyToOne:
+      calendrier:
+        targetEntity: Calendrier
+        inversedBy: jours
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        dateJour:
+            type: datetime
+        statutDate:
+          type: string
+          columnDefinition: ENUM("Disponible","Proposée","Confirmée")
+    lifecycleCallbacks: {  }

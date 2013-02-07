@@ -1,0 +1,22 @@
+{%extends 'ExploticFormationBundle:Programme:index.html.twig'%}
+
+{% block index_title %}
+<h1>Programme du stagiaire {{stagiaire.prenom}} {{stagiaire.nom}} </h1>
+{% endblock %}
+
+{% block create %}
+<ul>
+    <li>
+        <a href="{{ path('programme_new' ,{'idStg': stagiaire.id}) }}">
+            Ajouter un module de formation
+        </a>
+    </li>
+</ul>
+<ul>
+    <li>
+        <a href="{{ path('stagiaire_show' ,{'id': stagiaire.id}) }}">
+            Retour au profil du stagiaire
+        </a>
+    </li>
+</ul>
+{% endblock %}

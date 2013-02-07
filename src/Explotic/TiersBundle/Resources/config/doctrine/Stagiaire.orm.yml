@@ -1,0 +1,55 @@
+Explotic\TiersBundle\Entity\Stagiaire:
+    type: entity
+    table: null
+    repositoryClass: Explotic\TiersBundle\Entity\StagiaireRepository
+    oneToOne:
+      calendrier:
+        targetEntity: Explotic\PlanningBundle\Entity\Calendrier
+        cascade: ["persist"]
+      creditTemps:
+        targetEntity: Explotic\PlanningBundle\Entity\CreditTemps
+        cascade: ["persist"]
+    oneToMany:
+      postes:
+        targetEntity: Explotic\TiersBundle\Entity\Poste
+        mappedBy: stagiaire 
+        cascade: ["persist"]
+    manyToOne:
+      entreprise:
+        targetEntity: Entreprise
+        cascade: ["persist"]
+    manyToMany:
+      sessions:
+        targetEntity: Explotic\PlanningBundle\Entity\Session
+        inversedBy: stagiaires
+        joinTable:
+          name: stagiaires_sessions
+          joinColumns:
+            stagiaire_id:
+              referencedColumnName: id
+          inverseJoinColumns:
+            session_id:
+              referencedColumnName: id             
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        nom:
+            type: string
+            length: 255
+        prenom:
+            type: string
+            length: 255
+        dateNaissance:
+            type: datetime
+        marchePiedInfo:
+            type: boolean
+        telephone:
+            type: string
+            length: 255
+        opca:
+          type: string
+          columnDefinition: ENUM("VIVEA","FAFSEA","OPCA3+")
+    lifecycleCallbacks: {  }

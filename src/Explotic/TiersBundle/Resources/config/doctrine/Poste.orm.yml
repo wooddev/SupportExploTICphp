@@ -1,0 +1,13 @@
+Explotic\TiersBundle\Entity\Poste:
+    type: entity
+    table: null
+    repositoryClass: Explotic\TiersBundle\Entity\PosteRepository
+    manyToOne:
+      stagiaire:
+        targetEntity: Stagiaire
+        inversedBy: postes
+    fields:
+        nomChantier:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

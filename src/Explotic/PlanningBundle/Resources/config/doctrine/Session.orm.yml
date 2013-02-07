@@ -1,0 +1,29 @@
+Explotic\PlanningBundle\Entity\Session:
+    type: entity
+    table: null
+    repositoryClass: Explotic\PlanningBundle\Entity\SessionRepository
+    oneToOne:
+      calendrier:
+        targetEntity: Calendrier
+    manyToOne:
+      siteIntervention:
+        targetEntity: Explotic\TiersBundle\Entity\SiteIntervention
+      intervention:
+        targetEntity: Explotic\FormationBundle\Entity\Intervention
+    manyToMany:
+      stagiaires:
+        targetEntity: Explotic\TiersBundle\Entity\Stagiaire
+        mappedBy: sessions
+      formateurs:
+        targetEntity: Explotic\TiersBundle\Entity\Formateur
+        mappedBy: sessions        
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        numero:
+          type: string
+          length: 255
+    lifecycleCallbacks: {  }

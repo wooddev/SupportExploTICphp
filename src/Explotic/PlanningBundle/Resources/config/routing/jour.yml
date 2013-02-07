@@ -1,0 +1,30 @@
+jour:
+    pattern:  /
+    defaults: { _controller: "ExploticPlanningBundle:Jour:index" }
+
+jour_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticPlanningBundle:Jour:show" }
+
+jour_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticPlanningBundle:Jour:new" }
+
+jour_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticPlanningBundle:Jour:create" }
+    requirements: { _method: post }
+
+jour_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticPlanningBundle:Jour:edit" }
+
+jour_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticPlanningBundle:Jour:update" }
+    requirements: { _method: post }
+
+jour_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticPlanningBundle:Jour:delete" }
+    requirements: { _method: post }

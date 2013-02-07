@@ -1,0 +1,14 @@
+Explotic\TiersBundle\Entity\Organisme:
+    type: entity
+    table: null
+    repositoryClass: Explotic\TiersBundle\Entity\OrganismeRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        raisonSociale:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

@@ -1,0 +1,30 @@
+Explotic\TiersBundle\Entity\SiteIntervention:
+    type: entity
+    table: null
+    repositoryClass: Explotic\TiersBundle\Entity\SiteInterventionRepository    
+    oneToOne:
+      localisation:
+        targetEntity: Localisation
+        joinColumn:
+          name: localisation_id
+          referenceColumnName: id
+        cascade: ["persist"]
+      calendrier:
+        targetEntity: Explotic\PlanningBundle\Entity\Calendrier
+        cascade: ["persist"]
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    inheritanceType: SINGLE_TABLE
+    discriminatorColumn:
+      name: typeEnfant
+      type: string
+      length: 255
+    discriminatorMap:
+      bureau: Bureau
+      salle: Salle
+      poste: Poste      
+    lifecycleCallbacks: {  }

@@ -1,0 +1,15 @@
+explotic_formation_module:
+    resource: "@ExploticFormationBundle/Resources/config/routing/module.yml"
+    prefix:   /module
+explotic_formation_interventionentreprise:
+    resource: "@ExploticFormationBundle/Resources/config/routing/interventionentreprise.yml"
+    prefix:   /interventionentreprise
+explotic_formation_interventionsalle:
+    resource: "@ExploticFormationBundle/Resources/config/routing/interventionsalle.yml"
+    prefix:   /interventionsalle
+explotic_formation_intervention:
+    resource: "@ExploticFormationBundle/Resources/config/routing/intervention.yml"
+    prefix:   /intervention
+explotic_formation_programme:
+    resource: "@ExploticFormationBundle/Resources/config/routing/programme.yml"
+    prefix:   /programme

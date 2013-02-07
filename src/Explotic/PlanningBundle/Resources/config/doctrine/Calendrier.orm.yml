@@ -1,0 +1,16 @@
+Explotic\PlanningBundle\Entity\Calendrier:
+    type: entity
+    table: null
+    repositoryClass: Explotic\PlanningBundle\Entity\CalendrierRepository
+    oneToMany:
+      jours:
+        targetEntity: Jour
+        mappedBy: calendrier
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }
+

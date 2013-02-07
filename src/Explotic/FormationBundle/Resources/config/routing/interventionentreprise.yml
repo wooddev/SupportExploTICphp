@@ -1,0 +1,30 @@
+interventionentreprise:
+    pattern:  /
+    defaults: { _controller: "ExploticFormationBundle:InterventionEntreprise:index" }
+
+interventionentreprise_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticFormationBundle:InterventionEntreprise:show" }
+
+interventionentreprise_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticFormationBundle:InterventionEntreprise:new" }
+
+interventionentreprise_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticFormationBundle:InterventionEntreprise:create" }
+    requirements: { _method: post }
+
+interventionentreprise_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticFormationBundle:InterventionEntreprise:edit" }
+
+interventionentreprise_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticFormationBundle:InterventionEntreprise:update" }
+    requirements: { _method: post }
+
+interventionentreprise_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticFormationBundle:InterventionEntreprise:delete" }
+    requirements: { _method: post }

@@ -1,0 +1,30 @@
+localisation:
+    pattern:  /
+    defaults: { _controller: "ExploticTiersBundle:Localisation:index" }
+
+localisation_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticTiersBundle:Localisation:show" }
+
+localisation_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticTiersBundle:Localisation:new" }
+
+localisation_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticTiersBundle:Localisation:create" }
+    requirements: { _method: post }
+
+localisation_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticTiersBundle:Localisation:edit" }
+
+localisation_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticTiersBundle:Localisation:update" }
+    requirements: { _method: post }
+
+localisation_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticTiersBundle:Localisation:delete" }
+    requirements: { _method: post }

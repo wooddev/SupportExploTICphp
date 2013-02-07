@@ -1,0 +1,35 @@
+Explotic\TiersBundle\Entity\Formateur:
+    type: entity
+    table: null
+    repositoryClass: Explotic\TiersBundle\Entity\FormateurRepository
+    oneToOne:
+      calendrier:
+        targetEntity: Explotic\PlanningBundle\Entity\Calendrier
+    manyToOne:
+      Organisme:
+        targetEntity: Organisme
+    manyToMany:
+      sessions:
+        targetEntity: Explotic\PlanningBundle\Entity\Session
+        inversedBy: formateurs
+        joinTable:
+          name: formateurs_sessions
+          joinColumns:
+            formateur_id:
+              referencedColumnName: id
+          inverseJoinColumns:
+            session_id:
+              referencedColumnName: id     
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        nom:
+            type: string
+            length: 255
+        prenom:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

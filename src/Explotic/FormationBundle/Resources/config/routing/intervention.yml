@@ -1,0 +1,30 @@
+intervention:
+    pattern:  /
+    defaults: { _controller: "ExploticFormationBundle:Intervention:index" }
+
+intervention_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticFormationBundle:Intervention:show" }
+
+intervention_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticFormationBundle:Intervention:new" }
+
+intervention_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticFormationBundle:Intervention:create" }
+    requirements: { _method: post }
+
+intervention_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticFormationBundle:Intervention:edit" }
+
+intervention_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticFormationBundle:Intervention:update" }
+    requirements: { _method: post }
+
+intervention_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticFormationBundle:Intervention:delete" }
+    requirements: { _method: post }

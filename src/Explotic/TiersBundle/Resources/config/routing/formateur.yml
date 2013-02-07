@@ -1,0 +1,30 @@
+formateur:
+    pattern:  /
+    defaults: { _controller: "ExploticTiersBundle:Formateur:index" }
+
+formateur_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticTiersBundle:Formateur:show" }
+
+formateur_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticTiersBundle:Formateur:new" }
+
+formateur_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticTiersBundle:Formateur:create" }
+    requirements: { _method: post }
+
+formateur_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticTiersBundle:Formateur:edit" }
+
+formateur_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticTiersBundle:Formateur:update" }
+    requirements: { _method: post }
+
+formateur_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticTiersBundle:Formateur:delete" }
+    requirements: { _method: post }

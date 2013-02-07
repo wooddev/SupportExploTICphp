@@ -1,0 +1,5 @@
+Explotic\TiersBundle\Entity\Salle:
+    type: entity
+    table: null
+    repositoryClass: Explotic\TiersBundle\Entity\SalleRepository     
+    lifecycleCallbacks: {  }

@@ -1,0 +1,24 @@
+Explotic\FormationBundle\Entity\Intervention:
+    type: entity
+    table: null
+    repositoryClass: Explotic\FormationBundle\Entity\InterventionRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        nom:
+            type: string
+            length: 255
+        dureeJour:
+            type: float
+    inheritanceType: SINGLE_TABLE
+    discriminatorColumn:
+        name: typeEnfant
+        type: string
+        length: 255
+    discriminatorMap:
+        interventionSalle: InterventionSalle
+        interventionEntreprise: InterventionEntreprise
+    lifecycleCallbacks: {  }

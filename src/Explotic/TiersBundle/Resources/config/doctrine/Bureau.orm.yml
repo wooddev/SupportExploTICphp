@@ -1,0 +1,9 @@
+Explotic\TiersBundle\Entity\Bureau:
+    type: entity
+    table: null
+    repositoryClass: Explotic\TiersBundle\Entity\BureauRepository
+    fields:        
+        adresseRue:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

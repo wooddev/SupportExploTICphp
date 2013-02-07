@@ -1,0 +1,7 @@
+parameters:
+#    explotic_formation.example.class: Explotic\FormationBundle\Example
+
+services:
+#    explotic_formation.example:
+#        class: %explotic_formation.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

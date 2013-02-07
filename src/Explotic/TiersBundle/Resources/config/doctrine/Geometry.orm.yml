@@ -1,0 +1,15 @@
+Explotic\TiersBundle\Entity\Geometry:
+    type: entity
+    table: null
+    repositoryClass: Explotic\TiersBundle\Entity\GeometryRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        lat:
+            type: float
+        lon:
+            type: float
+    lifecycleCallbacks: {  }

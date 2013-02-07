@@ -1,0 +1,36 @@
+stagiaire:
+    pattern:  /
+    defaults: { _controller: "ExploticTiersBundle:Stagiaire:index" }
+
+stagiaire_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticTiersBundle:Stagiaire:show" }
+
+stagiaire_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticTiersBundle:Stagiaire:new" }
+
+stagiaire_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticTiersBundle:Stagiaire:create" }
+    requirements: { _method: post }
+
+stagiaire_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticTiersBundle:Stagiaire:edit" }
+
+stagiaire_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticTiersBundle:Stagiaire:update" }
+    requirements: { _method: post }
+
+stagiaire_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticTiersBundle:Stagiaire:delete" }
+    requirements: { _method: post }
+
+stagiaire_programmation:
+    pattern: /{id}/programmation
+    defaults: {_controller: "ExploticTiersBundle:Stagiaire:programmation"}
+    requirements: { _method: get }
+  

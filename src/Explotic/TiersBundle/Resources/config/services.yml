@@ -1,0 +1,7 @@
+parameters:
+#    explotic_tiers.example.class: Explotic\TiersBundle\Example
+
+services:
+#    explotic_tiers.example:
+#        class: %explotic_tiers.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

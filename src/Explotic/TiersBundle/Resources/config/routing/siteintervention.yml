@@ -1,0 +1,30 @@
+siteintervention:
+    pattern:  /
+    defaults: { _controller: "ExploticTiersBundle:SiteIntervention:index" }
+
+siteintervention_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticTiersBundle:SiteIntervention:show" }
+
+siteintervention_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticTiersBundle:SiteIntervention:new" }
+
+siteintervention_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticTiersBundle:SiteIntervention:create" }
+    requirements: { _method: post }
+
+siteintervention_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticTiersBundle:SiteIntervention:edit" }
+
+siteintervention_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticTiersBundle:SiteIntervention:update" }
+    requirements: { _method: post }
+
+siteintervention_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticTiersBundle:SiteIntervention:delete" }
+    requirements: { _method: post }

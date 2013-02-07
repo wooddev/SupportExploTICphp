@@ -1,0 +1,24 @@
+{%extends "ExploticTiersBundle::layout.html.twig" %}
+
+{% block title %}
+    {{parent() }} - Tiers 
+{% endblock %}
+
+{% block body %}    
+<h1>Entreprise creation</h1>
+
+<form action="{{ path('entreprise_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('entreprise') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock%}

@@ -1,0 +1,30 @@
+entreprise:
+    pattern:  /
+    defaults: { _controller: "ExploticTiersBundle:Entreprise:index" }
+
+entreprise_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticTiersBundle:Entreprise:show" }
+
+entreprise_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticTiersBundle:Entreprise:new" }
+
+entreprise_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticTiersBundle:Entreprise:create" }
+    requirements: { _method: post }
+
+entreprise_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticTiersBundle:Entreprise:edit" }
+
+entreprise_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticTiersBundle:Entreprise:update" }
+    requirements: { _method: post }
+
+entreprise_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticTiersBundle:Entreprise:delete" }
+    requirements: { _method: post }

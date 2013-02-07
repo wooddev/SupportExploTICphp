@@ -1,0 +1,19 @@
+Explotic\PlanningBundle\Entity\CreditTemps:
+    type: entity
+    table: null
+    repositoryClass: Explotic\PlanningBundle\Entity\CreditTempsRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        tempsTotal:
+            type: integer
+        tempsReserve:
+            type: integer
+        tempsConsomme:
+            type: integer
+        tempsDisponible:
+            type: integer
+    lifecycleCallbacks: {  }

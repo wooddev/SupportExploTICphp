@@ -1,0 +1,30 @@
+bureau:
+    pattern:  /
+    defaults: { _controller: "ExploticTiersBundle:Bureau:index" }
+
+bureau_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticTiersBundle:Bureau:show" }
+
+bureau_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticTiersBundle:Bureau:new" }
+
+bureau_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticTiersBundle:Bureau:create" }
+    requirements: { _method: post }
+
+bureau_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticTiersBundle:Bureau:edit" }
+
+bureau_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticTiersBundle:Bureau:update" }
+    requirements: { _method: post }
+
+bureau_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticTiersBundle:Bureau:delete" }
+    requirements: { _method: post }

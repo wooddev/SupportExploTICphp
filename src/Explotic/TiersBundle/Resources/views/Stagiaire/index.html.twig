@@ -1,0 +1,56 @@
+{%extends "ExploticTiersBundle::layout.html.twig" %}
+
+
+{% block body %} 
+<h1>Stagiaire list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Marchepiedinfo</th>
+            <th>Telephone</th>
+            <th>Opca</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('stagiaire_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.nom }}</td>
+            <td>{{ entity.prenom }}</td>
+            <td>{{ entity.marchePiedInfo }}</td>
+            <td>{{ entity.telephone }}</td>
+            <td>{{ entity.opca }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('stagiaire_show', { 'id': entity.id }) }}">Voir Profil</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('stagiaire_edit', { 'id': entity.id }) }}">Editer Profil</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('stagiaire_programmation', { 'id': entity.id }) }}">Voir Programme</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('programme_new', { 'idStg': entity.id }) }}">Ajouter Programme</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('stagiaire_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>
+{% endblock%}

@@ -1,0 +1,24 @@
+Explotic\FormationBundle\Entity\Programme:
+    type: entity
+    table: null
+    repositoryClass: Explotic\FormationBundle\Entity\ProgrammeRepository
+    manyToOne:
+      module:
+        targetEntity: Module
+        inversedBy: programmes
+      stagiaire:
+        targetEntity: Explotic\TiersBundle\Entity\Stagiaire
+        inversedBy: programmes
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        accompagnement:
+          type: string
+          columnDefinition: ENUM("nonRealise","realise","enCours")
+        FormationSalle:
+          type: string
+          columnDefinition: ENUM("nonRealise","realise","enCours")
+    lifecycleCallbacks: {  }

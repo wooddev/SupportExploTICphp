@@ -1,0 +1,7 @@
+parameters:
+#    explotic_planning.example.class: Explotic\PlanningBundle\Example
+
+services:
+#    explotic_planning.example:
+#        class: %explotic_planning.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

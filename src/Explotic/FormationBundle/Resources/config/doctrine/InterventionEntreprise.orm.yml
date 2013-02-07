@@ -1,0 +1,13 @@
+Explotic\FormationBundle\Entity\InterventionEntreprise:
+    type: entity
+    table: null
+    repositoryClass: Explotic\FormationBundle\Entity\InterventionEntrepriseRepository
+    manyToOne:
+      module:
+        targetEntity: Module
+        inversedBy: InterventionEntreprises
+    fields:
+      stade:
+        type: string
+        columnDefinition: ENUM("préparatoire","accompagnement","validation")
+    lifecycleCallbacks: {  }

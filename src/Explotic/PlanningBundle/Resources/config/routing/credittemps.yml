@@ -1,0 +1,30 @@
+credittemps:
+    pattern:  /
+    defaults: { _controller: "ExploticPlanningBundle:CreditTemps:index" }
+
+credittemps_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticPlanningBundle:CreditTemps:show" }
+
+credittemps_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticPlanningBundle:CreditTemps:new" }
+
+credittemps_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticPlanningBundle:CreditTemps:create" }
+    requirements: { _method: post }
+
+credittemps_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticPlanningBundle:CreditTemps:edit" }
+
+credittemps_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticPlanningBundle:CreditTemps:update" }
+    requirements: { _method: post }
+
+credittemps_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticPlanningBundle:CreditTemps:delete" }
+    requirements: { _method: post }

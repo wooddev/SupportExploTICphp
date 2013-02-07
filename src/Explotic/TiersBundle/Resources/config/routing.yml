@@ -1,0 +1,38 @@
+_bureau:
+    resource: "@ExploticTiersBundle/Resources/config/routing/Bureau.yml"
+    prefix:   /bureau
+_salle:
+    resource: "@ExploticTiersBundle/Resources/config/routing/Salle.yml"
+    prefix:   /salle
+    
+_poste:
+    resource: "@ExploticTiersBundle/Resources/config/routing/Poste.yml"
+    prefix:   /poste
+    
+_siteIntervention:
+    resource: "@ExploticTiersBundle/Resources/config/routing/SiteIntervention.yml"
+    prefix:   /siteintervention
+
+_localisation:
+    resource: "@ExploticTiersBundle/Resources/config/routing/Localisation.yml"
+    prefix:   /localisation   
+
+_geometry:
+    resource: "@ExploticTiersBundle/Resources/config/routing/Geometry.yml"
+    prefix:   /geometry
+    
+_entreprise:
+    resource: "@ExploticTiersBundle/Resources/config/routing/Entreprise.yml"
+    prefix:   /entreprise
+    
+_formateur:
+    resource: "@ExploticTiersBundle/Resources/config/routing/Formateur.yml"
+    prefix:   /formateur
+    
+_organisme:
+    resource: "@ExploticTiersBundle/Resources/config/routing/Organisme.yml"
+    prefix:   /organisme
+    
+_stagiaire:
+    resource: "@ExploticTiersBundle/Resources/config/routing/Stagiaire.yml"
+    prefix:   /stagiaire

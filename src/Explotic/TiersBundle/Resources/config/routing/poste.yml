@@ -1,0 +1,30 @@
+poste:
+    pattern:  /
+    defaults: { _controller: "ExploticTiersBundle:Poste:index" }
+
+poste_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticTiersBundle:Poste:show" }
+
+poste_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticTiersBundle:Poste:new" }
+
+poste_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticTiersBundle:Poste:create" }
+    requirements: { _method: post }
+
+poste_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticTiersBundle:Poste:edit" }
+
+poste_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticTiersBundle:Poste:update" }
+    requirements: { _method: post }
+
+poste_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticTiersBundle:Poste:delete" }
+    requirements: { _method: post }

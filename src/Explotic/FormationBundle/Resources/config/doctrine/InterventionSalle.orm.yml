@@ -1,0 +1,14 @@
+Explotic\FormationBundle\Entity\InterventionSalle:
+    type: entity
+    table: null
+    repositoryClass: Explotic\FormationBundle\Entity\InterventionSalleRepository
+    manyToOne:
+      module:
+        targetEntity: Module
+        inversedBy: InterventionSalle   
+    fields:
+      simulateur:
+        type: boolean
+      stade:
+          type: integer
+    lifecycleCallbacks: {  }

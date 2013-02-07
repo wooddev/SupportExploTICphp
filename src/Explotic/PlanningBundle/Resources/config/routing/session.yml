@@ -1,0 +1,30 @@
+session:
+    pattern:  /
+    defaults: { _controller: "ExploticPlanningBundle:Session:index" }
+
+session_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticPlanningBundle:Session:show" }
+
+session_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticPlanningBundle:Session:new" }
+
+session_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticPlanningBundle:Session:create" }
+    requirements: { _method: post }
+
+session_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticPlanningBundle:Session:edit" }
+
+session_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticPlanningBundle:Session:update" }
+    requirements: { _method: post }
+
+session_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticPlanningBundle:Session:delete" }
+    requirements: { _method: post }

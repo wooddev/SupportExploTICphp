@@ -1,0 +1,30 @@
+geometry:
+    pattern:  /
+    defaults: { _controller: "ExploticTiersBundle:Geometry:index" }
+
+geometry_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticTiersBundle:Geometry:show" }
+
+geometry_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticTiersBundle:Geometry:new" }
+
+geometry_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticTiersBundle:Geometry:create" }
+    requirements: { _method: post }
+
+geometry_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticTiersBundle:Geometry:edit" }
+
+geometry_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticTiersBundle:Geometry:update" }
+    requirements: { _method: post }
+
+geometry_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticTiersBundle:Geometry:delete" }
+    requirements: { _method: post }

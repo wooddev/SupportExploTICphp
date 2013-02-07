@@ -1,0 +1,17 @@
+explotic_formation:
+    resource: "@ExploticFormationBundle/Resources/config/routing.yml"
+    prefix:   /formation
+
+explotic_planning:
+    resource: "@ExploticPlanningBundle/Resources/config/routing.yml"
+    prefix:   /planning
+
+explotic_tiers:
+    resource: "@ExploticTiersBundle/Resources/config/routing.yml"
+    prefix:   /tiers
+
+
+# Internal routing configuration to handle ESI
+#_internal:
+#    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#    prefix:   /_internal

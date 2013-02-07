@@ -1,0 +1,24 @@
+Explotic\TiersBundle\Entity\Localisation:
+    type: entity
+    table: null
+    repositoryClass: Explotic\TiersBundle\Entity\LocalisationRepository
+    oneToOne:
+      geometry:
+        targetEntity: Geometry
+        joinColumn: 
+          name: geometry_id
+          referenceColumnName: id
+        cascade: ["persist"]
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        commune:
+            type: string
+            length: 255
+        cp:
+            type: string
+            length: 255       
+    lifecycleCallbacks: {  }

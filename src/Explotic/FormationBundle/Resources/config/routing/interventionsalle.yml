@@ -1,0 +1,30 @@
+interventionsalle:
+    pattern:  /
+    defaults: { _controller: "ExploticFormationBundle:InterventionSalle:index" }
+
+interventionsalle_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticFormationBundle:InterventionSalle:show" }
+
+interventionsalle_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticFormationBundle:InterventionSalle:new" }
+
+interventionsalle_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticFormationBundle:InterventionSalle:create" }
+    requirements: { _method: post }
+
+interventionsalle_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticFormationBundle:InterventionSalle:edit" }
+
+interventionsalle_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticFormationBundle:InterventionSalle:update" }
+    requirements: { _method: post }
+
+interventionsalle_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticFormationBundle:InterventionSalle:delete" }
+    requirements: { _method: post }
