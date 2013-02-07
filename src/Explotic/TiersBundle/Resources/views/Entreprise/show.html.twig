@@ -1,60 +1,8 @@
 {%extends "ExploticTiersBundle::layout.html.twig" %}
 
-{% block title %}
-    {{parent() }} - Tiers 
-{% endblock %}
-
-{% block declare_script %}
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4hT13IYCchS-xzh54W5_fUZv8kad8GOo&sensor=false">
-    </script>
-    <script type="text/javascript">
-      function initialize() {
-        var myPos = new google.maps.LatLng({{entity.bureau.localisation.geometry.lat}}, {{entity.bureau.localisation.geometry.lon}});
-        var mapOptions = {
-          center: myPos,
-          zoom: 10,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map_canvas"),
-            mapOptions);
-            
-        var marker = new google.maps.Marker({
-            position: myPos,
-            title:"{{entity.raisonsociale}}"
-        });
-
-        // To add the marker to the map, call setMap();
-        marker.setMap(map);
-      }
-    </script>
-{% endblock %}
-
-{% block bodyOpt %}onload="initialize()"{% endblock %}    
+{% block bodyOpt %}onload="initialize()"{% endblock %}  
 {% block body %}
-    <h1>Fiche de l'entreprise {{ entity.raisonSociale }}</h1>
-    {% if stagiaire is defined %}    
-    <h2> employeur de {{stagiaire.prenom}} {{stagiaire.nom}} </h2>
-    {% endif %}
-                  
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Commune:   </th>
-                <td>{{ entity.bureau.localisation.commune }}</td>
-            </tr>
-            <tr>
-                <th>  </th>
-                <td>       
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <div> Position :
-        <div id="map_canvas" style="width:300px; height:300px"></div>
-    </div>
-
+    {%include 'ExploticTiersBundle:Entreprise:show/content.html.twig' with {'entreprise':entity} %}
     <ul class="record_actions">
         <li>
             <a href="{{ path('entreprise') }}">
@@ -62,16 +10,15 @@
             </a>
         </li>
         <li>
-            <a href="{{ path('entreprise_edit', { 'id': entity.id }) }}">
+            <a href="{{ path('entreprise_edit', { 'id': entreprise.id }) }}">
                 Edit
             </a>
         </li>
         <li>
-            <form action="{{ path('entreprise_delete', { 'id': entity.id }) }}" method="post">
+            <form action="{{ path('entreprise_delete', { 'id': entreprise.id }) }}" method="post">
                 {{ form_widget(delete_form) }}
                 <button type="submit">Delete</button>
             </form>
         </li>
     </ul>
-
 {% endblock%}

@@ -11,8 +11,9 @@ class PosteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('stagiaire')
             ->add('nomChantier')
-            ->add('localisation')
+            ->add('localisation', new LocalisationType())                
         ;
     }
 

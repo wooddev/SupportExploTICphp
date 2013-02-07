@@ -47,7 +47,9 @@ class StagiaireController extends Controller
 
         return $this->render('ExploticTiersBundle:Stagiaire:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'entreprise' => $entity->getEntreprise(),
+            'delete_form' => $deleteForm->createView(),
+            ));
     }
 
     /**
@@ -197,28 +199,7 @@ class StagiaireController extends Controller
             'stagiaire' => $stagiaire,
         ));
     }
-        
-    public function voirEntrepriseAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $stagiaire = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);      
-        
-        if (!$stagiaire) {
-            throw $this->createNotFoundException('Unable to find Stagiaire entity.');
-        }
-        
-        $entreprise = $em->getRepository('ExploticTiersBundle:Entreprise')->findByStagiaire($id);
-        
-        if (!$entreprise) {
-            throw $this->createNotFoundException('Unable to find entreprise entity.');
-        }
-        
-        return $this->render('ExploticTiersBundle:Entreprise:show.html.twig', array(
-            'entity'      => $entreprise,
-            'stagiaire' => $stagiaire,
-        ));
-    }
-                
+                        
     public function voirPostesAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -228,13 +209,13 @@ class StagiaireController extends Controller
             throw $this->createNotFoundException('Unable to find Stagiaire entity.');
         }
         
-        $postes = $em->getRepository('ExploticTiersBundle:Postes')->findByStagiaire($id);
+        $postes = $em->getRepository('ExploticTiersBundle:Poste')->findByStagiaire($id);
         
         if (!$postes) {
-            throw $this->createNotFoundException('Unable to find programmes entities.');
+            throw $this->createNotFoundException('Unable to find Poste entities.');
         }
         
-        return $this->render('ExploticTiersBundle:Postes:indexStagiaire.html.twig', array(
+        return $this->render('ExploticTiersBundle:Poste:indexStagiaire/content.html.twig', array(
             'entities'      => $postes,
             'stagiaire' => $stagiaire,
         ));                    
