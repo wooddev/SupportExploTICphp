@@ -1,0 +1,7 @@
+parameters:
+#    transfer_reservation.example.class: Transfer\ReservationBundle\Example
+
+services:
+#    transfer_reservation.example:
+#        class: %transfer_reservation.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

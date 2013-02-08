@@ -1,0 +1,6 @@
+Transfer\ReservationBundle\Entity\CreneauModele:
+    type: entity
+    table: null
+    repositoryClass: Transfer\ReservationBundle\Entity\CreneauModeleRepository
+    fields:
+    lifecycleCallbacks: {  }

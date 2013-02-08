@@ -1,0 +1,32 @@
+Transfer\ReservationBundle\Entity\Rdv:
+    type: entity
+    table: null
+    repositoryClass: Transfer\ReservationBundle\Entity\RdvRepository
+    manyToOne:
+      creneauRdv:
+        targetEntity: CreneauRdv
+        inversedBy: Rdvs   
+      transporteurPlanif:
+        targetEntity: Transporteur
+        inversedBy: Rdvs
+        joinColumn:
+          name: transporteur_id
+          referencedColumnNamel: id
+      poste:
+        targetEntity: Poste
+      planningConfirm:
+        targetEntity: PlanningConfirme
+        inversedBy: Rdvs        
+      planningProvisoire:
+        targetEntity: PlanningProvisoire
+        inversedBy: Rdvs
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        statutRdv:
+            type: string
+            columnDefinition: ENUM('provisoire','reserve','retarde','disponible','nonHonore','realise')            
+    lifecycleCallbacks: {  }

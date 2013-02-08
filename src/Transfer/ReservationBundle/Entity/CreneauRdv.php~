@@ -1,0 +1,36 @@
+<?php
+
+namespace Transfer\ReservationBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CreneauRdv
+ */
+class CreneauRdv extends Creneau
+{
+    private $semaine;
+
+    /**
+     * Set semaine
+     *
+     * @param integer $semaine
+     * @return CreneauRdv
+     */
+    public function setSemaine($semaine)
+    {
+        $this->semaine = $semaine;
+    
+        return $this;
+    }
+
+    /**
+     * Get semaine
+     *
+     * @return integer 
+     */
+    public function getSemaine()
+    {
+        return $this->semaine;
+    }
+}

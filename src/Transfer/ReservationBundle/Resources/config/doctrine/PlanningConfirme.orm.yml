@@ -1,0 +1,15 @@
+Transfer\ReservationBundle\Entity\PlanningConfirme:
+    type: entity
+    table: null
+    repositoryClass: Transfer\ReservationBundle\Entity\PlanningConfirmeRepository
+    oneToMany:
+      rdvs:
+        targetEntity: Rdv
+        mappedBy: planningConfirme
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }

@@ -1,0 +1,30 @@
+typeposte:
+    pattern:  /
+    defaults: { _controller: "TransferReservationBundle:TypePoste:index" }
+
+typeposte_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TransferReservationBundle:TypePoste:show" }
+
+typeposte_new:
+    pattern:  /new
+    defaults: { _controller: "TransferReservationBundle:TypePoste:new" }
+
+typeposte_create:
+    pattern:  /create
+    defaults: { _controller: "TransferReservationBundle:TypePoste:create" }
+    requirements: { _method: post }
+
+typeposte_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TransferReservationBundle:TypePoste:edit" }
+
+typeposte_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TransferReservationBundle:TypePoste:update" }
+    requirements: { _method: post }
+
+typeposte_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TransferReservationBundle:TypePoste:delete" }
+    requirements: { _method: post }

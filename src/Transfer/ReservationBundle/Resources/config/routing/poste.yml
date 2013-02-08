@@ -1,0 +1,30 @@
+poste:
+    pattern:  /
+    defaults: { _controller: "TransferReservationBundle:Poste:index" }
+
+poste_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TransferReservationBundle:Poste:show" }
+
+poste_new:
+    pattern:  /new
+    defaults: { _controller: "TransferReservationBundle:Poste:new" }
+
+poste_create:
+    pattern:  /create
+    defaults: { _controller: "TransferReservationBundle:Poste:create" }
+    requirements: { _method: post }
+
+poste_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TransferReservationBundle:Poste:edit" }
+
+poste_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TransferReservationBundle:Poste:update" }
+    requirements: { _method: post }
+
+poste_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TransferReservationBundle:Poste:delete" }
+    requirements: { _method: post }

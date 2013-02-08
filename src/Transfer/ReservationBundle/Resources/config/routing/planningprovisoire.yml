@@ -1,0 +1,30 @@
+planningprovisoire:
+    pattern:  /
+    defaults: { _controller: "TransferReservationBundle:PlanningProvisoire:index" }
+
+planningprovisoire_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TransferReservationBundle:PlanningProvisoire:show" }
+
+planningprovisoire_new:
+    pattern:  /new
+    defaults: { _controller: "TransferReservationBundle:PlanningProvisoire:new" }
+
+planningprovisoire_create:
+    pattern:  /create
+    defaults: { _controller: "TransferReservationBundle:PlanningProvisoire:create" }
+    requirements: { _method: post }
+
+planningprovisoire_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TransferReservationBundle:PlanningProvisoire:edit" }
+
+planningprovisoire_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TransferReservationBundle:PlanningProvisoire:update" }
+    requirements: { _method: post }
+
+planningprovisoire_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TransferReservationBundle:PlanningProvisoire:delete" }
+    requirements: { _method: post }

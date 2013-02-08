@@ -1,0 +1,24 @@
+transfer_reservation_creneauRdv:
+    resource: "@TransferReservationBundle/Resources/config/routing/creneaurdv.yml"
+    prefix:   /creneaurdv
+transfer_reservation_creneauModele:
+    resource: "@TransferReservationBundle/Resources/config/routing/creneaumodele.yml"
+    prefix:   /creneaumodele
+transfer_reservation_transporteur:
+    resource: "@TransferReservationBundle/Resources/config/routing/transporteur.yml"
+    prefix:   /transporteur
+transfer_reservation_typeposte:
+    resource: "@TransferReservationBundle/Resources/config/routing/typeposte.yml"
+    prefix:   /typeposte
+transfer_reservation_rdv:
+    resource: "@TransferReservationBundle/Resources/config/routing/rdv.yml"
+    prefix: /rdv
+transfer_reservation_poste:
+    resource: "@TransferReservationBundle/Resources/config/routing/poste.yml"
+    prefix: /poste
+transfer_reservation_planningprovisoire:
+    resource: "@TransferReservationBundle/Resources/config/routing/planningprovisoire.yml"
+    prefix: /planningprovisoire
+transfer_reservation_planningconfirme:
+    resource: "@TransferReservationBundle/Resources/config/routing/planningconfirme.yml"
+    prefix: /planningconfirme

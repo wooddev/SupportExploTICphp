@@ -1,0 +1,30 @@
+transporteur:
+    pattern:  /
+    defaults: { _controller: "TransferReservationBundle:Transporteur:index" }
+
+transporteur_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TransferReservationBundle:Transporteur:show" }
+
+transporteur_new:
+    pattern:  /new
+    defaults: { _controller: "TransferReservationBundle:Transporteur:new" }
+
+transporteur_create:
+    pattern:  /create
+    defaults: { _controller: "TransferReservationBundle:Transporteur:create" }
+    requirements: { _method: post }
+
+transporteur_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TransferReservationBundle:Transporteur:edit" }
+
+transporteur_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TransferReservationBundle:Transporteur:update" }
+    requirements: { _method: post }
+
+transporteur_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TransferReservationBundle:Transporteur:delete" }
+    requirements: { _method: post }

@@ -1,0 +1,30 @@
+creneaumodele:
+    pattern:  /
+    defaults: { _controller: "TransferReservationBundle:CreneauModele:index" }
+
+creneaumodele_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TransferReservationBundle:CreneauModele:show" }
+
+creneaumodele_new:
+    pattern:  /new
+    defaults: { _controller: "TransferReservationBundle:CreneauModele:new" }
+
+creneaumodele_create:
+    pattern:  /create
+    defaults: { _controller: "TransferReservationBundle:CreneauModele:create" }
+    requirements: { _method: post }
+
+creneaumodele_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TransferReservationBundle:CreneauModele:edit" }
+
+creneaumodele_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TransferReservationBundle:CreneauModele:update" }
+    requirements: { _method: post }
+
+creneaumodele_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TransferReservationBundle:CreneauModele:delete" }
+    requirements: { _method: post }

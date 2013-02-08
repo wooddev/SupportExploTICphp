@@ -1,0 +1,36 @@
+Transfer\ReservationBundle\Entity\Creneau:
+    type: entity
+    table: null
+    repositoryClass: Transfer\ReservationBundle\Entity\CreneauRepository
+    manyToOne:
+      typePoste:
+        targetEntity: TypePoste      
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        jour:
+            type: integer
+        heure:
+            type: integer
+        minute:
+            type: integer
+        duree:
+            type: integer
+        heureDebut:
+            type: time
+        heureFin:
+            type: time
+        disponibilite:
+            type: integer     
+    inheritanceType: JOINED
+    discriminatorColumn:
+      name: typeCreneau
+      type: string
+      length: 255
+    discriminatorMap:
+      creneauRdv : CreneauRdv
+      creneauModele: CreneauModele
+    lifecycleCallbacks: {  }

@@ -1,0 +1,16 @@
+Transfer\ReservationBundle\Entity\Poste:
+    type: entity
+    table: null
+    repositoryClass: Transfer\ReservationBundle\Entity\PosteRepository
+    manyToOne:
+      typePoste:
+        targetEntity: TypePoste
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        disponibilite:
+            type: integer
+    lifecycleCallbacks: {  }

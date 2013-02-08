@@ -1,0 +1,16 @@
+Transfer\ReservationBundle\Entity\TypePoste:
+    type: entity
+    table: null
+    repositoryClass: Transfer\ReservationBundle\Entity\TypePosteRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        nom:
+            type: string
+            length: 255
+        disponibilite:
+            type: integer
+    lifecycleCallbacks: {  }

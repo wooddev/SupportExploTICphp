@@ -1,0 +1,30 @@
+creneaurdv:
+    pattern:  /
+    defaults: { _controller: "TransferReservationBundle:CreneauRdv:index" }
+
+creneaurdv_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TransferReservationBundle:CreneauRdv:show" }
+
+creneaurdv_new:
+    pattern:  /new
+    defaults: { _controller: "TransferReservationBundle:CreneauRdv:new" }
+
+creneaurdv_create:
+    pattern:  /create
+    defaults: { _controller: "TransferReservationBundle:CreneauRdv:create" }
+    requirements: { _method: post }
+
+creneaurdv_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TransferReservationBundle:CreneauRdv:edit" }
+
+creneaurdv_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TransferReservationBundle:CreneauRdv:update" }
+    requirements: { _method: post }
+
+creneaurdv_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TransferReservationBundle:CreneauRdv:delete" }
+    requirements: { _method: post }

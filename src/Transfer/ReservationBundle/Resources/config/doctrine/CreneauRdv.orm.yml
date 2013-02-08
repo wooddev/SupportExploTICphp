@@ -1,0 +1,15 @@
+Transfer\ReservationBundle\Entity\CreneauRdv:
+    type: entity
+    table: null
+    repositoryClass: Transfer\ReservationBundle\Entity\CreneauRdvRepository
+    oneToMany:
+      rdvs:
+        targetEntity: Rdv
+        mappedBy: creneauRdv
+    manyToOne:
+      creneauModele:
+        targetEntity: CreneauModele
+    fields:
+        semaine:
+            type: integer
+    lifecycleCallbacks: {  }

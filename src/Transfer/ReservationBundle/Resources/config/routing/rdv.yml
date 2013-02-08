@@ -1,0 +1,30 @@
+rdv:
+    pattern:  /
+    defaults: { _controller: "TransferReservationBundle:Rdv:index" }
+
+rdv_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TransferReservationBundle:Rdv:show" }
+
+rdv_new:
+    pattern:  /new
+    defaults: { _controller: "TransferReservationBundle:Rdv:new" }
+
+rdv_create:
+    pattern:  /create
+    defaults: { _controller: "TransferReservationBundle:Rdv:create" }
+    requirements: { _method: post }
+
+rdv_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TransferReservationBundle:Rdv:edit" }
+
+rdv_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TransferReservationBundle:Rdv:update" }
+    requirements: { _method: post }
+
+rdv_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TransferReservationBundle:Rdv:delete" }
+    requirements: { _method: post }
