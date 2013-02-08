@@ -1,0 +1,25 @@
+Transfer\ProfilBundle\Entity\Transporteur:
+    type: entity
+    table: null
+    repositoryClass: Transfer\ProfilBundle\Entity\TransporteurRepository
+    oneToMany:
+      rdvs:
+        targetEntity: Transfer\ReservationBundle\Entity\Rdv
+        mappedBy: transporteurPlanif
+      agentTrsps:
+        targetEntity: AgentTrsp
+        mappedBy: transporteur
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        nom:
+            type: string
+            length: 255
+        priorite:
+            type: integer
+        quota:
+            type: integer
+    lifecycleCallbacks: {  }

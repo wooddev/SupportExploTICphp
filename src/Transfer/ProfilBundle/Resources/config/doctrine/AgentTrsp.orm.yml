@@ -1,0 +1,9 @@
+Transfer\ProfilBundle\Entity\AgentTrsp:
+  type: entity
+  table: null
+  repositoryClass: Transfer\ProfilBundle\Entity\AgentTrspRepository
+  manyToOne:
+    transporteur:
+      targetEntity: Transporteur
+      inversedBy: agentTrsps
+  lifecycleCallbacks: {  }

@@ -1,0 +1,30 @@
+agenttrsp:
+    pattern:  /
+    defaults: { _controller: "TransferProfilBundle:AgentTrsp:index" }
+
+agenttrsp_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TransferProfilBundle:AgentTrsp:show" }
+
+agenttrsp_new:
+    pattern:  /new
+    defaults: { _controller: "TransferProfilBundle:AgentTrsp:new" }
+
+agenttrsp_create:
+    pattern:  /create
+    defaults: { _controller: "TransferProfilBundle:AgentTrsp:create" }
+    requirements: { _method: post }
+
+agenttrsp_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TransferProfilBundle:AgentTrsp:edit" }
+
+agenttrsp_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TransferProfilBundle:AgentTrsp:update" }
+    requirements: { _method: post }
+
+agenttrsp_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TransferProfilBundle:AgentTrsp:delete" }
+    requirements: { _method: post }

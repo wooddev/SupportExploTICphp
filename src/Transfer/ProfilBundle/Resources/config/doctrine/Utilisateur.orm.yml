@@ -1,0 +1,33 @@
+Transfer\ProfilBundle\Entity\Utilisateur:
+  type: entity
+  table: null
+  repositoryClass: Transfer\ProfilBundle\Entity\UtilisateurRepository
+  inheritanceType: SINGLE_TABLE
+  discriminatorColumn:
+    name: type
+    type: string
+    length: 255
+  discriminatorMap:
+    agentdab: AgentDab
+    agenttrsp: AgentTrsp
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    nom:
+      type: string
+      length: 255
+    prenom:
+      type: string
+      length: 255
+    courriel:
+      type: string
+      length: 255
+    telephone:
+      type: string
+      length: 255
+    dateEnregistrement:
+      type: datetime
+  lifecycleCallbacks: {  }
