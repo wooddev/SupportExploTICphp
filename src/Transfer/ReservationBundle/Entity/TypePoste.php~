@@ -80,4 +80,9 @@ class TypePoste
     {
         return $this->disponibilite;
     }
+    
+    public function __toString() {
+        return $this->getNom();
+    }    
+   
 }

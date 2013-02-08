@@ -5,6 +5,10 @@ Transfer\ReservationBundle\Entity\Poste:
     manyToOne:
       typePoste:
         targetEntity: TypePoste
+    oneToMany:
+      rdvs:
+        targetEntity: Rdv
+        mappedBy: poste
     fields:
         id:
             type: integer

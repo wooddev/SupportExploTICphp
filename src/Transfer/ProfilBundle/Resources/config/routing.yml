@@ -1,3 +1,10 @@
 transfer_profil_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: TransferProfilBundle:Default:index }
+transfer_profil_transporteur:
+    resource: "@TransferProfilBundle/Resources/config/routing/transporteur.yml"
+    prefix: /transporteur
+transfer_profil_agenttrsp:
+    resource: "@TransferProfilBundle/Resources/config/routing/agenttrsp.yml"
+    prefix: /agenttrsp
+  

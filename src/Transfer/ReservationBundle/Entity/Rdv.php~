@@ -35,11 +35,6 @@ class Rdv
     private $creneauRdv;
 
     /**
-     * @var \Transfer\ReservationBundle\Entity\Transporteur
-     */
-    private $transporteurPlanif;
-
-    /**
      * @var \Transfer\ReservationBundle\Entity\Poste
      */
     private $poste;
@@ -101,28 +96,6 @@ class Rdv
         return $this->creneauRdv;
     }
 
-    /**
-     * Set transporteurPlanif
-     *
-     * @param \Transfer\ReservationBundle\Entity\Transporteur $transporteurPlanif
-     * @return Rdv
-     */
-    public function setTransporteurPlanif(\Transfer\ReservationBundle\Entity\Transporteur $transporteurPlanif = null)
-    {
-        $this->transporteurPlanif = $transporteurPlanif;
-    
-        return $this;
-    }
-
-    /**
-     * Get transporteurPlanif
-     *
-     * @return \Transfer\ReservationBundle\Entity\Transporteur 
-     */
-    public function getTransporteurPlanif()
-    {
-        return $this->transporteurPlanif;
-    }
 
     /**
      * Set poste
@@ -191,5 +164,34 @@ class Rdv
     public function getPlanningProvisoire()
     {
         return $this->planningProvisoire;
+    }
+    
+    /**
+     * @var \Transfer\ProfilBundle\Entity\Transporteur
+     */
+    
+    private $transporteurPlanif;
+
+    /**
+     * Set transporteurPlanif
+     *
+     * @param \Transfer\ProfilBundle\Entity\Transporteur $transporteurPlanif
+     * @return Rdv
+     */
+    public function setTransporteurPlanif(\Transfer\ProfilBundle\Entity\Transporteur $transporteurPlanif = null)
+    {
+        $this->transporteurPlanif = $transporteurPlanif;
+    
+        return $this;
+    }
+
+    /**
+     * Get transporteurPlanif
+     *
+     * @return \Transfer\ProfilBundle\Entity\Transporteur 
+     */
+    public function getTransporteurPlanif()
+    {
+        return $this->transporteurPlanif;
     }
 }

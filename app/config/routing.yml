@@ -1,6 +1,6 @@
 transfer_profil:
     resource: "@TransferProfilBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /profil
 
 transfer_reservation:
     resource: "@TransferReservationBundle/Resources/config/routing.yml"

@@ -7,13 +7,14 @@ Transfer\ReservationBundle\Entity\Rdv:
         targetEntity: CreneauRdv
         inversedBy: Rdvs   
       transporteurPlanif:
-        targetEntity: Transporteur
+        targetEntity: Transfer\ProfilBundle\Entity\Transporteur
         inversedBy: Rdvs
         joinColumn:
           name: transporteur_id
           referencedColumnNamel: id
       poste:
         targetEntity: Poste
+        inversedBy: rdvs
       planningConfirm:
         targetEntity: PlanningConfirme
         inversedBy: Rdvs        
