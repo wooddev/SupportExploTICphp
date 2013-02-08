@@ -1,0 +1,7 @@
+parameters:
+#    transfer_profil.example.class: Transfer\ProfilBundle\Example
+
+services:
+#    transfer_profil.example:
+#        class: %transfer_profil.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

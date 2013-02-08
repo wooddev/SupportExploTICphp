@@ -12,18 +12,6 @@
  */
 class CreneauModeleGen {
     //put your code here
-    
-    /**
-     * @var dateTime
-     */
-    private $heureDebutJour;
-    
-    /**
-     * @var dateTime
-     */
-    private $heureFinJour;
-    
-    
 }
 
 ?>
