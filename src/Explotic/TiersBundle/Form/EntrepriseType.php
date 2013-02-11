@@ -12,6 +12,7 @@ class EntrepriseType extends AbstractType
     {
         $builder
             ->add('raisonSociale')
+            ->add('telephone')
             ->add('bureau', new BureauType())
         ;
     }

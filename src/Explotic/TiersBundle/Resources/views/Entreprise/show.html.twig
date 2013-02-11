@@ -10,12 +10,12 @@
             </a>
         </li>
         <li>
-            <a href="{{ path('entreprise_edit', { 'id': entreprise.id }) }}">
+            <a href="{{ path('entreprise_edit', { 'id': entity.id }) }}">
                 Edit
             </a>
         </li>
         <li>
-            <form action="{{ path('entreprise_delete', { 'id': entreprise.id }) }}" method="post">
+            <form action="{{ path('entreprise_delete', { 'id': entity.id }) }}" method="post">
                 {{ form_widget(delete_form) }}
                 <button type="submit">Delete</button>
             </form>
