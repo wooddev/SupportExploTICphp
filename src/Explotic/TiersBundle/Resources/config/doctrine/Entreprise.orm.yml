@@ -9,12 +9,13 @@ Explotic\TiersBundle\Entity\Entreprise:
           name: bureau_id
           referencedColumnName: id
         cascade: ["persist"]
-    manyToOne:
-      creditTemps:
-        targetEntity: Explotic\PlanningBundle\Entity\CreditTemps
-        joinColumn:
-          name: creditTemps_id
-          referencedColumnName: id
+    oneToMany:
+      stagiaires:
+        targetEntity: stagiaire
+        mappedBy: entreprise
+      machines:
+        targetEntity: Machine
+        mappedBy: entreprise
     fields:
         id:
             type: integer
@@ -24,7 +25,27 @@ Explotic\TiersBundle\Entity\Entreprise:
         raisonSociale:
             type: string
             length: 255            
-        telephone:
+        siret:
+            type: string
+            length: 255
+            nullable: true
+        ape:
             type: string
             length: 255            
+            nullable: true
+        cnil:
+            type: string
+            length: 255
+            nullable: true
+        telephone:
+            type: string
+            length: 255
+            nullable: true
+        versionExplotic:
+            type: string
+            length : 255 
+            nullable : true
+        commentaires:
+          type: text
+          nullable: true
     lifecycleCallbacks: {  }

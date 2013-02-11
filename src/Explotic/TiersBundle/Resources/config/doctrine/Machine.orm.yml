@@ -1,0 +1,51 @@
+Explotic\TiersBundle\Entity\Machine:
+    type: entity
+    table: null
+    repositoryClass: Explotic\TiersBundle\Entity\MachineRepository
+    manyToOne:
+      entreprise:
+        targetEntity: Explotic\TiersBundle\Entity\Entreprise
+        inversedBy: machines
+    oneToMany:
+      stagiaires:
+        targetEntity: Explotic\TiersBundle\Entity\Stagiaire
+        mappedBy: machine
+        nullable: true
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        numeroEntreprise:
+            type: integer
+            nullable: true
+        reference:
+            type: string
+            length: 255 
+            nullable: true
+        modele:
+            type: string
+            length: 255   
+            nullable: true
+        marque:
+            type: string
+            length: 255   
+            nullable: true
+        logiciel:
+            type: string
+            length: ENUM("TM300","H09","OPTI4G","OPTI5G","Autre")
+        transfertData:
+            type: boolean
+        forfait: 
+            type: string
+            length: 255   
+            nullable: true
+        commentaire:
+            type: text    
+            nullable: true
+        email:
+            type: string
+            length: 255   
+            nullable: true
+    lifecycleCallbacks: {  }

@@ -1,0 +1,65 @@
+<h1>Machine</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Numeroentreprise</th>
+            <td>{{ entity.numeroEntreprise }}</td>
+        </tr>
+        <tr>
+            <th>Reference</th>
+            <td>{{ entity.reference }}</td>
+        </tr>
+        <tr>
+            <th>Modele</th>
+            <td>{{ entity.modele }}</td>
+        </tr>
+        <tr>
+            <th>Marque</th>
+            <td>{{ entity.marque }}</td>
+        </tr>
+        <tr>
+            <th>Logiciel</th>
+            <td>{{ entity.logiciel }}</td>
+        </tr>
+        <tr>
+            <th>Transfertdata</th>
+            <td>{{ entity.transfertData }}</td>
+        </tr>
+        <tr>
+            <th>Forfait</th>
+            <td>{{ entity.forfait }}</td>
+        </tr>
+        <tr>
+            <th>Commentaire</th>
+            <td>{{ entity.commentaire }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ entity.email }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('machine') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('machine_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('machine_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>

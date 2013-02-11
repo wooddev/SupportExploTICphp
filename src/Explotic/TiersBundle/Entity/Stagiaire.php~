@@ -76,7 +76,8 @@ class Stagiaire
     public function __construct()
     {
         $this->sessions = new \Doctrine\Common\Collections\ArrayCollection();
-        //$this->postes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->postes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->programmes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -332,10 +333,10 @@ class Stagiaire
     /**
      * Add postes
      *
-     * @param \Explotic\PlanningBundle\Entity\Poste $postes
+     * @param \Explotic\TiersBundle\Entity\Poste $postes
      * @return Stagiaire
      */
-    public function addPoste(\Explotic\PlanningBundle\Entity\Poste $postes)
+    public function addPoste(\Explotic\TiersBundle\Entity\Poste $postes)
     {
         $this->postes[] = $postes;
     
@@ -345,9 +346,9 @@ class Stagiaire
     /**
      * Remove postes
      *
-     * @param \Explotic\PlanningBundle\Entity\Poste $postes
+     * @param \Explotic\TiersBundle\Entity\Poste $postes
      */
-    public function removePoste(\Explotic\PlanningBundle\Entity\Poste $postes)
+    public function removePoste(\Explotic\TiersBundle\Entity\Poste $postes)
     {
         $this->postes->removeElement($postes);
     }
@@ -375,4 +376,42 @@ class Stagiaire
         return $this->prenom.' '.$this->nom;
     }
     
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $programmes;
+
+
+    /**
+     * Add programmes
+     *
+     * @param \Explotic\FormationBundle\Entity\Programme $programmes
+     * @return Stagiaire
+     */
+    public function addProgramme(\Explotic\FormationBundle\Entity\Programme $programmes)
+    {
+        $this->programmes[] = $programmes;
+    
+        return $this;
+    }
+
+    /**
+     * Remove programmes
+     *
+     * @param \Explotic\FormationBundle\Entity\Programme $programmes
+     */
+    public function removeProgramme(\Explotic\FormationBundle\Entity\Programme $programmes)
+    {
+        $this->programmes->removeElement($programmes);
+    }
+
+    /**
+     * Get programmes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProgrammes()
+    {
+        return $this->programmes;
+    }
 }

@@ -1,0 +1,41 @@
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Numeroentreprise</th>
+            <th>Reference</th>
+            <th>Modele</th>
+            <th>Marque</th>
+            <th>Logiciel</th>
+            <th>Transfertdata</th>
+            <th>Forfait</th>
+            <th>Commentaire</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{{ entity.numeroEntreprise }}</td>
+            <td>{{ entity.reference }}</td>
+            <td>{{ entity.modele }}</td>
+            <td>{{ entity.marque }}</td>
+            <td>{{ entity.logiciel }}</td>
+            <td>{{ entity.transfertData }}</td>
+            <td>{{ entity.forfait }}</td>
+            <td>{{ entity.commentaire }}</td>
+            <td>{{ entity.email }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('machine_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('machine_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -76,7 +76,8 @@ class Stagiaire
     public function __construct()
     {
         $this->sessions = new \Doctrine\Common\Collections\ArrayCollection();
-        //$this->postes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->postes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->programmes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -375,4 +376,210 @@ class Stagiaire
         return $this->prenom.' '.$this->nom;
     }
     
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $programmes;
+
+
+    /**
+     * Add programmes
+     *
+     * @param \Explotic\FormationBundle\Entity\Programme $programmes
+     * @return Stagiaire
+     */
+    public function addProgramme(\Explotic\FormationBundle\Entity\Programme $programmes)
+    {
+        $this->programmes[] = $programmes;
+    
+        return $this;
+    }
+
+    /**
+     * Remove programmes
+     *
+     * @param \Explotic\FormationBundle\Entity\Programme $programmes
+     */
+    public function removeProgramme(\Explotic\FormationBundle\Entity\Programme $programmes)
+    {
+        $this->programmes->removeElement($programmes);
+    }
+
+    /**
+     * Get programmes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProgrammes()
+    {
+        return $this->programmes;
+    }
+    /**
+     * @var boolean
+     */
+    private $gerant;
+
+    /**
+     * @var string
+     */
+    private $forfaitTelephone;
+
+    /**
+     * @var string
+     */
+    private $niveauInfo;
+
+    /**
+     * @var string
+     */
+    private $typeEmploi;
+
+    /**
+     * @var string
+     */
+    private $commentaire;
+
+    /**
+     * @var \Explotic\TiersBundle\Entity\Machine
+     */
+    private $machine;
+
+
+    /**
+     * Set gerant
+     *
+     * @param boolean $gerant
+     * @return Stagiaire
+     */
+    public function setGerant($gerant)
+    {
+        $this->gerant = $gerant;
+    
+        return $this;
+    }
+
+    /**
+     * Get gerant
+     *
+     * @return boolean 
+     */
+    public function getGerant()
+    {
+        return $this->gerant;
+    }
+
+    /**
+     * Set forfaitTelephone
+     *
+     * @param string $forfaitTelephone
+     * @return Stagiaire
+     */
+    public function setForfaitTelephone($forfaitTelephone)
+    {
+        $this->forfaitTelephone = $forfaitTelephone;
+    
+        return $this;
+    }
+
+    /**
+     * Get forfaitTelephone
+     *
+     * @return string 
+     */
+    public function getForfaitTelephone()
+    {
+        return $this->forfaitTelephone;
+    }
+
+    /**
+     * Set niveauInfo
+     *
+     * @param string $niveauInfo
+     * @return Stagiaire
+     */
+    public function setNiveauInfo($niveauInfo)
+    {
+        $this->niveauInfo = $niveauInfo;
+    
+        return $this;
+    }
+
+    /**
+     * Get niveauInfo
+     *
+     * @return string 
+     */
+    public function getNiveauInfo()
+    {
+        return $this->niveauInfo;
+    }
+
+    /**
+     * Set typeEmploi
+     *
+     * @param string $typeEmploi
+     * @return Stagiaire
+     */
+    public function setTypeEmploi($typeEmploi)
+    {
+        $this->typeEmploi = $typeEmploi;
+    
+        return $this;
+    }
+
+    /**
+     * Get typeEmploi
+     *
+     * @return string 
+     */
+    public function getTypeEmploi()
+    {
+        return $this->typeEmploi;
+    }
+
+    /**
+     * Set commentaire
+     *
+     * @param string $commentaire
+     * @return Stagiaire
+     */
+    public function setCommentaire($commentaire)
+    {
+        $this->commentaire = $commentaire;
+    
+        return $this;
+    }
+
+    /**
+     * Get commentaire
+     *
+     * @return string 
+     */
+    public function getCommentaire()
+    {
+        return $this->commentaire;
+    }
+
+    /**
+     * Set machine
+     *
+     * @param \Explotic\TiersBundle\Entity\Machine $machine
+     * @return Stagiaire
+     */
+    public function setMachine(\Explotic\TiersBundle\Entity\Machine $machine = null)
+    {
+        $this->machine = $machine;
+    
+        return $this;
+    }
+
+    /**
+     * Get machine
+     *
+     * @return \Explotic\TiersBundle\Entity\Machine 
+     */
+    public function getMachine()
+    {
+        return $this->machine;
+    }
 }

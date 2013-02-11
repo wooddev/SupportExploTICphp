@@ -1,0 +1,13 @@
+{%extends "ExploticTiersBundle::layout.html.twig" %}
+{%block body %}
+<h1>Machine list</h1>
+
+{%include 'ExploticTiersBundle:Machine:index/content.html.twig' with {'entities':entities} %}
+<ul>
+    <li>
+        <a href="{{ path('machine_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>
+{%endblock%}

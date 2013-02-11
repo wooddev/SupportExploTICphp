@@ -40,9 +40,23 @@
 </div>
 
 <div style="float:left">
+    {%if entity.programmes is defined %}
+        {%if entity.programmes|length >0 %}
+            {%include 'ExploticFormationBundle:Programme:index/content.html.twig' with {'entities':entity.programmes,  'depuis':'stagiaire'} %}
+        {%endif%}
+    {%endif%}
+</div>
+<div style="float:left">
     {%if entity.postes is defined %}
         {%if entity.postes|length >0 %}
-            {%include 'ExploticTiersBundle:Poste:indexStagiaire/content.html.twig' with {'entities':entity.postes} %}
+            {%include 'ExploticTiersBundle:Poste:index/content.html.twig' with {'entities':entity.postes, 'depuis':'stagiaire'} %}
+        {%endif%}
+    {%endif%}
+</div>
+<div style="float:left">
+    {%if entity.machines is defined %}
+        {%if entity.machines|length >0 %}
+            {%include 'ExploticTiersBundle:Machine:index/content.html.twig' with {'entities':entity.machines, 'depuis':'stagiaire'} %}
         {%endif%}
     {%endif%}
 </div>
@@ -59,8 +73,13 @@
         <a href="{{ path('programme_new', { 'idStg': entity.id }) }}">Ajouter un module</a>
     </li>
     <li>
-        <a href="{{ path('poste_new', { 'idStg': entity.id }) }}">Ajouter un poste</a>
+        <a href="{{ path('machine_new', { 'idStg': entity.id }) }}">Ajouter une machine</a>
     </li>
+    <li>
+        <a href="{{ path('poste_new', { 'idStg': entity.id }) }}">Ajouter un poste</a>
+    </li>    
+</ul>
+<ul class="record_actions">
     <li>
         <a href="{{ path('stagiaire_postes', { 'id': entity.id }) }}">Voir les postes</a>
     </li>

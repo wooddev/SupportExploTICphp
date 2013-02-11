@@ -140,4 +140,228 @@ class Entreprise
     public function __toString() {
         return $this->getRaisonSociale().' ('.$this->getBureau()->getLocalisation()->getCommune().')';
     }
+    /**
+     * @var string
+     */
+    private $siret;
+
+    /**
+     * @var string
+     */
+    private $ape;
+
+    /**
+     * @var string
+     */
+    private $cnil;
+
+    /**
+     * @var string
+     */
+    private $versionExplotic;
+
+    /**
+     * @var string
+     */
+    private $commentaires;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $stagiaires;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $machines;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->stagiaires = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->machines = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Set siret
+     *
+     * @param string $siret
+     * @return Entreprise
+     */
+    public function setSiret($siret)
+    {
+        $this->siret = $siret;
+    
+        return $this;
+    }
+
+    /**
+     * Get siret
+     *
+     * @return string 
+     */
+    public function getSiret()
+    {
+        return $this->siret;
+    }
+
+    /**
+     * Set ape
+     *
+     * @param string $ape
+     * @return Entreprise
+     */
+    public function setApe($ape)
+    {
+        $this->ape = $ape;
+    
+        return $this;
+    }
+
+    /**
+     * Get ape
+     *
+     * @return string 
+     */
+    public function getApe()
+    {
+        return $this->ape;
+    }
+
+    /**
+     * Set cnil
+     *
+     * @param string $cnil
+     * @return Entreprise
+     */
+    public function setCnil($cnil)
+    {
+        $this->cnil = $cnil;
+    
+        return $this;
+    }
+
+    /**
+     * Get cnil
+     *
+     * @return string 
+     */
+    public function getCnil()
+    {
+        return $this->cnil;
+    }
+
+    /**
+     * Set versionExplotic
+     *
+     * @param string $versionExplotic
+     * @return Entreprise
+     */
+    public function setVersionExplotic($versionExplotic)
+    {
+        $this->versionExplotic = $versionExplotic;
+    
+        return $this;
+    }
+
+    /**
+     * Get versionExplotic
+     *
+     * @return string 
+     */
+    public function getVersionExplotic()
+    {
+        return $this->versionExplotic;
+    }
+
+    /**
+     * Set commentaires
+     *
+     * @param string $commentaires
+     * @return Entreprise
+     */
+    public function setCommentaires($commentaires)
+    {
+        $this->commentaires = $commentaires;
+    
+        return $this;
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return string 
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
+    }
+
+    /**
+     * Add stagiaires
+     *
+     * @param \Explotic\TiersBundle\Entity\stagiaire $stagiaires
+     * @return Entreprise
+     */
+    public function addStagiaire(\Explotic\TiersBundle\Entity\stagiaire $stagiaires)
+    {
+        $this->stagiaires[] = $stagiaires;
+    
+        return $this;
+    }
+
+    /**
+     * Remove stagiaires
+     *
+     * @param \Explotic\TiersBundle\Entity\stagiaire $stagiaires
+     */
+    public function removeStagiaire(\Explotic\TiersBundle\Entity\stagiaire $stagiaires)
+    {
+        $this->stagiaires->removeElement($stagiaires);
+    }
+
+    /**
+     * Get stagiaires
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStagiaires()
+    {
+        return $this->stagiaires;
+    }
+
+    /**
+     * Add machines
+     *
+     * @param \Explotic\TiersBundle\Entity\Machine $machines
+     * @return Entreprise
+     */
+    public function addMachine(\Explotic\TiersBundle\Entity\Machine $machines)
+    {
+        $this->machines[] = $machines;
+    
+        return $this;
+    }
+
+    /**
+     * Remove machines
+     *
+     * @param \Explotic\TiersBundle\Entity\Machine $machines
+     */
+    public function removeMachine(\Explotic\TiersBundle\Entity\Machine $machines)
+    {
+        $this->machines->removeElement($machines);
+    }
+
+    /**
+     * Get machines
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMachines()
+    {
+        return $this->machines;
+    }
 }

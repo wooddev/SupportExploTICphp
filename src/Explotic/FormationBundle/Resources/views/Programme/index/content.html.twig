@@ -1,0 +1,34 @@
+
+{% block index_title %}
+<h1>Programmes de formation</h1>
+{% endblock %}
+<table class="records_list">
+    <thead>
+        <tr>             
+            <th>Module</th>       
+            <th>Accompagnement</th>
+            <th>Formationsalle</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>         
+            <td>{{ entity.module }}</td>
+            <td>{{ entity.accompagnement }}</td>
+            <td>{{ entity.FormationSalle }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('programme_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('programme_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+

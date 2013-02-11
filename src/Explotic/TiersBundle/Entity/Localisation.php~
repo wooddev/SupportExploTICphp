@@ -111,7 +111,7 @@ class Localisation
     
     public function __toString()
     {
-       $string="Commune: ".$this->getCommune()."CP: ".$this->getCp()."Position: ".$this->getGeometry()->__toString();  
+       $string="Commune: ".$this->getCommune()."  CP: ".$this->getCp();  
        return $string;
     }
         /*

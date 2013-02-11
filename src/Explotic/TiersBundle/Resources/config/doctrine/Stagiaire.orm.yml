@@ -14,10 +14,18 @@ Explotic\TiersBundle\Entity\Stagiaire:
         targetEntity: Explotic\TiersBundle\Entity\Poste
         mappedBy: stagiaire 
         cascade: ["persist"]
+      programmes:
+        targetEntity: Explotic\FormationBundle\Entity\Programme
+        mappedBy: stagiaire 
+        cascade: ["persist"]
     manyToOne:
       entreprise:
         targetEntity: Entreprise
-        cascade: ["persist"]
+        inversedBy: stagiaires      
+      machine:
+        targetEntity: Machine
+        inversedBy: stagiaires
+        nullable: true
     manyToMany:
       sessions:
         targetEntity: Explotic\PlanningBundle\Entity\Session
@@ -44,12 +52,30 @@ Explotic\TiersBundle\Entity\Stagiaire:
             length: 255
         dateNaissance:
             type: datetime
+            nullable: true
         marchePiedInfo:
             type: boolean
         telephone:
             type: string
             length: 255
+            nullable: true
+        gerant:
+          type: boolean
+        forfaitTelephone:
+          type: string
+          length: 255  
+          nullable: true
+        niveauInfo:
+          type: string
+          columnDefinition: ENUM("faible","moyen","bon","NC")
+        typeEmploi:
+          type: string
+          length: 255
+          nullable: true
         opca:
           type: string
           columnDefinition: ENUM("VIVEA","FAFSEA","OPCA3+")
+        commentaire:
+          type: text
+          nullable: true
     lifecycleCallbacks: {  }

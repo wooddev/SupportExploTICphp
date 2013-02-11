@@ -27,6 +27,8 @@ class StagiaireType extends AbstractType
                 'required'=> false,
             ))
             ->add('entreprise')
+            ->add('machine')
+            //->add('machine', new MachineType());
         ;
     }
 

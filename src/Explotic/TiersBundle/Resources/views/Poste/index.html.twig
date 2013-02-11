@@ -1,32 +1,7 @@
-<h1>Poste list</h1>
+{%extends "ExploticTiersBundle::layout.html.twig" %}
 
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nomchantier</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('poste_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.nomChantier }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('poste_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('poste_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+{%block body %}
+ {%include 'ExploticTiersBundle:Poste:index/content.html.twig' with {'entities':entities} %}
 
 <ul>
     <li>
@@ -35,3 +10,4 @@
         </a>
     </li>
 </ul>
+{%endblock%}

@@ -2,37 +2,41 @@ _bureau:
     resource: "@ExploticTiersBundle/Resources/config/routing/Bureau.yml"
     prefix:   /bureau
 _salle:
-    resource: "@ExploticTiersBundle/Resources/config/routing/Salle.yml"
+    resource: "@ExploticTiersBundle/Resources/config/routing/salle.yml"
     prefix:   /salle
     
 _poste:
-    resource: "@ExploticTiersBundle/Resources/config/routing/Poste.yml"
+    resource: "@ExploticTiersBundle/Resources/config/routing/poste.yml"
     prefix:   /poste
     
 _siteIntervention:
-    resource: "@ExploticTiersBundle/Resources/config/routing/SiteIntervention.yml"
+    resource: "@ExploticTiersBundle/Resources/config/routing/siteIntervention.yml"
     prefix:   /siteintervention
 
 _localisation:
-    resource: "@ExploticTiersBundle/Resources/config/routing/Localisation.yml"
+    resource: "@ExploticTiersBundle/Resources/config/routing/localisation.yml"
     prefix:   /localisation   
 
 _geometry:
-    resource: "@ExploticTiersBundle/Resources/config/routing/Geometry.yml"
+    resource: "@ExploticTiersBundle/Resources/config/routing/geometry.yml"
     prefix:   /geometry
     
 _entreprise:
-    resource: "@ExploticTiersBundle/Resources/config/routing/Entreprise.yml"
+    resource: "@ExploticTiersBundle/Resources/config/routing/entreprise.yml"
     prefix:   /entreprise
     
 _formateur:
-    resource: "@ExploticTiersBundle/Resources/config/routing/Formateur.yml"
+    resource: "@ExploticTiersBundle/Resources/config/routing/formateur.yml"
     prefix:   /formateur
     
 _organisme:
-    resource: "@ExploticTiersBundle/Resources/config/routing/Organisme.yml"
+    resource: "@ExploticTiersBundle/Resources/config/routing/organisme.yml"
     prefix:   /organisme
     
 _stagiaire:
-    resource: "@ExploticTiersBundle/Resources/config/routing/Stagiaire.yml"
+    resource: "@ExploticTiersBundle/Resources/config/routing/stagiaire.yml"
     prefix:   /stagiaire
+
+_machine:
+    resource: "@ExploticTiersBundle/Resources/config/routing/machine.yml"
+    prefix:   /machine

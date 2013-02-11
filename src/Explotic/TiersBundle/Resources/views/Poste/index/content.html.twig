@@ -1,0 +1,39 @@
+<h1>Postes de travail :</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            
+            {%if depuis is not defined %}            
+            <th>Stagiaire</th>
+            <th>Entreprise</th>           
+            {%endif%}
+            <th>Nomchantier</th>
+            <th>Localisation</th>            
+            <th>Actions</th>            
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            {%if depuis is not defined %}
+            <td>{{ entity.stagiaire }}</td>
+            <td>{{entity.stagiaire.entreprise.raisonsociale }}</td>
+            {%endif%}
+            <td>{{ entity.nomChantier }}</td>
+            <td>{{ entity.localisation }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('poste_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('poste_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
