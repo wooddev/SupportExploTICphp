@@ -24,7 +24,7 @@ class AppKernel extends Kernel
             new Explotic\FormationBundle\ExploticFormationBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-//            new FOS\UserBundle\FOSUserBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
             new Explotic\AdminBundle\ExploticAdminBundle(),
         );
 
