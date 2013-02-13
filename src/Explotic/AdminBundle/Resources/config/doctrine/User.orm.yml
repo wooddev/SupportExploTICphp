@@ -1,0 +1,10 @@
+Explotic\AdminBundle\Entity\User:
+  type: entity
+  table: fos_user
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  lifecycleCallbacks: {  }

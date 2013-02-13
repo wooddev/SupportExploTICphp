@@ -349,4 +349,8 @@ class Machine
     {
         return $this->entreprise;
     }
+    
+    public function __toString(){
+        return 'N°'.$this->numeroEntreprise.' '.$this->marque.' '.$this->modele;
+    }
 }

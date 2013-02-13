@@ -32,19 +32,38 @@
     <table class="record_properties">
         <tbody>
             <tr>
-                <th>Commune :   </th>
-                <td>{{ entreprise.bureau.localisation.commune }}</td>
+                <th>Adresse</th>
+                <td>
+                {{ entreprise.bureau.adresserue }}
+                {{ entreprise.bureau.localisation.cp }}
+                {{ entreprise.bureau.localisation.commune }}
+               </td>                
             </tr>
-            <tr>
-                <th>  </th>
-                <td>       
-                </td>
+                <th>Téléphone</th>
+                <td>{{entreprise.telephone}}</td>                
+            </tr>
+            </tr>
+                <th>SIRET / SIREN</th>
+                <td>{{entreprise.siret}}</td>                
+            </tr>
+            </tr>
+                <th>CNIL</th>
+                <td>{{entreprise.cnil}}</td>                
+            </tr>
+            </tr>
+                <th>Version explotic installée</th>
+                <td>{{entreprise.versionexplotic}}</td>                
+            </tr>
+            </tr>
+                <th>Commentaires</th>
+                <td>{{entreprise.commentaires}}</td>                
             </tr>
         </tbody>
     </table>
-    
-    <div> Position du bureau:
-        <br class="spacer"/>
-        <div id="map_canvas" style="width:300px; height:300px"></div>
-    </div>
+    <br style="heigth:5px">
+    <div> Position du bureau: </div>
+    <br style="heigth:5px">    
+    <div id="map_canvas" style="width:300px; height:300px"></div>
+
+
 

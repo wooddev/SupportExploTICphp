@@ -10,25 +10,47 @@
 <table class="record_properties">
     <tbody>
         <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
+            <td colspan="2"> 
+{%if entity.gerant== true %}
+                    Gérant de l'entreprise {{entity.entreprise.raisonsociale}}
+{% else %}
+                    Employé de l'entreprise {{entity.entreprise.raisonsociale}}
+{% endif %}
+            </td>
         </tr>
         <tr>
             <th>Datenaissance</th>
             <td>{{ entity.dateNaissance|date('Y-m-d H:i:s') }}</td>
         </tr>
         <tr>
+            <th>Opca</th>
+            <td>{{ entity.opca }}</td>
+        </tr>
+        <tr>
             <th>Marchepiedinfo</th>
             <td>{{ entity.marchePiedInfo }}</td>
         </tr>
         <tr>
-            <th>Telephone</th>
+            <th>Téléphone</th>
             <td>{{ entity.telephone }}</td>
         </tr>
         <tr>
-            <th>Opca</th>
-            <td>{{ entity.opca }}</td>
+            <th>Forfait téléphonique</th>
+            <td>{{ entity.forfaittelephone }}</td>
         </tr>
+        <tr>
+            <th>Niveau informatique</th>
+            <td>{{ entity.niveauinfo }}</td>
+        </tr>
+        <tr>
+            <th>Activité dans l'entreprise</th>
+            <td>{{ entity.typeemploi }}</td>
+        </tr>
+        <tr>
+            <th>Commentaires</th>
+            <td>{{ entity.commentaire }}</td>
+        </tr>
+        
     </tbody>
 </table>
 </div>
@@ -53,11 +75,12 @@
         {%endif%}
     {%endif%}
 </div>
+<div style="float: top">
+    <br class="spacer">
+</div>
 <div style="float:left">
-    {%if entity.machines is defined %}
-        {%if entity.machines|length >0 %}
-            {%include 'ExploticTiersBundle:Machine:index/content.html.twig' with {'entities':entity.machines, 'depuis':'stagiaire'} %}
-        {%endif%}
+    {%if entity.machine is defined %}
+            {%include 'ExploticTiersBundle:Machine:show/content.html.twig' with {'entity':entity.machine, 'depuis':'stagiaire'} %}
     {%endif%}
 </div>
 <div style="float: top">
@@ -78,7 +101,7 @@
     <li>
         <a href="{{ path('poste_new', { 'idStg': entity.id }) }}">Ajouter un poste</a>
     </li>    
-</ul>
+</ul>     
 <ul class="record_actions">
     <li>
         <a href="{{ path('stagiaire_postes', { 'id': entity.id }) }}">Voir les postes</a>

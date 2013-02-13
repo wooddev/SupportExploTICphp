@@ -1,0 +1,44 @@
+<h1> Machine du stagiaire </h1>
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>N°</th>
+            <th>Reference</th>
+            <th>Modele</th>
+            <th>Marque</th>
+            <th>Logiciel</th>
+            <th>Transfertdata</th>
+            <th>Forfait</th>
+            <th>Email</th>            
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ entity.numeroEntreprise }}</td>
+            <td>{{ entity.reference }}</td>
+            <td>{{ entity.modele }}</td>        
+            <td>{{ entity.marque }}</td>  
+            <td>{{ entity.logiciel }}</td>
+            <td>{{ entity.transfertData }}</td>  
+            <td>{{ entity.forfait }}</td>
+            <td>{{ entity.email }}</td>
+        </tr>
+        <tr>
+            <th colspan="8"></th>           
+        </tr>
+        <tr>
+            <th>Commentaires :</th>
+            <td colspan="5">{{ entity.commentaire }}</td>                
+            <td>        
+                <a href="{{ path('machine_edit', { 'id': entity.id }) }}">
+                    Editer
+                </a>
+            </td>
+            <td>                
+                <a href="{{ path('machine_delete', { 'id': entity.id }) }}">
+                    Supprimer
+                </a>
+            
+            </td>            
+    </tbody>
+</table>

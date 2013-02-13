@@ -24,6 +24,8 @@ class AppKernel extends Kernel
             new Explotic\FormationBundle\ExploticFormationBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+//            new FOS\UserBundle\FOSUserBundle(),
+            new Explotic\AdminBundle\ExploticAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
