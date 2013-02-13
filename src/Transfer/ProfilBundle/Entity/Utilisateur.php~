@@ -136,4 +136,32 @@ class Utilisateur
     {
         return $this->telephone;
     }
+    /**
+     * @var datetime
+     */
+    private $dateEnregistrement;
+
+
+    /**
+     * Set dateEnregistrement
+     *
+     * @param \datetime $dateEnregistrement
+     * @return Utilisateur
+     */
+    public function setDateEnregistrement(\datetime $dateEnregistrement)
+    {
+        $this->dateEnregistrement = $dateEnregistrement;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateEnregistrement
+     *
+     * @return \datetime 
+     */
+    public function getDateEnregistrement()
+    {
+        return $this->dateEnregistrement;
+    }
 }

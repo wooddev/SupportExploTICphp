@@ -1,0 +1,20 @@
+Transfer\ReservationBundle\Entity\CreneauPref:
+  type: entity
+  table: null
+  repositoryClass: Transfer\ReservationBundle\Entity\CreneauPrefRepository
+  ManyToOne:
+    creneauModelePref:
+      targetEntity: CreneauModele
+      inversedBy: CreneauPrefModeles
+    transporteurPref:
+      targetEntity: Transfer\ProfilBundle\Entity\Transporteur
+      inversedBy: CreneauPrefs
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    Disponibilite:
+      type: integer
+  lifecycleCallbacks: {  }

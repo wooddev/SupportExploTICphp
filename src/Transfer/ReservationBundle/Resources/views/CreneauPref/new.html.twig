@@ -1,0 +1,16 @@
+<h1>CreneauPref creation</h1>
+
+<form action="{{ path('creneaupref_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('creneaupref') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>

@@ -19,3 +19,6 @@ transfer_reservation_planningprovisoire:
 transfer_reservation_planningconfirme:
     resource: "@TransferReservationBundle/Resources/config/routing/planningconfirme.yml"
     prefix: /planningconfirme
+transfer_reservation_creneauPref:
+    resource: "@TransferReservationBundle/Resources/config/routing/creneaupref.yml"
+    prefix: /creneaupref

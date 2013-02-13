@@ -1,0 +1,30 @@
+creneaupref:
+    pattern:  /
+    defaults: { _controller: "TransferReservationBundle:CreneauPref:index" }
+
+creneaupref_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TransferReservationBundle:CreneauPref:show" }
+
+creneaupref_new:
+    pattern:  /new
+    defaults: { _controller: "TransferReservationBundle:CreneauPref:new" }
+
+creneaupref_create:
+    pattern:  /create
+    defaults: { _controller: "TransferReservationBundle:CreneauPref:create" }
+    requirements: { _method: post }
+
+creneaupref_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TransferReservationBundle:CreneauPref:edit" }
+
+creneaupref_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TransferReservationBundle:CreneauPref:update" }
+    requirements: { _method: post }
+
+creneaupref_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TransferReservationBundle:CreneauPref:delete" }
+    requirements: { _method: post }

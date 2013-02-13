@@ -9,6 +9,9 @@ Transfer\ProfilBundle\Entity\Transporteur:
       agentTrsps:
         targetEntity: AgentTrsp
         mappedBy: transporteur
+      creneauPrefs:
+        targetEntity: Transfer\ReservationBundle\Entity\CreneauPref
+        mappedBy: TransporteurPref
     fields:
         id:
             type: integer

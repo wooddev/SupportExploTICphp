@@ -191,4 +191,8 @@ class Transporteur
     {
         return $this->agentTrsps;
     }
+    
+    public function __toString() {
+        return $this->getId().'  '.$this->getNom();
+    }
 }
