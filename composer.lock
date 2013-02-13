@@ -1,5 +1,5 @@
 {
-    "hash": "d71002d19171eb76d50d4500f43ba1d1",
+    "hash": "47747c5d94283bab8ae1d2938e202ea4",
     "packages": [
         {
             "name": "doctrine/common",
@@ -519,6 +519,76 @@
             ]
         },
         {
+            "name": "friendsofsymfony/user-bundle",
+            "version": "dev-master",
+            "target-dir": "FOS/UserBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle",
+                "reference": "f31a1fcc88b589f106d1a038c06dc946f33f5d0c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/f31a1fcc88b589f106d1a038c06dc946f33f5d0c",
+                "reference": "f31a1fcc88b589f106d1a038c06dc946f33f5d0c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": ">=2.1,<2.3-dev",
+                "symfony/security-bundle": ">=2.1,<2.3-dev"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "*",
+                "swiftmailer/swiftmailer": "*",
+                "symfony/validator": "2.1.*",
+                "symfony/yaml": "2.1.*",
+                "twig/twig": "*",
+                "willdurand/propel-typehintable-behavior": "dev-master"
+            },
+            "suggest": {
+                "doctrine/couchdb-odm-bundle": "*",
+                "doctrine/doctrine-bundle": "*",
+                "doctrine/mongodb-odm-bundle": "*"
+            },
+            "time": "2013-02-12 09:03:30",
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "FOS\\UserBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                },
+                {
+                    "name": "Thibault Duplessis",
+                    "email": "thibault.duplessis@gmail.com",
+                    "homepage": "http://ornicar.github.com"
+                },
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/friendsofsymfony/FOSUserBundle/contributors"
+                }
+            ],
+            "description": "Symfony FOSUserBundle",
+            "homepage": "http://friendsofsymfony.github.com",
+            "keywords": [
+                "User management"
+            ]
+        },
+        {
             "name": "jackalope/jackalope",
             "version": "dev-master",
             "source": {
@@ -576,19 +646,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jackalope/jackalope-doctrine-dbal",
-                "reference": "d8a81bc6569221e09827aca10fb01c7bb530f9db"
+                "reference": "5b32d44452188180f87f9878573d890e820a3a33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jackalope/jackalope-doctrine-dbal/zipball/d8a81bc6569221e09827aca10fb01c7bb530f9db",
-                "reference": "d8a81bc6569221e09827aca10fb01c7bb530f9db",
+                "url": "https://api.github.com/repos/jackalope/jackalope-doctrine-dbal/zipball/5b32d44452188180f87f9878573d890e820a3a33",
+                "reference": "5b32d44452188180f87f9878573d890e820a3a33",
                 "shasum": ""
             },
             "require": {
                 "doctrine/dbal": ">=2.2.0,<2.4",
-                "jackalope/jackalope": "1.0.*",
-                "php": ">=5.3.2",
-                "phpcr/phpcr": "2.1.0-beta8"
+                "jackalope/jackalope": ">=1.0.0-alpha1",
+                "php": ">=5.3.2"
             },
             "provide": {
                 "jackalope/jackalope-transport": "1.0.0-alpha1"
@@ -599,7 +668,7 @@
             "suggest": {
                 "phpcr/phpcr-api-tests": "dev-master"
             },
-            "time": "2013-01-22 18:34:18",
+            "time": "2013-02-13 17:53:13",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1126,22 +1195,22 @@
         },
         {
             "name": "phpcr/phpcr",
-            "version": "2.1.0-beta8",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpcr/phpcr",
-                "reference": "2.1.0-beta8"
+                "reference": "49bf4c425d9d32322c3b28c160637c6cb1e9cd5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/phpcr/phpcr/archive/2.1.0-beta8.zip",
-                "reference": "2.1.0-beta8",
+                "url": "https://api.github.com/repos/phpcr/phpcr/zipball/49bf4c425d9d32322c3b28c160637c6cb1e9cd5d",
+                "reference": "49bf4c425d9d32322c3b28c160637c6cb1e9cd5d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2013-01-12 17:19:47",
+            "time": "2013-01-24 16:49:10",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1800,6 +1869,7 @@
     "stability-flags": {
         "doctrine/doctrine-fixtures-bundle": 20,
         "jackalope/jackalope-doctrine-dbal": 20,
-        "knplabs/knp-menu-bundle": 20
+        "knplabs/knp-menu-bundle": 20,
+        "friendsofsymfony/user-bundle": 20
     }
 }
