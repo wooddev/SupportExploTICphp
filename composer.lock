@@ -524,25 +524,25 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jackalope/jackalope",
-                "reference": "a8ba9dbf6ec2b73e29973912016b9b99beb506b9"
+                "reference": "1.0.0-alpha1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jackalope/jackalope/zipball/a8ba9dbf6ec2b73e29973912016b9b99beb506b9",
-                "reference": "a8ba9dbf6ec2b73e29973912016b9b99beb506b9",
+                "url": "https://api.github.com/repos/jackalope/jackalope/zipball/1.0.0-alpha1",
+                "reference": "1.0.0-alpha1",
                 "shasum": ""
             },
             "require": {
                 "ext-libxml": "*",
                 "jackalope/jackalope-transport": "1.0.*",
                 "php": ">=5.3.2",
-                "phpcr/phpcr": "2.1.0-beta8",
-                "phpcr/phpcr-utils": "1.0-beta4"
+                "phpcr/phpcr": ">=2.1.0-beta8",
+                "phpcr/phpcr-utils": ">=1.0-beta4"
             },
             "provide": {
                 "phpcr/phpcr-implementation": "2.1.0-beta4"
             },
-            "time": "2013-02-01 13:58:47",
+            "time": "2013-02-13 17:45:13",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1437,12 +1437,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/AsseticBundle",
-                "reference": "v2.1.1-beta1"
+                "reference": "v2.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/v2.1.1-beta1",
-                "reference": "v2.1.1-beta1",
+                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/v2.1.1",
+                "reference": "v2.1.1",
                 "shasum": ""
             },
             "require": {

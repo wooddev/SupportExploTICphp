@@ -22,7 +22,8 @@
         "jackalope/jackalope-doctrine-dbal": "dev-master",
         "doctrine/phpcr-bundle": "1.0.*",
         "doctrine/phpcr-odm": "1.0.*",
-        "knplabs/knp-menu-bundle":"dev-master"
+        "knplabs/knp-menu-bundle":"dev-master",
+        "friendsofsymfony/user-bundle": "2.0.*@dev"
     },
     "scripts": {
         "post-install-cmd": [
