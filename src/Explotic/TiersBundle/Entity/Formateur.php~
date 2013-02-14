@@ -181,4 +181,32 @@ class Formateur
     {
         return $this->sessions;
     }
+    /**
+     * @var \Explotic\AdminBundle\Entity\User
+     */
+    private $compte;
+
+
+    /**
+     * Set compte
+     *
+     * @param \Explotic\AdminBundle\Entity\User $compte
+     * @return Formateur
+     */
+    public function setCompte(\Explotic\AdminBundle\Entity\User $compte = null)
+    {
+        $this->compte = $compte;
+    
+        return $this;
+    }
+
+    /**
+     * Get compte
+     *
+     * @return \Explotic\AdminBundle\Entity\User 
+     */
+    public function getCompte()
+    {
+        return $this->compte;
+    }
 }

@@ -1,0 +1,30 @@
+recruteur:
+    pattern:  /
+    defaults: { _controller: "ExploticTiersBundle:Recruteur:index" }
+
+recruteur_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticTiersBundle:Recruteur:show" }
+
+recruteur_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticTiersBundle:Recruteur:new" }
+
+recruteur_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticTiersBundle:Recruteur:create" }
+    requirements: { _method: post }
+
+recruteur_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticTiersBundle:Recruteur:edit" }
+
+recruteur_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticTiersBundle:Recruteur:update" }
+    requirements: { _method: post }
+
+recruteur_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticTiersBundle:Recruteur:delete" }
+    requirements: { _method: post }

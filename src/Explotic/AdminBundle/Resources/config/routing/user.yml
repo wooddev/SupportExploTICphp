@@ -1,0 +1,39 @@
+user:
+    pattern:  /
+    defaults: { _controller: "ExploticAdminBundle:User:index" }
+
+#user_show:
+#    pattern:  /{id}/show
+#    defaults: { _controller: "ExploticAdminBundle:User:show" }
+
+#user_new:
+#    pattern:  /new
+#    defaults: { _controller: "ExploticAdminBundle:User:new" }
+#
+#user_create:
+#    pattern:  /create
+#    defaults: { _controller: "ExploticAdminBundle:User:create" }
+#    requirements: { _method: post }
+
+user_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticAdminBundle:User:edit" }
+    
+user_edit_role:
+    pattern:  /{id}/edit_role
+    defaults: { _controller: "ExploticAdminBundle:User:editRole" }
+
+user_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticAdminBundle:User:update" }
+    requirements: { _method: post }
+    
+user_update_role:
+    pattern:  /{id}/update_role
+    defaults: { _controller: "ExploticAdminBundle:User:updateRole" }
+    requirements: { _method: post }
+
+user_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticAdminBundle:User:delete" }
+    requirements: { _method: post }

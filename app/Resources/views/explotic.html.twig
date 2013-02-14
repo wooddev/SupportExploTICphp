@@ -21,14 +21,16 @@
                     <div id="login-bg">
                             <!--Login Area Starts -->
                             <div id="login-area">
-                                    <form action="" method="post" name="Login" id="Login">
-                                            <label>Connexion :</label>
-                                            <input type="text" name="username" id="username" value="login" ></input>
-                                            <input type="password" name="pass" id="pass" value="mot de passe" ></input>
-                                            <input type="image" src="{{asset('images/login-btn.gif')}}" class="login-btn" alt="Login" title="Login" />
-                                            <br class="spacer" />
-                                    </form>
+                                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                                        <a href="{{ path('fos_user_security_logout') }}">
+                                            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                                        </a>
+                                    {% else %}                                        
+                                        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                                    {% endif %}                                        
                             </div>
+                            
                             <!--Login Area Ends -->
                     </div>
                     {% endblock %}
@@ -44,28 +46,34 @@
             <!--Navigation Part Starts -->
             <div id="navigation">
                     <ul class="mainMenu">
-                            <li><a href="#"  title="Home">Accueil</a>
+                            <li><a href="{{path('homepage')}}"  title="">Accueil</a>
                             </li>
-                            <li><a href="#"  title="About">Formations</a>
+                            <li><a href="#"  title="">Mon Profil</a>
+                                <br class="spacer" />
+                                <ul class="subNav">
+                                        <li><a href="#" title="Consulter mon profil">Consulter</a></li>
+                                        <li><a href="#" title="Modifier mon profil">Modifier</a></li>
+                                        <li><a href="#" title="Consulter mon planning">Mon Planning</a></li>                                        
+                                        <li><a href="#" title="Consulter mes recrutements">Mes Recrutements</a></li>                                        
+                                </ul>                                
+                            </li>
+                            <li><a href="#"  title="">Formations</a>
                             <br class="spacer" />
                                 <ul class="subNav">
-                                        <li><a href="#" title="Modules">Modules</a></li>
-                                        <li><a href="#" title="Plannings">Plannings</a></li>
-                                        <li><a href="#" title="Mon Planning">Mon Planning</a></li>
-                                        
+                                        <li><a href="{{path('module')}}" title="Présentation des modules">Modules</a></li>
+                                        <li><a href="#" title="Les sessions planifiées">Plannings</a></li>                                        
                                 </ul>                            
                             <br class="spacer" />
                             </li>
-                            <li><a href="#"  title="Services">Stagiaires</a>
+                            <li><a href="#"  title="">Stagiaires</a>
                             <br class="spacer" />
                                 <ul class="subNav">
-                                        <li><a href="{{path('stagiaire')}}" title="Profils">Profils</a></li>
-                                        <li><a href="#" title="Mon Profil">Mon Profil</a></li>
+                                        <li><a href="{{path('stagiaire')}}" title="Liste des profils">Profils</a></li>
                                         <li><a href="{{path('entreprise')}}" title="Entreprises">Entreprises</a></li>
                                 </ul>
                                 <br class="spacer" />
                             </li>
-                            <li><a href="#" title="Support">Formateurs</a></li>
+                            <li><a href="#" title="Liste des formateurs">Formateurs</a></li>
                     </ul>         
                 </div>
             <!--Navigation Part Ends -->
@@ -89,8 +97,8 @@
     <!--Our Company Bacground Part Ends -->
 
     
-    <div id="footer-bg">
-            <!--Footer Menu Part Starts -->
+    <!--<div id="footer-bg">
+            <!--Footer Menu Part Starts --
             <div id="footer-menu">
                     <ul class="footMenu">
                             <li class="noDivider"><a href="#" title="Home">Home</a></li>
@@ -103,7 +111,7 @@
                     </ul>
                     <br class="spacer" />                 
             </div>
-            <!--Footer Menu Part Ends -->
+            <!--Footer Menu Part Ends --
     </div>
     <!--Footer Part Ends -->       
 </body>

@@ -1,0 +1,43 @@
+Explotic\TiersBundle\Entity\Recruteur:
+  type: entity
+  table: null
+  repositoryClass: Explotic\TiersBundle\Entity\RecruteurRepository
+  oneToOne:
+      compte:
+        targetEntity: Explotic\AdminBundle\Entity\User
+        mappedBy: recruteur
+        nullable: true
+  manyToOne:
+    employeur:
+      targetEntity: Explotic\TiersBundle\Entity\Entreprise
+      inversedBy: employesrecruteurs
+  oneToMany:
+    stagiaires:
+      targetEntity: Explotic\TiersBundle\Entity\Stagiaire
+      mappedBy: recruteur
+      nullable: true
+  manyToMany:
+    entreprises:
+      targetEntity: Entreprise
+      inversedBy: recruteurs
+      joinTable:
+        name: recruteurs_entreprises
+        joinColumns:
+          recruteur_id: 
+            referencedColumnName: id
+        inverseJoinColumns :
+          entreprise_id:
+            referencedColumnName: id
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    nom:
+      type: string
+      length: 255
+    prenom:
+      type: string
+      length: 255
+  lifecycleCallbacks: {  }

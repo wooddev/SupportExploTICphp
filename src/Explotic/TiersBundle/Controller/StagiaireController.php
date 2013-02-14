@@ -51,6 +51,35 @@ class StagiaireController extends Controller
             'delete_form' => $deleteForm->createView(),
             ));
     }
+    /**
+     * Finds and displays a Stagiaire entity.
+     *
+     */
+//    public function showUserAction()
+//    {   
+//        $this->container->get('security.context')->getToken()->getUser();
+//        
+//        if(! is_object($user)){
+//            throw new AccessDeniedException('Veuillez vous connecter');
+//        }
+//               
+//        
+//        $em = $this->getDoctrine()->getManager();
+//
+//        $entity = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);
+//
+//        if (!$entity) {
+//            throw $this->createNotFoundException('Unable to find Stagiaire entity.');
+//        }
+//
+//        $deleteForm = $this->createDeleteForm($id);
+//
+//        return $this->render('ExploticTiersBundle:Stagiaire:show.html.twig', array(
+//            'entity'      => $entity,
+//            'entreprise' => $entity->getEntreprise(),
+//            'delete_form' => $deleteForm->createView(),
+//            ));
+//    }
 
     /**
      * Displays a form to create a new Stagiaire entity.

@@ -2,6 +2,8 @@ parameters:
 #    explotic_admin.example.class: Explotic\AdminBundle\Example
 
 services:
-#    explotic_admin.example:
-#        class: %explotic_admin.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    explotic_admin.user:
+        class: Explotic\AdminBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+          - { name: form.type, alias: explotic_user_registration }

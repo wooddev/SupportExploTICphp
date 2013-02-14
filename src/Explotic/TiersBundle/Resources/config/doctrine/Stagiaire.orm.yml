@@ -9,6 +9,10 @@ Explotic\TiersBundle\Entity\Stagiaire:
       creditTemps:
         targetEntity: Explotic\PlanningBundle\Entity\CreditTemps
         cascade: ["persist"]
+      compte:
+        targetEntity: Explotic\AdminBundle\Entity\User
+        mappedBy: stagiaire
+        nullable: true
     oneToMany:
       postes:
         targetEntity: Explotic\TiersBundle\Entity\Poste
@@ -26,6 +30,9 @@ Explotic\TiersBundle\Entity\Stagiaire:
         targetEntity: Machine
         inversedBy: stagiaires
         nullable: true
+      recruteur:
+        targetEntity: Recruteur
+        inversedBy: stagiaires      
     manyToMany:
       sessions:
         targetEntity: Explotic\PlanningBundle\Entity\Session

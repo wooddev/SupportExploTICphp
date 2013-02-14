@@ -364,4 +364,146 @@ class Entreprise
     {
         return $this->machines;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $employerecruteur;
+
+
+    /**
+     * Add employerecruteur
+     *
+     * @param \Explotic\TiersBundle\Entity\Recruteur $employerecruteur
+     * @return Entreprise
+     */
+    public function addEmployerecruteur(\Explotic\TiersBundle\Entity\Recruteur $employerecruteur)
+    {
+        $this->employerecruteur[] = $employerecruteur;
+    
+        return $this;
+    }
+
+    /**
+     * Remove employerecruteur
+     *
+     * @param \Explotic\TiersBundle\Entity\Recruteur $employerecruteur
+     */
+    public function removeEmployerecruteur(\Explotic\TiersBundle\Entity\Recruteur $employerecruteur)
+    {
+        $this->employerecruteur->removeElement($employerecruteur);
+    }
+
+    /**
+     * Get employerecruteur
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEmployerecruteur()
+    {
+        return $this->employerecruteur;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $employesrecruteurs;
+
+
+    /**
+     * Add employesrecruteurs
+     *
+     * @param \Explotic\TiersBundle\Entity\Recruteur $employesrecruteurs
+     * @return Entreprise
+     */
+    public function addEmployesrecruteur(\Explotic\TiersBundle\Entity\Recruteur $employesrecruteurs)
+    {
+        $this->employesrecruteurs[] = $employesrecruteurs;
+    
+        return $this;
+    }
+
+    /**
+     * Remove employesrecruteurs
+     *
+     * @param \Explotic\TiersBundle\Entity\Recruteur $employesrecruteurs
+     */
+    public function removeEmployesrecruteur(\Explotic\TiersBundle\Entity\Recruteur $employesrecruteurs)
+    {
+        $this->employesrecruteurs->removeElement($employesrecruteurs);
+    }
+
+    /**
+     * Get employesrecruteurs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEmployesrecruteurs()
+    {
+        return $this->employesrecruteurs;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $recruteurs;
+
+
+    /**
+     * Add recruteurs
+     *
+     * @param \Explotic\TiersBundle\Entity\Recruteur $recruteurs
+     * @return Entreprise
+     */
+    public function addRecruteur(\Explotic\TiersBundle\Entity\Recruteur $recruteurs)
+    {
+        $this->recruteurs[] = $recruteurs;
+    
+        return $this;
+    }
+
+    /**
+     * Remove recruteurs
+     *
+     * @param \Explotic\TiersBundle\Entity\Recruteur $recruteurs
+     */
+    public function removeRecruteur(\Explotic\TiersBundle\Entity\Recruteur $recruteurs)
+    {
+        $this->recruteurs->removeElement($recruteurs);
+    }
+
+    /**
+     * Get recruteurs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRecruteurs()
+    {
+        return $this->recruteurs;
+    }
+    /**
+     * @var \Explotic\AdminBundle\Entity\User
+     */
+    private $compte;
+
+
+    /**
+     * Set compte
+     *
+     * @param \Explotic\AdminBundle\Entity\User $compte
+     * @return Entreprise
+     */
+    public function setCompte(\Explotic\AdminBundle\Entity\User $compte = null)
+    {
+        $this->compte = $compte;
+    
+        return $this;
+    }
+
+    /**
+     * Get compte
+     *
+     * @return \Explotic\AdminBundle\Entity\User 
+     */
+    public function getCompte()
+    {
+        return $this->compte;
+    }
 }

@@ -1,0 +1,44 @@
+<h1>Editer {{entity.username}}</h1>
+
+<form action="{{ path('user_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+
+{%set compteur=0 %}
+{% for role in entity.roles %}
+    {%set compteur= (compteur + 1) %}    
+    {%if role == 'ROLE_GERANT'%}
+    {{form_row(edit_form.entreprise, {'label':'Gérant de'})}}
+    {%elseif role== 'ROLE_STAGIAIRE'%}    
+    {{form_row(edit_form.stagiaire, {'label':'Stagiaire'})}}
+    {%elseif role== 'ROLE_RECRUTEUR'%}        
+    {{form_row(edit_form.recruteur, {'label':'Recruteur'})}}
+    {%elseif role== 'ROLE_FORMATEUR'%}    
+    {{form_row(edit_form.formateur, {'label':'Formateur'})}}
+    {%else%}
+    {%set compteur= (compteur - 1) %}
+    {%endif%}    
+{%endfor%}
+{% if compteur == 0 %}
+Les rôles de cet utilisateur ne permettent pas une association à un profil
+{%endif %}
+
+
+    {{form_row(edit_form.entreprise, {'label':'Gérant de'})}}
+  
+    {{form_row(edit_form.stagiaire, {'label':'Stagiaire'})}}
+ 
+    {{form_row(edit_form.recruteur, {'label':'Recruteur'})}}
+ 
+    {{form_row(edit_form.formateur, {'label':'Formateur'})}}
+
+    <p>
+        <button type="submit">Edit</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('user') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>

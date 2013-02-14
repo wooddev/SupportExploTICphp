@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: %locale% }
+    translator:      { fallback: %locale% }
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -65,4 +65,7 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Explotic\AdminBundle\Entity\User
+    registration:
+      form:
+        type: explotic_user_registration
     

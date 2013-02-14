@@ -582,4 +582,60 @@ class Stagiaire
     {
         return $this->machine;
     }
+    /**
+     * @var \Explotic\TiersBundle\Entity\Recruteur
+     */
+    private $recruteur;
+
+
+    /**
+     * Set recruteur
+     *
+     * @param \Explotic\TiersBundle\Entity\Recruteur $recruteur
+     * @return Stagiaire
+     */
+    public function setRecruteur(\Explotic\TiersBundle\Entity\Recruteur $recruteur = null)
+    {
+        $this->recruteur = $recruteur;
+    
+        return $this;
+    }
+
+    /**
+     * Get recruteur
+     *
+     * @return \Explotic\TiersBundle\Entity\Recruteur 
+     */
+    public function getRecruteur()
+    {
+        return $this->recruteur;
+    }
+    /**
+     * @var \Explotic\AdminBundle\Entity\User
+     */
+    private $compte;
+
+
+    /**
+     * Set compte
+     *
+     * @param \Explotic\AdminBundle\Entity\User $compte
+     * @return Stagiaire
+     */
+    public function setCompte(\Explotic\AdminBundle\Entity\User $compte = null)
+    {
+        $this->compte = $compte;
+    
+        return $this;
+    }
+
+    /**
+     * Get compte
+     *
+     * @return \Explotic\AdminBundle\Entity\User 
+     */
+    public function getCompte()
+    {
+        return $this->compte;
+    }
 }

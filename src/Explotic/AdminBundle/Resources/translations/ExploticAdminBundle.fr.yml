@@ -1,0 +1,3 @@
+# src/Explotic/AdminBundle/Resources/translations/ExploticAdminBundle.fr.yml
+
+"Bad credentials" : "identifiant ou mot de passe incorrect"

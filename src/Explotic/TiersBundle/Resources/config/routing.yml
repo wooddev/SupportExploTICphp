@@ -40,3 +40,6 @@ _stagiaire:
 _machine:
     resource: "@ExploticTiersBundle/Resources/config/routing/machine.yml"
     prefix:   /machine
+_recruteur:
+    resource: "@ExploticTiersBundle/Resources/config/routing/recruteur.yml"
+    prefix:   /recruteur

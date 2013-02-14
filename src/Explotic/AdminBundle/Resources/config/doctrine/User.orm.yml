@@ -1,6 +1,23 @@
 Explotic\AdminBundle\Entity\User:
   type: entity
   table: fos_user
+  oneToOne:
+    entreprise:
+      targetEntity: Explotic\TiersBundle\Entity\Entreprise
+      inversedBy: compte
+      nullable: true
+    recruteur:
+      targetEntity: Explotic\TiersBundle\Entity\Recruteur
+      inversedBy: compte
+      nullable: true
+    stagiaire:
+      targetEntity: Explotic\TiersBundle\Entity\Stagiaire
+      inversedBy: compte
+      nullable: true
+    formateur:
+      targetEntity: Explotic\TiersBundle\Entity\Formateur
+      inversedBy: compte
+      nullable: true
   fields:
     id:
       type: integer

@@ -203,4 +203,9 @@ class Module
     {
         return $this->programmes;
     }
+    
+    public function __toString()
+    {
+        return $this->nom;
+    }
 }
