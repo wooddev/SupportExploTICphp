@@ -1,0 +1,25 @@
+<h1>User show</h1>
+
+<table class="records_list">
+{%for key, value in properties %}
+        <tr>
+            <td>
+            {#{%if properties[key]['typ'] == 'Datetime' %}
+            {{key}} = {{value | date('d-m-Y H:i:s')}}
+            {%elseif properties[key]['typ'] == 'array'%}
+            bla
+            {%else%}
+           
+            {% endif %}
+            {% set property = properties[key] %}        
+            {{ attribute(property,'typ') }} #}   
+            </td>
+        </tr>
+{%endfor%}
+        
+{%for key,value in types %}
+        {{ key }} = {{value}}        
+{% endfor %}
+
+</table>
+

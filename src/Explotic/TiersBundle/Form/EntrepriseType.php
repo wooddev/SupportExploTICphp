@@ -13,6 +13,12 @@ class EntrepriseType extends AbstractType
         $builder
             ->add('raisonSociale')
             ->add('telephone')
+            ->add('siret')
+            ->add('ape')
+            ->add('cnil')
+            ->add('versionExplotic')
+            ->add('email')
+            ->add('commentaires')
             ->add('bureau', new BureauType())
         ;
     }

@@ -25,18 +25,22 @@ Explotic\TiersBundle\Entity\Stagiaire:
     manyToOne:
       entreprise:
         targetEntity: Entreprise
-        inversedBy: stagiaires      
+        inversedBy: stagiaires 
+        nullable: true
       machine:
         targetEntity: Machine
         inversedBy: stagiaires
         nullable: true
+        nullable: true
       recruteur:
         targetEntity: Recruteur
-        inversedBy: stagiaires      
+        inversedBy: stagiaires 
+        nullable: true
     manyToMany:
       sessions:
         targetEntity: Explotic\PlanningBundle\Entity\Session
         inversedBy: stagiaires
+        nullable: true
         joinTable:
           name: stagiaires_sessions
           joinColumns:
@@ -68,6 +72,7 @@ Explotic\TiersBundle\Entity\Stagiaire:
             nullable: true
         gerant:
           type: boolean
+          nullable: true
         forfaitTelephone:
           type: string
           length: 255  

@@ -33,26 +33,44 @@ class UserController extends Controller
         ));
     }
 
-//    /**
-//     * Finds and displays a User entity.
-//     *
-//     */
-//    public function showAction($id)
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $entity = $em->getRepository('ExploticAdminBundle:User')->find($id);
-//
-//        if (!$entity) {
-//            throw $this->createNotFoundException('Unable to find User entity.');
-//        }
-//
-//        $deleteForm = $this->createDeleteForm($id);
-//
-//        return $this->render('ExploticAdminBundle:User:show.html.twig', array(
-//            'entity'      => $entity,
-//            'delete_form' => $deleteForm->createView(),        ));
-//    }
+    /**
+     * Finds and displays a User entity.
+     *
+     */
+    public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('ExploticAdminBundle:User')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find User entity.');
+        }
+        
+        $MetaData= $em->getClassMetadata('Explotic\AdminBundle\Entity\User');
+        $fields = array();
+        
+        foreach ($MetaData->fieldNames as $value){
+            if(method_exists($entity,'get'.ucfirst($value))){
+                $fields[$value]=array();
+                $fields[$value]['val']= $entity->{'get'.ucfirst($value)}();
+                $types=array();
+                $types[$value] = gettype($entity->{'get'.ucfirst($value)}());
+                
+                if(is_object($fields[$value])){                    
+                    $fields[$value]['typ']=  get_class_methods($entity->{'get'.ucfirst($value)}());
+                }
+                else {                    
+                    $fields[$value]['typ']= gettype($entity->{'get'.ucfirst($value)}());
+                }
+            }            
+        }
+            
+        return $this->render('ExploticAdminBundle:User:show.html.twig', array(
+            'entity'      => $entity,
+            'properties' => $fields,
+            'types' => $types));
+    }
 
 //    /**
 //     * Displays a form to create a new User entity.

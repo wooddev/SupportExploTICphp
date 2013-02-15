@@ -1,0 +1,8 @@
+# Explotic/TiersBundle/Resources/Config/Validation.yml
+
+Explotic\TiersBundle\Entity\Entreprise:
+  properties:
+    email:
+      - Email:
+          message: "{{value}} n'est pas un email valide."
+          checkMX: true

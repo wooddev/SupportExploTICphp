@@ -17,16 +17,20 @@ Explotic\TiersBundle\Entity\Entreprise:
       stagiaires:
         targetEntity: stagiaire
         mappedBy: entreprise
+        nullable: true
       machines:
         targetEntity: Machine
         mappedBy: entreprise
+        nullable: true
       employesrecruteurs:
         targetEntity: Explotic\TiersBundle\Entity\Recruteur
         mappedBy: employeur
+        nullable: true
     manyToMany:
       recruteurs:
         targetEntity: Recruteur
         mappedBy: entreprises
+        nullable: true
     fields:
         id:
             type: integer
@@ -56,6 +60,10 @@ Explotic\TiersBundle\Entity\Entreprise:
             type: string
             length : 255 
             nullable : true
+        email:
+          type: string
+          length: 255
+          nullable: true
         commentaires:
           type: text
           nullable: true

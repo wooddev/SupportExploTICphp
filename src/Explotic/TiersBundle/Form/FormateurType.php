@@ -13,9 +13,9 @@ class FormateurType extends AbstractType
         $builder
             ->add('nom')
             ->add('prenom')
-            ->add('calendrier')
-            ->add('Organisme')
-            ->add('sessions')
+//            ->add('calendrier')
+//            ->add('Organisme')
+//            ->add('sessions')
         ;
     }
 
