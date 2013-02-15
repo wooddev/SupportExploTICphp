@@ -189,7 +189,7 @@ class UserController extends Controller
 
         $editForm = $this->createForm(new UserType(), $entity);
         $editForm->bind($request);
-
+                
         if ($editForm->isValid()) {
             $em->persist($entity);
             $em->flush();

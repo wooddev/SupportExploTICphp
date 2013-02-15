@@ -1,35 +1,65 @@
+{%extends "ExploticAdminBundle::layout.html.twig" %}
+
+{% block body %} 
 <h1>Editer {{entity.username}}</h1>
 
 <form action="{{ path('user_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-
+{% set rolelist=({'gerant':false,'stagiaire':false,'recruteur':false,'formateur':false}) %}     
 {%set compteur=0 %}
-{% for role in entity.roles %}
-    {%set compteur= (compteur + 1) %}    
+{% for role in entity.roles %} 
+    {%set compteur=compteur+1 %}
     {%if role == 'ROLE_GERANT'%}
     {{form_row(edit_form.entreprise, {'label':'Gérant de'})}}
+    {% set rolelist={'gerant':'true'}|merge(rolelist) %}
+    
     {%elseif role== 'ROLE_STAGIAIRE'%}    
-    {{form_row(edit_form.stagiaire, {'label':'Stagiaire'})}}
+    {% set rolelist={'stagiaire':'true'}|merge(rolelist) %}
+    {{form_row(edit_form.stagiaire, {'label':'stagiaire'})}}
+    
     {%elseif role== 'ROLE_RECRUTEUR'%}        
-    {{form_row(edit_form.recruteur, {'label':'Recruteur'})}}
+    {% set rolelist={'recruteur':'true'}|merge(rolelist) %}
+    {{form_row(edit_form.recruteur, {'label':'recruteur'})}}
+    
     {%elseif role== 'ROLE_FORMATEUR'%}    
-    {{form_row(edit_form.formateur, {'label':'Formateur'})}}
+    {% set rolelist={'formateur':'true'}|merge(rolelist) %}   
+    {{form_row(edit_form.formateur, {'label':'formateur'})}}
+    
     {%else%}
-    {%set compteur= (compteur - 1) %}
+    {%set compteur=compteur-1 %}
     {%endif%}    
 {%endfor%}
-{% if compteur == 0 %}
+    
+{% if rolelist['gerant'] == false %}
+        {{form_row(edit_form.entreprise, {'label':'Gérant de','attr':{'disabled':true}})}}
+{%endif%}  
+    
+{% if rolelist['stagiaire'] == false %}
+        {{form_row(edit_form.stagiaire, {'label':'Stagiaire','attr':{'disabled':true}})}}
+{%endif%}  
+    
+{% if rolelist['recruteur'] == false %}
+        {{form_row(edit_form.recruteur, {'label':'Recruteur','attr':{'disabled':true}})}}
+{%endif%}   
+    
+{% if rolelist['formateur'] == false %}
+        {{form_row(edit_form.formateur, {'label':'Formateur','attr':{'disabled':true}})}}
+{%endif%}    
+    
+{% if compteur == 0%}
 Les rôles de cet utilisateur ne permettent pas une association à un profil
 {%endif %}
 
 
-    {{form_row(edit_form.entreprise, {'label':'Gérant de'})}}
-  
+    {#{form_row(edit_form.entreprise, {'label':'Gérant de'})}}
+
     {{form_row(edit_form.stagiaire, {'label':'Stagiaire'})}}
  
     {{form_row(edit_form.recruteur, {'label':'Recruteur'})}}
  
-    {{form_row(edit_form.formateur, {'label':'Formateur'})}}
+    {{form_row(edit_form.formateur, {'label':'Formateur'})}#}
 
+    
+    {{form_rest(edit_form)}}
     <p>
         <button type="submit">Edit</button>
     </p>
@@ -42,3 +72,4 @@ Les rôles de cet utilisateur ne permettent pas une association à un profil
         </a>
     </li>
 </ul>
+{%endblock%}
