@@ -11,6 +11,10 @@
             <th>Email</th>
             <th>Lastlogin</th>
             <th>Roles</th>
+            <th>Profil entreprise</th>
+            <th>Profil stagiaire</th>
+            <th>Profil recruteur</th>
+            <th>Profil formateur</th>
             <th>Id</th>
             <th>Actions</th>
         </tr>
@@ -26,6 +30,26 @@
                         {{ role }}<br>
                     {%endfor%}
                 {%else%} Aucun role attribué
+                {%endif%}                    
+                </td>      
+            <td>{% if entity.entreprise is defined %}
+                        {{ entity.entreprise }} 
+                {%else%} non attribué
+                {%endif%}                    
+                </td>      
+            <td>{% if entity.stagiaire is defined %}
+                        {{ entity.stagiaire }} 
+                {%else%} non attribué
+                {%endif%}                    
+                </td>      
+            <td>{% if entity.recruteur is defined %}
+                        {{ entity.recruteur }} 
+                {%else%} non attribué
+                {%endif%}                    
+                </td>      
+            <td>{% if entity.formateur is defined %}
+                        {{ entity.formateur }} 
+                {%else%} non attribué
                 {%endif%}                    
                 </td>      
             <td>{{ entity.id }}</td>

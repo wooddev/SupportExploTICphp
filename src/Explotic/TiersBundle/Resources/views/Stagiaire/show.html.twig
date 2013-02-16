@@ -79,7 +79,7 @@
     <br class="spacer">
 </div>
 <div style="float:left">
-    {%if entity.machine is defined %}
+    {%if entity.machine.reference is defined %}
             {%include 'ExploticTiersBundle:Machine:show/content.html.twig' with {'entity':entity.machine, 'depuis':'stagiaire'} %}
     {%endif%}
 </div>

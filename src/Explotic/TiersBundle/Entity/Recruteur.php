@@ -220,4 +220,10 @@ class Recruteur
     {
         return $this->compte;
     }
+    
+    
+    public function __toString()
+    {
+        return $this->getPrenom().' '.$this->getNom();
+    }
 }

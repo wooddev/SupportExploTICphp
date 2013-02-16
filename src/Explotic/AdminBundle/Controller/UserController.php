@@ -235,5 +235,6 @@ class UserController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
-    }
+    }    
+    
 }
