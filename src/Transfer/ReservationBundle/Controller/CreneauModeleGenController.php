@@ -13,80 +13,38 @@ use Transfer\ReservationBundle\Generateurs\CreneauModeleGen;
  * CreneauModele controller.
  *
  */
-class CreneauModeleController extends Controller
+class CreneauModeleGenController extends Controller
 {
-    /**
-     * Lists all CreneauModele entities.
-     *
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('TransferReservationBundle:CreneauModele')->findAll();
-
-        return $this->render('TransferReservationBundle:CreneauModele:index.html.twig', array(
-            'entities' => $entities,
-        ));
-    }
-
-    /**
-     * Finds and displays a CreneauModele entity.
-     *
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('TransferReservationBundle:CreneauModele')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find CreneauModele entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('TransferReservationBundle:CreneauModele:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
-    }
-
-    /**
-     * Displays a form to create a new CreneauModele entity.
-     *
-     */
-    public function newAction()
-    {
-        $entity = new CreneauModele();
-        $form   = $this->createForm(new CreneauModeleType(), $entity);
-
-        return $this->render('TransferReservationBundle:CreneauModele:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
-    }
-
     /**
      * Creates a new CreneauModele entity.
      *
      */
-    public function createAction(Request $request)
+    public function createAction()
     {
-        $entity  = new CreneauModele();
-        $form = $this->createForm(new CreneauModeleType(), $entity);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('creneaumodele_show', array('id' => $entity->getId())));
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        $creneauxOld = $em->getRepository('TransferReservationBundle:CreneauModele')
+                ->findAll();
+        
+        foreach($creneauxOld as $creneau){
+            $em->remove($creneau);
         }
-
-        return $this->render('TransferReservationBundle:CreneauModele:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+        
+        $em->flush();       
+        
+        $posteAutonome = $em->getRepository('TransferReservationBundle:TypePoste')->find(1);
+        $generateur  = new CreneauModeleGen(6,0, 0, 19, 20,$posteAutonome->getDisponibilite() , $posteAutonome);
+        $generateur->generate();
+        
+        foreach ($generateur->getCreneauxModels() as $creneauModele)
+        {
+            $em->persist($creneauModele);
+        }
+        
+        $em->flush();       
+       
+        return $this->render('TransferReservationBundle:CreneauModele:index.html.twig', array(
+            'entities'      => $generateur->getCreneauxModels()
         ));
     }
 

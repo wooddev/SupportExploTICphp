@@ -1,0 +1,18 @@
+creneaumodele_create:
+    pattern:  /create
+    defaults: { _controller: "TransferReservationBundle:CreneauModeleGen:create" }
+#    requirements: { _method: post }
+
+creneaumodele_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TransferReservationBundle:CreneauModeleGen:edit" }
+
+creneaumodele_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TransferReservationBundle:CreneauModeleGen:update" }
+    requirements: { _method: post }
+
+creneaumodele_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TransferReservationBundle:CreneauModeleGen:delete" }
+    requirements: { _method: post }

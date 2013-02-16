@@ -22,8 +22,8 @@
             <td>{{ entity.heure }}</td>
             <td>{{ entity.minute }}</td>
             <td>{{ entity.duree }}</td>
-            <td>{{ entity.heureDebut }}</td>
-            <td>{{ entity.heureFin }}</td>
+            <td>{{ entity.heureDebut| date('d-m-Y h:i:s')}}</td>
+            <td>{{ entity.heureFin| date('d-m-Y h:i:s') }}</td>
             <td>{{ entity.disponibilite }}</td>
             <td>
                 <ul>

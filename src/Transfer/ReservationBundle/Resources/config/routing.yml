@@ -4,6 +4,9 @@ transfer_reservation_creneauRdv:
 transfer_reservation_creneauModele:
     resource: "@TransferReservationBundle/Resources/config/routing/creneaumodele.yml"
     prefix:   /creneaumodele
+transfer_reservation_creneauModeleGen:
+    resource: "@TransferReservationBundle/Resources/config/routing/creneaumodelegen.yml"
+    prefix:   /creneaumodelegen
 transfer_reservation_typeposte:
     resource: "@TransferReservationBundle/Resources/config/routing/typeposte.yml"
     prefix:   /typeposte
