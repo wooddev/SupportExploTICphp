@@ -39,6 +39,11 @@ class CreneauModeleGen {
      */
     
     
+//    public function __construct()
+//    {
+//        $this->CreneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
+// 
+//    }
     public function __construct($_heureDebut,$_minDebut, $_minFin,
             $_heureFin,$_pasDeTemps, $_disponibilite,
             \Transfer\ReservationBundle\Entity\TypePoste $typePoste)
@@ -87,9 +92,50 @@ class CreneauModeleGen {
         }    
         
     }
-      
-      
     
+    public function setDisponibilite($disponibilite){
+        return $this->disponibilite=$disponibilite;
+    }
+   public function setHeureDebut($heureDebut){
+       return $this->heureDebut= $heureDebut;
+   }
+   public function setMinDebut($minuteDebut){
+       return $this->minDebut= $minuteDebut;
+   } 
+   public function setHeureFin($heureFin){
+       return $this->heureFin=$heureFin;
+   }
+   public function setMinFin($minuteFin){
+       return $this->minFin=$minuteFin;
+   }
+   public function setPasDeTemps($pasDeTemps){
+       return $this->pasDeTemps=$pasDeTemps;
+   }
+   public function setTypePoste($typePoste){
+       return $this->typePoste=$typePoste;
+   }
+    public function getDisponibilite(){
+        return $this->disponibilite;
+    }
+   public function getHeureDebut(){
+       return $this->heureDebut;
+   }
+   public function getMinDebut(){
+       return $this->minDebut;
+   } 
+   public function getHeureFin(){
+       return $this->heureFin;
+   }
+   public function getMinFin(){
+       return $this->minFin;
+   }
+   public function getPasDeTemps(){
+       return $this->pasDeTemps;
+   }
+   public function getTypePoste(){
+       return $this->typePoste;
+   }
 }
+
 
 ?>

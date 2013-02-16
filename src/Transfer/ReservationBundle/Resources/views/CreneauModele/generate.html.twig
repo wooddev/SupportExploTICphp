@@ -1,0 +1,16 @@
+<h1>CreneauModele creation</h1>
+
+<form action="{{ path('creneaumodelegen_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Générer les créneaux modèles</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('creneaumodele') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>

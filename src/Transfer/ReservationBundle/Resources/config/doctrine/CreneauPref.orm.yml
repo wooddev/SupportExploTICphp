@@ -2,13 +2,13 @@ Transfer\ReservationBundle\Entity\CreneauPref:
   type: entity
   table: null
   repositoryClass: Transfer\ReservationBundle\Entity\CreneauPrefRepository
-  ManyToOne:
+  manyToOne:
     creneauModelePref:
       targetEntity: CreneauModele
-      inversedBy: CreneauPrefModeles
+      inversedBy: creneauPrefModeles
     transporteurPref:
       targetEntity: Transfer\ProfilBundle\Entity\Transporteur
-      inversedBy: CreneauPrefs
+      inversedBy: creneauPrefs
   fields:
     id:
       type: integer

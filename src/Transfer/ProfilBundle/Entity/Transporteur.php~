@@ -195,4 +195,42 @@ class Transporteur
     public function __toString() {
         return $this->getId().'  '.$this->getNom();
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $creneauPrefs;
+
+
+    /**
+     * Add creneauPrefs
+     *
+     * @param \Transfer\ReservationBundle\Entity\CreneauPref $creneauPrefs
+     * @return Transporteur
+     */
+    public function addCreneauPref(\Transfer\ReservationBundle\Entity\CreneauPref $creneauPrefs)
+    {
+        $this->creneauPrefs[] = $creneauPrefs;
+    
+        return $this;
+    }
+
+    /**
+     * Remove creneauPrefs
+     *
+     * @param \Transfer\ReservationBundle\Entity\CreneauPref $creneauPrefs
+     */
+    public function removeCreneauPref(\Transfer\ReservationBundle\Entity\CreneauPref $creneauPrefs)
+    {
+        $this->creneauPrefs->removeElement($creneauPrefs);
+    }
+
+    /**
+     * Get creneauPrefs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCreneauPrefs()
+    {
+        return $this->creneauPrefs;
+    }
 }

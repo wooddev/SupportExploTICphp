@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Transfer\ReservationBundle\Entity\CreneauModele;
 use Transfer\ReservationBundle\Form\CreneauModeleType;
 use Transfer\ReservationBundle\Generateurs\CreneauModeleGen;
+use Transfer\ReservationBundle\Form\CreneauModeleGenType;
 
 /**
  * CreneauModele controller.
@@ -15,11 +16,27 @@ use Transfer\ReservationBundle\Generateurs\CreneauModeleGen;
  */
 class CreneauModeleGenController extends Controller
 {
+     /**
+     * Displays a form to generate CreneauModele.
+     *
+     */
+    public function generateAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = new CreneauModeleGen(6,0, 0, 19, 20,2, $em->getRepository('TransferReservationBundle:TypePoste')->find(1));
+                    
+        $form   = $this->createForm(new CreneauModeleGenType(), $entity);
+
+        return $this->render('TransferReservationBundle:CreneauModele:generate.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+    }
     /**
      * Creates a new CreneauModele entity.
      *
      */
-    public function createAction()
+    public function createAction(Request $request)
     {
         $em = $this->getDoctrine()->getEntityManager();
         
@@ -30,18 +47,24 @@ class CreneauModeleGenController extends Controller
             $em->remove($creneau);
         }
         
-        $em->flush();       
+        $em->flush();
         
-        $posteAutonome = $em->getRepository('TransferReservationBundle:TypePoste')->find(1);
-        $generateur  = new CreneauModeleGen(6,0, 0, 19, 20,$posteAutonome->getDisponibilite() , $posteAutonome);
-        $generateur->generate();
+//        Version sans formulaire, à partir du constructeur modifié
+//        $posteAutonome = $em->getRepository('TransferReservationBundle:TypePoste')->find(1);
+//        $generateur  = new CreneauModeleGen(6,0, 0, 19, 20,$posteAutonome->getDisponibilite() , $posteAutonome);                
+// 
         
-        foreach ($generateur->getCreneauxModels() as $creneauModele)
-        {
-            $em->persist($creneauModele);
+        $generateur = new CreneauModeleGen();
+        $form = $this->createForm(new CreneauModeleGenType(), $generateur);
+        $form->bind($request);        
+        
+        if ($form->isValid()){
+            $generateur->generate();        
+            foreach ($generateur->getCreneauxModels() as $creneauModele){
+                $em->persist($creneauModele);
+            }        
+            $em->flush();  
         }
-        
-        $em->flush();       
        
         return $this->render('TransferReservationBundle:CreneauModele:index.html.twig', array(
             'entities'      => $generateur->getCreneauxModels()

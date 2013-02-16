@@ -11,7 +11,7 @@ Transfer\ProfilBundle\Entity\Transporteur:
         mappedBy: transporteur
       creneauPrefs:
         targetEntity: Transfer\ReservationBundle\Entity\CreneauPref
-        mappedBy: TransporteurPref
+        mappedBy: transporteurPref
     fields:
         id:
             type: integer
