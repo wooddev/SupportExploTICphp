@@ -11,7 +11,7 @@ class CreneauModeleGenType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('heureDebut',null,array(
+            ->add('heureDebut','number',array(
                 'precision'=>0,
                 'label'=>'Heure de début de journée',
                 
