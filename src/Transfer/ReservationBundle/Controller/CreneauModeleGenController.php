@@ -23,8 +23,8 @@ class CreneauModeleGenController extends Controller
     public function generateAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = new CreneauModeleGen(6,0, 0, 19, 20,2, $em->getRepository('TransferReservationBundle:TypePoste')->find(1));
-                    
+        $entity = new CreneauModeleGen();
+         $entity->init(6,0, 0, 19, 20,2, $em->getRepository('TransferReservationBundle:TypePoste')->find(1));           
         $form   = $this->createForm(new CreneauModeleGenType(), $entity);
 
         return $this->render('TransferReservationBundle:CreneauModele:generate.html.twig', array(

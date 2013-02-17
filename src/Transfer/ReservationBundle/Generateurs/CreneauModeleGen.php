@@ -44,20 +44,20 @@ class CreneauModeleGen {
         $this->CreneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
  
     }
-//    public function __construct($_heureDebut,$_minDebut, $_minFin,
-//            $_heureFin,$_pasDeTemps, $_disponibilite,
-//            \Transfer\ReservationBundle\Entity\TypePoste $typePoste)
-//    {
-//        $this->CreneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
-//        $this->typePoste= $typePoste;
-//        $this->heureDebut = $_heureDebut;
-//        $this->heureFin= $_heureFin;
-//        $this->minDebut= $_minDebut;
-//        $this->minFin= $_minFin;
-//        $this->pasDeTemps = $_pasDeTemps;      
-//        $this->disponibilite = $_disponibilite;
-//    }
-//    
+    public function init($_heureDebut,$_minDebut, $_minFin,
+            $_heureFin,$_pasDeTemps, $_disponibilite,
+            \Transfer\ReservationBundle\Entity\TypePoste $typePoste)
+    {
+        $this->CreneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->typePoste= $typePoste;
+        $this->heureDebut = $_heureDebut;
+        $this->heureFin= $_heureFin;
+        $this->minDebut= $_minDebut;
+        $this->minFin= $_minFin;
+        $this->pasDeTemps = $_pasDeTemps;      
+        $this->disponibilite = $_disponibilite;
+    }
+    
     /*
      * Méthode Générator :
      * Permet de générer les modèles de créneaux sur une semaine
