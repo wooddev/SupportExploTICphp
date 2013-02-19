@@ -7,6 +7,9 @@ security:
         FOS\UserBundle\Model\UserInterface : sha512        
 
     role_hierarchy:
+        ROLE_GERANT : ROLE_SUPER_USER
+        ROLE_RECRUTEUR : ROLE_SUPER_USER
+        ROLE_FORMATEUR : ROLE_SUPER_USER
         ROLE_ADMIN:       [ROLE_STAGIAIRE, ROLE_RECRUTEUR, ROLE_FORMATEUR, ROLE_GERANT]
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
@@ -43,6 +46,8 @@ security:
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/resetting, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/admin, roles: ROLE_ADMIN}
+        
         #- { path: ^/formation/, roles: ROLE_ADMIN}
         
         #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }

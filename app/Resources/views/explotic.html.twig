@@ -51,10 +51,12 @@
                             <li><a href="#"  title="">Mon Profil</a>
                                 <br class="spacer" />
                                 <ul class="subNav">
-                                        <li><a href="#" title="Consulter mon profil">Consulter</a></li>
+                                        <li><a href="{{path('mon_profil')}}" title="Consulter mon profil">Consulter</a></li>
                                         <li><a href="#" title="Modifier mon profil">Modifier</a></li>
-                                        <li><a href="#" title="Consulter mon planning">Mon Planning</a></li>                                        
-                                        <li><a href="#" title="Consulter mes recrutements">Mes Recrutements</a></li>                                        
+                                        <li><a href="#" title="Consulter mon planning">Mon Planning</a></li>
+                                        {% if is_granted('ROLE_RECRUTEUR') %}
+                                        <li><a href="#" title="Consulter mes recrutements">Mes Recrutements</a></li>  
+                                        {% endif %}
                                 </ul>                                
                             </li>
                             <li><a href="#"  title="">Formations</a>
@@ -65,15 +67,18 @@
                                 </ul>                            
                             <br class="spacer" />
                             </li>
+                            {% if is_granted ('ROLE_SUPER_USER') %}
                             <li><a href="#"  title="">Stagiaires</a>
                             <br class="spacer" />
-                                <ul class="subNav">
+                                <ul class="subNav">                                    
                                         <li><a href="{{path('stagiaire')}}" title="Liste des profils">Profils</a></li>
                                         <li><a href="{{path('entreprise')}}" title="Entreprises">Entreprises</a></li>
                                 </ul>
                                 <br class="spacer" />
                             </li>
+                            {% endif %}
                             <li><a href="#" title="Liste des formateurs">Formateurs</a></li>
+                            {% if is_granted ('ROLE_ADMIN')%}
                             <li><a href="#"  title="">Admin</a>
                             <br class="spacer" />
                                 <ul class="subNav">
@@ -82,6 +87,7 @@
                                 </ul>
                                 <br class="spacer" />
                             </li>
+                            {%endif%}
                     </ul>         
                 </div>
             <!--Navigation Part Ends -->

@@ -1,0 +1,53 @@
+
+{%extends "ExploticMainBundle::layout.html.twig" %}
+{% block bodyOpt %}onload="initialize()"{% endblock %}  
+{% block body %} 
+<div style="float:top">
+<h1> {{user.username}} </h1>
+</div>
+<div class="profil">
+<div class="pr_header">
+    <h1> Informations du compte</h1>    
+    <p> Adresse eMail : {{user.email}} </p>     
+</div>
+{% if is_granted('ROLE_GERANT') %}
+        {%if user.entreprise is defined %}
+<div class="box">
+    {%include 'ExploticTiersBundle:Entreprise:show/content.html.twig' with {'entreprise':user.entreprise} %}
+</div>
+        {%endif%}
+{%endif%}
+{% if is_granted('ROLE_STAGIAIRE') %}
+        {%if user.stagiaire is defined %}
+<div class="box">
+    {%include 'ExploticTiersBundle:Stagiaire:show/content.html.twig' with {'entity':user.stagiaire} %}
+</div>
+                {%if user.stagiaire.machine is defined %}
+<div class="box">
+    {%include 'ExploticTiersBundle:Machine:show/content.html.twig' with {'entity':user.stagiaire.machine} %}
+</div>
+            {%endif%}
+                {%if user.stagiaire.postes is defined %}
+<div class="box">
+    {%include 'ExploticTiersBundle:Poste:index/content.html.twig' with {'entities':user.stagiaire.postes} %}
+</div>
+            {%endif%}
+        {%endif%}
+
+{%endif%}
+{% if is_granted('ROLE_FORMATEUR') %}
+        {%if user.formateur is defined %}
+<div class="box">
+    {%include 'ExploticTiersBundle:Formateur:show/content.html.twig' with {'entity':user.formateur} %}
+</div>
+        {%endif%}
+{%endif%}
+{% if is_granted('ROLE_RECRUTEUR') %}
+        {%if user.recruteur is defined %}
+<div class="box">
+    {%include 'ExploticTiersBundle:Recruteur:show/content.html.twig' with {'entity':user.recruteur} %}
+</div>
+        {%endif%}
+{%endif%}
+</div>
+{% endblock%}

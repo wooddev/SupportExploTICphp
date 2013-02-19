@@ -1,0 +1,51 @@
+
+
+<div style="float:left">
+    <h1>{{ entity.prenom }} <br> {{ entity.nom }}</h1>
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <td colspan="2"> 
+{%if entity.gerant== true %}
+                    Gérant de l'entreprise {{entity.entreprise.raisonsociale}}
+{% else %}
+                    Employé de l'entreprise {{entity.entreprise.raisonsociale}}
+{% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Datenaissance</th>
+            <td>{{ entity.dateNaissance|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Opca</th>
+            <td>{{ entity.opca }}</td>
+        </tr>
+        <tr>
+            <th>Marchepiedinfo</th>
+            <td>{{ entity.marchePiedInfo }}</td>
+        </tr>
+        <tr>
+            <th>Téléphone</th>
+            <td>{{ entity.telephone }}</td>
+        </tr>
+        <tr>
+            <th>Forfait téléphonique</th>
+            <td>{{ entity.forfaittelephone }}</td>
+        </tr>
+        <tr>
+            <th>Niveau informatique</th>
+            <td>{{ entity.niveauinfo }}</td>
+        </tr>
+        <tr>
+            <th>Activité dans l'entreprise</th>
+            <td>{{ entity.typeemploi }}</td>
+        </tr>
+        <tr>
+            <th>Commentaires</th>
+            <td>{{ entity.commentaire }}</td>
+        </tr>
+        
+    </tbody>
+</table>
+</div>
