@@ -171,7 +171,7 @@ class Formateur
     {
         $this->sessions->removeElement($sessions);
     }
-
+    
     /**
      * Get sessions
      *
@@ -185,8 +185,7 @@ class Formateur
      * @var \Explotic\AdminBundle\Entity\User
      */
     private $compte;
-
-
+    
     /**
      * Set compte
      *
@@ -199,7 +198,7 @@ class Formateur
     
         return $this;
     }
-
+    
     /**
      * Get compte
      *
@@ -208,5 +207,9 @@ class Formateur
     public function getCompte()
     {
         return $this->compte;
+    }
+    
+    public function __toString() {
+        return $this->prenom.' '.$this->nom;
     }
 }

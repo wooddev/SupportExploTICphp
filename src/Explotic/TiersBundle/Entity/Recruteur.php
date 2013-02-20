@@ -92,6 +92,7 @@ class Recruteur
     {
         $this->stagiaires = new \Doctrine\Common\Collections\ArrayCollection();
         $this->entreprises = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comptes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -192,38 +193,47 @@ class Recruteur
     {
         return $this->entreprises;
     }
+       
+    public function __toString()
+    {
+        return $this->getPrenom().' '.$this->getNom();
+    }
     /**
-     * @var \Explotic\AdminBundle\Entity\User
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $compte;
+    private $comptes;
 
 
     /**
-     * Set compte
+     * Add comptes
      *
-     * @param \Explotic\AdminBundle\Entity\User $compte
+     * @param \Explotic\AdminBundle\Entity\User $comptes
      * @return Recruteur
      */
-    public function setCompte(\Explotic\AdminBundle\Entity\User $compte = null)
+    public function addCompte(\Explotic\AdminBundle\Entity\User $comptes)
     {
-        $this->compte = $compte;
+        $this->comptes[] = $comptes;
     
         return $this;
     }
 
     /**
-     * Get compte
+     * Remove comptes
      *
-     * @return \Explotic\AdminBundle\Entity\User 
+     * @param \Explotic\AdminBundle\Entity\User $comptes
      */
-    public function getCompte()
+    public function removeCompte(\Explotic\AdminBundle\Entity\User $comptes)
     {
-        return $this->compte;
+        $this->comptes->removeElement($comptes);
     }
-    
-    
-    public function __toString()
+
+    /**
+     * Get comptes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComptes()
     {
-        return $this->getPrenom().' '.$this->getNom();
+        return $this->comptes;
     }
 }

@@ -2,6 +2,7 @@ parameters:
 #    explotic_main.example.class: Explotic\MainBundle\Example
 
 services:
-#    explotic_main.example:
-#        class: %explotic_main.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    form.type.gmaps_picker:
+        class: Explotic\MainBundle\Form\Type\GMapsPickerType
+        tags:
+          - {name: form.type , alias : gmaps_picker }

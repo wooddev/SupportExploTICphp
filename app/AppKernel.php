@@ -27,6 +27,8 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Explotic\AdminBundle\ExploticAdminBundle(),
             new Explotic\MainBundle\ExploticMainBundle(),
+            new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
+            new Sonata\jQueryBundle\SonatajQueryBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {            

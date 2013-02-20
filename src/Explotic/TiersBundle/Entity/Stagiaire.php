@@ -78,6 +78,7 @@ class Stagiaire
         $this->sessions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->postes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->programmes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comptes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -610,32 +611,43 @@ class Stagiaire
     {
         return $this->recruteur;
     }
+    
     /**
-     * @var \Explotic\AdminBundle\Entity\User
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $compte;
+    private $comptes;
 
 
     /**
-     * Set compte
+     * Add comptes
      *
-     * @param \Explotic\AdminBundle\Entity\User $compte
+     * @param \Explotic\AdminBundle\Entity\User $comptes
      * @return Stagiaire
      */
-    public function setCompte(\Explotic\AdminBundle\Entity\User $compte = null)
+    public function addCompte(\Explotic\AdminBundle\Entity\User $comptes)
     {
-        $this->compte = $compte;
+        $this->comptes[] = $comptes;
     
         return $this;
     }
 
     /**
-     * Get compte
+     * Remove comptes
      *
-     * @return \Explotic\AdminBundle\Entity\User 
+     * @param \Explotic\AdminBundle\Entity\User $comptes
      */
-    public function getCompte()
+    public function removeCompte(\Explotic\AdminBundle\Entity\User $comptes)
     {
-        return $this->compte;
+        $this->comptes->removeElement($comptes);
+    }
+
+    /**
+     * Get comptes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComptes()
+    {
+        return $this->comptes;
     }
 }

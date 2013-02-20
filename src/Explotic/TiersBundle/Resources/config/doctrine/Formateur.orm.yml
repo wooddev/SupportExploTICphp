@@ -5,10 +5,11 @@ Explotic\TiersBundle\Entity\Formateur:
     oneToOne:
       calendrier:
         targetEntity: Explotic\PlanningBundle\Entity\Calendrier
-      compte:
+    oneToMany:
+      comptes:
         targetEntity: Explotic\AdminBundle\Entity\User
         mappedBy: formateur
-        nullable: true
+        nullable: true      
     manyToOne:
       Organisme:
         targetEntity: Organisme

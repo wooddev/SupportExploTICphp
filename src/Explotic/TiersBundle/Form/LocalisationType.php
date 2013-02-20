@@ -13,7 +13,10 @@ class LocalisationType extends AbstractType
         $builder
             ->add('commune')
             ->add('cp')
-            ->add('geometry', new GeometryType())
+            ->add('geometry', 'gmaps_picker', array(
+                'label'=> 'point',
+                'data_class' => 'Explotic\TiersBundle\Entity\Geometry'
+            ))
         ;
     }
 

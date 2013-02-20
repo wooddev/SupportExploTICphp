@@ -9,10 +9,6 @@ Explotic\TiersBundle\Entity\Entreprise:
           name: bureau_id
           referencedColumnName: id
         cascade: ["persist"]
-      compte:
-        targetEntity: Explotic\AdminBundle\Entity\User
-        mappedBy: entreprise
-        nullable: true
     oneToMany:
       stagiaires:
         targetEntity: stagiaire
@@ -25,6 +21,10 @@ Explotic\TiersBundle\Entity\Entreprise:
       employesrecruteurs:
         targetEntity: Explotic\TiersBundle\Entity\Recruteur
         mappedBy: employeur
+        nullable: true
+      comptes:
+        targetEntity: Explotic\AdminBundle\Entity\User
+        mappedBy: entreprise
         nullable: true
     manyToMany:
       recruteurs:

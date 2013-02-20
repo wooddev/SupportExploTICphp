@@ -2,11 +2,6 @@ Explotic\TiersBundle\Entity\Recruteur:
   type: entity
   table: null
   repositoryClass: Explotic\TiersBundle\Entity\RecruteurRepository
-  oneToOne:
-      compte:
-        targetEntity: Explotic\AdminBundle\Entity\User
-        mappedBy: recruteur
-        nullable: true
   manyToOne:
     employeur:
       targetEntity: Explotic\TiersBundle\Entity\Entreprise
@@ -16,6 +11,10 @@ Explotic\TiersBundle\Entity\Recruteur:
       targetEntity: Explotic\TiersBundle\Entity\Stagiaire
       mappedBy: recruteur
       nullable: true
+    comptes:
+      targetEntity: Explotic\AdminBundle\Entity\User
+      mappedBy: recruteur
+      nullable: true      
   manyToMany:
     entreprises:
       targetEntity: Entreprise

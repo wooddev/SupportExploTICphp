@@ -1,1 +1,25 @@
-{# empty Twig template #}
+
+{# src/Explotic/TiersBundle/Resources/views/Form/fields.html.twig #}
+ 
+{% block gmap_address_widget %}</pre>
+<div id="{{ id }}_gmap_address_widget">
+<div id="{{ id }}_input">{{ block('form_widget') }}</div>
+<div id="{{ id }}_map" class="gmap_address_map"></div>
+</div>
+ 
+<script type="text/javascript">
+$(function() {
+            var addresspickerMap = $("#{{ form.address.get("id") }}").addresspicker({
+                regionBias: "fr",
+                elements: {
+                    map: "#{{ id }}_map",,
+                    lat:      "#{{ form.lat.get("id") }}",
+                    lng:      "#{{ form.lng.get("id") }}"
+                }
+            });
+            var gmarker = addresspickerMap.addresspicker("marker");
+            gmarker.setVisible(true);
+            addresspickerMap.addresspicker("updatePosition");
+    });
+</script>
+{% endblock %}

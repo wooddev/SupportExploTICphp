@@ -182,6 +182,7 @@ class Entreprise
     {
         $this->stagiaires = new \Doctrine\Common\Collections\ArrayCollection();
         $this->machines = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comptes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -478,34 +479,7 @@ class Entreprise
     {
         return $this->recruteurs;
     }
-    /**
-     * @var \Explotic\AdminBundle\Entity\User
-     */
-    private $compte;
 
-
-    /**
-     * Set compte
-     *
-     * @param \Explotic\AdminBundle\Entity\User $compte
-     * @return Entreprise
-     */
-    public function setCompte(\Explotic\AdminBundle\Entity\User $compte = null)
-    {
-        $this->compte = $compte;
-    
-        return $this;
-    }
-
-    /**
-     * Get compte
-     *
-     * @return \Explotic\AdminBundle\Entity\User 
-     */
-    public function getCompte()
-    {
-        return $this->compte;
-    }
     /**
      * @var string
      */
@@ -533,5 +507,43 @@ class Entreprise
     public function getEmail()
     {
         return $this->email;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $comptes;
+
+
+    /**
+     * Add comptes
+     *
+     * @param \Explotic\AdminBundle\Entity\User $comptes
+     * @return Entreprise
+     */
+    public function addCompte(\Explotic\AdminBundle\Entity\User $comptes)
+    {
+        $this->comptes[] = $comptes;
+    
+        return $this;
+    }
+
+    /**
+     * Remove comptes
+     *
+     * @param \Explotic\AdminBundle\Entity\User $comptes
+     */
+    public function removeCompte(\Explotic\AdminBundle\Entity\User $comptes)
+    {
+        $this->comptes->removeElement($comptes);
+    }
+
+    /**
+     * Get comptes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComptes()
+    {
+        return $this->comptes;
     }
 }

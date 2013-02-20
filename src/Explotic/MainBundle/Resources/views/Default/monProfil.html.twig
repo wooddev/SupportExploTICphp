@@ -11,23 +11,23 @@
     <p> Adresse eMail : {{user.email}} </p>     
 </div>
 {% if is_granted('ROLE_GERANT') %}
-        {%if user.entreprise is defined %}
+        {%if user.entreprise.id is defined %}
 <div class="box">
     {%include 'ExploticTiersBundle:Entreprise:show/content.html.twig' with {'entreprise':user.entreprise} %}
 </div>
         {%endif%}
 {%endif%}
 {% if is_granted('ROLE_STAGIAIRE') %}
-        {%if user.stagiaire is defined %}
+        {%if user.stagiaire.id is defined %}
 <div class="box">
     {%include 'ExploticTiersBundle:Stagiaire:show/content.html.twig' with {'entity':user.stagiaire} %}
 </div>
-                {%if user.stagiaire.machine is defined %}
+                {%if user.stagiaire.machine.id is defined %}
 <div class="box">
     {%include 'ExploticTiersBundle:Machine:show/content.html.twig' with {'entity':user.stagiaire.machine} %}
 </div>
             {%endif%}
-                {%if user.stagiaire.postes is defined %}
+                {%if user.stagiaire.postes[0].id is defined %}
 <div class="box">
     {%include 'ExploticTiersBundle:Poste:index/content.html.twig' with {'entities':user.stagiaire.postes} %}
 </div>
@@ -36,14 +36,14 @@
 
 {%endif%}
 {% if is_granted('ROLE_FORMATEUR') %}
-        {%if user.formateur is defined %}
+        {%if user.formateur.id is defined %}
 <div class="box">
     {%include 'ExploticTiersBundle:Formateur:show/content.html.twig' with {'entity':user.formateur} %}
 </div>
         {%endif%}
 {%endif%}
 {% if is_granted('ROLE_RECRUTEUR') %}
-        {%if user.recruteur is defined %}
+        {%if user.recruteur.id is defined %}
 <div class="box">
     {%include 'ExploticTiersBundle:Recruteur:show/content.html.twig' with {'entity':user.recruteur} %}
 </div>

@@ -1,22 +1,22 @@
 Explotic\AdminBundle\Entity\User:
   type: entity
   table: fos_user
-  oneToOne:
+  manyToOne:
     entreprise:
       targetEntity: Explotic\TiersBundle\Entity\Entreprise
-      inversedBy: compte
+      inversedBy: comptes
       nullable: true
     recruteur:
       targetEntity: Explotic\TiersBundle\Entity\Recruteur
-      inversedBy: compte
+      inversedBy: comptes
       nullable: true
     stagiaire:
       targetEntity: Explotic\TiersBundle\Entity\Stagiaire
-      inversedBy: compte
+      inversedBy: comptes
       nullable: true
     formateur:
       targetEntity: Explotic\TiersBundle\Entity\Formateur
-      inversedBy: compte
+      inversedBy: comptes
       nullable: true
   fields:
     id:

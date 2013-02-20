@@ -1,11 +1,11 @@
 #Explotic/AdminBundle/Resources/config/validation.yml
-Explotic\AdminBundle\Entity\User:
-  properties:
-    entreprise:
-      - 'Null': ~
-    recruteur:
-      - 'Null': ~
-    stagiaire:
-      - 'Null': ~
-    formateur:
-      - 'Null': ~
+#Explotic\AdminBundle\Entity\User:
+#  properties:
+#    entreprise:
+#      - 'Null': ~
+#    recruteur:
+#      - 'Null': ~
+#    stagiaire:
+#      - 'Null': ~
+#    formateur:
+#      - 'Null': ~
