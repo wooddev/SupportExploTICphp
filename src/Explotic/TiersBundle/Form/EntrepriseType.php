@@ -5,11 +5,13 @@ namespace Explotic\TiersBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Explotic\TiersBundle\Form\DataTransformer\BureauToGMapsAddressTransformer;
 
 class EntrepriseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $transformer = new BureauToGMapsAddressTransformer();
         $builder
             ->add('raisonSociale')
             ->add('telephone')
@@ -19,7 +21,14 @@ class EntrepriseType extends AbstractType
             ->add('versionExplotic')
             ->add('email')
             ->add('commentaires')
-            ->add('bureau', new BureauType())
+            ->add(
+                    'bureau', 'gmaps_address_picker')
+                        ->addModelTransformer($transformer)
+                    
+//            ->add(
+//                    $builder->create('bureau', 'gmaps_address_picker')
+//                        ->addModelTransformer($transformer)
+//                    )
         ;
     }
 

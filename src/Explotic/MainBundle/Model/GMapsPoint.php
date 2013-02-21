@@ -1,12 +1,13 @@
 <?php
-
+namespace Explotic\MainBundle\Model;
 
 /**
- * Description of GMaps_point
+ * Description of GMapsPoint
  *
  * @author arraiolosa
  */
-class GMapsPoint {
+class GMapsPoint
+{
     //put your code here
     protected $lat;
     protected $lon;

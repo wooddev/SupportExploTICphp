@@ -6,3 +6,7 @@ services:
         class: Explotic\MainBundle\Form\Type\GMapsPickerType
         tags:
           - {name: form.type , alias : gmaps_picker }
+    form.type.gmaps_address_picker:
+        class: Explotic\MainBundle\Form\Type\GMapsAddressPickerType
+        tags:
+          - {name: form.type , alias : gmaps_address_picker }

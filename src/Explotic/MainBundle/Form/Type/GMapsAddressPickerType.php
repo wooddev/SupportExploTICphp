@@ -7,17 +7,29 @@ use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class GMapsPickerType extends AbstractType
+class GMapsAddressPickerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options )
     {
         $builder
+               ->add('address', null, array(
+                    'required'      => true,
+                ))
+               ->add('street', 'hidden', array(
+                    'required'      => true,
+                ))                
+                ->add('city', 'hidden', array(
+                    'required'      => false,
+                ))
+                ->add('postalCode', 'hidden', array(
+                    'required'      => false,
+                ))
                 ->add('lat', 'hidden', array(
                     'required'      => false
                 ))
                 ->add('lon', 'hidden', array(
-                    'required'      => false
-                ))
+                    'required'      => false                                  
+            ))
         ;
     }
             
@@ -40,6 +52,6 @@ class GMapsPickerType extends AbstractType
     }
     public function getName()
     {
-        return 'gmaps_picker';
+        return 'gmaps_address_picker';
     }
 }
