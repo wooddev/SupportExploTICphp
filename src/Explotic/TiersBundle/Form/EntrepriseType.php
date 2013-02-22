@@ -21,14 +21,15 @@ class EntrepriseType extends AbstractType
             ->add('versionExplotic')
             ->add('email')
             ->add('commentaires')
-            ->add(
-                    'bureau', 'gmaps_address_picker')
-                        ->addModelTransformer($transformer)
-                    
+//            ->add('bureau', new BureauType())
+            
 //            ->add(
-//                    $builder->create('bureau', 'gmaps_address_picker')
+//                    'bureau', 'gmaps_address_picker')
 //                        ->addModelTransformer($transformer)
-//                    )
+                    
+            ->add(
+                    $builder->create('bureau', 'gmaps_address_picker')->addModelTransformer($transformer)
+                    )
         ;
     }
 

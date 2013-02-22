@@ -20,7 +20,7 @@ class BureauToGMapsAddressTransformer implements DataTransformerInterface
     public function transform($bureau)
     {
         if (null === $bureau) {
-            return "";
+            return null;
         }
         
         $gmapsAddress = new GMapsAddress();

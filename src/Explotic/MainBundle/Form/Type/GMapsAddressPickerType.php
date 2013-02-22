@@ -15,19 +15,19 @@ class GMapsAddressPickerType extends AbstractType
                ->add('address', null, array(
                     'required'      => true,
                 ))
-               ->add('street', 'hidden', array(
+               ->add('street', null, array(
                     'required'      => true,
                 ))                
-                ->add('city', 'hidden', array(
+                ->add('city', null, array(
                     'required'      => false,
                 ))
-                ->add('postalCode', 'hidden', array(
+                ->add('postalCode', null, array(
                     'required'      => false,
                 ))
-                ->add('lat', 'hidden', array(
+                ->add('lat', null, array(
                     'required'      => false
                 ))
-                ->add('lon', 'hidden', array(
+                ->add('lon', null, array(
                     'required'      => false                                  
             ))
         ;
@@ -36,7 +36,7 @@ class GMapsAddressPickerType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Explotic\MainBundle\Model\GMapsAddress'
+            'data_class' => 'Explotic\TiersBundle\Entity\Bureau'
         ));
     }
     public function getDefaultOptions(array $options)

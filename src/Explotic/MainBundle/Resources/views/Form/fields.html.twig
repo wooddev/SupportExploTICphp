@@ -49,24 +49,29 @@ google.maps.event.addDomListener(window,'load',initialize);
 
 {% endblock %}
 
-{% block gmap_address_widget %}</pre>
-<div id="{{ id }}_gmap_address_widget">
-<div id="{{ id }}_input">{{ block('form_widget') }}</div>
-<div id="{{ id }}_map" class="gmap_address_map"></div>
+{% block gmaps_address_picker_widget %}</pre>
+<div id="{{ id }}_gmaps_address_picker_widget">
+    <div id="address_picker">        
+        <div id="{{ id }}_input">{{ block('form_widget') }}</div>
+        <div id="{{ id }}_map" class="gmaps_address_picker_map" style="width:800px; height:400px"></div>
+    </div>       
 </div>
+<link rel="stylesheet" href="{{asset('bundles/exploticmain/js/jquery-addresspicker/demos/themes/base/jquery.ui.all.css')}}">
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4hT13IYCchS-xzh54W5_fUZv8kad8GOo&sensor=false"></script>
-<script type="text/javascript" src="{{asset('bundles/explotic/js/jquery-addresspicker/src/jquery.ui.addresspicker.js')}}"></script>
+<script type="text/javascript" src="{{asset('bundles/exploticmain/js/jquery-addresspicker/lib/jquery-1.4.4.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('bundles/exploticmain/js/jquery-addresspicker/lib/jquery-ui-1.8.7.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('bundles/exploticmain/js/jquery-addresspicker/src/jquery.ui.addresspicker.js')}}"></script>
 
 <script type="text/javascript">
 $(function() {
-            var addresspickerMap = $("#{{ form.bureau.address.get("id") }}").addresspicker({
+            var addresspickerMap = $("#{{ form.address.get("id") }}").addresspicker({
                 regionBias: "fr",
                 elements: {
                     map: "#{{ id }}_map",
-                    locality: '#{{ form.bureau.city.get("id") }}',
-                    postal_code: '#{{form.bureau.postalcode.get("id") }}',                    
-                    lat:      "#{{ form.bureau.lat.get("id") }}",
-                    lng:      "#{{ form.bureau.lon.get("id") }}"
+                    locality: '#{{ form.city.get("id") }}',
+                    postal_code: '#{{form.postalCode.get("id") }}',                    
+                    lat:      "#{{ form.lat.get("id") }}",
+                    lng:      "#{{ form.lon.get("id") }}"
                 }
             });
             var gmarker = addresspickerMap.addresspicker("marker");
