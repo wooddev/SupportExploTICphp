@@ -27,10 +27,8 @@ class EntrepriseType extends AbstractType
 //                    'bureau', 'gmaps_address_picker')
 //                        ->addModelTransformer($transformer)
                     
-            ->add(
-                    $builder->create('bureau', 'gmaps_address_picker')->addModelTransformer($transformer)
-                    )
-        ;
+            ->add('bureau', 'gmaps_address_picker')
+            ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

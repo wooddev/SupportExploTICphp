@@ -20,7 +20,21 @@ class GMapsAddress
         return $this->address;
     }
     public function getStreet(){
-        return $this->Street;
+        // recherche de la position du code postal dans la chaine address
+        if (isset($this->codePostal)){
+            $pos1 = strripos($this->address,$this->codePostal);            
+        }else {$pos1 = strlen($this->address);}
+        // recherche de la position de la ville dans la chaine address
+        if (isset($this->city)){
+            $pos2 = strripos($this->address,$this->city);
+        }else {$pos2 = strlen($this->address);}
+        // définition de la position de césure de chaine >> on prend la position la plus petite
+        $pos=$pos1;
+        if($pos1>$pos2){
+            $pos=$pos2;
+        }            
+        $this->street = substr($this->address,0,$pos-2); //-2 >> pour singifier la virgule et l'espace avant
+        return $this->street;
     }
     public function getCity(){
         return $this->city;

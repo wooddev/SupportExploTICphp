@@ -30,8 +30,8 @@ class BureauToGMapsAddressTransformer implements DataTransformerInterface
         $gmapsAddress->setPostalCode($bureau->getLocalisation()->getCp());
         $gmapsAddress->setLat($bureau->getLocalisation()->getGeometry()->getLat());
         $gmapsAddress->setLon($bureau->getLocalisation()->getGeometry()->getLon());
+        $gmapsAddress->setStreet($bureau->getAdresseRue());
         $gmapsAddress->autoAddress();
-        
         return $gmapsAddress;
     }
 
@@ -47,11 +47,11 @@ class BureauToGMapsAddressTransformer implements DataTransformerInterface
         if (!$gmapsAddress) {
             return null;
         }
-
+        
         $bureau = new Bureau();
         
         try{
-            $bureau->setAdresseRue($gmapsAddress->getStreet());
+
             $geometry = new geometry();
             $geometry->setLat($gmapsAddress->getLat());
             $geometry->setLon($gmapsAddress->getLon());          
@@ -60,13 +60,15 @@ class BureauToGMapsAddressTransformer implements DataTransformerInterface
             $localisation->setCp($gmapsAddress->getPostalCode());
             $localisation->setGeometry($geometry);
             $bureau->setlocalisation($localisation);
+            $bureau->setAdresseRue($gmapsAddress->getStreet());
+            
         }
         catch(Exception $e){
             throw new TransformationFailedException(sprintf(
                     'Impossible de récupérer cette adresse google',
                     $gmapsAddress));
         }
-
+        
         return $bureau;
     }
 }
