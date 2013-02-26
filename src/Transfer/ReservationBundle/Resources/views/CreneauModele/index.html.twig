@@ -1,6 +1,8 @@
+{% extends 'TransferReservationBundle::layout.html.twig' %}
+{%block body %}
 <h1>CreneauModele list</h1>
 
-<table class="records_list">
+<table class="table tablesorter table-striped" id="record_list">
     <thead>
         <tr>
             <th>Id</th>
@@ -14,7 +16,7 @@
             <th>Actions</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody >
     {% for entity in entities %}
         <tr>
             <td><a href="{{ path('creneaumodele_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
@@ -47,3 +49,21 @@
         </a>
     </li>
 </ul>
+{%endblock%}
+{% block script %}
+<link href="{{asset('bundles/transfermain/css/style.css')}}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{{asset('bundles/transfermain/js/jquery.tablesorter.js')}}"></script>
+<script>
+    $(document).ready(function()
+        {
+            $("table").tablesorter(
+            {
+                cssAsc : "headerSortUp",
+                cssDesc : "headerSortDown"                
+            }
+            );
+        }
+    );
+    
+</script>
+{%endblock%}

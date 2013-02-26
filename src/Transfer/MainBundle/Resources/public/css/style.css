@@ -1,0 +1,13 @@
+table.tablesorter thead tr .header {
+    background-image: url(../images/bg.png);
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+    min-width: 30px;
+}
+table.tablesorter thead tr .header.headerSortUp {
+    background-image: url(../images/asc.png);
+}
+table.tablesorter thead tr .header.headerSortUp  {
+    background-image: url(../images/desc.png);
+}

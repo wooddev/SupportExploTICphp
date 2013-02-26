@@ -1,13 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <title>Transfer Démo</title>
+    <!-- Bootstrap -->
+    {% include 'BraincraftedBootstrapBundle::_stylesheets.html.twig' %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <div class="container">
+            <div class="row">
+                <div class="span3">
+                        <h2>Navigation </h2>
+                      <!--Sidebar content-->
+                      <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a tabindex="-1" href="#">Menu 1</a></li>
+                        <li><a tabindex="-1" href="#">Menu 2</a></li>
+                        <li><a tabindex="-1" href="#">Menu 3</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a tabindex="-1" href="#">Menu 5</a>
+                            <ul class="dropdown-menu">
+                            <li>
+                                <a tabindex="-1" href="#">Sous Menu 5.1</a>
+                            </li>
+                            <li>
+                                <a tabindex="-1" href="#">Sous Menu 5.2</a>
+                            </li>
+                            </ul>
+                        </li>
+                      </ul>
+                </div>          
+                <div class="span8">
+                    <h1>
+                        Contenu
+                    </h1>
+                {%block body %}
+
+
+                {% endblock %}
+              <!--Body content-->
+                </div>
+            </div>
+        </div>            
+        <!--script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script-->
+{% include 'BraincraftedBootstrapBundle::_javascripts.html.twig' %}
+{% block script %} {%endblock%}
     </body>
 </html>

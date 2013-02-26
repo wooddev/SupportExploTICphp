@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Transfer\ProfilBundle\TransferProfilBundle(),
             new Braincrafted\BootstrapBundle\BraincraftedBootstrapBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Transfer\MainBundle\TransferMainBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

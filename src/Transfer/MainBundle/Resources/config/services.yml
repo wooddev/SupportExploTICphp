@@ -1,0 +1,7 @@
+parameters:
+#    transfer_main.example.class: Transfer\MainBundle\Example
+
+services:
+#    transfer_main.example:
+#        class: %transfer_main.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
