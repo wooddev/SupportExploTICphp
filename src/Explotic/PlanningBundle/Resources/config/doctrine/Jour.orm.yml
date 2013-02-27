@@ -12,8 +12,13 @@ Explotic\PlanningBundle\Entity\Jour:
             id: true
             generator:
                 strategy: AUTO
-        dateJour:
+        creneauDebut:
             type: datetime
+        creneauFin:
+            type: datetime
+        creneau:
+          type: string
+          columnDefinition: ENUM("Mat","ApM")
         statutDate:
           type: string
           columnDefinition: ENUM("Disponible","Proposée","Confirmée")

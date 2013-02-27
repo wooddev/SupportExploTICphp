@@ -2,7 +2,7 @@
 
 {% block bodyOpt %}onload="initialize()"{% endblock %}  
 {% block body %}
-    {%include 'ExploticTiersBundle:Entreprise:show/content.html.twig' with {'entreprise':entity} %}
+    {%include 'ExploticTiersBundle:Entreprise:show/content_all.html.twig' with {'entreprise':entity} %}
     <ul class="record_actions">
         <li>
             <a href="{{ path('entreprise') }}">

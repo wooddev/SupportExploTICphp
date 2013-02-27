@@ -25,7 +25,6 @@ class BureauToGMapsAddressTransformer implements DataTransformerInterface
         
         $gmapsAddress = new GMapsAddress();
         
-        $gmapsAddress->setStreet($bureau->getAdresseRue());
         $gmapsAddress->setCity($bureau->getLocalisation()->getCommune());
         $gmapsAddress->setPostalCode($bureau->getLocalisation()->getCp());
         $gmapsAddress->setLat($bureau->getLocalisation()->getGeometry()->getLat());

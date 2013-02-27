@@ -1,30 +1,4 @@
-{% block declare_script %}
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4hT13IYCchS-xzh54W5_fUZv8kad8GOo&sensor=false">
-    </script>
-    <script type="text/javascript">
-      function initialize() {
-        var myPos = new google.maps.LatLng({{entreprise.bureau.localisation.geometry.lat}}, {{entreprise.bureau.localisation.geometry.lon}});
-        var mapOptions = {
-          center: myPos,
-          zoom: 10,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map_canvas"),
-            mapOptions);
-            
-        var marker = new google.maps.Marker({
-            position: myPos,
-            title:"{{entreprise.raisonsociale}}"
-        });
-
-        // To add the marker to the map, call setMap();
-        marker.setMap(map);
-      }
-    </script>
-{% endblock %}
- 
-    <h1>Fiche de l'entreprise {{ entreprise.raisonSociale }}</h1>
+    <h4>Entreprise {{ entreprise.raisonSociale }}</h4>
     {% if stagiaire is defined %}    
     <h2> employeur de {{stagiaire.prenom}} {{stagiaire.nom}} </h2>
     {% endif %}
@@ -60,10 +34,7 @@
             </tr>
         </tbody>
     </table>
-    <br style="heigth:5px">
-    <div> Position du bureau: </div>
-    <br style="heigth:5px">    
-    <div id="map_canvas" style="width:300px; height:300px"></div>
+
 
 
 

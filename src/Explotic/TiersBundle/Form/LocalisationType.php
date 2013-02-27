@@ -14,7 +14,7 @@ class LocalisationType extends AbstractType
             ->add('commune')
             ->add('cp')
             ->add('geometry', 'gmaps_picker', array(
-                'label'=> 'point',
+                'label'=> 'PointGPS',
                 'data_class' => 'Explotic\TiersBundle\Entity\Geometry'
             ))
         ;

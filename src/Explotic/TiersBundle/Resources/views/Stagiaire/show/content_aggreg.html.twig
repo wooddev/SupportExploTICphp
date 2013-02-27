@@ -1,0 +1,35 @@
+<div style="float: left">
+     {%include 'ExploticTiersBundle:Stagiaire:show/content.html.twig' with {'entity':entity} %}        
+</div>
+<div style="float: left ">
+    {%include 'ExploticTiersBundle:Entreprise:show/content.html.twig' with {'entreprise':entity.entreprise} %}
+</div>
+<div style="float: top">
+    <br class="spacer">
+</div>
+
+<div style="float:left">
+    {%if entity.programmes is defined %}
+        {%if entity.programmes|length >0 %}
+            {%include 'ExploticFormationBundle:Programme:index/content.html.twig' with {'entities':entity.programmes,  'depuis':'stagiaire'} %}
+        {%endif%}
+    {%endif%}
+</div>
+<div style="float:left">
+    {%if entity.postes is defined %}
+        {%if entity.postes|length >0 %}
+            {%include 'ExploticTiersBundle:Poste:index/content.html.twig' with {'entities':entity.postes, 'depuis':'stagiaire'} %}
+        {%endif%}
+    {%endif%}
+</div>
+<div style="float: top">
+    <br class="spacer">
+</div>
+<div style="float:left">
+    {%if entity.machine.reference is defined %}
+            {%include 'ExploticTiersBundle:Machine:show/content.html.twig' with {'entity':entity.machine, 'depuis':'stagiaire'} %}
+    {%endif%}
+</div>
+<div style="float: top">
+    <br class="spacer">
+</div>

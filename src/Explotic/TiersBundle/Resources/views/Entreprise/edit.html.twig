@@ -1,3 +1,5 @@
+{%extends "ExploticTiersBundle::layout.html.twig" %}
+{% block body %}
 <h1>Entreprise edit</h1>
 
 <form action="{{ path('entreprise_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
@@ -9,8 +11,8 @@
 
 <ul class="record_actions">
     <li>
-        <a href="{{ path('entreprise') }}">
-            Back to the list
+        <a href="{{ path('entreprise_show',{'id':entity.id}) }}">
+            Retour à la fiche de l'entreprise
         </a>
     </li>
     <li>
@@ -20,3 +22,4 @@
         </form>
     </li>
 </ul>
+{% endblock %}

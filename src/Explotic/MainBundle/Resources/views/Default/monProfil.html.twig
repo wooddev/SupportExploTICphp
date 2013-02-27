@@ -3,51 +3,71 @@
 {% block bodyOpt %}onload="initialize()"{% endblock %}  
 {% block body %} 
 <div style="float:top">
-<h1> {{user.username}} </h1>
+<h1> Nom d'utilisateur : {{user.username}} </h1>
 </div>
 <div class="profil">
-<div class="pr_header">
-    <h1> Informations du compte</h1>    
-    <p> Adresse eMail : {{user.email}} </p>     
-</div>
-{% if is_granted('ROLE_GERANT') %}
-        {%if user.entreprise.id is defined %}
-<div class="box">
-    {%include 'ExploticTiersBundle:Entreprise:show/content.html.twig' with {'entreprise':user.entreprise} %}
-</div>
-        {%endif%}
-{%endif%}
-{% if is_granted('ROLE_STAGIAIRE') %}
-        {%if user.stagiaire.id is defined %}
-<div class="box">
-    {%include 'ExploticTiersBundle:Stagiaire:show/content.html.twig' with {'entity':user.stagiaire} %}
-</div>
-                {%if user.stagiaire.machine.id is defined %}
-<div class="box">
-    {%include 'ExploticTiersBundle:Machine:show/content.html.twig' with {'entity':user.stagiaire.machine} %}
-</div>
-            {%endif%}
-                {%if user.stagiaire.postes[0].id is defined %}
-<div class="box">
-    {%include 'ExploticTiersBundle:Poste:index/content.html.twig' with {'entities':user.stagiaire.postes} %}
-</div>
-            {%endif%}
-        {%endif%}
+    <div id="accordion">
+        <h3> Informations du compte</h3>
+        <div>    
+            <p> Adresse email : {{user.email}} </p>             
+        </div>
 
-{%endif%}
-{% if is_granted('ROLE_FORMATEUR') %}
-        {%if user.formateur.id is defined %}
-<div class="box">
-    {%include 'ExploticTiersBundle:Formateur:show/content.html.twig' with {'entity':user.formateur} %}
-</div>
+        {% if is_granted('ROLE_GERANT') %}
+                {%if user.entreprise.id is defined %}
+        <h3> Fiche Gérant </h3>
+        <div>
+            {%include 'ExploticTiersBundle:Entreprise:show/content.html.twig' with {'entreprise':user.entreprise} %}
+        </div>
+                {%endif%}
         {%endif%}
-{%endif%}
-{% if is_granted('ROLE_RECRUTEUR') %}
-        {%if user.recruteur.id is defined %}
-<div class="box">
-    {%include 'ExploticTiersBundle:Recruteur:show/content.html.twig' with {'entity':user.recruteur} %}
-</div>
+        {% if is_granted('ROLE_STAGIAIRE') %}
+                {%if user.stagiaire.id is defined %}
+        <h3> Fiche Stagiaire </h3>
+        <div>                
+                        {%include 'ExploticTiersBundle:Stagiaire:show/content_aggreg.html.twig' with {'entity':user.stagiaire} %}
+        </div>                       
+                {%endif%}
+
         {%endif%}
-{%endif%}
+        {% if is_granted('ROLE_FORMATEUR') %}
+                {%if user.formateur.id is defined %}
+        <h3> Fiche Formateur </h3>
+        <div>
+            {%include 'ExploticTiersBundle:Formateur:show/content.html.twig' with {'entity':user.formateur} %}
+        </div>
+                {%endif%}
+        {%endif%}
+        {% if is_granted('ROLE_RECRUTEUR') %}
+                {%if user.recruteur.id is defined %}
+        <h3> Fiche Recruteur </h3>
+        <div>
+            {%include 'ExploticTiersBundle:Recruteur:show/content.html.twig' with {'entity':user.recruteur} %}
+        </div>
+                {%endif%}
+        {%endif%}
+    </div>
 </div>
+<div id="myMap">
+    
+    
+<div>
+{{ google_map_container(map) }}
+{{google_map_js(map) }}
+
+{% block jquery_script %}
+<link rel="stylesheet" href="{{asset('bundles/exploticmain/css/custom-theme/jquery-ui-1.9.2.custom.css')}}">
+<script type="text/javascript" src="{{asset('bundles/exploticmain/js/jquery-1.8.3.js')}}"></script>
+<script type="text/javascript" src="{{asset('bundles/exploticmain/js/jquery-ui-1.9.2.custom.js')}}"></script>
+{%endblock%}
+<script>
+$(function(){
+    $("#accordion").accordion({
+        collapsible : true,
+        heightStyle: "content"
+    });
+});
+
+
+</script>
 {% endblock%}
+

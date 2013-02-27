@@ -6,8 +6,12 @@ Explotic\PlanningBundle\Entity\Session:
       calendrier:
         targetEntity: Calendrier
     manyToOne:
-      siteIntervention:
-        targetEntity: Explotic\TiersBundle\Entity\SiteIntervention
+      salle:
+        targetEntity: Explotic\TiersBundle\Entity\Salle
+        nullable: true
+      poste:
+        targetEntity: Explotic\TiersBundle\Entity\Poste
+        nullable: true
       intervention:
         targetEntity: Explotic\FormationBundle\Entity\Intervention
     manyToMany:

@@ -5,8 +5,12 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %} <link href="style.css" rel="stylesheet" type="text/css" />
     {% endblock %}
-    {% block declare_script %}
-    {% endblock %}
+{% block declare_script %}
+{% endblock %}
+{% block gmaps_script %}
+{% endblock %}        
+{% block jquery_script %}
+{% endblock %}   
 </head>
 
 <body {% block bodyOpt %}{% endblock %}>
@@ -95,21 +99,17 @@
     <!--Navigation Background Part Ends -->
     <!--Our Company Bacground Part Starts -->
 
-    <div id="bundleZone">
-        
+    <div id="bundleZone">        
             <!--Our Company Part Starts -->
             <div id="bundle-part">      
                     <h2 class="bundle-hdr">{% block bundleTitle %} Bundle Name {%endblock%}</h2>
                     {% block body %}
                     {% endblock %}
                     <br class="spacer" />
-
             </div>
-
             <!--Our Company Part Ends -->
     </div>
     <!--Our Company Bacground Part Ends -->
-
     
     <!--<div id="footer-bg">
             <!--Footer Menu Part Starts --
@@ -129,4 +129,6 @@
     </div>
     <!--Footer Part Ends -->       
 </body>
+     
 </html>
+

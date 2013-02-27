@@ -16,10 +16,7 @@ class GMapsAddressPickerType extends AbstractType
         $builder
                ->add('address', null, array(
                     'required'      => true,
-                ))
-               ->add('street', null, array(
-                    'required'      => true,
-                ))                
+                ))              
                 ->add('city', null, array(
                     'required'      => false,
                 ))

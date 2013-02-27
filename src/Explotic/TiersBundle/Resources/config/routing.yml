@@ -43,3 +43,4 @@ _machine:
 _recruteur:
     resource: "@ExploticTiersBundle/Resources/config/routing/recruteur.yml"
     prefix:   /recruteur
+    

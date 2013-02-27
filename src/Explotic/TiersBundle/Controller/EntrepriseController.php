@@ -135,7 +135,7 @@ class EntrepriseController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('entreprise_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('entreprise_show', array('id' => $id)));
         }
 
         return $this->render('ExploticTiersBundle:Entreprise:edit.html.twig', array(

@@ -1,0 +1,49 @@
+<h1>Calendrier</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="calendrier">
+    <thead>
+        <tr>
+            <th>Lundi</th>
+            <th>Mardi</th>
+            <th>Mercredi</th>
+            <th>Jeudi</th>
+            <th>Vendredi</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for year in dates %}
+                {%for s
+        <td></td>   
+            {% endfor%}
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('calendrier') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('calendrier_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('calendrier_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>

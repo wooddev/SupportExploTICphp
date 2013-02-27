@@ -40,10 +40,7 @@ class Session
      */
     private $calendrier;
 
-    /**
-     * @var Explotic\TiersBundle\Entity\SiteIntervention
-     */
-    private $siteIntervention;
+
 
     /**
      * @var Explotic\FormationBundle\Entity\Intervention
@@ -114,30 +111,7 @@ class Session
     {
         return $this->calendrier;
     }
-
-    /**
-     * Set siteIntervention
-     *
-     * @param Explotic\TiersBundle\Entity\SiteIntervention $siteIntervention
-     * @return Session
-     */
-    public function setSiteIntervention(\Explotic\TiersBundle\Entity\SiteIntervention $siteIntervention = null)
-    {
-        $this->siteIntervention = $siteIntervention;
-    
-        return $this;
-    }
-
-    /**
-     * Get siteIntervention
-     *
-     * @return Explotic\TiersBundle\Entity\SiteIntervention 
-     */
-    public function getSiteIntervention()
-    {
-        return $this->siteIntervention;
-    }
-
+   
     /**
      * Set intervention
      *
@@ -225,5 +199,61 @@ class Session
     public function getFormateurs()
     {
         return $this->formateurs;
+    }
+    /**
+     * @var \Explotic\TiersBundle\Entity\Salle
+     */
+    private $salle;
+
+    /**
+     * @var \Explotic\TiersBundle\Entity\Poste
+     */
+    private $poste;
+
+
+    /**
+     * Set salle
+     *
+     * @param \Explotic\TiersBundle\Entity\Salle $salle
+     * @return Session
+     */
+    public function setSalle(\Explotic\TiersBundle\Entity\Salle $salle = null)
+    {
+        $this->salle = $salle;
+    
+        return $this;
+    }
+
+    /**
+     * Get salle
+     *
+     * @return \Explotic\TiersBundle\Entity\Salle 
+     */
+    public function getSalle()
+    {
+        return $this->salle;
+    }
+
+    /**
+     * Set poste
+     *
+     * @param \Explotic\TiersBundle\Entity\Poste $poste
+     * @return Session
+     */
+    public function setPoste(\Explotic\TiersBundle\Entity\Poste $poste = null)
+    {
+        $this->poste = $poste;
+    
+        return $this;
+    }
+
+    /**
+     * Get poste
+     *
+     * @return \Explotic\TiersBundle\Entity\Poste 
+     */
+    public function getPoste()
+    {
+        return $this->poste;
     }
 }

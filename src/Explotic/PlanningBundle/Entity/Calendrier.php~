@@ -3,6 +3,7 @@
 namespace Explotic\PlanningBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Explotic\PlanningBundle\Entity\Jour as Jour;
 
 /**
  * Explotic\PlanningBundle\Entity\Calendrier
@@ -27,6 +28,10 @@ class Calendrier
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
     private $jours;
 
     /**
@@ -40,12 +45,26 @@ class Calendrier
     /**
      * Add jours
      *
-     * @param Explotic\PlanningBundle\Entity\Feature $jours
+     * @param \Explotic\PlanningBundle\Entity\Jour $jours
      * @return Calendrier
      */
-    public function addJour(\Explotic\PlanningBundle\Entity\Feature $jours)
+    public function addJour(\Explotic\PlanningBundle\Entity\Jour $jour)
     {
-        $this->jours[] = $jours;
+        $this->jours[] = $jour;
+    
+        return $this;
+    }
+    /**
+     * Add New jour
+     *
+     * @param \DateTime $date, Mat/Apm $creneau
+     * @return Calendrier
+     */
+    public function addNewJour($date, $creneau)
+    {
+        $jour = new \Jour($date, $creneau);
+        $jour->setCalendrier($this);
+        $this->jours->Add($jour);
     
         return $this;
     }
@@ -53,9 +72,9 @@ class Calendrier
     /**
      * Remove jours
      *
-     * @param Explotic\PlanningBundle\Entity\Feature $jours
+     * @param \Explotic\PlanningBundle\Entity\Jour $jours
      */
-    public function removeJour(\Explotic\PlanningBundle\Entity\Feature $jours)
+    public function removeJour(\Explotic\PlanningBundle\Entity\Jour $jours)
     {
         $this->jours->removeElement($jours);
     }
@@ -63,7 +82,7 @@ class Calendrier
     /**
      * Get jours
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getJours()
     {
