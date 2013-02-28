@@ -12,14 +12,18 @@ namespace Explotic\MainBundle\Model;
  */
 class Agenda {
     //put your code here
-    private $agendaYear;
+    private $agendasYear;
     private $val;
     
-    public function getAgendaYear(){
-        return $this->agendaYear;
+    public function __construct(){         
+        $this->agendasYear = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    public function setAgendaYear($var){
-        $this->agendaYear = $var;
+    
+    public function getAgendasYear(){
+        return $this->agendasYear;
+    }
+    public function addAgendaYear($var){
+        $this->agendasYear->add($var);
         return $this;
     }
     
@@ -33,14 +37,18 @@ class Agenda {
 }
 
 class AgendaYear{
-    private $agendaWeek;
+    private $agendasWeek;
     private $val;
     
-    public function getAgendaWeek(){
-        return $this->agendaWeek;
+    public function __construct(){         
+        $this->agendasWeek = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    public function setAgendaWeek($var){
-        $this->agendaWeek = $var;
+    
+    public function getAgendasWeek(){
+        return $this->agendasYear;
+    }
+    public function addAgendaWeek($var){
+        $this->agendasWeek->add($var);
         return $this;
     }
     public function getVal(){
@@ -56,11 +64,15 @@ class AgendaWeek{
     private $agendaDay;
     private $val;
     
-    public function getAgendaDay(){
-        return $this->agendaDay;
+    public function __construct(){         
+        $this->agendasDay = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    public function setAgendaDay($var){
-        $this->agendaDay = $var;
+    
+    public function getAgendasDay(){
+        return $this->agendasDay;
+    }
+    public function addAgendaDay($var){
+        $this->agendasDay->add($var);
         return $this;
     }
     public function getVal(){
@@ -73,14 +85,19 @@ class AgendaWeek{
 }
 
 class AgendaDay{
-    private $creneau;
+    private $creneaux;
     private $val;
     
-    public function getCreneau(){
-        return $this->creneau;
+    
+    public function __construct(){         
+        $this->creneaux = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    public function setCreneau($var){
-        $this->creneau = $var;
+    
+    public function getCreneaux(){
+        return $this->creneaux;
+    }
+    public function addCreneau($var){
+        $this->creneaux->add($var);
         return $this;
     }
     

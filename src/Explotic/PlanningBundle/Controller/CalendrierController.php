@@ -66,16 +66,24 @@ class CalendrierController extends Controller
         // On crée les dates du calendrier dans un tableau
         
         $dates = array();
-        
+        $agenda = new \Explotic\MainBundle\Model\Agenda();
+
+        $agendaY1= new \Explotic\MainBundle\Model\AgendaYear();
         // Le calendrier s'étale sur 4 semaines
         for ($s = $week; $s<=$week+4 && $s<=52; $i++)
         {
+            $agendaY1->addAgendaWeek(new \Explotic\MainBundle\Model\AgendaWeek());
             for($j=1; $j<=5;$j++)
             {
+                $agendaY1->getAgendasWeek()->last()->addAgendaDay(new \Explotic\MainBundle\Model\AgendaWeek());
+                $agendaY1->getAgendasWeek()->last()->getAgendaDay->last()->addCreneau('Mat');
+                $agendaY1->getAgendasWeek()->last()->getAgendaDay->last()->addCreneau('ApM');                
                 $dates[$year][$s][$j]['Mat'] = null;
                 $dates[$year][$s][$j]['ApM']=null;
             }
         }
+        
+        $agenda->addAgendaYear($agendaY1);
         //On gère la fin d'année ici
         if($week>48)
         {
