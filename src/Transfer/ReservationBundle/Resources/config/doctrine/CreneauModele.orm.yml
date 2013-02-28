@@ -1,13 +1,9 @@
 Transfer\ReservationBundle\Entity\CreneauModele:
     type: entity
     table: null
-    repositoryClass: Transfer\ReservationBundle\Entity\CreneauModeleRepository
-    
+    repositoryClass: Transfer\ReservationBundle\Entity\CreneauModeleRepository    
     OneToMany:
         creneauPrefModeles:
             targetEntity: CreneauPref
             mappedBy: creneauModelePref        
-        creneauRdv:
-            targetEntity: CreneauRdv
-    fields:
     lifecycleCallbacks: {  }

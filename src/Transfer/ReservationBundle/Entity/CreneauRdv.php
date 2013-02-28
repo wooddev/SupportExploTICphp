@@ -2,15 +2,37 @@
 
 namespace Transfer\ReservationBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM; 
 
 /**
  * CreneauRdv
  */
 class CreneauRdv extends Creneau
-{
+{   
+    
+    /**
+     * @var integer
+     */
     private $semaine;
 
+    /**
+     * @var integer
+     */
+    private $annee;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $rdvs;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->rdvs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Set semaine
      *
@@ -33,24 +55,30 @@ class CreneauRdv extends Creneau
     {
         return $this->semaine;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $rdvs;
 
     /**
-     * @var \Transfer\ReservationBundle\Entity\CreneauModele
+     * Set annee
+     *
+     * @param integer $annee
+     * @return CreneauRdv
      */
-    private $creneauModele;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
+    public function setAnnee($annee)
     {
-        $this->rdvs = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+        $this->annee = $annee;
     
+        return $this;
+    }
+
+    /**
+     * Get annee
+     *
+     * @return integer 
+     */
+    public function getAnnee()
+    {
+        return $this->annee;
+    }
+
     /**
      * Add rdvs
      *
@@ -82,28 +110,5 @@ class CreneauRdv extends Creneau
     public function getRdvs()
     {
         return $this->rdvs;
-    }
-
-    /**
-     * Set creneauModele
-     *
-     * @param \Transfer\ReservationBundle\Entity\CreneauModele $creneauModele
-     * @return CreneauRdv
-     */
-    public function setCreneauModele(\Transfer\ReservationBundle\Entity\CreneauModele $creneauModele = null)
-    {
-        $this->creneauModele = $creneauModele;
-    
-        return $this;
-    }
-
-    /**
-     * Get creneauModele
-     *
-     * @return \Transfer\ReservationBundle\Entity\CreneauModele 
-     */
-    public function getCreneauModele()
-    {
-        return $this->creneauModele;
     }
 }

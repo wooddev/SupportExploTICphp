@@ -5,11 +5,10 @@ Transfer\ReservationBundle\Entity\CreneauRdv:
     oneToMany:
       rdvs:
         targetEntity: Rdv
-        mappedBy: creneauRdv
-    manyToOne:
-      creneauModele:
-        targetEntity: CreneauModele
+        mappedBy: creneauRdv    
     fields:
         semaine:
+            type: integer
+        annee:
             type: integer
     lifecycleCallbacks: {  }

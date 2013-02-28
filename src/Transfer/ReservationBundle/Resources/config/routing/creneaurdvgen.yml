@@ -1,0 +1,22 @@
+creneaurdvgen_generate:
+    pattern:  /generate
+    defaults: { _controller: "TransferReservationBundle:CreneauRdvGen:generate" }
+
+creneaurdvgen_create:
+    pattern:  /create
+    defaults: { _controller: "TransferReservationBundle:CreneauRdvGen:create" }
+    requirements: { _method: post }
+
+#creneaumodelegen_edit:
+#    pattern:  /{id}/edit
+#    defaults: { _controller: "TransferReservationBundle:CreneauModeleGen:edit" }
+#
+#creneaumodelegen_update:
+#    pattern:  /{id}/update
+#    defaults: { _controller: "TransferReservationBundle:CreneauModeleGen:update" }
+#    requirements: { _method: post }
+#
+#creneaumodelegen_delete:
+#    pattern:  /{id}/delete
+#    defaults: { _controller: "TransferReservationBundle:CreneauModeleGen:delete" }
+#    requirements: { _method: post }

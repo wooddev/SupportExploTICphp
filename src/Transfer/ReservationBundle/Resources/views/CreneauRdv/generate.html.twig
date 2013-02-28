@@ -1,0 +1,15 @@
+<h1>CreneauRdv Generateur</h1>
+
+
+<p> Par défaut ce générateur est fait avec les paramètres suivants </p>
+<p> Semaine = {{generateurRdv.week}} </p>
+<p> Année = {{generateurRdv.year}} </p>
+
+<form action="{{ path('creneaurdvgen_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Générateur</button>
+    </p>
+</form>
+
+
