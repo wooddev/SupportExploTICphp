@@ -390,12 +390,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrinePHPCRBundle.git",
-                "reference": "75317588c6dd1d4dc1b5dd0c975594bc14e79425"
+                "reference": "41f4939621bc7e349b3f947aa96ec43e100304af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrinePHPCRBundle/zipball/75317588c6dd1d4dc1b5dd0c975594bc14e79425",
-                "reference": "75317588c6dd1d4dc1b5dd0c975594bc14e79425",
+                "url": "https://api.github.com/repos/doctrine/DoctrinePHPCRBundle/zipball/41f4939621bc7e349b3f947aa96ec43e100304af",
+                "reference": "41f4939621bc7e349b3f947aa96ec43e100304af",
                 "shasum": ""
             },
             "require": {
@@ -408,9 +408,10 @@
             "suggest": {
                 "doctrine/data-fixtures": "if you want to use the fixture loading",
                 "doctrine/doctrine-bundle": "when using jackalope-doctrine-dbal",
-                "doctrine/phpcr-odm": "if you want to use the odm as well. require version 1.0.*"
+                "doctrine/phpcr-odm": "if you want to use the odm as well. require version 1.0.*",
+                "liip/imagine-bundle": "when using the phpcr_odm_image form type"
             },
-            "time": "2013-02-24 14:49:36",
+            "time": "2013-02-27 15:16:40",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -451,12 +452,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/phpcr-odm.git",
-                "reference": "ccd1b3ed09604484eda29153459738120f8bfc14"
+                "reference": "e8b76193794c84a2d73ba52b9b465f181e94665e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/phpcr-odm/zipball/ccd1b3ed09604484eda29153459738120f8bfc14",
-                "reference": "ccd1b3ed09604484eda29153459738120f8bfc14",
+                "url": "https://api.github.com/repos/doctrine/phpcr-odm/zipball/e8b76193794c84a2d73ba52b9b465f181e94665e",
+                "reference": "e8b76193794c84a2d73ba52b9b465f181e94665e",
                 "shasum": ""
             },
             "require": {
@@ -474,7 +475,7 @@
                 "midgard/phpcr": ">=1.3",
                 "symfony/yaml": ">=2.0.0,<2.4.0-dev"
             },
-            "time": "2013-02-24 20:27:32",
+            "time": "2013-02-27 12:06:48",
             "bin": [
                 "bin/phpcrodm",
                 "bin/phpcrodm.php"
@@ -684,12 +685,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jackalope/jackalope.git",
-                "reference": "9aaf5974849b399faba648e389070002cbffe53d"
+                "reference": "6d99b7528a723856ab673e6476c2483f10712321"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jackalope/jackalope/zipball/9aaf5974849b399faba648e389070002cbffe53d",
-                "reference": "9aaf5974849b399faba648e389070002cbffe53d",
+                "url": "https://api.github.com/repos/jackalope/jackalope/zipball/6d99b7528a723856ab673e6476c2483f10712321",
+                "reference": "6d99b7528a723856ab673e6476c2483f10712321",
                 "shasum": ""
             },
             "require": {
@@ -702,7 +703,7 @@
             "provide": {
                 "phpcr/phpcr-implementation": "2.1.0-beta4"
             },
-            "time": "2013-02-19 16:33:07",
+            "time": "2013-02-26 13:34:26",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -736,12 +737,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jackalope/jackalope-doctrine-dbal.git",
-                "reference": "67e0f9675f0a700810573245cf6d64f525f6e42a"
+                "reference": "d25d23f85e0e5858daf877169666480376aefca6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jackalope/jackalope-doctrine-dbal/zipball/67e0f9675f0a700810573245cf6d64f525f6e42a",
-                "reference": "67e0f9675f0a700810573245cf6d64f525f6e42a",
+                "url": "https://api.github.com/repos/jackalope/jackalope-doctrine-dbal/zipball/d25d23f85e0e5858daf877169666480376aefca6",
+                "reference": "d25d23f85e0e5858daf877169666480376aefca6",
                 "shasum": ""
             },
             "require": {
@@ -755,7 +756,7 @@
             "require-dev": {
                 "phpcr/phpcr-api-tests": "dev-master"
             },
-            "time": "2013-02-24 11:41:25",
+            "time": "2013-02-26 16:16:48",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1388,12 +1389,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpcr/phpcr-utils.git",
-                "reference": "9a334225fd7980e8d3d2e02485212ad6dfceee50"
+                "reference": "1.0.0-beta6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpcr/phpcr-utils/zipball/9a334225fd7980e8d3d2e02485212ad6dfceee50",
-                "reference": "9a334225fd7980e8d3d2e02485212ad6dfceee50",
+                "url": "https://api.github.com/repos/phpcr/phpcr-utils/zipball/1.0.0-beta6",
+                "reference": "1.0.0-beta6",
                 "shasum": ""
             },
             "require": {
@@ -1401,7 +1402,7 @@
                 "phpcr/phpcr": "2.1.0-beta8",
                 "symfony/console": ">=2.0.0,<2.3.0-dev"
             },
-            "time": "2013-02-22 23:08:00",
+            "time": "2013-02-27 13:16:41",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1592,20 +1593,30 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonatajQueryBundle.git",
-                "reference": "5f87a761302e6c78304e071416f75d41eb1fb3c2"
+                "reference": "1.8.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonatajQueryBundle/zipball/5f87a761302e6c78304e071416f75d41eb1fb3c2",
-                "reference": "5f87a761302e6c78304e071416f75d41eb1fb3c2",
+                "url": "https://api.github.com/repos/sonata-project/SonatajQueryBundle/zipball/1.8.0",
+                "reference": "1.8.0",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "symfony/framework-bundle": "2.*"
             },
-            "time": "2012-08-29 23:34:42",
+            "time": "2013-02-25 13:25:10",
             "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.4": "1.4.x-dev",
+                    "dev-1.5": "1.5.x-dev",
+                    "dev-1.6": "1.6.x-dev",
+                    "dev-1.7": "1.7.x-dev",
+                    "dev-1.8": "1.8.x-dev",
+                    "dev-master": "1.9.x-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Sonata\\jQueryBundle": ""
@@ -2000,18 +2011,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "4458a2cb66a016440543ef34a07f540e14bee92e"
+                "reference": "bc30d9b7e24b0cd2f02078064b2d9fe1c20aa1aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/4458a2cb66a016440543ef34a07f540e14bee92e",
-                "reference": "4458a2cb66a016440543ef34a07f540e14bee92e",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/bc30d9b7e24b0cd2f02078064b2d9fe1c20aa1aa",
+                "reference": "bc30d9b7e24b0cd2f02078064b2d9fe1c20aa1aa",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "2013-02-25 06:01:12",
+            "time": "2013-02-26 13:03:39",
             "type": "library",
             "extra": {
                 "branch-alias": {

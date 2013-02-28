@@ -546,4 +546,52 @@ class Entreprise
     {
         return $this->comptes;
     }
+    
+    /*
+     * get MyMarkers
+     * 
+     * Retourne la collection de marker de la classe
+     * 
+     * @return \Explotic\MainBundle\Model\MyMarkers
+     */
+    
+    public function getMyMarkers(){
+        $markers = new \Explotic\MainBundle\Model\MyMarkers();
+        $markers->setProfilName(get_class($this));
+        // Récup du bureau
+        if(!(null===$this->getBureau())){
+            $bureau = new \Explotic\MainBundle\Model\MyMarker();        
+            $bureau->setLat($this->getBureau()->getLocalisation()->getGeometry()->getLat());
+            $bureau->setLon($this->getBureau()->getLocalisation()->getGeometry()->getLon());
+            $bureau->setIcoPath('../bundles/exploticmain/images/workoffice.png');
+            $bureau->setLabel('Bureau de l\'entreprise');
+            $bureau->setComment($this->raisonSociale);
+        
+            $markers->addMarker($bureau);            
+        }
+
+        // Récup des postes des stagiaires
+        
+        if((!null===$this->getStagiaires())){
+            if($this->getStagiaires()->count()>0){
+                foreach($this->getStagiaires() as $stagiaire){
+                    if(!(null===$stagiaire->getPoste()) && ($stagiaire->getPoste()->count()>0)){
+                        foreach( $stagiaire->getPostes() as $poste) {
+                            $posteM= new \Explotic\MainBundle\Model\MyMarker();
+                            $posteM->setLat($poste->getLocalisation()->getGeometry()->getLat());
+                            $posteM->setLon($poste->getLocalisation()->getGeometry()->getLon());
+                            $posteM->setIcoPath('../bundles/exploticmain/images/forest2.png');
+                            $posteM->setLabel('Poste de travail');
+                            $posteM->setComment('Chantier :'.$poste->getNomChantier().'<br>Stagiaire:'.$stagiaire->prenom.' '.$stagiaire->nom);
+                            $markers->addMarker($posteM);
+                        }
+                    }
+                }
+            }
+        }
+        
+        return $markers;
+        
+    }
+    
 }

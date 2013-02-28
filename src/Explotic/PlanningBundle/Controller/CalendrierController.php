@@ -104,7 +104,7 @@ class CalendrierController extends Controller
                         ->findByCalendrierAndDate($entity,$dateDebut,$dateFin);
         
         // On lie les jours récupérés au tableau des dates
-        if(!null===$jours)
+        if(!(null===$jours))
         {
             foreach($jours as $jour)
             {

@@ -650,4 +650,45 @@ class Stagiaire
     {
         return $this->comptes;
     }
+    
+      /*
+     * get MyMarkers
+     * 
+     * Retourne la collection de marker de la classe
+     * 
+     * @return \Explotic\MainBundle\Model\MyMarkers
+     */
+    
+    public function getMyMarkers(){
+        $markers = new \Explotic\MainBundle\Model\MyMarkers();
+        $markers->setProfilName(get_class($this));
+        // Récup du bureau
+        if(!(null===$this->getEntreprise()->getBureau())){
+            $bureau = new \Explotic\MainBundle\Model\MyMarker();        
+            $bureau->setLat($this->getEntreprise()->getBureau()->getLocalisation()->getGeometry()->getLat());
+            $bureau->setLon($this->getEntreprise()->getBureau()->getLocalisation()->getGeometry()->getLon());
+            $bureau->setIcoPath('../bundles/exploticmain/images/workoffice.png');
+            $bureau->setLabel('Bureau de l\'entreprise');
+            $bureau->setComment($this->getEntreprise()->getRaisonSociale());
+        
+            $markers->addMarker($bureau);            
+        }
+
+        // Récup des postes du stagiaire       
+
+        if(!(null===$this->getPostes()) && ($this->getPostes()->count()>0)){
+            foreach( $this->getPostes() as $poste) {
+                $posteM= new \Explotic\MainBundle\Model\MyMarker();
+                $posteM->setLat($poste->getLocalisation()->getGeometry()->getLat());
+                $posteM->setLon($poste->getLocalisation()->getGeometry()->getLon());
+                $posteM->setIcoPath('../bundles/exploticmain/images/forest2.png');
+                $posteM->setLabel('Poste de travail');
+                $posteM->setComment('Chantier :'.$poste->getNomChantier());
+                $markers->addMarker($posteM);
+            }
+        }        
+        
+        return $markers;
+        
+    }
 }
