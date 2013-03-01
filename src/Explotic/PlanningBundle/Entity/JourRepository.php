@@ -12,19 +12,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class JourRepository extends EntityRepository
 {
-    public function findByCalendrierAndDate($calendrier, $dateDebut, $dateFin)
+    public function findByCalendrierAndDate($idCalendrier, $dateDebut, $dateFin)
     {
         //
         return $this->getEntityManager()
                 ->createQuery('
                     Select j FROM ExploticPlanningBundle:Jour j 
                     JOIN j.calendrier c
-                    WHERE j.id = :idCalendrier
+                    WHERE c.id = :idCalendrier
                     AND j.creneauDebut >= :dateDebut
                     AND j.creneauFin <= :dateFin
                     ')
                 ->setParameters(array(
-                    'id'=> $calendrier->getId(),
+                    'idCalendrier'=> $idCalendrier,
                     'dateDebut' => $dateDebut,
                     'dateFin' => $dateFin,
                     ))

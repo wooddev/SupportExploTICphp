@@ -11,7 +11,11 @@ class JourType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateJour')
+            ->add('creneauDebut')
+            ->add('creneauFin')
+            ->add('creneau')
+            ->add('statutDate')
+            ->add('calendrier')
         ;
     }
 

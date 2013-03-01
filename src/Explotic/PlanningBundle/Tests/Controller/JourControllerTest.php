@@ -19,7 +19,7 @@ class JourControllerTest extends WebTestCase
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
-            'jour[field_name]'  => 'Test',
+            'explotic_planningbundle_jourtype[field_name]'  => 'Test',
             // ... other fields to fill
         ));
 
@@ -33,7 +33,7 @@ class JourControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
         $form = $crawler->selectButton('Edit')->form(array(
-            'jour[field_name]'  => 'Foo',
+            'explotic_planningbundle_jourtype[field_name]'  => 'Foo',
             // ... other fields to fill
         ));
 
@@ -50,5 +50,6 @@ class JourControllerTest extends WebTestCase
         // Check the entity has been delete on the list
         $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
     }
+
     */
 }

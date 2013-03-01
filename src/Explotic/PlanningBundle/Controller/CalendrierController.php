@@ -55,82 +55,20 @@ class CalendrierController extends Controller
      */
     public function showWeekAction($id,$week,$year)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('ExploticPlanningBundle:Calendrier')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Calendrier entity.');
-        }
-        
-        // On crée les dates du calendrier dans un tableau
-        
-        $dates = array();
+        $year = (int) $year;
+        $week= (int) $week;
+                        
         $agenda = new \Explotic\MainBundle\Model\Agenda();
-
-        $agendaY1= new \Explotic\MainBundle\Model\AgendaYear();
-        // Le calendrier s'étale sur 4 semaines
-        for ($s = $week; $s<=$week+4 && $s<=52; $i++)
-        {
-            $agendaY1->addAgendaWeek(new \Explotic\MainBundle\Model\AgendaWeek());
-            for($j=1; $j<=5;$j++)
-            {
-                $agendaY1->getAgendasWeek()->last()->addAgendaDay(new \Explotic\MainBundle\Model\AgendaWeek());
-                $agendaY1->getAgendasWeek()->last()->getAgendaDay->last()->addCreneau('Mat');
-                $agendaY1->getAgendasWeek()->last()->getAgendaDay->last()->addCreneau('ApM');                
-                $dates[$year][$s][$j]['Mat'] = null;
-                $dates[$year][$s][$j]['ApM']=null;
-            }
-        }
         
-        $agenda->addAgendaYear($agendaY1);
-        //On gère la fin d'année ici
-        if($week>48)
-        {
-            for ($s = 1; $s<=$week+4-52; $i++)
-            {
-                for($j=1; $j<=5;$j++)
-                {
-                    $dates[$year+1][$s][$j]['Mat'] = null;
-                    $dates[$year+1][$s][$j]['ApM']=null;
-                }
-            }
-            
-        }
+        $agenda->init($week, $year);
         
-        // Calcul des dates de début et fin correspondate
-        $dateDebut = new \DateTime();
-        $dateDebut->setISODate($year,$week);
-        
-        $dateFin = new \DateTime();
-        if($week>48){ // gestion de la fin d'année ici aussi
-            $dateFin->setISODate($year+1,$week+4-52);
-        }else $dateFin->setISODate($year,$week+4);       
-          
-        // On recherche les jours figurant dans ce calendrier
+        //Recherche des jours figurant dans cette partie du calendrier   
+        $em = $this->getDoctrine()->getManager();
         $jours = $em->getRepository('ExploticPlanningBundle:Jour')
-                        ->findByCalendrierAndDate($entity,$dateDebut,$dateFin);
-        
-        // On lie les jours récupérés au tableau des dates
-        if(!(null===$jours))
-        {
-            foreach($jours as $jour)
-            {
-                $dates  [idate('Y',$jour->getCreneauDebut)]
-                        [idate('W',$jour->getCreneauDebut)]
-                        [idate('w',$jour->getCreneauDebut)]
-                        [$jour->getCreneau()]
-                        = $jour;
-            }
-        }
-        
-        
+                        ->findByCalendrierAndDate($id,$agenda->getDateDebut(),$agenda->getDateFin());
         
         return $this->render('ExploticPlanningBundle:Calendrier:show/week.html.twig', array(
-            'entity'      => $entity,
-            'dates' => $dates,
-            'week'  => $week,
-            'year' => $year,
+            'agenda' => $agenda->generate($jours),
             ));
     }
 

@@ -16,6 +16,12 @@
     {%endif%}
 </div>
 <div style="float:left">
+    {%if entity.calendrier.id is defined %}
+            {%include 'ExploticPlanningBundle:Calendrier:show/week.html.twig' with {'entities':agenda} %}
+    {%endif%}
+</div>
+
+<div style="float:left">
     {%if entity.postes is defined %}
         {%if entity.postes|length >0 %}
             {%include 'ExploticTiersBundle:Poste:index/content.html.twig' with {'entities':entity.postes, 'depuis':'stagiaire'} %}

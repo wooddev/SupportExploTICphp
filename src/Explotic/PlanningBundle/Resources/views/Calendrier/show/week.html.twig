@@ -1,34 +1,109 @@
 <h1>Calendrier</h1>
 
-<table class="record_properties">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-    </tbody>
-</table>
-
 <table class="calendrier">
     <thead>
         <tr>
-            <th>Lundi</th>
-            <th>Mardi</th>
-            <th>Mercredi</th>
-            <th>Jeudi</th>
-            <th>Vendredi</th>
+            <th>Année</th>
+            <th>semaine</th>
+            <th></th>            
+            <th>jour1</th>
+            <th>jour2</th>
+            <th>jour3</th>
+            <th>jour4</th>
+            <th>jour5</th>      
         </tr>
     </thead>
     <tbody>
-        <tr>
-            {% for year in dates %}
-                {%for s
-        <td></td>   
+        
+            {% for year in agenda.agendasYear %}                
+                {%for week in year.agendasWeek %}
+                <tr>
+                            <td>{{year.val}}</td>
+                            <td>{{week.val}}</td>
+                            <td>Date</td>
+                            <td>{{week.agendasDay[0].date | date('d-m')}}</td>
+                            <td>{{week.agendasDay[1].date | date('d-m')}}</td>
+                            <td>{{week.agendasDay[2].date | date('d-m')}}</td>
+                            <td>{{week.agendasDay[3].date | date('d-m')}}</td>
+                            <td>{{week.agendasDay[4].date | date('d-m')}}</td>                            
+                </tr>                 
+                <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Matin</td>
+                            <td>{% if week.agendasDay[0].creneaux[0].jour.id is defined %}
+                                {{week.agendasDay[0].creneaux[0].jour.statutDate}}
+                                {%else%}
+                                    vide
+                                {%endif%}
+                            </td>
+                            <td>{% if week.agendasDay[1].creneaux[0].jour.id is defined %}
+                                {{week.agendasDay[1].creneaux[0].jour.statutDate}}
+                                {%else%}
+                                    vide
+                                {%endif%}
+                            </td>
+                            <td>{% if week.agendasDay[2].creneaux[0].jour.id is defined %}
+                                {{week.agendasDay[2].creneaux[0].jour.statutDate}}
+                                {%else%}
+                                    vide
+                                {%endif%}
+                            </td>
+                            <td>{% if week.agendasDay[3].creneaux[0].jour.id is defined %}
+                                {{week.agendasDay[3].creneaux[0].jour.statutDate}}
+                                {%else%}
+                                    vide
+                                {%endif%}
+                            </td>
+                            <td>{% if week.agendasDay[4].creneaux[0].jour.id is defined %}
+                                {{week.agendasDay[4].creneaux[0].jour.statutDate}}
+                                {%else%}
+                                    vide
+                                {%endif%}
+                            </td>
+                </tr>                    
+                <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Arpès-midi</td>
+                            <td>{% if week.agendasDay[0].creneaux[1].jour.id is defined %}
+                                {{week.agendasDay[0].creneaux[1].jour.statutDate}}
+                                {%else%}
+                                    vide
+                                {%endif%}
+                            </td>
+                            <td>{% if week.agendasDay[1].creneaux[1].jour.id is defined %}
+                                {{week.agendasDay[1].creneaux[1].jour.statutDate}}
+                                {%else%}
+                                    vide
+                                {%endif%}
+                            </td>
+                            <td>{% if week.agendasDay[2].creneaux[1].jour.id is defined %}
+                                {{week.agendasDay[2].creneaux[1].jour.statutDate}}
+                                {%else%}
+                                    vide
+                                {%endif%}
+                            </td>
+                            <td>{% if week.agendasDay[3].creneaux[1].jour.id is defined %}
+                                {{week.agendasDay[3].creneaux[1].jour.statutDate}}
+                                {%else%}
+                                    vide
+                                {%endif%}
+                            </td>
+                            <td>{% if week.agendasDay[4].creneaux[1].jour.id is defined %}
+                                {{week.agendasDay[4].creneaux[1].jour.statutDate}}
+                                {%else%}
+                                    vide
+                                {%endif%}
+                            </td>
+                </tr>                    
+
+                {%endfor%}
             {% endfor%}
-        </tr>
+
     </tbody>
 </table>
-
+{#
 <ul class="record_actions">
     <li>
         <a href="{{ path('calendrier') }}">
@@ -46,4 +121,4 @@
             <button type="submit">Delete</button>
         </form>
     </li>
-</ul>
+</ul>#}

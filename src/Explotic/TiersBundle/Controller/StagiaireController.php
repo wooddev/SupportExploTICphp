@@ -41,12 +41,22 @@ class StagiaireController extends Controller
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Stagiaire entity.');
-        }
-
+        }       
+            
+        // Génération de l'agenda pour la semaine en cours
+        $agenda = new \Explotic\MainBundle\Model\Agenda();        
+        $agenda->init((int)date('W'), (int) date('Y'));        
+            //Recherche des jours figurant dans cette partie du calendrier   
+            $jours = $em->getRepository('ExploticPlanningBundle:Jour')
+                        ->findByCalendrierAndDate($entity->getCalendrier()->getId(),$agenda->getDateDebut(),$agenda->getDateFin());            
+      
+                    
+        
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('ExploticTiersBundle:Stagiaire:show.html.twig', array(
             'entity'      => $entity,
+            'agenda' => $agenda->generate($jours),
             'entreprise' => $entity->getEntreprise(),
             'delete_form' => $deleteForm->createView(),
             ));

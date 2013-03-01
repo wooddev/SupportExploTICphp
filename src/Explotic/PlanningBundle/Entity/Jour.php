@@ -45,16 +45,16 @@ class Jour
      * @param DateTime $jour, Mat/ApM $creneau
      */
     
-    public function __construct(\DateTime $jour,$creneau) {
-        switch($creneau){
-            case 'Mat':
-                $this->creneauDebut = $jour->setTime(8,0,0);
-                $this->creneauFin = $jour->setTime(12,0,0);
-            case 'ApM':
-                $this->creneauDebut = $jour->setTime(14,0,0);
-                $this->creneauFin = $jour->setTime(18,0,0);
-        }
-        $this->statutDate = 'Disponible';
+    public function __construct(/*\DateTime $jour,$creneau*/) {
+//        switch($creneau){
+//            case 'Mat':
+//                $this->creneauDebut = $jour->setTime(8,0,0);
+//                $this->creneauFin = $jour->setTime(12,0,0);
+//            case 'ApM':
+//                $this->creneauDebut = $jour->setTime(14,0,0);
+//                $this->creneauFin = $jour->setTime(18,0,0);
+//        }
+//        $this->statutDate = 'Disponible';
     }
     
 

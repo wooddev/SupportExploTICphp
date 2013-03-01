@@ -88,4 +88,8 @@ class Calendrier
     {
         return $this->jours;
     }
+    
+    public function __toString(){
+        return strval($this->id);
+    }
 }

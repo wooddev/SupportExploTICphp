@@ -4,7 +4,10 @@
     <thead>
         <tr>
             <th>Id</th>
-            <th>Datejour</th>
+            <th>Creneaudebut</th>
+            <th>Creneaufin</th>
+            <th>Creneau</th>
+            <th>Statutdate</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -12,7 +15,10 @@
     {% for entity in entities %}
         <tr>
             <td><a href="{{ path('jour_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{% if entity.dateJour %}{{ entity.dateJour|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.creneauDebut %}{{ entity.creneauDebut|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.creneauFin %}{{ entity.creneauFin|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.creneau }}</td>
+            <td>{{ entity.statutDate }}</td>
             <td>
                 <ul>
                     <li>

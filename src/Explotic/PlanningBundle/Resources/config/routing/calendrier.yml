@@ -6,6 +6,10 @@ calendrier_show:
     pattern:  /{id}/show
     defaults: { _controller: "ExploticPlanningBundle:Calendrier:show" }
 
+calendrier_showweek:
+    pattern:  /show/{id}/{week}/{year}
+    defaults: { _controller: "ExploticPlanningBundle:Calendrier:showweek" }
+
 calendrier_new:
     pattern:  /new
     defaults: { _controller: "ExploticPlanningBundle:Calendrier:new" }
