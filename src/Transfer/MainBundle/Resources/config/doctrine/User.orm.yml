@@ -1,0 +1,11 @@
+Transfer\MainBundle\Entity\User:
+    type: entity
+    table: fos_user
+    repositoryClass: Transfer\MainBundle\Entity\UserRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }

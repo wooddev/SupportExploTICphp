@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: "%locale%" }
+    translator:     ~
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -67,3 +67,12 @@ swiftmailer:
 knp_menu:
   twig:
     template: "BraincraftedBootstrapBundle:Menu:menu.html.twig"
+    
+# FOSUser Configuration
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Transfer\MainBundle\Entity\User
+    registration:
+      form:
+        type: fos_user_registration

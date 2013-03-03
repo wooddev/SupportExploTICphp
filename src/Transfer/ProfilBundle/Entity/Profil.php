@@ -5,15 +5,15 @@ namespace Transfer\ProfilBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Utilisateur
+ * Profil
  */
-class Utilisateur
+class Profil 
 {
     /**
      * @var integer
      */
-    private $id;
-
+    private $id;    
+    
     /**
      * @var string
      */

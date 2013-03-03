@@ -3,11 +3,13 @@
 namespace Transfer\ProfilBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Transfer\ProfilBundle\Entity\Profil;
+
 
 /**
  * AgentDab
  */
-class AgentDab extends Utilisateur
+class AgentDab extends Profil
 {
 
 }

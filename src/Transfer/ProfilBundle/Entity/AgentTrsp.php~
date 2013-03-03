@@ -3,11 +3,12 @@
 namespace Transfer\ProfilBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Transfer\ProfilBundle\Entity\Profil;
 
 /**
  * AgentTrsp
  */
-class AgentTrsp extends Utilisateur
+class AgentTrsp extends Profil
 {
 
     /**

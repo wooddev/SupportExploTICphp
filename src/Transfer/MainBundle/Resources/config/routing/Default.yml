@@ -1,0 +1,7 @@
+mon_profil:
+    pattern:  /mon_profil
+    defaults: { _controller: "TransferMainBundle:Default:monProfil" }
+    
+homepage:
+    pattern:  /
+    defaults: { _controller: TransferMainBundle:Default:index }

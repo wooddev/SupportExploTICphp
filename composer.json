@@ -21,7 +21,8 @@
         "jms/di-extra-bundle": "1.1.*",
         "braincrafted/bootstrap-bundle":"dev-master",
         "knplabs/knp-menu": "2.0.*@dev",
-        "knplabs/knp-menu-bundle": "2.0.x-dev"
+        "knplabs/knp-menu-bundle": "2.0.x-dev",
+        "friendsofsymfony/user-bundle": "*"
     },
     "scripts": {
         "post-install-cmd": [
