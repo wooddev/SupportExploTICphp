@@ -27,10 +27,10 @@ class DefaultController extends Controller
         $agenda = new \Explotic\MainBundle\Model\Agenda();        
         $agenda->init((int)date('W'), (int) date('Y'));        
             //Recherche des jours figurant dans cette partie du calendrier   
-        if (!(null===$entity->getStagiaire()->getCalendrier())){
+        if (!(null===$user->getStagiaire()->getCalendrier())){
             $jours = $em->getRepository('ExploticPlanningBundle:Jour')
                         ->findByCalendrierAndDate(
-                                $entity->getStagiaire()->getCalendrier()->getId(),
+                                $user->getStagiaire()->getCalendrier()->getId(),
                                 $agenda->getDateDebut(),
                                 $agenda->getDateFin()
                       );           
