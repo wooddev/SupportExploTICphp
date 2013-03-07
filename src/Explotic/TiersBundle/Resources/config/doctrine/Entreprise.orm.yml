@@ -11,7 +11,7 @@ Explotic\TiersBundle\Entity\Entreprise:
         cascade: ["persist"]
     oneToMany:
       stagiaires:
-        targetEntity: stagiaire
+        targetEntity: Stagiaire
         mappedBy: entreprise
         nullable: true
       machines:

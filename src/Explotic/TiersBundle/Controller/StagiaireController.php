@@ -47,9 +47,17 @@ class StagiaireController extends Controller
         $agenda = new \Explotic\MainBundle\Model\Agenda();        
         $agenda->init((int)date('W'), (int) date('Y'));        
             //Recherche des jours figurant dans cette partie du calendrier   
+        if (!(null===$entity->getCalendrier())){
             $jours = $em->getRepository('ExploticPlanningBundle:Jour')
-                        ->findByCalendrierAndDate($entity->getCalendrier()->getId(),$agenda->getDateDebut(),$agenda->getDateFin());            
-      
+                        ->findByCalendrierAndDate(
+                                $entity->getCalendrier()->getId(),
+                                $agenda->getDateDebut(),
+                                $agenda->getDateFin()
+                      );           
+        } else{
+            $jours = null;
+        }
+        
                     
         
         $deleteForm = $this->createDeleteForm($id);
