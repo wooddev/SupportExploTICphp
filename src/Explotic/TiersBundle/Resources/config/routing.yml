@@ -1,5 +1,5 @@
 _bureau:
-    resource: "@ExploticTiersBundle/Resources/config/routing/Bureau.yml"
+    resource: "@ExploticTiersBundle/Resources/config/routing/bureau.yml"
     prefix:   /bureau
 _salle:
     resource: "@ExploticTiersBundle/Resources/config/routing/salle.yml"
