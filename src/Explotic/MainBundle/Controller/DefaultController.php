@@ -26,10 +26,17 @@ class DefaultController extends Controller
         // Génération de l'agenda pour la semaine en cours
         $agenda = new \Explotic\MainBundle\Model\Agenda();        
         $agenda->init((int)date('W'), (int) date('Y'));        
-        //Recherche des jours figurant dans cette partie du calendrier  
-        $jours = $em->getRepository('ExploticPlanningBundle:Jour')
-                        ->findByCalendrierAndDate($user->getStagiaire()->getCalendrier()->getId(),$agenda->getDateDebut(),$agenda->getDateFin()); 
-        
+            //Recherche des jours figurant dans cette partie du calendrier   
+        if (!(null===$entity->getStagiaire()->getCalendrier())){
+            $jours = $em->getRepository('ExploticPlanningBundle:Jour')
+                        ->findByCalendrierAndDate(
+                                $entity->getStagiaire()->getCalendrier()->getId(),
+                                $agenda->getDateDebut(),
+                                $agenda->getDateFin()
+                      );           
+        } else{
+            $jours = null;
+        }
         // Conception de la carte
         
         $myUserMap = new \Explotic\MainBundle\Model\MyUserMap($this->get('ivory_google_map.map'), $user);       
