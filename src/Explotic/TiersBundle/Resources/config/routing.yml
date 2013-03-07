@@ -10,7 +10,7 @@ _poste:
     prefix:   /poste
     
 _siteIntervention:
-    resource: "@ExploticTiersBundle/Resources/config/routing/siteIntervention.yml"
+    resource: "@ExploticTiersBundle/Resources/config/routing/siteintervention.yml"
     prefix:   /siteintervention
 
 _localisation:
