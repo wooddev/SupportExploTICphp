@@ -24,12 +24,10 @@ class CreneauRdvGenController extends Controller
     public function generateAction()
     {
         
-        $em = $this->getDoctrine()->getEntityManager();
-        
-        $creneauxModeles = $em->getRepository('TransferReservationBundle:CreneauModele')->findAll();
-        
         $generateurRdv = new CreneauRdvGen();
-        $generateurRdv->init($creneauxModeles, 1, 2013);     
+        $generateurRdv->setWeek(date('W'));
+        $generateurRdv->setYear(date('Y'));
+        
                 
         $form   = $this->createForm(new CreneauRdvGenType(), $generateurRdv);
 

@@ -28,9 +28,10 @@ class CreneauRdv extends Creneau
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
+        parent::__construct();
         $this->rdvs = new \Doctrine\Common\Collections\ArrayCollection();
+        
     }
     
     /**

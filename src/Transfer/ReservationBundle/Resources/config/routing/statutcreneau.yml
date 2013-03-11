@@ -1,0 +1,30 @@
+statutcreneau:
+    pattern:  /
+    defaults: { _controller: "TransferReservationBundle:StatutCreneau:index" }
+
+statutcreneau_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TransferReservationBundle:StatutCreneau:show" }
+
+statutcreneau_new:
+    pattern:  /new
+    defaults: { _controller: "TransferReservationBundle:StatutCreneau:new" }
+
+statutcreneau_create:
+    pattern:  /create
+    defaults: { _controller: "TransferReservationBundle:StatutCreneau:create" }
+    requirements: { _method: post }
+
+statutcreneau_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TransferReservationBundle:StatutCreneau:edit" }
+
+statutcreneau_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TransferReservationBundle:StatutCreneau:update" }
+    requirements: { _method: post }
+
+statutcreneau_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TransferReservationBundle:StatutCreneau:delete" }
+    requirements: { _method: post }

@@ -50,6 +50,13 @@ class Creneau
     private $disponibilite;
 
 
+    public function __construct() {
+        
+        $this->setDateCreation();
+        $this->setDateModification();
+        
+        return $this;
+    }
     /**
      * Get id
      *
@@ -69,7 +76,7 @@ class Creneau
     public function setJour($jour)
     {
         $this->jour = $jour;
-    
+        $this->setDateModification();
         return $this;
     }
 
@@ -92,7 +99,7 @@ class Creneau
     public function setHeure($heure)
     {
         $this->heure = $heure;
-    
+        $this->setDateModification();
         return $this;
     }
 
@@ -115,7 +122,7 @@ class Creneau
     public function setMinute($minute)
     {
         $this->minute = $minute;
-    
+        $this->setDateModification();
         return $this;
     }
 
@@ -138,7 +145,7 @@ class Creneau
     public function setDuree($duree)
     {
         $this->duree = $duree;
-    
+        $this->setDateModification();
         return $this;
     }
 
@@ -161,7 +168,7 @@ class Creneau
     public function setHeureDebut($heureDebut)
     {
         $this->heureDebut = $heureDebut;
-    
+        $this->setDateModification();
         return $this;
     }
 
@@ -184,7 +191,7 @@ class Creneau
     public function setHeureFin($heureFin)
     {
         $this->heureFin = $heureFin;
-    
+        $this->setDateModification();
         return $this;
     }
 
@@ -207,7 +214,7 @@ class Creneau
     public function setDisponibilite($disponibilite)
     {
         $this->disponibilite = $disponibilite;
-    
+        $this->setDateModification();
         return $this;
     }
 
@@ -235,7 +242,7 @@ class Creneau
     public function setTypePoste(\Transfer\ReservationBundle\Entity\TypePoste $typePoste = null)
     {
         $this->typePoste = $typePoste;
-    
+        $this->setDateModification();
         return $this;
     }
 
@@ -247,5 +254,117 @@ class Creneau
     public function getTypePoste()
     {
         return $this->typePoste;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $dateCreation;
+
+    /**
+     * @var \DateTime
+     */
+    private $dateArchivage;
+
+    /**
+     * @var \DateTime
+     */
+    private $dateModification;
+
+    /**
+     * @var \Transfer\ReservationBundle\Entity\StatutCreneau
+     */
+    private $statut;
+
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     * @return Creneau
+     */
+    public function setDateCreation()
+    {
+        $this->dateCreation = new \DateTime(date('Y-m-d H:i:s'));;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime 
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * Set dateArchivage
+     *
+     * @param \DateTime $dateArchivage
+     * @return Creneau
+     */
+    public function setDateArchivage($dateArchivage)
+    {
+        $this->dateArchivage = $dateArchivage;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateArchivage
+     *
+     * @return \DateTime 
+     */
+    public function getDateArchivage()
+    {
+        return $this->dateArchivage;
+    }
+
+    /**
+     * Set dateModification
+     *
+     * @param \DateTime $dateModification
+     * @return Creneau
+     */
+    public function setDateModification()
+    {
+        $this->dateModification = new \DateTime(date('Y-m-d H:i:s'));
+    
+        return $this;
+    }
+
+    /**
+     * Get dateModification
+     *
+     * @return \DateTime 
+     */
+    public function getDateModification()
+    {
+        return $this->dateModification;
+    }
+
+    /**
+     * Set statut
+     *
+     * @param \Transfer\ReservationBundle\Entity\StatutCreneau $statut
+     * @return Creneau
+     */
+    public function setStatut(\Transfer\ReservationBundle\Entity\StatutCreneau $statut = null)
+    {
+        $this->statut = $statut;
+        $this->setDateModification();
+        return $this;
+    }
+
+    /**
+     * Get statut
+     *
+     * @return \Transfer\ReservationBundle\Entity\StatutCreneau 
+     */
+    public function getStatut()
+    {
+        return $this->statut;
     }
 }

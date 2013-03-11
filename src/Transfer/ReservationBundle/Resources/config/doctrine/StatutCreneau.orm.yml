@@ -1,0 +1,14 @@
+Transfer\ReservationBundle\Entity\StatutCreneau:
+    type: entity
+    table: null
+    repositoryClass: Transfer\ReservationBundle\Entity\StatutCreneauRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        nom:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

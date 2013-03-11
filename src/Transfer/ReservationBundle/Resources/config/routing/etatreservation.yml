@@ -1,0 +1,30 @@
+etatreservation:
+    pattern:  /
+    defaults: { _controller: "TransferReservationBundle:EtatReservation:index" }
+
+etatreservation_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TransferReservationBundle:EtatReservation:show" }
+
+etatreservation_new:
+    pattern:  /new
+    defaults: { _controller: "TransferReservationBundle:EtatReservation:new" }
+
+etatreservation_create:
+    pattern:  /create
+    defaults: { _controller: "TransferReservationBundle:EtatReservation:create" }
+    requirements: { _method: post }
+
+etatreservation_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TransferReservationBundle:EtatReservation:edit" }
+
+etatreservation_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TransferReservationBundle:EtatReservation:update" }
+    requirements: { _method: post }
+
+etatreservation_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TransferReservationBundle:EtatReservation:delete" }
+    requirements: { _method: post }

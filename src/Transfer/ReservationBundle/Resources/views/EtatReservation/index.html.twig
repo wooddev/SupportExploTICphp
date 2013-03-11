@@ -1,25 +1,25 @@
-<h1>CreneauPref list</h1>
+<h1>EtatReservation list</h1>
 
 <table class="records_list">
     <thead>
         <tr>
             <th>Id</th>
-            <th>Disponibilite</th>
+            <th>Nom</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('creneaupref_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.disponibilite }}</td>
+            <td><a href="{{ path('etatreservation_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.nom }}</td>
             <td>
                 <ul>
                     <li>
-                        <a href="{{ path('creneaupref_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('etatreservation_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('creneaupref_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('etatreservation_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
             </td>
@@ -30,7 +30,7 @@
 
 <ul>
     <li>
-        <a href="{{ path('creneaupref_new') }}">
+        <a href="{{ path('etatreservation_new') }}">
             Create a new entry
         </a>
     </li>

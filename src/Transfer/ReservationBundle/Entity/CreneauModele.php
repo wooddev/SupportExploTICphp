@@ -9,7 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CreneauModele extends Creneau
 {
-    public function __construct($disponibilite, $jour, $heure,
+        
+    public function init($disponibilite, $jour, $heure,
             $minute,$duree,
             \Transfer\ReservationBundle\Entity\TypePoste $typePoste) 
     {    
@@ -30,5 +31,7 @@ class CreneauModele extends Creneau
         $minuteFin=$fin-$heureFin;
         $this->getHeureFin()->setTime($heureFin,$minuteFin,0);           
     }    
+    
+    
     
 }

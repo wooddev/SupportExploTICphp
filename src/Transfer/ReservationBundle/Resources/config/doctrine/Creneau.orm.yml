@@ -4,7 +4,9 @@ Transfer\ReservationBundle\Entity\Creneau:
     repositoryClass: Transfer\ReservationBundle\Entity\CreneauRepository
     manyToOne:
       typePoste:
-        targetEntity: TypePoste      
+        targetEntity: TypePoste 
+      statut:
+          targetEntity: StatutCreneau
     fields:
         id:
             type: integer
@@ -24,7 +26,14 @@ Transfer\ReservationBundle\Entity\Creneau:
         heureFin:
             type: time
         disponibilite:
-            type: integer     
+            type: integer
+        dateCreation:
+            type: date
+        dateArchivage:
+            type: date
+            nullable: true
+        dateModification:
+            type: date            
     inheritanceType: JOINED
     discriminatorColumn:
       name: typeCreneau

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CreneauPref
 {
+    
     /**
      * @var integer
      */
@@ -17,7 +18,22 @@ class CreneauPref
     /**
      * @var integer
      */
-    private $Disponibilite;
+    private $disponibilite;
+
+    /**
+     * @var \Transfer\ReservationBundle\Entity\CreneauModele
+     */
+    private $creneauModele;
+
+    /**
+     * @var \Transfer\ProfilBundle\Entity\Transporteur
+     */
+    private $transporteur;
+
+    /**
+     * @var \Transfer\ReservationBundle\Entity\EtatReservation
+     */
+    private $etatReservation;
 
 
     /**
@@ -31,45 +47,35 @@ class CreneauPref
     }
 
     /**
-     * Set Disponibilite
+     * Set disponibilite
      *
      * @param integer $disponibilite
      * @return CreneauPref
      */
     public function setDisponibilite($disponibilite)
     {
-        $this->Disponibilite = $disponibilite;
+        $this->disponibilite = $disponibilite;
     
         return $this;
     }
 
     /**
-     * Get Disponibilite
+     * Get disponibilite
      *
      * @return integer 
      */
     public function getDisponibilite()
     {
-        return $this->Disponibilite;
+        return $this->disponibilite;
     }
-    /**
-     * @var \Transfer\ReservationBundle\Entity\CreneauModele
-     */
-    private $creneauModelePref;
 
     /**
-     * @var \Transfer\ProfilBundle\Entity\Transporteur
-     */
-    private $transporteurPref;
-
-
-    /**
-     * Set creneauModelePref
+     * Set creneauModele
      *
-     * @param \Transfer\ReservationBundle\Entity\CreneauModele $creneauModelePref
+     * @param \Transfer\ReservationBundle\Entity\CreneauModele $creneauModele
      * @return CreneauPref
      */
-    public function setCreneauModelePref(\Transfer\ReservationBundle\Entity\CreneauModele $creneauModelePref = null)
+    public function setCreneauModele(\Transfer\ReservationBundle\Entity\CreneauModele $creneauModelePref = null)
     {
         $this->creneauModelePref = $creneauModelePref;
     
@@ -81,31 +87,54 @@ class CreneauPref
      *
      * @return \Transfer\ReservationBundle\Entity\CreneauModele 
      */
-    public function getCreneauModelePref()
+    public function getCreneauModele()
     {
         return $this->creneauModelePref;
     }
 
     /**
-     * Set transporteurPref
+     * Set transporteur
      *
-     * @param \Transfer\ProfilBundle\Entity\Transporteur $transporteurPref
+     * @param \Transfer\ProfilBundle\Entity\Transporteur $transporteur
      * @return CreneauPref
      */
-    public function setTransporteurPref(\Transfer\ProfilBundle\Entity\Transporteur $transporteurPref = null)
+    public function setTransporteur(\Transfer\ProfilBundle\Entity\Transporteur $transporteur = null)
     {
-        $this->transporteurPref = $transporteurPref;
+        $this->transporteurPref = $transporteur;
     
         return $this;
     }
 
     /**
-     * Get transporteurPref
+     * Get transporteur
      *
      * @return \Transfer\ProfilBundle\Entity\Transporteur 
      */
-    public function getTransporteurPref()
+    public function getTransporteur()
     {
-        return $this->transporteurPref;
+        return $this->transporteur;
+    }
+
+    /**
+     * Set etatReservation
+     *
+     * @param \Transfer\ReservationBundle\Entity\EtatReservation $etatReservation
+     * @return CreneauPref
+     */
+    public function setEtatReservation(\Transfer\ReservationBundle\Entity\EtatReservation $etatReservation = null)
+    {
+        $this->etatReservation = $etatReservation;
+    
+        return $this;
+    }
+
+    /**
+     * Get etatReservation
+     *
+     * @return \Transfer\ReservationBundle\Entity\EtatReservation 
+     */
+    public function getEtatReservation()
+    {
+        return $this->etatReservation;
     }
 }

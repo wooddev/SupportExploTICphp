@@ -28,3 +28,11 @@ transfer_reservation_planningconfirme:
 transfer_reservation_creneauPref:
     resource: "@TransferReservationBundle/Resources/config/routing/creneaupref.yml"
     prefix: /creneaupref
+TransferReservationBundle_statutcreneau:
+    resource: "@TransferReservationBundle/Resources/config/routing/statutcreneau.yml"
+    prefix:   /statutcreneau
+TransferReservationBundle_etatreservation:
+    resource: "@TransferReservationBundle/Resources/config/routing/etatreservation.yml"
+    prefix:   /etatreservation
+
+

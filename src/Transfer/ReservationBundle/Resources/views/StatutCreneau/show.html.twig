@@ -1,4 +1,4 @@
-<h1>CreneauPref</h1>
+<h1>StatutCreneau</h1>
 
 <table class="record_properties">
     <tbody>
@@ -7,25 +7,25 @@
             <td>{{ entity.id }}</td>
         </tr>
         <tr>
-            <th>Disponibilite</th>
-            <td>{{ entity.disponibilite }}</td>
+            <th>Nom</th>
+            <td>{{ entity.nom }}</td>
         </tr>
     </tbody>
 </table>
 
 <ul class="record_actions">
     <li>
-        <a href="{{ path('creneaupref') }}">
+        <a href="{{ path('statutcreneau') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('creneaupref_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('statutcreneau_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>
     <li>
-        <form action="{{ path('creneaupref_delete', { 'id': entity.id }) }}" method="post">
+        <form action="{{ path('statutcreneau_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button type="submit">Delete</button>
         </form>

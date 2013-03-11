@@ -124,7 +124,7 @@ class CreneauModeleGen {
     
     /**
      * Méthode Générator :
-     * Permet de générer les modèles de créneaux sur une semaine
+     * Permet de générer les modèles de créneaux sur une semaine générique
      * à partir des propriétés du générateur
      * 
      * 
@@ -135,25 +135,17 @@ class CreneauModeleGen {
         $minDebutTot = $this->heureDebut*60+$this->minDebut;
         $minFinTot =$this->heureFin*60+$this->minFin;
         
-//        $duree = $minFinTot-$minDebutTot;
-//        $nbCreneau = ceil($duree/$this->pasDeTemps);
                 
         for ($i = 1; $i <= 6; $i++) {
             for ($min = $minDebutTot; $min <=$minFinTot; $min=$min+$this->pasDeTemps){
-//                $creneau= new CreneauModele(       
-//                        $this->disponibilite,                           //disponibilite
-//                        $i,                                             //jour
-//                        floor($min/60),                                 //heure
-//                        $min-floor($min/60)*60,                         //min 
-//                        $this->pasDeTemps,                              //durée
-//                        $this->typePoste);  
-                $this->CreneauxModeles->add(new CreneauModele(       
+                $this->CreneauxModeles->add(new CreneauModele());
+                $this->CreneauxModeles->last()->init(                
                         $this->disponibilite,                           //disponibilite
                         $i,                                             //jour
                         floor($min/60),                                 //heure
                         $min-floor($min/60)*60,                         //min 
                         $this->pasDeTemps,                              //durée
-                        $this->typePoste));                             //poste
+                        $this->typePoste);                             //poste
             }
         }    
         

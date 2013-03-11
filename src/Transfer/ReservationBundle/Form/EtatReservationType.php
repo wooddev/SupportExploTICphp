@@ -6,27 +6,24 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CreneauPrefType extends AbstractType
+class EtatReservationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('disponibilite')
-            ->add('creneauModelePref')
-            ->add('transporteurPref')
-            ->add('etatReservation')
+            ->add('nom')
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Transfer\ReservationBundle\Entity\CreneauPref'
+            'data_class' => 'Transfer\ReservationBundle\Entity\EtatReservation'
         ));
     }
 
     public function getName()
     {
-        return 'transfer_reservationbundle_creneaupreftype';
+        return 'transfer_reservationbundle_etatreservationtype';
     }
 }
