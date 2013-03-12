@@ -12,4 +12,22 @@ use Doctrine\ORM\EntityRepository;
  */
 class CreneauModeleRepository extends EntityRepository
 {
+    public function findDisponibles(){
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $subqb = $this->getEntityManager()->createQueryBuilder();
+        $subqb  ->select('cm0')
+                ->from('TransferReservationBundle:CreneauModele','cm0 ')
+                ->leftjoin('cm0.creneauxPrefs', 'cp')
+                ->groupBy('cm0')
+                ->having('(cm0.disponibilite-sum(cp.disponibilite))<1')
+                ;
+
+        $qb ->select('cm')
+            ->from('TransferReservationBundle:CreneauModele','cm ')
+            ->where($qb->expr()->notin('cm', $subqb->getDQL()))
+            ;      
+        
+        return $qb;
+                
+    }
 }

@@ -5,6 +5,7 @@ namespace Transfer\ReservationBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class CreneauPrefType extends AbstractType
 {
@@ -12,8 +13,15 @@ class CreneauPrefType extends AbstractType
     {
         $builder
             ->add('disponibilite')
-            ->add('creneauModelePref')
-            ->add('transporteurPref')
+//            ->add('creneauModele')
+            ->add('creneauModele','entity',array(
+                'class' => 'TransferReservationBundle:CreneauModele',
+                'query_builder' => function(EntityRepository $er){
+                                return $er->findDisponibles();            
+                        },
+                
+            ))
+            ->add('transporteur')
             ->add('etatReservation')
         ;
     }

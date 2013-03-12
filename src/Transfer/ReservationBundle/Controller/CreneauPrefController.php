@@ -176,4 +176,24 @@ class CreneauPrefController extends Controller
             ->getForm()
         ;
     }
+    
+    public function newToTransporteur($transporteur_id){
+        $em = $this->getDoctrine()->getManager();
+        
+        $transporteur = $em->getRepository('TransferReservationBundle:Transporteur')
+                ->find($transporteur_id);
+        $entity = new CreneauPref();        
+        $entity ->setTransporteur($transporteur)
+                ->setEtatReservation($em->getRepository('TransferReservationBundle:EtatReservation')
+                ->findByNom('A réserver'))   ; 
+        
+        $form   = $this->createForm(new CreneauPrefType(), $entity);
+
+        return $this->render('TransferReservationBundle:CreneauPref:new.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+        
+        
+    }
 }

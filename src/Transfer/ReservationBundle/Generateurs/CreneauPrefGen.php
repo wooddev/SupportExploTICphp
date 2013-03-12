@@ -18,21 +18,39 @@ use Transfer\ReservationBundle\Entity\CreneauModele;
 class CreneauPrefGen {
     //put your code here  
     
-    private $creneauModele,
+    private $creneauxModeles,
             $disponibilite,
             $etatReservation,
-            $transporteur;
+            $transporteur,
+            $creneauxPrefs;
     
-    public function getCreneauModele(){
-        if (!$this->CreneauxModeles) {
-            throw new Exception('Aucun créneau modèle associé');
-        }
-        else return $this->CreneauxModeles;
+    public function __construct(){
+        $this->creneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creneauxPrefs = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this;
     }
     
-    public function setCreneauModele($creneauModele){
-        $this->creneauModele = $creneauModele;
-        return $ths;
+    public function getCreneauxModeles(){
+        if (!$this->creneauxModeles) {
+            throw new Exception('Aucun créneau modèle associé');
+        }
+        else return $this->creneauxModeles;
+    }
+    public function setCreneauxModeles($collection){
+        $this->creneauxModeles = $collection;
+        return $this;
+    }
+    
+    public function addCreneauModele($creneauModele){
+        $this->creneauxModeles->Add($creneauModele);
+        return $this;
+    }
+    
+    public function getCreneauxPrefs(){
+        if (!$this->creneauxPrefs) {
+            throw new Exception('Aucun créneau modèle associé');
+        }
+        else return $this->creneauxPrefs;
     }
     
     public function getDisponibilite(){
@@ -70,41 +88,13 @@ class CreneauPrefGen {
 
      */
    
-    public function init($creneauModele, $disponibilite, $etatReservation,$transporteur)
+    public function init($creneauxModeles, $disponibilite, $etatReservation,$transporteur)
     {
-        $this->CreneauModele = $creneauModele;        
-        $this->disponibilite = $_disponibilite;
+        $this->creneauxModeles = $creneauxModeles;        
+        $this->disponibilite = $disponibilite;
         $this->etatReservation= $etatReservation;
         $this->transporteur = $transporteur;
     }
-    
-    /**
-     * Méthode Générator :
-     * Permet de générer les modèles de créneaux sur une semaine générique
-     * à partir des propriétés du générateur
-     * 
-     * 
-     */
-    
-    public function generate() {
-        
-        
-                
-        for ($i = 1; $i <= 6; $i++) {
-            for ($min = $minDebutTot; $min <=$minFinTot; $min=$min+$this->pasDeTemps){
-                $this->CreneauxModeles->add(new CreneauModele());
-                $this->CreneauxModeles->last()->init(                
-                        $this->disponibilite,                           //disponibilite
-                        $i,                                             //jour
-                        floor($min/60),                                 //heure
-                        $min-floor($min/60)*60,                         //min 
-                        $this->pasDeTemps,                              //durée
-                        $this->typePoste);                             //poste
-            }
-        }    
-        
-    }
-    
 
    
    

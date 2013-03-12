@@ -42,5 +42,4 @@ Transfer\ReservationBundle\Entity\Creneau:
     discriminatorMap:
       creneauRdv : CreneauRdv
       creneauModele: CreneauModele
-      creneauPref: CreneauPref
     lifecycleCallbacks: {  }

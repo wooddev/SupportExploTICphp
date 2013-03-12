@@ -14,11 +14,11 @@ namespace Transfer\ReservationBundle\Generateurs;
  * 
  */
 class CreneauRdvGen {
-    private $CreneauxModeles;
+    private $creneauxModeles;
     private $week;
     private $year;
     
-    private $CreneauxRdvs;
+    private $creneauxRdvs;
     
     /**
      * init 
@@ -32,27 +32,27 @@ class CreneauRdvGen {
 
     
     public function __construct(){
-        $this->CreneauxRdvs = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->CreneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creneauxRdvs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
         
     }
     
     public function init( $creneauxModeles, $week,  $year){
         
-        $this->CreneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
         
         foreach($creneauxModeles as $creneauModele){
-            $this->CreneauxModeles->add($creneauModele);
+            $this->creneauxModeles->add($creneauModele);
         }
         $this->week = $week;
         $this->year = $year;    
-        $this->CreneauxRdvs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creneauxRdvs = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     public function setCreneauxModeles($creneauxModeles){                
 
         foreach($creneauxModeles as $creneauModele){
-            $this->CreneauxModeles->add($creneauModele);
+            $this->creneauxModeles->add($creneauModele);
         }
     }
     
@@ -72,7 +72,7 @@ class CreneauRdvGen {
     }
 
     public function getCreneauxRdvs(){
-        return $this->CreneauxRdvs;
+        return $this->creneauxRdvs;
     }
 
     
@@ -82,18 +82,18 @@ class CreneauRdvGen {
     
     public function generateCreneauxRdvs(){
         
-        foreach($this->CreneauxModeles as $creneauModele){
-            $this->CreneauxRdvs->add(new \Transfer\ReservationBundle\Entity\CreneauRdv());
-            $this->CreneauxRdvs->last()->setDisponibilite($creneauModele->getDisponibilite());
-            $this->CreneauxRdvs->last()->setDuree($creneauModele->getDuree());
-            $this->CreneauxRdvs->last()->setHeure($creneauModele->getHeure());
-            $this->CreneauxRdvs->last()->setMinute($creneauModele->getMinute());
-            $this->CreneauxRdvs->last()->setHeureDebut($creneauModele->getHeureDebut());
-            $this->CreneauxRdvs->last()->setHeureFin($creneauModele->getHeureFin());
-            $this->CreneauxRdvs->last()->setJour($creneauModele->getJour());
-            $this->CreneauxRdvs->last()->setTypePoste($creneauModele->getTypePoste());
-            $this->CreneauxRdvs->last()->setAnnee($this->year);
-            $this->CreneauxRdvs->last()->setSemaine($this->week);           
+        foreach($this->creneauxModeles as $creneauModele){
+            $this->creneauxRdvs->add(new \Transfer\ReservationBundle\Entity\CreneauRdv());
+            $this->creneauxRdvs->last()->setDisponibilite($creneauModele->getDisponibilite());
+            $this->creneauxRdvs->last()->setDuree($creneauModele->getDuree());
+            $this->creneauxRdvs->last()->setHeure($creneauModele->getHeure());
+            $this->creneauxRdvs->last()->setMinute($creneauModele->getMinute());
+            $this->creneauxRdvs->last()->setHeureDebut($creneauModele->getHeureDebut());
+            $this->creneauxRdvs->last()->setHeureFin($creneauModele->getHeureFin());
+            $this->creneauxRdvs->last()->setJour($creneauModele->getJour());
+            $this->creneauxRdvs->last()->setTypePoste($creneauModele->getTypePoste());
+            $this->creneauxRdvs->last()->setAnnee($this->year);
+            $this->creneauxRdvs->last()->setSemaine($this->week);           
         }   
     }
    

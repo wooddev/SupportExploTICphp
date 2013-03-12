@@ -5,6 +5,7 @@ Transfer\ReservationBundle\Entity\CreneauPref:
   manyToOne:
     creneauModele:
       targetEntity: CreneauModele
+      inversedBy: creneauxPrefs
     transporteur:
       targetEntity: Transfer\ProfilBundle\Entity\Transporteur
       inversedBy: creneauPrefs
