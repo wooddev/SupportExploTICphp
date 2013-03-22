@@ -61,7 +61,7 @@ class Agenda {
         }else $this->dateFin->setISODate($this->year,$this->week+4); 
     }   
     
-    public function generate($jours = null){
+    public function generate($creneauxStructure, $creneauxAffiches){
         $year = $this->year;
         $week= $this->week;               
 
@@ -74,6 +74,11 @@ class Agenda {
             $agendaY1->addAgendaWeek(new AgendaWeek());
             $agendaY1->getAgendasWeek()->last()->setVal($s); // Création d'une semaine d'agenda portant le numéro $s
             
+            foreach($creneauxStructure as $crStruct)
+            {
+                
+            }
+
             // Sur 6 jours
             for($j=1; $j<=6;$j++)
             {                
@@ -97,6 +102,10 @@ class Agenda {
             {
                 $agendaY2->addAgendaWeek(new AgendaWeek());
                 $agendaY2->getAgendasWeek()->last()->setVal($s); // Création d'une semaine d'agenda portant le numéro $s
+                
+                
+                
+                
                 for($j=1; $j<=5;$j++)
                 {
                     $agendaY2->getAgendasWeek()->last()->addAgendaDay(new AgendaDay());

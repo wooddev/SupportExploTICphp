@@ -14,7 +14,9 @@ class CreneauModeleRepository extends EntityRepository
 {
     public function findDisponibles(){
         $qb = $this->getEntityManager()->createQueryBuilder();
+        
         $subqb = $this->getEntityManager()->createQueryBuilder();
+        
         $subqb  ->select('cm0')
                 ->from('TransferReservationBundle:CreneauModele','cm0 ')
                 ->leftjoin('cm0.creneauxPrefs', 'cp')
@@ -27,7 +29,17 @@ class CreneauModeleRepository extends EntityRepository
             ->where($qb->expr()->notin('cm', $subqb->getDQL()))
             ;      
         
-        return $qb;
-                
+        return $qb;                
+    }
+    
+    public function find($id){
+        return $this->getEntityManager()
+                ->createQuery('
+                SELECT cm
+                FROM TransferReservationBundle:CreneauModele cm
+                WHERE cm.id = :id               
+                ')
+                ->setParameter(':id',$id)
+                ->getResult();
     }
 }
