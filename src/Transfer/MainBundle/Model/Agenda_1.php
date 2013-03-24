@@ -19,15 +19,9 @@ class Agenda {
     private $dateFin;
     private $week;
     private $year;
-    private $creneauxAgenda;
     
-    public function getCreneauxAgenda() {
-        return $this->creneauxAgenda;
-    }
-        
     public function __construct(){         
         $this->agendasYear = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->creneauxAgenda = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     public function getAgendasYear(){
@@ -67,67 +61,62 @@ class Agenda {
         }else $this->dateFin->setISODate($this->year,$this->week+4); 
     }   
     
-    public function setCreneauxAgenda($creneauxStructure, $creneauxAffiches){  
-        // Parcours des créneaux de la collection
-        foreach ($creneauxStructure as $creneau){
-            //Création et ajout d'une instance de creneauAgenda sur le modèle du créneau en cours
-            $this->addCreneauAgenda(new AgendaCreneau());   
-            
-            $this->getCreneauxAgenda()->last()->init($creneau,null,null,
-                                        $creneau->getDisponibilite(),0,
-                                        $creneau->getHeureDebut(),
-                                        $creneau->getHeureFin(),
-                                        'structure');
-        }
-
-        // Parcours des créneaux de la collection
-        foreach ($creneauxAffiches as $creneau){
-            //Recherche du creneauAgenda associé et modification 
-            //(on exploite le lien entre les classes de creneau)
-            $creneauModeleCrit = Criteria::create()
-                                ->where(Criteria::expr()->eq("creneauStructure",$creneau->getCreneauModele()));          
-            $this->getCreneauxAgenda()->matching($creneauModeleCrit)->first()
-                                                ->setCreneauAffiche($creneau);
-            $this->getCreneauxAgenda()->matching($creneauModeleCrit)->first()
-                                                ->setTransporteur($creneau->getTransporteur());
-            $this->getCreneauxAgenda()->matching($creneauModeleCrit)->first()
-                                                ->setType('affiche');
-        }          
-    }
-
-    
-    public function generateAgenda($nbSemaines = 1){
+    public function generate($creneauxStructure, $creneauxAffiches, $nbSemaines){
         $year = $this->year;
         $week= $this->week;  
         $heureDebutJours = 5;
 
         //On créé un agenda pour l'année
-        $agendaYear= new AgendaYear();
-        $agendaYear->setVal((int)$year);
+        $agenda= new AgendaYear();
+        $agenda->setVal((int)$year);
         // Le calendrier s'étale sur $nbSemaines
         for ($s = $week; $s<$week+$nbSemaines && $s<=52; $s++)
         {
-            $agendaYear->addAgendaWeek(new AgendaWeek());
-            $agendaYear->getAgendasWeek()->last()->setVal($s); // Création d'une semaine d'agenda portant le numéro $s
+            $agendaY1->addAgendaWeek(new AgendaWeek());
+            $agendaY1->getAgendasWeek()->last()->setVal($s); // Création d'une semaine d'agenda portant le numéro $s
             
             // Sur 6 jours
-            for($j=1; $j<=6;$j++){                
-                $agendaYear->getAgendasWeek()->last()->addAgendaDay(new AgendaDay());
-                $agendaYear->getAgendasWeek()->last()->getAgendasDays()->last()->setVal($j);                
-                
-                $criteria = Criteria::create()
-                        ->where(Criteria::expr()              
-                                    ->eq("year",$year))              
-                        ->andWhere(Criteria::expr()
-                                    ->eq("week",$w))
-                        ->andWhere(Criteria::expr()
-                                    ->eq("day",$j));
-                $agendaYear->getAgendasWeek()->last()
-                                ->getAgendasDays()->last()
-                                    ->setCreneaux($this->creneauxAgenda->matching($criteria));  
-            }
+            for($j=1; $j<=6;$j++)
+            {                
+                $agendaY1->getAgendasWeek()->last()->addAgendaDay(new AgendaDay());
+                }
         }        
-        $this->addAgendaYear($agendaYear);
+        $this->addAgendaYear($agendaY1);
+        
+        
+        // Calcul des dates de début et fin correspondate
+        $dateDebut = new \DateTime();
+        $dateDebut->setISODate($year,$week);
+        
+        $dateFin = new \DateTime();
+        if($week>48){ // gestion de la fin d'année ici aussi
+            $dateFin->setISODate($year+1,$week+4-52);
+        }else $dateFin->setISODate($year,$week+4);       
+        
+        // On lie les jours récupérés au tableau des dates
+        if(!(null===$jours))
+        {
+            foreach($jours as $jour)
+            {
+                $yearcrit = Criteria::create()
+                        ->where(Criteria::expr()                
+                                    ->eq("val",idate('Y',$jour->getCreneauDebut()->getTimeStamp())));                
+                $weekcrit = Criteria::create()
+                        ->where(Criteria::expr()
+                                    ->eq("val",idate('W',$jour->getCreneauDebut()->getTimeStamp())));
+                $daycrit = Criteria::create()
+                        ->where(Criteria::expr()
+                                    ->eq("val",idate('w',$jour->getCreneauDebut()->getTimeStamp())));
+                $creneaucrit = Criteria::create()
+                        ->where(Criteria::expr()
+                                    ->eq("val",$jour->getCreneau()));                           
+                $this->getAgendasYear()->matching($yearcrit)->first()
+                        ->getAgendasWeek()->matching($weekcrit)->first()
+                            ->getAgendasDay()->matching($daycrit)->first()
+                                ->getCreneaux()->matching($creneaucrit)->first()
+                                    ->setJour($jour);             
+            }
+        }
         
         return $this;
     }
@@ -192,19 +181,8 @@ class AgendaDay{
     private $dateTimeDebut;
     private $dateTimeFin;
     
-    public function setCreneaux($creneaux) {
-        $this->creneaux = $creneaux;
-    }
 
-    public function setDateTimeDebut($dateTimeDebut) {
-        $this->dateTimeDebut = $dateTimeDebut;
-    }
 
-    public function setDateTimeFin($dateTimeFin) {
-        $this->dateTimeFin = $dateTimeFin;
-    }
-
-    
     public function __construct(){         
         $this->creneaux = new \Doctrine\Common\Collections\ArrayCollection();
     }   
@@ -326,8 +304,7 @@ class AgendaDay{
             $this->getCreneaux()->matching($creneauModeleCrit)->first()
                                                 ->setType('affiche');
         }
-    }    
-   
+    }
     
 }
 class AgendaCreneau{
@@ -339,38 +316,10 @@ class AgendaCreneau{
     private $nbAllouesTransporteur;
     private $dateTimeDebut;
     private $dateTimeFin;
-    private $year;
-    private $week;
-    private $day;
     private $minuteDebut; // minutes de début et fin du créneau % à la journée
     private $duree;
     private $type;
             
-    public function getYear() {
-        return $this->year;
-    }
-
-    public function setYear($year) {
-        $this->year = $year;
-    }
-
-    public function getWeek() {
-        return $this->week;
-    }
-
-    public function setWeek($week) {
-        $this->week = $week;
-    }
-
-    public function getDay() {
-        return $this->day;
-    }
-
-    public function setDay($day) {
-        $this->day = $day;
-    }
-
-        
     public function getCreneauStructure() {
         return $this->creneauStructure;
     }
@@ -463,12 +412,11 @@ class AgendaCreneau{
         $this->nbDisponibilites = $nbDisponibilites;
         $this->nbAllouesTransporteur = $nbAllouesTransporteur;
         $this->dateTimeDebut = $dateTimeDebut;
-        $this->dateTimeFin = $dateTimeFin;        
-        $this->year = idate('Y',$dateTimeDebut->getTimestamp());
-        $this->week = idate('W',$dateTimeDebut->getTimestamp());
-        $this->day =  idate('w',$dateTimeDebut->getTimestamp());        
+        $this->dateTimeFin = $dateTimeFin;
+                
         $this->minuteDebut =    idate('i',$dateTimeDebut->getTimestamp())+
-                                (idate('H',$dateTimeDebut->getTimestamp())*60);        
+                                (idate('H',$dateTimeDebut->getTimestamp())*60);
+        
         $this->duree =  idate('i',$dateTimeFin->getTimestamp())+
                         (idate('H',$dateTimeFin->getTimestamp())*60) 
                         -$this->minuteDebut;

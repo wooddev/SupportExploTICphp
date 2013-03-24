@@ -12,4 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class CreneauPrefRepository extends EntityRepository
 {
+    
+    public function findActifsByTransporteur($idTransporteur){
+        $query = $this->getEntityManager()->createQuery(
+                "SELECT cp
+                FROM TransferReservationBundle::CreneauPref cp
+                JOIN cp.TransferProfilBundle::Transporteur t
+                JOIN cp.TransferReservationBundle::StatutCreneau st
+                WHERE st.id = 'Actif'
+                AND t.id = :idTrsp
+                ORDER BY cp.jour, cp.heure, cp.minute
+                ");
+        $query->setParameter('idTrsp', $idTransporteur);
+        return $query->getResult();
+    }
 }

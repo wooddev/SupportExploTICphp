@@ -367,4 +367,8 @@ class Creneau
     {
         return $this->statut;
     }
+    
+    public function getDebutInMinutes(){
+        return $this->heure*60+$this->minute;
+    }
 }
