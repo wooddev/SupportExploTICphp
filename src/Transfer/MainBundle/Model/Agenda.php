@@ -21,10 +21,7 @@ class Agenda {
     private $year;
     private $creneauxAgenda;
     
-    public function getCreneauxAgenda() {
-        return $this->creneauxAgenda;
-    }
-        
+       
     public function __construct(){         
         $this->agendasYear = new \Doctrine\Common\Collections\ArrayCollection();
         $this->creneauxAgenda = new \Doctrine\Common\Collections\ArrayCollection();
@@ -53,6 +50,9 @@ class Agenda {
         return $this->dateFin;
     }
    
+    public function getCreneauxAgenda() {
+        return $this->creneauxAgenda;
+    }
     public function init($week,$year){
         
         $this->week = (int) $week;
@@ -71,12 +71,12 @@ class Agenda {
         // Parcours des créneaux de la collection
         foreach ($creneauxStructure as $creneau){
             //Création et ajout d'une instance de creneauAgenda sur le modèle du créneau en cours
-            $this->addCreneauAgenda(new AgendaCreneau());   
-            
+            $this->creneauxAgenda->add(new AgendaCreneau());   
+
             $this->getCreneauxAgenda()->last()->init($creneau,null,null,
                                         $creneau->getDisponibilite(),0,
                                         $creneau->getHeureDebut(),
-                                        $creneau->getHeureFin(),
+                                        $creneau->getHeureFin(),$creneau->getJour(),
                                         'structure');
         }
 
@@ -113,17 +113,19 @@ class Agenda {
             // Sur 6 jours
             for($j=1; $j<=6;$j++){                
                 $agendaYear->getAgendasWeek()->last()->addAgendaDay(new AgendaDay());
-                $agendaYear->getAgendasWeek()->last()->getAgendasDays()->last()->setVal($j);                
+                $agendaYear->getAgendasWeek()->last()->getAgendasDay()->last()->setVal($j);                
                 
                 $criteria = Criteria::create()
-                        ->where(Criteria::expr()              
-                                    ->eq("year",$year))              
-                        ->andWhere(Criteria::expr()
-                                    ->eq("week",$w))
-                        ->andWhere(Criteria::expr()
+//                        ->where(Criteria::expr()              
+//                                    ->eq("year",$year))              
+//                        ->andWhere(Criteria::expr()
+//                                    ->eq("week",$week))
+//                        ->andWhere(Criteria::expr()
+//                                    ->eq("day",$j));
+                        ->where(Criteria::expr()
                                     ->eq("day",$j));
                 $agendaYear->getAgendasWeek()->last()
-                                ->getAgendasDays()->last()
+                                ->getAgendasDay()->last()
                                     ->setCreneaux($this->creneauxAgenda->matching($criteria));  
             }
         }        
@@ -411,11 +413,11 @@ class AgendaCreneau{
         $this->creneauStructure = $CreneauStructure;
     }
 
-    public function setIdCreneauAffiche($CreneauAffiche) {
+    public function setCreneauAffiche($CreneauAffiche) {
         $this->creneauAffiche = $CreneauAffiche;
     }
 
-    public function setIdTransporteur($Transporteur) {
+    public function setTransporteur($Transporteur) {
         $this->Transporteur = $Transporteur;
     }
 
@@ -452,21 +454,21 @@ class AgendaCreneau{
     }
 
         
-    public function init($idCreneauStructure,$idCreneauAffiche,
-                        $idTransporteur,$nbDisponibilites,
+    public function init($creneauStructure,$creneauAffiche,
+                        $transporteur,$nbDisponibilites,
                         $nbAllouesTransporteur,
-                        $dateTimeDebut,$dateTimeFin,$type)
+                        $dateTimeDebut,$dateTimeFin,$jour,$type)
     {
-        $this->idCreneauStructure = $idCreneauStructure;
-        $this->idCreneauAffiche = $idCreneauAffiche;
-        $this->idTransporteur = $idTransporteur;
+        $this->creneauStructure = $creneauStructure;
+        $this->creneauAffiche = $creneauAffiche;
+        $this->transporteur = $transporteur;
         $this->nbDisponibilites = $nbDisponibilites;
         $this->nbAllouesTransporteur = $nbAllouesTransporteur;
         $this->dateTimeDebut = $dateTimeDebut;
         $this->dateTimeFin = $dateTimeFin;        
         $this->year = idate('Y',$dateTimeDebut->getTimestamp());
         $this->week = idate('W',$dateTimeDebut->getTimestamp());
-        $this->day =  idate('w',$dateTimeDebut->getTimestamp());        
+        $this->day = $jour;        
         $this->minuteDebut =    idate('i',$dateTimeDebut->getTimestamp())+
                                 (idate('H',$dateTimeDebut->getTimestamp())*60);        
         $this->duree =  idate('i',$dateTimeFin->getTimestamp())+

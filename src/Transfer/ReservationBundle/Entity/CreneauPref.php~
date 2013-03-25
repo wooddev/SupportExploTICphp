@@ -75,21 +75,21 @@ class CreneauPref
      * @param \Transfer\ReservationBundle\Entity\CreneauModele $creneauModele
      * @return CreneauPref
      */
-    public function setCreneauModele(\Transfer\ReservationBundle\Entity\CreneauModele $creneauModelePref = null)
+    public function setCreneauModele(\Transfer\ReservationBundle\Entity\CreneauModele $creneauModele = null)
     {
-        $this->creneauModelePref = $creneauModelePref;
+        $this->creneauModele = $creneauModele;
     
         return $this;
     }
 
     /**
-     * Get creneauModelePref
+     * Get creneauModele
      *
      * @return \Transfer\ReservationBundle\Entity\CreneauModele 
      */
     public function getCreneauModele()
     {
-        return $this->creneauModelePref;
+        return $this->creneauModele;
     }
 
     /**
@@ -100,7 +100,7 @@ class CreneauPref
      */
     public function setTransporteur(\Transfer\ProfilBundle\Entity\Transporteur $transporteur = null)
     {
-        $this->transporteurPref = $transporteur;
+        $this->transporteur = $transporteur;
     
         return $this;
     }

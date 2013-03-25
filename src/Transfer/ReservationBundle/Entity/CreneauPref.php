@@ -137,4 +137,32 @@ class CreneauPref
     {
         return $this->etatReservation;
     }
+    /**
+     * @var \Transfer\ReservationBundle\Entity\StatutCreneau
+     */
+    private $statut;
+
+
+    /**
+     * Set statut
+     *
+     * @param \Transfer\ReservationBundle\Entity\StatutCreneau $statut
+     * @return CreneauPref
+     */
+    public function setStatut(\Transfer\ReservationBundle\Entity\StatutCreneau $statut = null)
+    {
+        $this->statut = $statut;
+    
+        return $this;
+    }
+
+    /**
+     * Get statut
+     *
+     * @return \Transfer\ReservationBundle\Entity\StatutCreneau 
+     */
+    public function getStatut()
+    {
+        return $this->statut;
+    }
 }

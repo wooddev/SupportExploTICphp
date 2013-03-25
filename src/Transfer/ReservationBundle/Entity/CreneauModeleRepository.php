@@ -42,4 +42,16 @@ class CreneauModeleRepository extends EntityRepository
                 ->setParameter(':id',$id)
                 ->getResult();
     }
+    
+    public function findByNomStatut($nomStatut){
+        return $this->getEntityManager()
+                ->createQuery('
+                    SELECT cm
+                    FROM TransferReservationBundle:CreneauModele cm
+                    JOIN cm.statut st
+                    WHERE st.nom = :nomStatut
+                    ')
+                ->setParameter(':nomStatut',$nomStatut)
+                ->getResult();
+    }
 }

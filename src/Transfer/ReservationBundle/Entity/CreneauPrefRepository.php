@@ -16,12 +16,11 @@ class CreneauPrefRepository extends EntityRepository
     public function findActifsByTransporteur($idTransporteur){
         $query = $this->getEntityManager()->createQuery(
                 "SELECT cp
-                FROM TransferReservationBundle::CreneauPref cp
-                JOIN cp.TransferProfilBundle::Transporteur t
-                JOIN cp.TransferReservationBundle::StatutCreneau st
-                WHERE st.id = 'Actif'
+                FROM TransferReservationBundle:CreneauPref cp
+                JOIN cp.transporteur t
+                JOIN cp.statut st
+                WHERE st.nom = 1
                 AND t.id = :idTrsp
-                ORDER BY cp.jour, cp.heure, cp.minute
                 ");
         $query->setParameter('idTrsp', $idTransporteur);
         return $query->getResult();

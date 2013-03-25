@@ -10,7 +10,9 @@ Transfer\ReservationBundle\Entity\CreneauPref:
       targetEntity: Transfer\ProfilBundle\Entity\Transporteur
       inversedBy: creneauPrefs
     etatReservation:
-      targetEntity: EtatReservation      
+      targetEntity: EtatReservation     
+    statut:
+      targetEntity: StatutCreneau
   fields:
     id:
       type: integer

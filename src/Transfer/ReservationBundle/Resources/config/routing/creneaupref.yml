@@ -2,10 +2,18 @@ creneaupref:
     pattern:  /
     defaults: { _controller: "TransferReservationBundle:CreneauPref:index" }
 
+creneaupref_reset:
+    pattern:  /reset
+    defaults: { _controller: "TransferReservationBundle:CreneauPref:reset" }
+
 creneaupref_show:
     pattern:  /{id}/show
     defaults: { _controller: "TransferReservationBundle:CreneauPref:show" }
-
+    
+creneauPref_showtransporteur:
+    pattern: /{idTransporteur}/showtransporteur
+    defaults: { _controller: "TransferReservationBundle:CreneauPref:showTransporteur" }
+    
 creneaupref_new:
     pattern:  /new
     defaults: { _controller: "TransferReservationBundle:CreneauPref:new" }

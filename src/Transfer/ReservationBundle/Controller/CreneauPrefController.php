@@ -58,18 +58,22 @@ class CreneauPrefController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TransferReservationBundle:CreneauPref')
-                            ->findActifsByTransporteur($idTransporteur);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find CreneauPref entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('TransferReservationBundle:CreneauPref:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+        $crModeles = $em->getRepository('TransferReservationBundle:CreneauModele')
+                            ->findAll();
+                            //->findByNomStatut('Actif');
+        $crPrefs = $em->getRepository('TransferReservationBundle:CreneauPref')
+                            ->findAll();
+                            //->findActifsByTransporteur($idTransporteur);
+        
+        $agenda = new \Transfer\MainBundle\Model\Agenda();
+        
+        $agenda->init(1,2000);
+        $agenda->setCreneauxAgenda($crModeles, $crPrefs);
+        $agenda->generateAgenda(1);
+        
+        return $this->render('TransferReservationBundle:CreneauPref:show/agenda.html.twig', array(
+            'agenda'      => $agenda,
+            ));
     }
 
     /**
@@ -191,6 +195,16 @@ class CreneauPrefController extends Controller
         return $this->redirect($this->generateUrl('creneaupref'));
     }
 
+    public function resetAction(){
+        $em=$this->getDoctrine()->getManager();
+        $entities = $em->getRepository('TransferReservationBundle:CreneauPref')->findAll();
+        foreach($entities as $entity){
+            $em->remove($entity);
+        }
+        $em->flush();
+        return $this->redirect($this->generateUrl('creneaupref'));
+    }
+    
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))

@@ -23,13 +23,16 @@ class CreneauModele extends Creneau
         $this->setTypePoste($typePoste);     
                          
         $this->setHeureDebut(new \DateTime);
-        $this->setHeureFin(new \DateTime);
-        
+
+        $this->getHeureDebut()->setISODate(2000,1,$jour);
         $this->getHeureDebut()->setTime($heure, $minute, 0);
-        $fin= $heure*60+$minute+$duree;
-        $heureFin=floor($fin/60);
-        $minuteFin=$fin-$heureFin;
-        $this->getHeureFin()->setTime($heureFin,$minuteFin,0);           
+
+        $this->setHeureFin(clone $this->getHeureDebut());        
+        //ajout de la durée du créneau à heurefin
+        //(utilisation des fonctions natives de php sur les objets DateTime)
+        $this->getHeureFin()->add(\DateInterval::createFromDateString($duree.' minutes'));
+        
+        return $this;
     }    
     
     
