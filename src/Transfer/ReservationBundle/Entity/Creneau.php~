@@ -12,7 +12,7 @@ class Creneau
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
      * @var integer
@@ -366,5 +366,9 @@ class Creneau
     public function getStatut()
     {
         return $this->statut;
+    }
+    
+    public function getDebutInMinutes(){
+        return $this->heure*60+$this->minute;
     }
 }

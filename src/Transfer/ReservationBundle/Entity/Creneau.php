@@ -12,7 +12,7 @@ class Creneau
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
      * @var integer

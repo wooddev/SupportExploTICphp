@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Transfer\ReservationBundle\Entity\CreneauRdv;
 use Transfer\ReservationBundle\Form\CreneauRdvType;
+use Transfer\ReservationBundle\Form\CreneauRdvRechercheType;
 
 /**
  * CreneauRdv controller.
@@ -175,5 +176,49 @@ class CreneauRdvController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
+    }
+    
+    public function rechercheAction(){
+        $entity = new CreneauRdv();
+        $entity->setAnnee(date('o')); // Année au format ISO !!IMPORTANT POUR RESPECTER LA CODIFICATION ISO DES SEMAINES 
+        $entity->setSemaine(date('W'));
+        $form   = $this->createForm(new CreneauRdvRechercheType(), $entity);
+
+        return $this->render('TransferReservationBundle:CreneauRdv:recherche.html.twig', array(
+            'form'   => $form->createView(),
+        ));       
+    }
+    
+    
+    public function afficheAction(Request $request){
+        $rdvRecherche = new CreneauRdv();
+        $form = $this->createForm(new CreneauRdvType(), $rdvRecherche);
+        $form->bind($request);
+        $em = $this->getDoctrine()->getManager();
+        $creneauxRdvBruts = $em->getRepository('TransferReservationBundle:CreneauRdv')
+                                ->findByRecherche($rdvRecherche);
+        
+        $creneauxRdvTries = new \Transfer\MainBundle\Model\Sorter();
+        
+        foreach ($creneauxRdvBruts as $creneauRdvBrut){
+            $creneauxRdvTries->add(new \Transfer\ReservationBundle\Recherche\RdvResultat($creneauRdvBrut,$rdvRecherche));            
+        }
+        
+        foreach ($creneauxRdvTries->sortArray('getDiffTemps') as $creneauRdv){
+            $creneauRdvSync = $em->getRepository('TranferReservationBundle:CreneauRdv')->find($creneauRdv->getId());
+            if ($creneauRdvSync->getDisponibilite() > 0){
+                //On bloque le créneau tout de suite
+                $creneauRdvSync->setDisponibilite($creneauRdvSync->getDisponibilite()-1);
+                $em->persist($creneauRdvSync);
+                $em->flush();
+                
+                
+                
+                $rdv = new \Transfer\ReservationBundle\Entity\Rdv();
+                $rdv->init($creneauRdvSync, $planning,$transporteurPlanif);
+            }
+        }
+        
+// trouver une méthode pour trier la collection !
     }
 }

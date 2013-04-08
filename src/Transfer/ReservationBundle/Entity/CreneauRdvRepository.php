@@ -12,4 +12,30 @@ use Doctrine\ORM\EntityRepository;
  */
 class CreneauRdvRepository extends EntityRepository
 {
+    public function findByRecherche($rdvRecherche){
+
+        $query = $this->getEntityManager()->createQuery(
+        "SELECT cr
+        FROM TransferReservationBundle:CreneauRdv cr
+        JOIN cr.typePoste t
+        AND Disponibilite <> 0
+        AND t.id = :posteId
+        AND cr.heureDebut BETWEEN :min AND :max
+        ");
+        // Construction de l'interval de temps de recherche
+        $interval = new \DateInterval('PT30M'); //Période de Temps de 30 min
+        $min = clone $rdvRecherche->getHeureDebut();
+        $min->sub($interval);
+        $max = clone $rdvRecherche->getHeureDebut();
+ 
+        $max->add($interval);
+        //
+        $query->setParameters(array(
+            'posteId'=> $rdvRecherche->getTypePoste()->getId(),
+            'min'=> $min,
+            'max'=> $max
+                ));
+        
+        return $query->getResult();
+    }
 }

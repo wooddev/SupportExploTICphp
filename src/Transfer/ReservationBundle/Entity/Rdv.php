@@ -35,11 +35,6 @@ class Rdv
     private $creneauRdv;
 
     /**
-     * @var \Transfer\ReservationBundle\Entity\Poste
-     */
-    private $poste;
-
-    /**
      * @var \Transfer\ReservationBundle\Entity\PlanningConfirm
      */
     private $planningConfirm;
@@ -96,29 +91,6 @@ class Rdv
         return $this->creneauRdv;
     }
 
-
-    /**
-     * Set poste
-     *
-     * @param \Transfer\ReservationBundle\Entity\Poste $poste
-     * @return Rdv
-     */
-    public function setPoste(\Transfer\ReservationBundle\Entity\Poste $poste = null)
-    {
-        $this->poste = $poste;
-    
-        return $this;
-    }
-
-    /**
-     * Get poste
-     *
-     * @return \Transfer\ReservationBundle\Entity\Poste 
-     */
-    public function getPoste()
-    {
-        return $this->poste;
-    }
 
     /**
      * Set planningConfirm
@@ -193,5 +165,16 @@ class Rdv
     public function getTransporteurPlanif()
     {
         return $this->transporteurPlanif;
+    }
+    
+    public function init($creneauRdv, $planning, $transporteurPlanif){
+        $this->setCreneauRdv($creneauRdv);
+        $this->setPlanningProvisoire($planning);
+        if ($poste->getTypePoste()->getNom() != $creneauRdv->getTypePoste()->getNom()){
+            throw new Exception("Type de Poste non autorisé pour ce créneau");
+        }
+        $this->setPoste($poste);
+        $this->setStatutRdv('Provisoire');
+        $this->setTransporteurPlanif($transporteurPlanif);        
     }
 }

@@ -28,3 +28,11 @@ creneaurdv_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "TransferReservationBundle:CreneauRdv:delete" }
     requirements: { _method: post }
+    
+creneaurdv_recherche:
+    pattern: /recherche
+    defaults: { _controller: "TransferReservationBundle:CreneauRdv:recherche"}
+
+creneaurdv_affiche:
+    pattern: /affiche
+    defaults: { _controller: "TransferReservationBundle:CreneauRdv:affiche"}

@@ -6,21 +6,17 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CreneauRdvType extends AbstractType
+class CreneauRdvRechercheType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('annee')
+            ->add('semaine')
+            ->add('typePoste')                
             ->add('jour')
             ->add('heure')
             ->add('minute')
-            ->add('duree')
-            ->add('heureDebut')
-            ->add('heureFin')
-            ->add('disponibilite')
-            ->add('semaine')
-            ->add('annee')
-            ->add('typePoste')
         ;
     }
 
@@ -33,6 +29,6 @@ class CreneauRdvType extends AbstractType
 
     public function getName()
     {
-        return 'transfer_reservationbundle_creneaurdvtype';
+        return 'transfer_reservationbundle_creneaurdvrecherchetype';
     }
 }

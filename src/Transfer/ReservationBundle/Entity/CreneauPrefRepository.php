@@ -19,7 +19,7 @@ class CreneauPrefRepository extends EntityRepository
                 FROM TransferReservationBundle:CreneauPref cp
                 JOIN cp.transporteur t
                 JOIN cp.statut st
-                WHERE st.nom = 1
+                WHERE st.nom = 'Actif'
                 AND t.id = :idTrsp
                 ");
         $query->setParameter('idTrsp', $idTransporteur);

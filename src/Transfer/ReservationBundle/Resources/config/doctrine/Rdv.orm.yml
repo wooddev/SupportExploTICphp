@@ -11,10 +11,7 @@ Transfer\ReservationBundle\Entity\Rdv:
         inversedBy: Rdvs
         joinColumn:
           name: transporteur_id
-          referencedColumnNamel: id
-      poste:
-        targetEntity: Poste
-        inversedBy: rdvs
+          referencedColumnNamel: id      
       planningConfirm:
         targetEntity: PlanningConfirme
         inversedBy: Rdvs        
