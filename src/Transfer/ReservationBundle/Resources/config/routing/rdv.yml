@@ -5,7 +5,11 @@ rdv:
 rdv_show:
     pattern:  /{id}/show
     defaults: { _controller: "TransferReservationBundle:Rdv:show" }
-
+    
+rdv_transporteur:
+    pattern: /transporteur
+    defaults: {_controller: "TransferReservationBundle:Rdv:showTransporteur"}
+    
 rdv_new:
     pattern:  /new
     defaults: { _controller: "TransferReservationBundle:Rdv:new" }
@@ -28,3 +32,7 @@ rdv_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "TransferReservationBundle:Rdv:delete" }
     requirements: { _method: post }
+    
+rdv_reservation:
+    pattern: /reservation
+    defaults: {_controller: "TransferReservationBundle:Rdv:reservation" }

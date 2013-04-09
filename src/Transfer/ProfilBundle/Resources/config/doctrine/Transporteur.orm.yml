@@ -3,9 +3,9 @@ Transfer\ProfilBundle\Entity\Transporteur:
     table: null
     repositoryClass: Transfer\ProfilBundle\Entity\TransporteurRepository
     oneToMany:
-      rdvs:
-        targetEntity: Transfer\ReservationBundle\Entity\Rdv
-        mappedBy: transporteurPlanif
+      evenements:
+        targetEntity: Transfer\ReservationBundle\Entity\Evenement
+        mappedBy: transporteur
       agentTrsps:
         targetEntity: AgentTrsp
         mappedBy: transporteur

@@ -29,18 +29,6 @@ class Transporteur
      */
     private $quota;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $rdvs;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->rdvs = new \Doctrine\Common\Collections\ArrayCollection();
-    }
     
     /**
      * Get id
@@ -131,28 +119,9 @@ class Transporteur
         return $this->rdvs;
     }
 
-    /**
-     * Add rdvs
-     *
-     * @param \Transfer\ReservationBundle\Entity\Rdv $rdvs
-     * @return Transporteur
-     */
-    public function addRdv(\Transfer\ReservationBundle\Entity\Rdv $rdvs)
-    {
-        $this->rdvs[] = $rdvs;
-    
-        return $this;
-    }
 
-    /**
-     * Remove rdvs
-     *
-     * @param \Transfer\ReservationBundle\Entity\Rdv $rdvs
-     */
-    public function removeRdv(\Transfer\ReservationBundle\Entity\Rdv $rdvs)
-    {
-        $this->rdvs->removeElement($rdvs);
-    }
+
+    
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -232,5 +201,52 @@ class Transporteur
     public function getCreneauPrefs()
     {
         return $this->creneauPrefs;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $evenements;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->evenements = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->agentTrsps = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creneauPrefs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add evenements
+     *
+     * @param \Transfer\ReservationBundle\Entity\Evenement $evenements
+     * @return Transporteur
+     */
+    public function addEvenement(\Transfer\ReservationBundle\Entity\Evenement $evenements)
+    {
+        $this->evenements[] = $evenements;
+    
+        return $this;
+    }
+
+    /**
+     * Remove evenements
+     *
+     * @param \Transfer\ReservationBundle\Entity\Evenement $evenements
+     */
+    public function removeEvenement(\Transfer\ReservationBundle\Entity\Evenement $evenements)
+    {
+        $this->evenements->removeElement($evenements);
+    }
+
+    /**
+     * Get evenements
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEvenements()
+    {
+        return $this->evenements;
     }
 }

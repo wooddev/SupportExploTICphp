@@ -2,22 +2,14 @@ Transfer\ReservationBundle\Entity\Rdv:
     type: entity
     table: null
     repositoryClass: Transfer\ReservationBundle\Entity\RdvRepository
+    oneToMany:
+      evenements:
+        targetEntity: Evenement
+        mappedBy: rdv
     manyToOne:
       creneauRdv:
         targetEntity: CreneauRdv
-        inversedBy: Rdvs   
-      transporteurPlanif:
-        targetEntity: Transfer\ProfilBundle\Entity\Transporteur
-        inversedBy: Rdvs
-        joinColumn:
-          name: transporteur_id
-          referencedColumnNamel: id      
-      planningConfirm:
-        targetEntity: PlanningConfirme
         inversedBy: Rdvs        
-      planningProvisoire:
-        targetEntity: PlanningProvisoire
-        inversedBy: Rdvs
     fields:
         id:
             type: integer
@@ -26,5 +18,5 @@ Transfer\ReservationBundle\Entity\Rdv:
                 strategy: AUTO
         statutRdv:
             type: string
-            columnDefinition: ENUM('provisoire','reserve','retarde','disponible','nonHonore','realise')            
+            columnDefinition: ENUM('provisoire','confirme','annule')            
     lifecycleCallbacks: {  }

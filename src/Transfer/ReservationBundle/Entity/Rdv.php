@@ -35,17 +35,6 @@ class Rdv
     private $creneauRdv;
 
     /**
-     * @var \Transfer\ReservationBundle\Entity\PlanningConfirm
-     */
-    private $planningConfirm;
-
-    /**
-     * @var \Transfer\ReservationBundle\Entity\PlanningProvisoire
-     */
-    private $planningProvisoire;
-
-
-    /**
      * Set statutRdv
      *
      * @param string $statutRdv
@@ -91,90 +80,58 @@ class Rdv
         return $this->creneauRdv;
     }
 
-
-    /**
-     * Set planningConfirm
-     *
-     * @param \Transfer\ReservationBundle\Entity\PlanningConfirm $planningConfirm
-     * @return Rdv
-     */
-    public function setPlanningConfirm(\Transfer\ReservationBundle\Entity\PlanningConfirm $planningConfirm = null)
-    {
-        $this->planningConfirm = $planningConfirm;
-    
-        return $this;
-    }
-
-    /**
-     * Get planningConfirm
-     *
-     * @return \Transfer\ReservationBundle\Entity\PlanningConfirm 
-     */
-    public function getPlanningConfirm()
-    {
-        return $this->planningConfirm;
-    }
-
-    /**
-     * Set planningProvisoire
-     *
-     * @param \Transfer\ReservationBundle\Entity\PlanningProvisoire $planningProvisoire
-     * @return Rdv
-     */
-    public function setPlanningProvisoire(\Transfer\ReservationBundle\Entity\PlanningProvisoire $planningProvisoire = null)
-    {
-        $this->planningProvisoire = $planningProvisoire;
-    
-        return $this;
-    }
-
-    /**
-     * Get planningProvisoire
-     *
-     * @return \Transfer\ReservationBundle\Entity\PlanningProvisoire 
-     */
-    public function getPlanningProvisoire()
-    {
-        return $this->planningProvisoire;
-    }
-    
     /**
      * @var \Transfer\ProfilBundle\Entity\Transporteur
      */
     
-    private $transporteurPlanif;
+        
+    public function init($creneauRdv){
+        $this->setCreneauRdv($creneauRdv);                
+        $this->setStatutRdv('Provisoire');               
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $evenements;
 
     /**
-     * Set transporteurPlanif
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->evenements = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add evenements
      *
-     * @param \Transfer\ProfilBundle\Entity\Transporteur $transporteurPlanif
+     * @param \Transfer\ReservationBundle\Entity\Evenement $evenements
      * @return Rdv
      */
-    public function setTransporteurPlanif(\Transfer\ProfilBundle\Entity\Transporteur $transporteurPlanif = null)
+    public function addEvenement(\Transfer\ReservationBundle\Entity\Evenement $evenements)
     {
-        $this->transporteurPlanif = $transporteurPlanif;
+        $this->evenements[] = $evenements;
     
         return $this;
     }
 
     /**
-     * Get transporteurPlanif
+     * Remove evenements
      *
-     * @return \Transfer\ProfilBundle\Entity\Transporteur 
+     * @param \Transfer\ReservationBundle\Entity\Evenement $evenements
      */
-    public function getTransporteurPlanif()
+    public function removeEvenement(\Transfer\ReservationBundle\Entity\Evenement $evenements)
     {
-        return $this->transporteurPlanif;
+        $this->evenements->removeElement($evenements);
     }
-    
-    public function init($creneauRdv, $planning, $transporteurPlanif){
-        $this->setCreneauRdv($creneauRdv);
-        $this->setPlanningProvisoire($planning);
-        if ($poste->getTypePoste()->getNom() != $creneauRdv->getTypePoste()->getNom()){
-            throw new Exception("Type de Poste non autorisé pour ce créneau");
-        }
-        $this->setPoste($poste);
-        $this->setStatutRdv('Provisoire');
-        $this->setTransporteurPlanif($transporteurPlanif);        
+
+    /**
+     * Get evenements
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEvenements()
+    {
+        return $this->evenements;
     }
 }

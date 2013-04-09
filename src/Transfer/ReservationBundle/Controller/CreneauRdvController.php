@@ -187,38 +187,6 @@ class CreneauRdvController extends Controller
         return $this->render('TransferReservationBundle:CreneauRdv:recherche.html.twig', array(
             'form'   => $form->createView(),
         ));       
-    }
-    
-    
-    public function afficheAction(Request $request){
-        $rdvRecherche = new CreneauRdv();
-        $form = $this->createForm(new CreneauRdvType(), $rdvRecherche);
-        $form->bind($request);
-        $em = $this->getDoctrine()->getManager();
-        $creneauxRdvBruts = $em->getRepository('TransferReservationBundle:CreneauRdv')
-                                ->findByRecherche($rdvRecherche);
+    }  
         
-        $creneauxRdvTries = new \Transfer\MainBundle\Model\Sorter();
-        
-        foreach ($creneauxRdvBruts as $creneauRdvBrut){
-            $creneauxRdvTries->add(new \Transfer\ReservationBundle\Recherche\RdvResultat($creneauRdvBrut,$rdvRecherche));            
-        }
-        
-        foreach ($creneauxRdvTries->sortArray('getDiffTemps') as $creneauRdv){
-            $creneauRdvSync = $em->getRepository('TranferReservationBundle:CreneauRdv')->find($creneauRdv->getId());
-            if ($creneauRdvSync->getDisponibilite() > 0){
-                //On bloque le créneau tout de suite
-                $creneauRdvSync->setDisponibilite($creneauRdvSync->getDisponibilite()-1);
-                $em->persist($creneauRdvSync);
-                $em->flush();
-                
-                
-                
-                $rdv = new \Transfer\ReservationBundle\Entity\Rdv();
-                $rdv->init($creneauRdvSync, $planning,$transporteurPlanif);
-            }
-        }
-        
-// trouver une méthode pour trier la collection !
-    }
 }

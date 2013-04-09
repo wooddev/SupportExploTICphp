@@ -29,18 +29,6 @@ class Transporteur
      */
     private $quota;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $rdvs;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->rdvs = new \Doctrine\Common\Collections\ArrayCollection();
-    }
     
     /**
      * Get id
@@ -131,28 +119,9 @@ class Transporteur
         return $this->rdvs;
     }
 
-    /**
-     * Add rdvs
-     *
-     * @param \Transfer\ReservationBundle\Entity\Rdv $rdvs
-     * @return Transporteur
-     */
-    public function addRdv(\Transfer\ReservationBundle\Entity\Rdv $rdvs)
-    {
-        $this->rdvs[] = $rdvs;
-    
-        return $this;
-    }
 
-    /**
-     * Remove rdvs
-     *
-     * @param \Transfer\ReservationBundle\Entity\Rdv $rdvs
-     */
-    public function removeRdv(\Transfer\ReservationBundle\Entity\Rdv $rdvs)
-    {
-        $this->rdvs->removeElement($rdvs);
-    }
+
+    
     /**
      * @var \Doctrine\Common\Collections\Collection
      */

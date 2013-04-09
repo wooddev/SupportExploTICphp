@@ -1,0 +1,23 @@
+Transfer\ReservationBundle\Entity\Evenement:
+    type: entity
+    table: null
+    repositoryClass: Transfer\ReservationBundle\Entity\EvenementRepository
+    manyToOne:
+      transporteur:
+        targetEntity: Transfer\ProfilBundle\Entity\Transporteur
+        inversedBy: evenements
+      rdv:
+        targetEntity: RDV
+        inversedBy: evenements
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        type:
+            type: string
+            columnDefinition: ENUM('reservation','confirmation','annulation','retard','livraison','non_honore') 
+        dateRealisation:
+            type: datetime
+    lifecycleCallbacks: {  }

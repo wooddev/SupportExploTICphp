@@ -35,17 +35,6 @@ class Rdv
     private $creneauRdv;
 
     /**
-     * @var \Transfer\ReservationBundle\Entity\PlanningConfirm
-     */
-    private $planningConfirm;
-
-    /**
-     * @var \Transfer\ReservationBundle\Entity\PlanningProvisoire
-     */
-    private $planningProvisoire;
-
-
-    /**
      * Set statutRdv
      *
      * @param string $statutRdv
@@ -91,82 +80,11 @@ class Rdv
         return $this->creneauRdv;
     }
 
-
-    /**
-     * Set planningConfirm
-     *
-     * @param \Transfer\ReservationBundle\Entity\PlanningConfirm $planningConfirm
-     * @return Rdv
-     */
-    public function setPlanningConfirm(\Transfer\ReservationBundle\Entity\PlanningConfirm $planningConfirm = null)
-    {
-        $this->planningConfirm = $planningConfirm;
-    
-        return $this;
-    }
-
-    /**
-     * Get planningConfirm
-     *
-     * @return \Transfer\ReservationBundle\Entity\PlanningConfirm 
-     */
-    public function getPlanningConfirm()
-    {
-        return $this->planningConfirm;
-    }
-
-    /**
-     * Set planningProvisoire
-     *
-     * @param \Transfer\ReservationBundle\Entity\PlanningProvisoire $planningProvisoire
-     * @return Rdv
-     */
-    public function setPlanningProvisoire(\Transfer\ReservationBundle\Entity\PlanningProvisoire $planningProvisoire = null)
-    {
-        $this->planningProvisoire = $planningProvisoire;
-    
-        return $this;
-    }
-
-    /**
-     * Get planningProvisoire
-     *
-     * @return \Transfer\ReservationBundle\Entity\PlanningProvisoire 
-     */
-    public function getPlanningProvisoire()
-    {
-        return $this->planningProvisoire;
-    }
-    
     /**
      * @var \Transfer\ProfilBundle\Entity\Transporteur
      */
     
-    private $transporteurPlanif;
-
-    /**
-     * Set transporteurPlanif
-     *
-     * @param \Transfer\ProfilBundle\Entity\Transporteur $transporteurPlanif
-     * @return Rdv
-     */
-    public function setTransporteurPlanif(\Transfer\ProfilBundle\Entity\Transporteur $transporteurPlanif = null)
-    {
-        $this->transporteurPlanif = $transporteurPlanif;
-    
-        return $this;
-    }
-
-    /**
-     * Get transporteurPlanif
-     *
-     * @return \Transfer\ProfilBundle\Entity\Transporteur 
-     */
-    public function getTransporteurPlanif()
-    {
-        return $this->transporteurPlanif;
-    }
-    
+        
     public function init($creneauRdv, $planning, $transporteurPlanif){
         $this->setCreneauRdv($creneauRdv);
         $this->setPlanningProvisoire($planning);
@@ -176,5 +94,50 @@ class Rdv
         $this->setPoste($poste);
         $this->setStatutRdv('Provisoire');
         $this->setTransporteurPlanif($transporteurPlanif);        
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $evenements;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->evenements = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add evenements
+     *
+     * @param \Transfer\ReservationBundle\Entity\Evenement $evenements
+     * @return Rdv
+     */
+    public function addEvenement(\Transfer\ReservationBundle\Entity\Evenement $evenements)
+    {
+        $this->evenements[] = $evenements;
+    
+        return $this;
+    }
+
+    /**
+     * Remove evenements
+     *
+     * @param \Transfer\ReservationBundle\Entity\Evenement $evenements
+     */
+    public function removeEvenement(\Transfer\ReservationBundle\Entity\Evenement $evenements)
+    {
+        $this->evenements->removeElement($evenements);
+    }
+
+    /**
+     * Get evenements
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEvenements()
+    {
+        return $this->evenements;
     }
 }
