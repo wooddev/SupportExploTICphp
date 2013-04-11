@@ -18,7 +18,7 @@ class CreneauRdvRepository extends EntityRepository
         "SELECT cr
         FROM TransferReservationBundle:CreneauRdv cr
         JOIN cr.typePoste t
-        AND Disponibilite <> 0
+        WHERE  cr.disponibilite <> 0
         AND t.id = :posteId
         AND cr.heureDebut BETWEEN :min AND :max
         ");

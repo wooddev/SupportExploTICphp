@@ -32,7 +32,3 @@ creneaurdv_delete:
 creneaurdv_recherche:
     pattern: /recherche
     defaults: { _controller: "TransferReservationBundle:CreneauRdv:recherche"}
-
-creneaurdv_affiche:
-    pattern: /affiche
-    defaults: { _controller: "TransferReservationBundle:CreneauRdv:affiche"}

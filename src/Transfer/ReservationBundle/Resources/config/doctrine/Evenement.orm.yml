@@ -7,7 +7,7 @@ Transfer\ReservationBundle\Entity\Evenement:
         targetEntity: Transfer\ProfilBundle\Entity\Transporteur
         inversedBy: evenements
       rdv:
-        targetEntity: RDV
+        targetEntity: Rdv
         inversedBy: evenements
     fields:
         id:

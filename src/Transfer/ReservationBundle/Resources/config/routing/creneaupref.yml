@@ -10,7 +10,7 @@ creneaupref_show:
     pattern:  /{id}/show
     defaults: { _controller: "TransferReservationBundle:CreneauPref:show" }
     
-creneauPref_showtransporteur:
+creneaupref_showtransporteur:
     pattern: /{idTransporteur}/showtransporteur
     defaults: { _controller: "TransferReservationBundle:CreneauPref:showTransporteur" }
     

@@ -1,1 +1,19 @@
-Hello {{ name }}!
+{%extends "::base.html.twig"%}
+
+{% block body%}
+<style type="text/css">
+a{
+    display: block;
+}
+    
+</style>       
+<a href="{{path('creneaumodele_generate')}}">  Générer les créneaux modèles </a>
+<a href="{{path('creneaumodele')}}">  liste des créneaux modèles</a>
+<a href="{{path('creneaupref_showtransporteur', {'idTransporteur': 1})}}"> creneaux du transporteur 1 </a>
+<a href="{{path('creneaurdv')}}"> liste créneaux rdv </a>
+<a href="{{path('creneaurdvgen_generate')}}"> génération des créneaux rdv pour une semaine </a>
+<a href="{{path('creneaurdv_recherche')}}"> recherche de créneaux rdv </a>
+<a href="{{path('rdv_transporteur')}}"> créneaux du transporteur 1 </a>
+
+
+{% endblock %}

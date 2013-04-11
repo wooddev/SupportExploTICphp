@@ -85,11 +85,12 @@ class Agenda {
             //Recherche du creneauAgenda associé et modification 
             //(on exploite le lien entre les classes de creneau)
             $creneauModeleCrit = Criteria::create()
-                                ->where(Criteria::expr()->eq("creneauStructure",$creneau->getCreneauModele()));          
+                                //->where(Criteria::expr()->eq("creneauStructure",$creneau->getCreneauModele()));          
+                                ->where(Criteria::expr()->eq("creneauStructure",$creneau->getCreneauRdv()));          
             $this->getCreneauxAgenda()->matching($creneauModeleCrit)->first()
                                                 ->setCreneauAffiche($creneau);
-            $this->getCreneauxAgenda()->matching($creneauModeleCrit)->first()
-                                                ->setTransporteur($creneau->getTransporteur());
+//            $this->getCreneauxAgenda()->matching($creneauModeleCrit)->first()
+//                                                ->setTransporteur($creneau->getTransporteur());
             $this->getCreneauxAgenda()->matching($creneauModeleCrit)->first()
                                                 ->setType('affiche');
         }          

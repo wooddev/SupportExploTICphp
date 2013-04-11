@@ -1,0 +1,48 @@
+<style type=text/css>
+div.annee {
+    float: none;
+    display: left;
+}
+
+div.semaine{
+    float:left;
+
+}
+div.jour{
+    float:left;
+
+}
+div.creneau{
+    float:none;
+    display:block;
+    border-style: solid;
+    border-width: 1px;
+    font-family: Arial;
+    font-size: 10px;
+}
+div.creneau-Affiche{
+    background: #529924;
+    }
+</style>
+
+
+{%for agendaYear in agenda.agendasYear %}
+<div class="annee">
+    {%for agendaWeek in agendaYear.agendasWeek%}
+    <div class="semaine">
+        {%for agendaDay in agendaWeek.agendasDay%}
+        <div class="jour">{{agendaDay.val}}
+            {%for creneau in agendaDay.creneaux %}
+                <div class="creneau creneau-{{creneau.type}}">
+                    {{creneau.dateTimeDebut|date('h:i')}} -- {{creneau.type}}<br>
+                    {%if creneau.creneauAffiche.statutRdv is defined %}
+                        {{creneau.creneauAffiche.statutRdv}}<br>
+                    {%endif%}
+                </div>                
+            {%endfor%}
+        </div>
+        {%endfor%}
+    </div>
+    {%endfor%}
+</div>
+{%endfor%}

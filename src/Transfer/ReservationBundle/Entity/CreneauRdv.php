@@ -112,4 +112,17 @@ class CreneauRdv extends Creneau
     {
         return $this->rdvs;
     }
+ 
+    
+    public function calculDateTime(){
+        $this->setHeureDebut(new \DateTime);
+        
+        $this->getHeureDebut()->setISODate($this->getAnnee(),$this->getSemaine(),$this->getJour());
+        $this->getHeureDebut()->setTime($this->getHeure(), $this->getMinute(), 0);
+
+        $this->setHeureFin(clone $this->getHeureDebut());        
+        //ajout de la durée du créneau à heurefin
+        //(utilisation des fonctions natives de php sur les objets DateTime)
+        $this->getHeureFin()->add(\DateInterval::createFromDateString($this->getDuree().' minutes'));
+    }
 }

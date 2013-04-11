@@ -58,7 +58,7 @@ class Evenement
     private $transporteur;
 
     /**
-     * @var \Transfer\ReservationBundle\Entity\RDV
+     * @var \Transfer\ReservationBundle\Entity\Rdv
      */
     private $rdv;
 
@@ -89,10 +89,10 @@ class Evenement
     /**
      * Set rdv
      *
-     * @param \Transfer\ReservationBundle\Entity\RDV $rdv
+     * @param \Transfer\ReservationBundle\Entity\Rdv $rdv
      * @return Evenement
      */
-    public function setRdv(\Transfer\ReservationBundle\Entity\RDV $rdv = null)
+    public function setRdv(\Transfer\ReservationBundle\Entity\Rdv $rdv = null)
     {
         $this->rdv = $rdv;
     
@@ -102,7 +102,7 @@ class Evenement
     /**
      * Get rdv
      *
-     * @return \Transfer\ReservationBundle\Entity\RDV 
+     * @return \Transfer\ReservationBundle\Entity\Rdv 
      */
     public function getRdv()
     {

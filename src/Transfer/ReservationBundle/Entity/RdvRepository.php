@@ -12,4 +12,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class RdvRepository extends EntityRepository
 {
+    
+    public function findByTransporteur($transporteur){
+        
+        $query = $this->getEntityManager()->createQuery();
+        
+        $query->setDQL('
+                        SELECT r
+                        FROM TransferReservationBundle:Rdv r
+                        JOIN r.evenements e
+                        JOIN e.transporteur t
+                        WHERE t.id = :id
+                ')
+                ->setParameter('id', $transporteur->getId());
+        
+        return $query->getResult();
+        
+    }
 }

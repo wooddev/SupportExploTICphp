@@ -28,7 +28,7 @@ class Sorter implements \Iterator
     }    
     function sortArray($sortGetterName){     
         $this->sortGetterName=$sortGetterName;
-        usort($this->elements, 'cmp');
+        usort($this->elements, array($this,'cmp'));
         return $this;
     }
     ///////////////////////////////////////////

@@ -305,9 +305,9 @@ class Creneau
      * @param \DateTime $dateArchivage
      * @return Creneau
      */
-    public function setDateArchivage($dateArchivage)
+    public function setDateArchivage()
     {
-        $this->dateArchivage = $dateArchivage;
+        $this->dateArchivage = new \DateTime(date('Y-m-d H:i:s'));
     
         return $this;
     }

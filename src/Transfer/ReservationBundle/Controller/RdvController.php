@@ -9,6 +9,7 @@ use Transfer\ReservationBundle\Entity\Rdv;
 use Transfer\ReservationBundle\Form\RdvType;
 use Transfer\ReservationBundle\Entity\CreneauRdv;
 use Transfer\ProfilBundle\Entity\Transporteur;
+use Transfer\ReservationBundle\Form\CreneauRdvType;
 use Transfer\ReservationBundle\Entity\Evenement;
 
 /**
@@ -32,10 +33,32 @@ class RdvController extends Controller
         ));
     }
     
-    public function showTransporteur()
+    public function showTransporteurAction()
     {
        // récupérer ici la liste des rdv pour le transporteur associé à l'utilisateur en cours
        // Affichage dans un agenda avec typage associé aux événements? (au moins pour Réservé/confirmé/annulé)
+       $em = $this->getDoctrine()->getManager();
+       
+       $transporteur = $em->getRepository('TransferProfilBundle:Transporteur')
+                                ->find(1);
+       
+       $rdvs = $em->getRepository('TransferReservationBundle:Rdv')
+                        ->findByTransporteur($transporteur);
+       
+       $creneauRdvs = $em->getRepository('TransferReservationBundle:CreneauRdv')
+                            ->findAll();
+       
+        $agenda = new \Transfer\MainBundle\Model\Agenda();
+        
+        $agenda->init(date('W'),date('Y'));
+        $agenda->setCreneauxAgenda($creneauRdvs, $rdvs);
+        $agenda->generateAgenda(1);
+        
+        return $this->render('TransferReservationBundle:Rdv:show/agenda.html.twig', array(
+            'agenda'      => $agenda,
+            ));
+        
+        
     }
 
     /**
@@ -185,47 +208,57 @@ class RdvController extends Controller
             ->getForm()
         ;
     }
-    
+        
     public function reservationAction(Request $request){
+        
         $rdvRecherche = new CreneauRdv();
         $form = $this->createForm(new CreneauRdvType(), $rdvRecherche);
         $form->bind($request);
-        $em = $this->getDoctrine()->getManager();
-        $creneauxRdvBruts = $em->getRepository('TransferReservationBundle:CreneauRdv')
-                                ->findByRecherche($rdvRecherche);
-        
-        $creneauxRdvTries = new \Transfer\MainBundle\Model\Sorter();
-        
-        foreach ($creneauxRdvBruts as $creneauRdvBrut){
-            $creneauxRdvTries->add(new \Transfer\ReservationBundle\Recherche\RdvResultat($creneauRdvBrut,$rdvRecherche));            
-        }
-        
-        //Récupération du transporteur associé à l'utilisateur
-        // A FAIRE !!
-        // TRANSPORTEUR PAR DEFAUT POUR L'INSTANT
-        $transporteur = $em->getRepository('TransferProfilBundle:Transporteur')
-                                ->find(1);
-        
-        foreach ($creneauxRdvTries->sortArray('getDiffTemps') as $creneauRdv){
-            $creneauRdvSync = $em->getRepository('TranferReservationBundle:CreneauRdv')->find($creneauRdv->getId());
-            if ($creneauRdvSync->getDisponibilite() > 0){
-                //On bloque le créneau tout de suite
-                $creneauRdvSync->setDisponibilite($creneauRdvSync->getDisponibilite()-1);
-                $em->persist($creneauRdvSync);
-                $em->flush();                                
-                // création du rdv
-                $rdv = new \Transfer\ReservationBundle\Entity\Rdv();
-                $rdv->init($creneauRdvSync);
-                // Création de l'évenement de réservation
-                $evenement = new Evenement();
-                $evenement->setRdv($rdv);
-                $evenement->setTransporteur($transporteur);
-                $evenement->setType('reservation');
-                
-                $em->persist($rdv);
-                $em->persist($evenement);
-                $em->flush();
-                return $this->redirect($this->generateUrl('rdv_transporteur'));
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $rdvRecherche->calculDateTime();
+                    
+            $creneauxRdvBruts = $em->getRepository('TransferReservationBundle:CreneauRdv')
+                                    ->findByRecherche($rdvRecherche);
+            if ($creneauxRdvBruts == null){
+                return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');
+            }
+            $creneauxRdvTries = new \Transfer\MainBundle\Model\Sorter();
+
+            foreach ($creneauxRdvBruts as $creneauRdvBrut){
+                $creneauxRdvTries->add(new \Transfer\ReservationBundle\Recherche\RdvResultat($creneauRdvBrut,$rdvRecherche));            
+            }
+
+            //Récupération du transporteur associé à l'utilisateur
+            // A FAIRE !!
+            // TRANSPORTEUR PAR DEFAUT POUR L'INSTANT
+            $transporteur = $em->getRepository('TransferProfilBundle:Transporteur')
+                                    ->find(1);
+            
+            foreach ($creneauxRdvTries->sortArray('getDiffTemps') as $creneauRdv){
+                $creneauRdvSync = $em->getRepository('TransferReservationBundle:CreneauRdv')                    
+                                            ->find($creneauRdv->getId());
+
+                if ($creneauRdvSync->getDisponibilite() > 0){
+                    //On bloque le créneau tout de suite
+                    $creneauRdvSync->setDisponibilite($creneauRdvSync->getDisponibilite()-1);
+                    $em->persist($creneauRdvSync);
+                    $em->flush();                                
+                    // création du rdv
+                    $rdv = new \Transfer\ReservationBundle\Entity\Rdv();
+                    $rdv->init($creneauRdvSync);
+                    // Création de l'évenement de réservation
+                    $evenement = new Evenement();
+                    $evenement->setRdv($rdv);
+                    $evenement->setTransporteur($transporteur);
+                    $evenement->setDateRealisation(new \DateTime('NOW'));
+                    $evenement->setType('reservation');
+
+                    $em->persist($rdv);
+                    $em->persist($evenement);
+                    $em->flush();
+                    return $this->redirect($this->generateUrl('rdv_transporteur'));
+                }
             }
         }
         return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');
