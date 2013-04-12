@@ -93,7 +93,8 @@ class CreneauRdvGen {
             $this->creneauxRdvs->last()->setJour($creneauModele->getJour());
             $this->creneauxRdvs->last()->setTypePoste($creneauModele->getTypePoste());
             $this->creneauxRdvs->last()->setAnnee($this->year);
-            $this->creneauxRdvs->last()->setSemaine($this->week);           
+            $this->creneauxRdvs->last()->setSemaine($this->week);   
+            $this->creneauxRdvs->last()->calculDateTime();            
         }   
     }
    

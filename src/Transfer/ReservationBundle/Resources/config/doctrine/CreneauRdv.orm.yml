@@ -7,8 +7,12 @@ Transfer\ReservationBundle\Entity\CreneauRdv:
         targetEntity: Rdv
         mappedBy: creneauRdv    
     fields:
-        semaine:
-            type: integer
-        annee:
-            type: integer
+      dateHeureDebut:
+        type: datetime
+      dateHeureFin:
+        type: datetime
+      semaine:
+          type: integer
+      annee:
+          type: integer
     lifecycleCallbacks: {  }

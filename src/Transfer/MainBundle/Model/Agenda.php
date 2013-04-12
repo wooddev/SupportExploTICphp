@@ -20,8 +20,32 @@ class Agenda {
     private $week;
     private $year;
     private $creneauxAgenda;
+    private $poste;
     
-       
+    public function getWeek() {
+        return $this->week;
+    }
+
+    public function setWeek($week) {
+        $this->week = $week;
+    }
+
+    public function getYear() {
+        return $this->year;
+    }
+
+    public function setYear($year) {
+        $this->year = $year;
+    }
+
+    public function getPoste() {
+        return $this->poste;
+    }
+
+    public function setPoste($poste) {
+        $this->poste = $poste;
+    }
+
     public function __construct(){         
         $this->agendasYear = new \Doctrine\Common\Collections\ArrayCollection();
         $this->creneauxAgenda = new \Doctrine\Common\Collections\ArrayCollection();
@@ -53,10 +77,11 @@ class Agenda {
     public function getCreneauxAgenda() {
         return $this->creneauxAgenda;
     }
-    public function init($week,$year){
+    public function init($week,$year, $poste = null){
         
         $this->week = (int) $week;
         $this->year = (int) $year;
+        $this->poste = $poste;
         
         $this->dateDebut = new \DateTime();
         $this->dateDebut->setISODate($this->year,$this->week);

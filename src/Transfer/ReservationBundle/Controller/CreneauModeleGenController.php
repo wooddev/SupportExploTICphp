@@ -24,7 +24,7 @@ class CreneauModeleGenController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = new CreneauModeleGen();
-        $entity->init(6,0, 0, 19, 20,2, $em->getRepository('TransferReservationBundle:TypePoste')->find(1));           
+        $entity->init(6,0, 0, 19, 20,1, $em->getRepository('TransferReservationBundle:TypePoste')->find(1));           
         $form   = $this->createForm(new CreneauModeleGenType(), $entity);
 
         return $this->render('TransferReservationBundle:CreneauModele:generate.html.twig', array(
@@ -39,26 +39,25 @@ class CreneauModeleGenController extends Controller
     public function createAction(Request $request)
     {
         $em = $this->getDoctrine()->getEntityManager();
-        
-        $creneauxOld = $em->getRepository('TransferReservationBundle:CreneauModele')
-                ->findAll();
-        
-        foreach($creneauxOld as $creneau){
-            $em->remove($creneau);
-        }
-        
-        $em->flush();
-        
+                       
 //        Version sans formulaire, à partir du constructeur modifié
 //        $posteAutonome = $em->getRepository('TransferReservationBundle:TypePoste')->find(1);
 //        $generateur  = new CreneauModeleGen(6,0, 0, 19, 20,$posteAutonome->getDisponibilite() , $posteAutonome);                
 // 
-        
+      
         $generateur = new CreneauModeleGen();
         $form = $this->createForm(new CreneauModeleGenType(), $generateur);
         $form->bind($request);        
         
         if ($form->isValid()){
+            $creneauxOld = $em->getRepository('TransferReservationBundle:CreneauModele')
+                                    ->findByTypePoste($generateur->getTypePoste());
+        
+            foreach($creneauxOld as $creneau){
+                $em->remove($creneau);
+            }
+
+            $em->flush();
             $generateur->generate();        
             foreach ($generateur->getCreneauxModels() as $creneauModele){
                 $em->persist($creneauModele);

@@ -60,7 +60,7 @@ class CreneauRdvController extends Controller
         $entity = new CreneauRdv();
         $form   = $this->createForm(new CreneauRdvType(), $entity);
 
-        return $this->render('TransferReservationBundle:CreneauRdv:recherche/formulaire.html.twig', array(
+        return $this->render('TransferReservationBundle:CreneauRdv:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -178,15 +178,27 @@ class CreneauRdvController extends Controller
         ;
     }
     
-    public function rechercheAction(){
+    public function rechercheAction(){       
+               
         $entity = new CreneauRdv();
         $entity->setAnnee(date('o')); // Année au format ISO !!IMPORTANT POUR RESPECTER LA CODIFICATION ISO DES SEMAINES 
         $entity->setSemaine(date('W'));
-        $form   = $this->createForm(new CreneauRdvType(), $entity);
+        $form   = $this->createForm(new CreneauRdvRechercheType(), $entity);
 
         return $this->render('TransferReservationBundle:CreneauRdv:recherche/formulaire.html.twig', array(
+            'entity' => $entity,
             'form'   => $form->createView(),
-        ));       
+        ));      
+
+//        $entity = new CreneauRdv();
+//        $entity->setAnnee(date('o')); // Année au format ISO !!IMPORTANT POUR RESPECTER LA CODIFICATION ISO DES SEMAINES 
+//        $entity->setSemaine(date('W'));
+//        $form   = $this->createForm(new CreneauRdvType(), $entity);
+//
+//        return $this->render('TransferReservationBundle:CreneauRdv:recherche/formulaire.html.twig', array(
+//            'entity' => $entity,
+//            'form'   => $form->createView(),
+//        ));
     }  
         
 }

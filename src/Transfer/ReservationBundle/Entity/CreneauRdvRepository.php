@@ -20,14 +20,13 @@ class CreneauRdvRepository extends EntityRepository
         JOIN cr.typePoste t
         WHERE  cr.disponibilite <> 0
         AND t.id = :posteId
-        AND cr.heureDebut BETWEEN :min AND :max
+        AND cr.dateHeureDebut BETWEEN :min AND :max
         ");
         // Construction de l'interval de temps de recherche
-        $interval = new \DateInterval('PT30M'); //Période de Temps de 30 min
-        $min = clone $rdvRecherche->getHeureDebut();
+        $interval = new \DateInterval('PT35M'); //Période de Temps de 30 min
+        $min = clone $rdvRecherche->getDateHeureDebut();
         $min->sub($interval);
-        $max = clone $rdvRecherche->getHeureDebut();
- 
+        $max = clone $rdvRecherche->getDateHeureDebut(); 
         $max->add($interval);
         //
         $query->setParameters(array(
@@ -36,6 +35,24 @@ class CreneauRdvRepository extends EntityRepository
             'max'=> $max
                 ));
         
+        return $query->getResult();
+    }
+    
+    public function findByAnnee_Semaine_Poste($annee, $semaine,$poste){
+        $query = $this->getEntityManager()->createQuery(
+                'SELECT cr
+                FROM TransferReservationBundle:CreneauRdv cr
+                JOIN cr.typePoste p
+                WHERE cr.semaine = :semaine                
+                AND cr.annee = :annee
+                AND p.nom = :nomPoste
+                '
+                );
+        $query->setParameters(array(
+            'semaine'=> $semaine,
+            'annee'=> $annee,
+            'nomPoste'=> $poste->getNom(),
+                ));
         return $query->getResult();
     }
 }

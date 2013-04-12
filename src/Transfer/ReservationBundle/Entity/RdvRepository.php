@@ -26,7 +26,31 @@ class RdvRepository extends EntityRepository
                 ')
                 ->setParameter('id', $transporteur->getId());
         
-        return $query->getResult();
-        
+        return $query->getResult();        
     }
+    
+    public function findByTransporteur_Annee_Semaine_Poste($transporteur, $annee, $semaine,$poste){
+        
+        $query = $this->getEntityManager()->createQuery();
+        
+        $query->setDQL('
+                        SELECT r
+                        FROM TransferReservationBundle:Rdv r
+                        JOIN r.evenements e
+                        JOIN e.transporteur t
+                        JOIN r.creneauRdv c
+                        JOIN c.typePoste p
+                        WHERE t.id = :id
+                        AND c.semaine = :semaine
+                        AND c.annee = :annee
+                        AND p.nom = :nomPoste
+                ')
+                ->setParameter('id', $transporteur->getId())
+                ->setParameter('nomPoste', $poste->getNom())
+                ->setParameter('semaine', $semaine)
+                ->setParameter('annee', $annee);        
+        
+        return $query->getResult();        
+    }
+    
 }

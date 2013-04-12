@@ -10,24 +10,22 @@
             <div class="row">
                 <div class="span3">
                         <h2>Navigation </h2>
-                      <!--Sidebar content-->
-                      <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
-                        <li><a tabindex="-1" href="#">Menu 1</a></li>
-                        <li><a tabindex="-1" href="#">Menu 2</a></li>
-                        <li><a tabindex="-1" href="#">Menu 3</a></li>
-                        <li class="divider"></li>
-                        <li class="dropdown-submenu">
-                            <a tabindex="-1" href="#">Menu 5</a>
-                            <ul class="dropdown-menu">
-                            <li>
-                                <a tabindex="-1" href="#">Sous Menu 5.1</a>
+                        <ul>
+                            <li><a href="{{path('creneaumodele_generate')}}">  Générer les créneaux modèles </a>
                             </li>
-                            <li>
-                                <a tabindex="-1" href="#">Sous Menu 5.2</a>
+                            <li> <a href="{{path('creneaumodele')}}">  liste des créneaux modèles</a>
                             </li>
-                            </ul>
-                        </li>
-                      </ul>
+                            <li><a href="{{path('creneaupref_showtransporteur', {'idTransporteur': 1})}}"> creneaux du transporteur 1 </a>
+                            </li>
+                            <li><a href="{{path('creneaurdv')}}"> liste créneaux rdv </a>
+                            </li>
+                            <li><a href="{{path('creneaurdvgen_generate')}}"> génération des créneaux rdv pour une semaine </a>
+                            </li>
+                            <li> <a href="{{path('creneaurdv_recherche')}}"> recherche de créneaux rdv </a>
+                            </li>
+                            <li><a href="{{path('rdv_transporteur',{'annee':2013,'semaine':15})}}"> créneaux du transporteur 1 </a>
+                            </li>                     
+                        </ul>
                 </div>          
                 <div class="span8">
                     <h1>

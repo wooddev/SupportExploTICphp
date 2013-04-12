@@ -115,14 +115,70 @@ class CreneauRdv extends Creneau
  
     
     public function calculDateTime(){
-        $this->setHeureDebut(new \DateTime);
-        
-        $this->getHeureDebut()->setISODate($this->getAnnee(),$this->getSemaine(),$this->getJour());
-        $this->getHeureDebut()->setTime($this->getHeure(), $this->getMinute(), 0);
+        $this->setDateHeureDebut(new \DateTime);        
+        $this->getDateHeureDebut()->setISODate($this->getAnnee(),$this->getSemaine(),$this->getJour());
+        $this->getDateHeureDebut()->setTime($this->getHeure(), $this->getMinute(), 0);
 
-        $this->setHeureFin(clone $this->getHeureDebut());        
+        $this->setDateHeureFin(clone $this->getDateHeureDebut());        
         //ajout de la durée du créneau à heurefin
         //(utilisation des fonctions natives de php sur les objets DateTime)
-        $this->getHeureFin()->add(\DateInterval::createFromDateString($this->getDuree().' minutes'));
+        $this->getDateHeureFin()->add(\DateInterval::createFromDateString($this->getDuree().' minutes'));
+    }
+   
+    /**
+     * @var \DateTime
+     */
+    private $dateHeureDebut;
+
+    /**
+     * @var dateTime
+     */
+    private $dateHeureFin;
+
+
+    /**
+     * Set dateHeureDebut
+     *
+     * @param \DateTime $dateHeureDebut
+     * @return CreneauRdv
+     */
+    public function setDateHeureDebut($dateHeureDebut)
+    {
+        $this->dateHeureDebut = $dateHeureDebut;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateHeureDebut
+     *
+     * @return \DateTime 
+     */
+    public function getDateHeureDebut()
+    {
+        return $this->dateHeureDebut;
+    }
+
+    /**
+     * Set dateHeureFin
+     *
+     * @param \dateTime $dateHeureFin
+     * @return CreneauRdv
+     */
+    public function setDateHeureFin(\dateTime $dateHeureFin)
+    {
+        $this->dateHeureFin = $dateHeureFin;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateHeureFin
+     *
+     * @return \dateTime 
+     */
+    public function getDateHeureFin()
+    {
+        return $this->dateHeureFin;
     }
 }

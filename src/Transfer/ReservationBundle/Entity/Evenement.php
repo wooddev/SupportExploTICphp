@@ -136,4 +136,9 @@ class Evenement
     {
         return $this->type;
     }
+    
+    function __construct() {
+        $this->dateRealisation = new \DateTime('NOW');
+    }
+
 }

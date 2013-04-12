@@ -6,6 +6,7 @@ Transfer\ReservationBundle\Entity\Rdv:
       evenements:
         targetEntity: Evenement
         mappedBy: rdv
+        cascade: ["remove","persist"]
     manyToOne:
       creneauRdv:
         targetEntity: CreneauRdv

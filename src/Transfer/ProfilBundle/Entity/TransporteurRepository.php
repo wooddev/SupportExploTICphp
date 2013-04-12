@@ -12,4 +12,26 @@ use Doctrine\ORM\EntityRepository;
  */
 class TransporteurRepository extends EntityRepository
 {
+    
+    public function testAutorisation($annee,$semaine, $id){
+        $query= $this->getEntityManager()->createQuery("
+                    SELECT count(r)-t.quota
+                    FROM TransferProfilBundle:Transporteur t
+                    JOIN t.evenements e
+                    JOIN e.rdv r
+                    JOIN r.creneauRdv cr
+                    WHERE cr.semaine = :semaine
+                    AND cr.annee = :annee
+                    AND r.statutRdv = 'confirme'
+                    AND t.id= :id
+                    GROUP BY t.id
+                    ")
+                    ->setParameters(array(
+                        'id'=>$id,
+                        'semaine'=>$semaine,
+                        'annee'=>$annee,
+                    ));
+        return $query->getResult();
+                        
+    }
 }

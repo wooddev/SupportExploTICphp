@@ -85,15 +85,9 @@ class Rdv
      */
     
         
-    public function init($creneauRdv, $planning, $transporteurPlanif){
-        $this->setCreneauRdv($creneauRdv);
-        $this->setPlanningProvisoire($planning);
-        if ($poste->getTypePoste()->getNom() != $creneauRdv->getTypePoste()->getNom()){
-            throw new Exception("Type de Poste non autorisé pour ce créneau");
-        }
-        $this->setPoste($poste);
-        $this->setStatutRdv('Provisoire');
-        $this->setTransporteurPlanif($transporteurPlanif);        
+    public function init($creneauRdv){
+        $this->setCreneauRdv($creneauRdv);                
+        $this->setStatutRdv('Provisoire');               
     }
     /**
      * @var \Doctrine\Common\Collections\Collection

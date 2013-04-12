@@ -1,48 +1,86 @@
+{%extends "::base.html.twig"%}
+{%block body%}
 <style type=text/css>
+div.agenda{
+    float:left;
+    margin: 35px;
+    font-family: Arial;
+    font-size: 12px;
+}
 div.annee {
     float: none;
     display: left;
 }
 
 div.semaine{
-    float:left;
-
+    float: none;
+    display: left;
 }
+div.jour-container{
+    float: left;
+}   
+
 div.jour{
     float:left;
-
 }
 div.creneau{
     float:none;
     display:block;
     border-style: solid;
     border-width: 1px;
-    font-family: Arial;
+    height: 35px;
+    width: 85px;
     font-size: 10px;
 }
-div.creneau-Affiche{
+.creneau-affiche{
     background: #529924;
-    }
+}
+p{
+    margin:0;
+    padding:0;
+}
+.btn-success{
+    margin-top:-10px;
+    line-height:15px;
+    padding:1px;
+    font-size:10px;
+}
 </style>
 
-
-{%for agendaYear in agenda.agendasYear %}
-<div class="annee">
-    {%for agendaWeek in agendaYear.agendasWeek%}
-    <div class="semaine">
-        {%for agendaDay in agendaWeek.agendasDay%}
-        <div class="jour">{{agendaDay.val}}
-            {%for creneau in agendaDay.creneaux %}
-                <div class="creneau creneau-{{creneau.type}}">
-                    {{creneau.dateTimeDebut|date('h:i')}} -- {{creneau.type}}<br>
-                    {%if creneau.creneauAffiche.statutRdv is defined %}
-                        {{creneau.creneauAffiche.statutRdv}}<br>
-                    {%endif%}
-                </div>                
-            {%endfor%}
+{%for agenda in agendas%}
+<div class="agenda">
+    <p>Poste de déchargement : {{agenda.poste}}</p>
+    {%for agendaYear in agenda.agendasYear %}
+    <div class="annee"> Année {{agendaYear.val}}
+        {%for agendaWeek in agendaYear.agendasWeek%}
+        <div class="semaine"> semaine {{agendaWeek.val}}
+        <div class="jour-container">
+            {%for agendaDay in agendaWeek.agendasDay%}
+            <div class="jour">jour {{agendaDay.val}}
+                {%for creneau in agendaDay.creneaux %}
+                    <div class="creneau creneau-{{creneau.type}}">
+                        {{creneau.dateTimeDebut|date('h:i')}}<br>
+                        {%if creneau.creneauAffiche.statutRdv is defined %}                            
+                            {%if creneau.creneauAffiche.statutRdv == 'provisoire' %}
+                                <form action="{{ path('rdv_confirmation' , { 'id': creneau.creneauAffiche.id}) }}" method="post">
+                                    {#<input type="hidden" name="id" value ="{{creneau.creneauAffiche.id }}"/>#}
+                                    <button class="btn btn-success" type="submit">Confirmer</button> 
+                                </form>
+                            {%elseif creneau.creneauAffiche.statutRdv == 'confirme' %}
+                                RESERVE
+                            {%endif%}
+                        {%else%} 
+                        {%endif%}
+                    </div>               
+                {%endfor%}
+            </div>
+            {%endfor%}                
+        </div>
         </div>
         {%endfor%}
     </div>
     {%endfor%}
 </div>
 {%endfor%}
+
+{%endblock%}

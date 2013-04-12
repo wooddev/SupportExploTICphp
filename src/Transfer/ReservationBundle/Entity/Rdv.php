@@ -87,7 +87,7 @@ class Rdv
         
     public function init($creneauRdv){
         $this->setCreneauRdv($creneauRdv);                
-        $this->setStatutRdv('Provisoire');               
+        $this->setStatutRdv('provisoire');               
     }
     /**
      * @var \Doctrine\Common\Collections\Collection

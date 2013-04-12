@@ -21,9 +21,9 @@ class RdvResultat extends CreneauRdv
 
     public function __construct($creneauRdv, $rdvRecherche){
         $this->id = $creneauRdv->getId();
-        $this->setHeureDebut($creneauRdv->getHeureDebut());
-        $intervalDiff = $this->getHeureDebut()->diff($rdvRecherche->getHeureDebut(), true);
-        $this->diffTemps = (int)$intervalDiff->format('I');
+        $this->setDateHeureDebut($creneauRdv->getDateHeureDebut());
+        $intervalDiff = $this->getDateHeureDebut()->diff($rdvRecherche->getDateHeureDebut(), true);
+        $this->diffTemps = $intervalDiff->i;
     }
 }
 

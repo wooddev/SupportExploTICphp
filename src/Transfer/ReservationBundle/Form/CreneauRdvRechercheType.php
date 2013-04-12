@@ -17,7 +17,13 @@ class CreneauRdvRechercheType extends AbstractType
             ->add('jour')
             ->add('heure')
             ->add('minute')
-        ;
+            
+//            ->add('duree' , 'hidden')
+//            ->add('heureDebut' , 'hidden')
+//            ->add('heureFin' , 'hidden')                
+//            ->add('disponibilite' , 'hidden')
+           
+            ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
