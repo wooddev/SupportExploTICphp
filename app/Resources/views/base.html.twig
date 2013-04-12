@@ -10,7 +10,7 @@
         <div class="container">
             <div class="row">
                 <div class="span3">
-                        <h2>Navigation </h2>
+                        <h2>Menu </h2>
                         {% if is_granted("ROLE_DAB") %}
                         <ul> Gestion du site
                             <li><a href="{{path('typeposte')}}">  Gestion des postes de déchargement </a>
@@ -39,9 +39,6 @@
                         </ul>
                 </div>          
                 <div class="span8">
-                    <h1>
-                        Contenu
-                    </h1>
                 {%block body %}
 
 

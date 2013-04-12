@@ -1,7 +1,8 @@
 {%extends "::base.html.twig"%}
 {%block body%}
 <h1>Recherche de créneaux</h1>
-
+<p> En {{entity.annee}} pour la semaine {{entity.semaine}} </p>
+<p> du {{dateDebut | date('d/m/Y')}} au {{dateFin | date('d/m/Y')}} </p>
 <form action="{{ path('rdv_reservation') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <p>

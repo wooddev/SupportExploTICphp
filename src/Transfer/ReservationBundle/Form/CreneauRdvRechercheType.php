@@ -11,10 +11,21 @@ class CreneauRdvRechercheType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('annee')
-            ->add('semaine')
-            ->add('typePoste')                
-            ->add('jour')
+            ->add('annee','hidden')
+            ->add('semaine','hidden')
+            ->add('typePoste',null,array(
+                'label'=>'Type de camion',
+            ))                
+            ->add('jour','choice',array(
+                'choices'=> array(
+                                1=>'Lundi',
+                                2=>'Mardi',
+                                3=>'Mercredi',
+                                4=>'Jeudi',
+                                5=>'Vendredi',
+                                6=>'Samedi',
+                                )
+            ))
             ->add('heure')
             ->add('minute')
             

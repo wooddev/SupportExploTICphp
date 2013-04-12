@@ -174,18 +174,22 @@ class CreneauRdvController extends Controller
     {
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
-            ->getForm()
-        ;
+            ->getForm();
     }
     
     public function rechercheAction(){       
                
         $entity = new CreneauRdv();
         $entity->setAnnee(date('o')); // Année au format ISO !!IMPORTANT POUR RESPECTER LA CODIFICATION ISO DES SEMAINES 
-        $entity->setSemaine(date('W'));
+        $entity->setSemaine(date('W')+1);
         $form   = $this->createForm(new CreneauRdvRechercheType(), $entity);
-
+        $dateDebut = new \DateTime(date('o').'W'.(date('W')+1));
+        $dateFin = new \DateTime(date('o').'W'.(date('W')+1)."6");
+        
+        
         return $this->render('TransferReservationBundle:CreneauRdv:recherche/formulaire.html.twig', array(
+            'dateDebut'=> $dateDebut,
+            'dateFin'=> $dateFin,
             'entity' => $entity,
             'form'   => $form->createView(),
         ));      
