@@ -4,19 +4,30 @@
         <title>Transfer Démo</title>
     <!-- Bootstrap -->
     {% include 'BraincraftedBootstrapBundle::_stylesheets.html.twig' %}
+    <
     </head>
     <body>
         <div class="container">
             <div class="row">
                 <div class="span3">
                         <h2>Navigation </h2>
-                        <ul>
+                        {% if is_granted("ROLE_DAB") %}
+                        <ul> Gestion du site
+                            <li><a href="{{path('typeposte')}}">  Gestion des postes de déchargement </a>
+                            </li>
+                            <li><a href="{{path('transporteur')}}">  Gestion des transporteurs </a>
+                            </li>
+                        </ul>                        
+                        <ul> Module Créneaux modèles et préférentiels
                             <li><a href="{{path('creneaumodele_generate')}}">  Générer les créneaux modèles </a>
                             </li>
                             <li> <a href="{{path('creneaumodele')}}">  liste des créneaux modèles</a>
                             </li>
-                            <li><a href="{{path('creneaupref_showtransporteur', {'idTransporteur': 1})}}"> creneaux du transporteur 1 </a>
+                            <li><a href="{{path('creneaupref_showtransporteur', {'idTransporteur': 1})}}"> creneaux préférentiels du transporteur 1 </a>
                             </li>
+                        </ul>
+                        {%endif%}
+                        <ul> Module des réservations
                             <li><a href="{{path('creneaurdv')}}"> liste créneaux rdv </a>
                             </li>
                             <li><a href="{{path('creneaurdvgen_generate')}}"> génération des créneaux rdv pour une semaine </a>
