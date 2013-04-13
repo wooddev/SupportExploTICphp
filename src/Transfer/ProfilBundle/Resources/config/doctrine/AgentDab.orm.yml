@@ -2,4 +2,8 @@ Transfer\ProfilBundle\Entity\AgentDab:
   type: entity
   table: null
   repositoryClass: Transfer\ProfilBundle\Entity\AgentDabRepository
+  oneToOne:
+      user:
+        targetEntity: Transfer\MainBundle\Entity\User
+        mappedBy: agentDab
   lifecycleCallbacks: {  }

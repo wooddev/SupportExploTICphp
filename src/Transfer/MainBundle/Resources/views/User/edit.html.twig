@@ -1,8 +1,8 @@
 {%extends "::base.html.twig"%}
 {%block body%}
-<h1>Transporteur edit</h1>
+<h1>User edit</h1>
 
-<form action="{{ path('transporteur_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+<form action="{{ path('user_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
     {{ form_widget(edit_form) }}
     <p>
         <button type="submit">Edit</button>
@@ -11,12 +11,12 @@
 
 <ul class="record_actions">
     <li>
-        <a href="{{ path('transporteur') }}">
+        <a href="{{ path('user') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <form action="{{ path('transporteur_delete', { 'id': entity.id }) }}" method="post">
+        <form action="{{ path('user_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button type="submit">Delete</button>
         </form>

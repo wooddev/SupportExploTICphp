@@ -1,0 +1,45 @@
+{%extends "::base.html.twig"%}
+{%block body%}
+<h1>User list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>            
+            <th>Roles</th>
+            <th>Agent DAB<th>
+            <th>Agent Transporteur<th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{{ entity.username }}</a></td>
+            
+            <td>{{ entity.email }}</td>
+            <td>{%for role in  entity.roles %}
+                    {{role}} <br>
+                {%endfor%}
+            </td>
+            <td>{{ entity.id }}</td>
+            <td>{%if entity.agentDab.nom is defined %}
+                {{entity.agentDab}}
+                {%endif%}
+            <td>
+            <td>{%if entity.agentTrsp.nom is defined %}
+                {{entity.agentTrsp}}
+                {%endif%}
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('user_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{%endblock%}

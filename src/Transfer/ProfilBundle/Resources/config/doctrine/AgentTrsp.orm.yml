@@ -2,6 +2,10 @@ Transfer\ProfilBundle\Entity\AgentTrsp:
   type: entity
   table: null
   repositoryClass: Transfer\ProfilBundle\Entity\AgentTrspRepository
+  oneToOne:
+      user:
+        targetEntity: Transfer\MainBundle\Entity\User
+        mappedBy: agentTrsp
   manyToOne:
     transporteur:
       targetEntity: Transporteur

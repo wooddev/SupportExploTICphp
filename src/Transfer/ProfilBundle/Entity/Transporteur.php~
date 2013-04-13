@@ -202,4 +202,51 @@ class Transporteur
     {
         return $this->creneauPrefs;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $evenements;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->evenements = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->agentTrsps = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creneauPrefs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add evenements
+     *
+     * @param \Transfer\ReservationBundle\Entity\Evenement $evenements
+     * @return Transporteur
+     */
+    public function addEvenement(\Transfer\ReservationBundle\Entity\Evenement $evenements)
+    {
+        $this->evenements[] = $evenements;
+    
+        return $this;
+    }
+
+    /**
+     * Remove evenements
+     *
+     * @param \Transfer\ReservationBundle\Entity\Evenement $evenements
+     */
+    public function removeEvenement(\Transfer\ReservationBundle\Entity\Evenement $evenements)
+    {
+        $this->evenements->removeElement($evenements);
+    }
+
+    /**
+     * Get evenements
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEvenements()
+    {
+        return $this->evenements;
+    }
 }
