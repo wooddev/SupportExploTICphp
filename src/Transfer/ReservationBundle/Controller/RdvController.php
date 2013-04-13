@@ -8,8 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Transfer\ReservationBundle\Entity\Rdv;
 use Transfer\ReservationBundle\Form\RdvType;
 use Transfer\ReservationBundle\Entity\CreneauRdv;
-use Transfer\ProfilBundle\Entity\Transporteur;
-use Transfer\ReservationBundle\Form\CreneauRdvType;
 use Transfer\ReservationBundle\Entity\Evenement;
 
 /**
@@ -47,17 +45,26 @@ class RdvController extends Controller
         $agendas = new \Doctrine\Common\Collections\ArrayCollection();
         
         foreach ($postes as $poste){
-            $rdvs = $em->getRepository('TransferReservationBundle:Rdv')
-                        ->findByTransporteur_Annee_Semaine_Poste($transporteur,$annee,$semaine,$poste);
+            $rdvs = new \Doctrine\Common\Collections\ArrayCollection(
+                        $em->getRepository('TransferReservationBundle:Rdv')
+                                        ->findByTransporteur_Annee_Semaine_Poste(
+                                                $transporteur,$annee,$semaine,$poste));
        
-            $creneauRdvs = $em->getRepository('TransferReservationBundle:CreneauRdv')
-                            ->findByAnnee_Semaine_Poste($annee,$semaine,$poste);      
+            $creneauRdvs = new \Doctrine\Common\Collections\ArrayCollection(
+                                $em->getRepository('TransferReservationBundle:CreneauRdv')
+                                            ->findByAnnee_Semaine_Poste(
+                                                    $annee,$semaine,$poste));
+            
             if($creneauRdvs){
                 $agendas->add( new \Transfer\MainBundle\Model\Agenda());
                 $agendas->last()->init($semaine,$annee,$poste);
-                $agendas->last()->setCreneauxAgenda($creneauRdvs, $rdvs);
-                $agendas->last()->generateAgenda(1);
+                if ($poste->getNom() == 'Fond mouvant'){
+                    $agendas->last()->generateAgenda($creneauRdvs,$rdvs,350 ,1200);
+                }else{
+                    $agendas->last()->generateAgenda($creneauRdvs,$rdvs, 280 ,1200);
+                }
             }
+            else{ return new \Symfony\Component\HttpFoundation\Response('<p> Planning non défini </p>');}
         }        
         return $this->render('TransferReservationBundle:Rdv:show/agenda.html.twig', array(
             'agendas'      => $agendas,
@@ -311,8 +318,8 @@ class RdvController extends Controller
         $em->flush();
         return $this->redirect($this->generateUrl(
                 'rdv_transporteur',
-                array('annee' =>  date('Y'),
-                      'semaine'=> date('W'))                                                                                                                              
+                array('annee' =>  $rdvConfirme->getAnnee(),
+                      'semaine'=> $rdvConfirme->getSemaine())                                                                                                                              
         ));
         
     }

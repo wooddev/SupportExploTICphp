@@ -134,4 +134,28 @@ class Rdv
     {
         return $this->evenements;
     }
+    
+    /**
+     * Pour récupérer le dernier transporteur associé à un évenement particulier
+     * @param type $type
+     */
+    
+    public function  getTransporteur($type){
+        $criteria = \Doctrine\Common\Collections\Criteria::create()
+                            ->where(Criteria::expr()->eq("type",$type));
+        return $this->getEvenements()->matching($criteria)->last()->getTransporteur();
+    }
+    
+    Public function getCreneauStructure(){
+        return $this->getCreneauRdv();
+    }
+    public function getJour(){
+        return $this->creneauRdv->getJour();
+    }
+    public function getAnnee(){
+        return $this->creneauRdv->getAnnee();
+    }
+    public function getSemaine(){
+        return $this->creneauRdv->getSemaine();
+    }
 }
