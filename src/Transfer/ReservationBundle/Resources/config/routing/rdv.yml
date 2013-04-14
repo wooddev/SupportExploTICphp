@@ -35,8 +35,13 @@ rdv_delete:
     
 rdv_reservation:
     pattern: /reservation
-    defaults: {_controller: "TransferReservationBundle:Rdv:reservation" }
-    
+    defaults: {_controller: "TransferReservationBundle:Rdv:reservationRecherche" }
+
+rdv_reservation_proche:
+    pattern: /reservation/{idRdv}/{mode}
+    defaults: {_controller: "TransferReservationBundle:Rdv:reservationProche" }
+    requirements: { _method: post}
+
 rdv_confirmation:
     pattern: /confirmation/{id}
     defaults: {_controller: "TransferReservationBundle:Rdv:confirmation" }

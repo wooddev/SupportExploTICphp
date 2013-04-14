@@ -231,7 +231,7 @@ class RdvController extends Controller
         ;
     }
     
-    public function reservationAction(Request $request){
+    public function reservationRechercheAction(Request $request){
         
         $rdvRecherche = new CreneauRdv();
         $form = $this->createForm(new \Transfer\ReservationBundle\Form\CreneauRdvRechercheType(), $rdvRecherche);
@@ -263,61 +263,66 @@ class RdvController extends Controller
                 $creneauxRdvTries->add(new \Transfer\ReservationBundle\Recherche\RdvResultat($creneauRdvBrut,$rdvRecherche));            
             }
 
-            //Récupération du transporteur associé à l'utilisateur
-            $user = $this->container->get('security.context')->getToken()->getUser();
-            if(! is_object($user))
-            {
-                return new \Symfony\Component\HttpFoundation\Response('Veuillez vous authentifier');          
-            }     
+            
+            $creneauxRdvTries->sortArray('getDiffTemps');
+            
+            return $this->reservation($creneauxRdvTries);
 
-            if(!(is_object($user->getAgentTrsp()))){
-                return new \Symfony\Component\HttpFoundation\Response("
-                    L'administrateur doit relier votre compte à une entreprise de transport");          
-            }   
-            $transporteur = $user->getAgentTrsp()->getTransporteur();
-            //////////////////////////////////////////////////////////////
-            foreach ($creneauxRdvTries->sortArray('getDiffTemps') as $creneauRdv){
-                $creneauRdvSync = $em->getRepository('TransferReservationBundle:CreneauRdv')                    
-                                            ->find($creneauRdv->getId());
-
-                if ($creneauRdvSync->getDisponibilite() > 0){
-                    //On bloque le créneau tout de suite
-                    $creneauRdvSync->setDisponibilite($creneauRdvSync->getDisponibilite()-1);
-                    $em->persist($creneauRdvSync);
-                    $em->flush();         
-                    
-                    //Vidange du panier
-                    //Recherche de rdv provisoires existants 
-                    $provisoires = $em->getRepository('TransferReservationBundle:Rdv')
-                                            ->findByStatutRdv('provisoire');
-                    //suppression des provisoires existants
-                    if($provisoires){
-                        foreach ($provisoires as $provisoire){
-                            $em->remove($provisoire);
-                        }
-                        $em->flush(); 
-                    }                    
-                    // création du rdv recherché
-                    $rdv = new \Transfer\ReservationBundle\Entity\Rdv();
-                    $rdv->init($creneauRdvSync);
-                    // Création de l'évenement de réservation
-                    $evenement = new Evenement();
-                    $evenement->setRdv($rdv);
-                    $evenement->setTransporteur($transporteur);
-                    $evenement->setType('reservation');
-                    $em->persist($rdv);
-                    $em->persist($evenement);
-                    $em->flush();
-                    return $this->redirect($this->generateUrl(
-                            'rdv_transporteur',
-                            array(
-                                  'annee' =>  $rdvRecherche->getAnnee(),
-                                  'semaine'=> $rdvRecherche->getSemaine())                                                                                                                              
-                    ));
-                }
-            }
+//            //Récupération du transporteur associé à l'utilisateur
+//            $user = $this->container->get('security.context')->getToken()->getUser();
+//            if(! is_object($user))
+//            {
+//                return new \Symfony\Component\HttpFoundation\Response('Veuillez vous authentifier');          
+//            }     
+//
+//            if(!(is_object($user->getAgentTrsp()))){
+//                return new \Symfony\Component\HttpFoundation\Response("
+//                    L'administrateur doit relier votre compte à une entreprise de transport");          
+//            }   
+//            $transporteur = $user->getAgentTrsp()->getTransporteur();
+//            //////////////////////////////////////////////////////////////
+//            foreach ($creneauxRdvTries->sortArray('getDiffTemps') as $creneauRdv){
+//                $creneauRdvSync = $em->getRepository('TransferReservationBundle:CreneauRdv')                    
+//                                            ->find($creneauRdv->getId());
+//
+//                if ($creneauRdvSync->getDisponibilite() > 0){
+//                    //On bloque le créneau tout de suite
+//                    $creneauRdvSync->setDisponibilite($creneauRdvSync->getDisponibilite()-1);
+//                    $em->persist($creneauRdvSync);
+//                    $em->flush();         
+//                    
+//                    //Vidange du panier
+//                    //Recherche de rdv provisoires existants 
+//                    $provisoires = $em->getRepository('TransferReservationBundle:Rdv')
+//                                            ->findByStatutRdv('provisoire');
+//                    //suppression des provisoires existants
+//                    if($provisoires){
+//                        foreach ($provisoires as $provisoire){
+//                            $em->remove($provisoire);
+//                        }
+//                        $em->flush(); 
+//                    }                    
+//                    // création du rdv recherché
+//                    $rdv = new \Transfer\ReservationBundle\Entity\Rdv();
+//                    $rdv->init($creneauRdvSync);
+//                    // Création de l'évenement de réservation
+//                    $evenement = new Evenement();
+//                    $evenement->setRdv($rdv);
+//                    $evenement->setTransporteur($transporteur);
+//                    $evenement->setType('reservation');
+//                    $em->persist($rdv);
+//                    $em->persist($evenement);
+//                    $em->flush();
+//                    return $this->redirect($this->generateUrl(
+//                            'rdv_transporteur',
+//                            array(
+//                                  'annee' =>  $rdvRecherche->getAnnee(),
+//                                  'semaine'=> $rdvRecherche->getSemaine())                                                                                                                              
+//                    ));
+//                }
+//            }
         }
-        return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');
+        else{return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');}
     }
     
     public function confirmationAction($id){
@@ -343,4 +348,82 @@ class RdvController extends Controller
         ));
         
     }
+    public function reservationProcheAction($mode, $idRdv){
+              
+        $em= $this->getDoctrine()->getManager();
+        $rdvEnCours = $em->getRepository('TransferReservationBundle:Rdv')->find($idRdv);
+        $CreneauEnCours = $rdvEnCours->getCreneauRdv();
+
+        $creneauxRdvProcheDispo = $em->getRepository('TransferReservationBundle:CreneauRdv')
+                                ->findProche($CreneauEnCours, $mode);
+        
+        if ($creneauxRdvProcheDispo==null){            
+            return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');
+        }           
+        
+        return $this->reservation($creneauxRdvProcheDispo);
+    }
+    
+    public function reservation($creneauxRdv){
+        foreach ($creneauxRdv as $creneauRdv){
+            $em = $this->getDoctrine()->getManager();
+            $creneauRdvSync = $em->getRepository('TransferReservationBundle:CreneauRdv')                    
+                                        ->find($creneauRdv->getId());
+
+            if ($creneauRdvSync->getDisponibilite() > 0){
+                //On bloque le créneau tout de suite
+                $creneauRdvSync->setDisponibilite($creneauRdvSync->getDisponibilite()-1);
+                $em->persist($creneauRdvSync);
+                $em->flush();
+                /////////////////////////////////////////////////////////////////
+                //////Récupération du transporteur associé à l'utilisateur///////
+                $user = $this->container->get('security.context')->getToken()->getUser();
+                if(! is_object($user))
+                {
+                    return new \Symfony\Component\HttpFoundation\Response('Veuillez vous authentifier');          
+                }     
+
+                if(!(is_object($user->getAgentTrsp()))){
+                    return new \Symfony\Component\HttpFoundation\Response("
+                        L'administrateur doit relier votre compte à une entreprise de transport");          
+                }   
+                $transporteur = $user->getAgentTrsp()->getTransporteur();
+                //////////////////////////////////////////////////////////////
+
+                //Vidange du panier
+                //Recherche de rdv provisoires existants 
+                $provisoires = $em->getRepository('TransferReservationBundle:Rdv')
+                                        ->findByStatutRdv('provisoire');
+                //suppression des provisoires existants
+                if($provisoires){
+                    foreach ($provisoires as $provisoire){
+                        $creneauRdvProvisoire = $provisoire->getCreneauRdv();
+                        $creneauRdvProvisoire->setDisponibilite($creneauRdvProvisoire->getDisponibilite()+1);
+                        $em->persist($creneauRdvProvisoire);
+                        $em->remove($provisoire);
+                    }
+                    $em->flush(); 
+                }                    
+                // création du rdv recherché
+                $rdv = new \Transfer\ReservationBundle\Entity\Rdv();
+                $rdv->init($creneauRdvSync);
+                // Création de l'évenement de réservation
+                $evenement = new Evenement();
+                $evenement->setRdv($rdv);
+                $evenement->setTransporteur($transporteur);
+                $evenement->setType('reservation');
+                $em->persist($rdv);
+                $em->persist($evenement);
+                $em->flush();
+                
+                return $this->redirect($this->generateUrl(
+                        'rdv_transporteur',
+                        array(
+                              'annee' =>  $creneauRdvSync->getAnnee(),
+                              'semaine'=> $creneauRdvSync->getSemaine())                                                                                                                              
+                ));
+            }
+        }  
+    }
+    
 }

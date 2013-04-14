@@ -18,7 +18,7 @@ class CreneauRdvRepository extends EntityRepository
         "SELECT cr
         FROM TransferReservationBundle:CreneauRdv cr
         JOIN cr.typePoste t
-        WHERE  cr.disponibilite <> 0
+        WHERE  cr.disponibilite > 0
         AND t.id = :posteId
         AND cr.dateHeureDebut BETWEEN :min AND :max
         ");
@@ -35,6 +35,38 @@ class CreneauRdvRepository extends EntityRepository
             'max'=> $max
                 ));
         
+        return $query->getResult();
+    }
+    
+    public function findProche($creneauRdv, $mode){
+        
+        switch($mode){
+            case 'suivant':
+                $signe = '>';
+                $order =  "ASC";
+                break;
+            case 'precedent':
+                $signe= '<';
+                $order = 'DESC';
+                break;
+        }
+        
+        $query = $this->getEntityManager()->createQuery(
+                    "SELECT cr
+                    FROM TransferReservationBundle:CreneauRdv cr
+                    JOIN cr.typePoste t
+                    WHERE  cr.disponibilite > 0
+                    AND t.nom = :nomPoste
+                    AND cr.jour = :jour
+                    AND cr.dateHeureDebut ".$signe." :date
+                    ORDER BY cr.dateHeureDebut ".$order
+                    );
+        
+        $query->setParameters(array(
+            'date'=> $creneauRdv->getDateHeureDebut(),
+            'jour'=> $creneauRdv->getJour(),
+            'nomPoste'=> $creneauRdv->getTypePoste()->getNom(),
+            ));
         return $query->getResult();
     }
     

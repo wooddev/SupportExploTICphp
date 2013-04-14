@@ -56,6 +56,14 @@ p{
     padding:1px;
     font-size:10px;
 }
+form{
+    display:inline;
+    float:left;
+    margin : 0 2px;
+    padding : 0;
+        
+}
+    
 </style>
 <h3>Plannings de l'entreprise {{transporteur.nom}}</h3>
 <ul class="nav nav-tabs" id="myTab">
@@ -83,9 +91,14 @@ p{
                                 {{creneau.dateTimeDebut|date('H:i')}}<br>
                                 {%if creneau.creneauAffiche.statutRdv is defined %}                            
                                     {%if creneau.creneauAffiche.statutRdv == 'provisoire' %}
+                                        <form action="{{ path('rdv_reservation_proche' , { 'idRdv': creneau.creneauAffiche.id, 'mode': 'precedent'}) }}" method="post">
+                                            <button class="btn btn-success" type="submit"><</button> 
+                                        </form>
                                         <form action="{{ path('rdv_confirmation' , { 'id': creneau.creneauAffiche.id}) }}" method="post">
-                                            {#<input type="hidden" name="id" value ="{{creneau.creneauAffiche.id }}"/>#}
                                             <button class="btn btn-success" type="submit">Confirmer</button> 
+                                        </form>
+                                        <form action="{{ path('rdv_reservation_proche' , { 'idRdv': creneau.creneauAffiche.id, 'mode': 'suivant'}) }}" method="post">
+                                            <button class="btn btn-success" type="submit">></button> 
                                         </form>
                                     {%elseif creneau.creneauAffiche.statutRdv == 'confirme' %}
                                         RESERVE
