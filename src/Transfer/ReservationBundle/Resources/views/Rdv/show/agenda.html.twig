@@ -53,9 +53,9 @@ p{
     font-size:10px;
 }
 </style>
-
+<h3>Plannings du transporteur {{transporteur.nom}}</h3>
 {%for agenda in agendas%}
-<div class="agenda">
+<div class="agenda">    
     <p>Planning du {{agenda.dateDebut | date('d/m/Y')}} au {{agenda.dateFin | date('d/m/Y')}}</p>
     <p>Poste de déchargement : {{agenda.poste}}</p>
     {%for agendaYear in agenda.agendasYear %}
@@ -67,7 +67,7 @@ p{
             <div class="jour"> {{agendaDay.textVal}}
                 {%for creneau in agendaDay.creneaux %}
                     <div class="creneau creneau-{{creneau.type}}" style="height: {{1.4*creneau.duree}}px">
-                        {{creneau.dateTimeDebut|date('h:i')}}<br>
+                        {{creneau.dateTimeDebut|date('H:i')}}<br>
                         {%if creneau.creneauAffiche.statutRdv is defined %}                            
                             {%if creneau.creneauAffiche.statutRdv == 'provisoire' %}
                                 <form action="{{ path('rdv_confirmation' , { 'id': creneau.creneauAffiche.id}) }}" method="post">
@@ -90,5 +90,8 @@ p{
     {%endfor%}
 </div>
 {%endfor%}
+<script type="text/javascript">
 
+    
+</script>
 {%endblock%}

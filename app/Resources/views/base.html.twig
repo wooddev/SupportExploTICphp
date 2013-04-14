@@ -11,6 +11,7 @@
             <div class="row">
                 <div class="span3">
                         <h2>Menu </h2>
+
                         {% if is_granted("ROLE_DAB") %}
                         <ul> Gestion du site
                             <li><a href="{{path('typeposte')}}">  Gestion des postes de déchargement </a>
@@ -24,27 +25,47 @@
                             <li><a href="{{path('user')}}">  Liste des utilisateurs </a>
                             </li>
                         </ul>                        
-                        <ul> Module Créneaux modèles et préférentiels
+                        <ul> Gestion des modèles de planning
                             <li><a href="{{path('creneaumodele_generate')}}">  Générer les créneaux modèles </a>
                             </li>
                             <li> <a href="{{path('creneaumodele')}}">  liste des créneaux modèles</a>
                             </li>
+                        </ul>
+                        <ul>Gestion des créneaux pré-réservés
                             <li><a href="{{path('creneaupref_showtransporteur', {'idTransporteur': 1})}}"> creneaux préférentiels du transporteur 1 </a>
                             </li>
                         </ul>
-                        {%endif%}
-                        <ul> Module des réservations
+                        
+                        <ul> Gestion des créneaux pour la recherche de rendez-vous
                             <li><a href="{{path('creneaurdv')}}"> liste créneaux rdv </a>
                             </li>
                             <li><a href="{{path('creneaurdvgen_generate')}}"> génération des créneaux rdv pour une semaine </a>
                             </li>
-                            <li> <a href="{{path('creneaurdv_recherche')}}"> recherche de créneaux rdv </a>
+                        </ul>
+                        {%elseif is_granted('ROLE_USER')%}
+                        <ul> Gérer mon planning
+                            <li> <a href="{{path('creneaurdv_recherche',{'annee':2013,'semaine': 'now'|date('W')})}}"> rechercher un Créneau pour la <b>semaine en cours </b></a>
                             </li>
-                            <li><a href="{{path('rdv_transporteur',{'annee':2013,'semaine':15})}}"> créneaux du transporteur 1 </a>
+                            <li> <a href="{{path('creneaurdv_recherche',{'annee':2013,'semaine':(1+('now'|date('W')))})}}"> rechercher un Créneeau pour la <b>semaine prochaine</b> </a>
+                            </li>
+                            <li><a href="{{path('rdv_transporteur',{'annee':2013,'semaine': 'now'|date('W')})}}">Mes créneaux pour la semaine en cours </a>
+                            </li>                     
+                            <li><a href="{{path('rdv_transporteur',{'annee':2013,'semaine': (1+('now'|date('W')))})}}">Mes créneaux pour la semaine prochaine </a>
                             </li>                     
                         </ul>
+                        {%endif%}
                 </div>          
                 <div class="span8">
+                    <div>
+                                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                                        <a href="{{ path('fos_user_security_logout') }}">
+                                            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                                        </a>
+                                    {% else %}                                        
+                                        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                                    {% endif %}                                        
+                        </div>
                 {%block body %}
 
 

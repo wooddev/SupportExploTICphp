@@ -30,5 +30,5 @@ creneaurdv_delete:
     requirements: { _method: post }
     
 creneaurdv_recherche:
-    pattern: /recherche
+    pattern: /recherche/{semaine}/{annee}
     defaults: { _controller: "TransferReservationBundle:CreneauRdv:recherche"}

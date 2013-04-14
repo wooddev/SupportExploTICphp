@@ -36,9 +36,20 @@ class RdvController extends Controller
         // récupérer ici la liste des rdv pour le transporteur associé à l'utilisateur en cours
         // Affichage dans un agenda avec typage associé aux événements? (au moins pour Réservé/confirmé/annulé)
         $em = $this->getDoctrine()->getManager();
-       
-        $transporteur = $em->getRepository('TransferProfilBundle:Transporteur')
-                                ->find(1);
+        
+        //Récupération du transporteur associé à l'utilisateur
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if(! is_object($user))
+        {
+            return new \Symfony\Component\HttpFoundation\Response('Veuillez vous authentifier');          
+        }     
+        
+        if(!(is_object($user->getAgentTrsp()))){
+            return new \Symfony\Component\HttpFoundation\Response("
+                L'administrateur doit relier votre compte à une entreprise de transport");          
+        }   
+        $transporteur = $user->getAgentTrsp()->getTransporteur();
+        /////////////////////////////////////////////////////
        
         $postes = $em->getRepository('TransferReservationBundle:TypePoste')->findall();
         
@@ -67,6 +78,7 @@ class RdvController extends Controller
             else{ return new \Symfony\Component\HttpFoundation\Response('<p> Planning non défini </p>');}
         }        
         return $this->render('TransferReservationBundle:Rdv:show/agenda.html.twig', array(
+            'transporteur'=>$transporteur,
             'agendas'      => $agendas,
             ));        
     }
@@ -252,11 +264,18 @@ class RdvController extends Controller
             }
 
             //Récupération du transporteur associé à l'utilisateur
-            // A FAIRE !!
-            // TRANSPORTEUR 1 PAR DEFAUT POUR L'INSTANT
-            $transporteur = $em->getRepository('TransferProfilBundle:Transporteur')
-                                    ->find(1);
-            
+            $user = $this->container->get('security.context')->getToken()->getUser();
+            if(! is_object($user))
+            {
+                return new \Symfony\Component\HttpFoundation\Response('Veuillez vous authentifier');          
+            }     
+
+            if(!(is_object($user->getAgentTrsp()))){
+                return new \Symfony\Component\HttpFoundation\Response("
+                    L'administrateur doit relier votre compte à une entreprise de transport");          
+            }   
+            $transporteur = $user->getAgentTrsp()->getTransporteur();
+            //////////////////////////////////////////////////////////////
             foreach ($creneauxRdvTries->sortArray('getDiffTemps') as $creneauRdv){
                 $creneauRdvSync = $em->getRepository('TransferReservationBundle:CreneauRdv')                    
                                             ->find($creneauRdv->getId());
@@ -291,7 +310,8 @@ class RdvController extends Controller
                     $em->flush();
                     return $this->redirect($this->generateUrl(
                             'rdv_transporteur',
-                            array('annee' =>  $rdvRecherche->getAnnee(),
+                            array(
+                                  'annee' =>  $rdvRecherche->getAnnee(),
                                   'semaine'=> $rdvRecherche->getSemaine())                                                                                                                              
                     ));
                 }

@@ -177,17 +177,28 @@ class CreneauRdvController extends Controller
             ->getForm();
     }
     
-    public function rechercheAction(){       
+    public function rechercheAction($semaine, $annee){       
                
         $entity = new CreneauRdv();
-        $entity->setAnnee(date('o')); // Année au format ISO !!IMPORTANT POUR RESPECTER LA CODIFICATION ISO DES SEMAINES 
-        $entity->setSemaine(date('W')+1);
+        $entity->setAnnee($annee); // Année au format ISO !!IMPORTANT POUR RESPECTER LA CODIFICATION ISO DES SEMAINES 
+        $entity->setSemaine($semaine);
         $form   = $this->createForm(new CreneauRdvRechercheType(), $entity);
-        $dateDebut = new \DateTime(date('o').'W'.(date('W')+1));
-        $dateFin = new \DateTime(date('o').'W'.(date('W')+1)."6");
+        $dateDebut = new \DateTime($annee.'W'.$semaine);
+        $dateFin = new \DateTime($annee.'W'.$semaine."6");
+        //Récupération du transporteur associé à l'utilisateur
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if(! is_object($user))
+        {
+            return new \Symfony\Component\HttpFoundation\Response('Veuillez vous authentifier');          
+        }     
         
-        
+        if(!(is_object($user->getAgentTrsp()))){
+            return new \Symfony\Component\HttpFoundation\Response("
+                L'administrateur doit relier votre compte à une entreprise de transport");          
+        }   
+        $transporteur = $user->getAgentTrsp()->getTransporteur();
         return $this->render('TransferReservationBundle:CreneauRdv:recherche/formulaire.html.twig', array(
+            'transporteur'=>$transporteur,
             'dateDebut'=> $dateDebut,
             'dateFin'=> $dateFin,
             'entity' => $entity,

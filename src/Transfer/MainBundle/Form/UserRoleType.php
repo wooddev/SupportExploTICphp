@@ -14,7 +14,7 @@ class UserRoleType extends AbstractType
             ->add('username')            
             ->add('email')
             ->add('roles', 'choice', array(
-                'choices'=>array('DAB'=>'ROLE_DAB','Transporteur'=>'ROLE_TRANSPORTEUR','Admin'=>'ROLE_ADMIN'),
+                'choices'=>array('ROLE_DAB'=>'DAB','ROLE_TRANSPORTEUR'=>'Transporteur','ROLE_ADMIN'=>'Admin'),
                 'multiple'=>true,
                 'expanded'=>true,
             ))
