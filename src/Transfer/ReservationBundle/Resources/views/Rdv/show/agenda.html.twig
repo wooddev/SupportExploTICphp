@@ -3,9 +3,13 @@
 <style type=text/css>
 div.agenda{
     float:left;
-    margin: 35px;
+    margin: 5px 35px;
     font-family: Arial;
     font-size: 12px;
+}
+
+div.agenda-header{
+    font-size:14px;
 }
 div.annee {
     float: none;
@@ -53,45 +57,67 @@ p{
     font-size:10px;
 }
 </style>
-<h3>Plannings du transporteur {{transporteur.nom}}</h3>
+<h3>Plannings de l'entreprise {{transporteur.nom}}</h3>
+<ul class="nav nav-tabs" id="myTab">
 {%for agenda in agendas%}
-<div class="agenda">    
-    <p>Planning du {{agenda.dateDebut | date('d/m/Y')}} au {{agenda.dateFin | date('d/m/Y')}}</p>
-    <p>Poste de déchargement : {{agenda.poste}}</p>
-    {%for agendaYear in agenda.agendasYear %}
-    <div class="annee"> 
-        {%for agendaWeek in agendaYear.agendasWeek%}
-        <div class="semaine"> semaine {{agendaWeek.val}} en {{agendaYear.val}}
-        <div class="jour-container">
-            {%for agendaDay in agendaWeek.agendasDay%}
-            <div class="jour"> {{agendaDay.textVal}}
-                {%for creneau in agendaDay.creneaux %}
-                    <div class="creneau creneau-{{creneau.type}}" style="height: {{1.4*creneau.duree}}px">
-                        {{creneau.dateTimeDebut|date('H:i')}}<br>
-                        {%if creneau.creneauAffiche.statutRdv is defined %}                            
-                            {%if creneau.creneauAffiche.statutRdv == 'provisoire' %}
-                                <form action="{{ path('rdv_confirmation' , { 'id': creneau.creneauAffiche.id}) }}" method="post">
-                                    {#<input type="hidden" name="id" value ="{{creneau.creneauAffiche.id }}"/>#}
-                                    <button class="btn btn-success" type="submit">Confirmer</button> 
-                                </form>
-                            {%elseif creneau.creneauAffiche.statutRdv == 'confirme' %}
-                                RESERVE
-                            {%endif%}
-                        {%else%} 
-                        {%endif%}
-                    </div>               
+    <li><a href="#agenda{{loop.index}}">{{agenda.poste}}</a></li>
+{%endfor%}
+</ul>
+<div class="tab-content">
+{%for agenda in agendas%}    
+    <div class="tab-pane" id="agenda{{loop.index}}">   
+        <div class="agenda">    
+            <div class="agenda-header">
+            <h4>Planning du {{agenda.dateDebut | date('d/m/Y')}} au {{agenda.dateFin | date('d/m/Y')}}</h4>           
+            <p> Type de camion : {{agenda.poste}}</p>
+            </div>
+            {%for agendaYear in agenda.agendasYear %}
+            <div class="annee"> 
+                {%for agendaWeek in agendaYear.agendasWeek%}
+                <div class="semaine"> Année : {{agendaYear.val}} | Semaine : {{agendaWeek.val}}
+                <div class="jour-container">
+                    {%for agendaDay in agendaWeek.agendasDay%}
+                    <div class="jour"> {{agendaDay.textVal}}
+                        {%for creneau in agendaDay.creneaux %}
+                            <div class="creneau creneau-{{creneau.type}}" style="height: {{1.4*creneau.duree}}px">
+                                {{creneau.dateTimeDebut|date('H:i')}}<br>
+                                {%if creneau.creneauAffiche.statutRdv is defined %}                            
+                                    {%if creneau.creneauAffiche.statutRdv == 'provisoire' %}
+                                        <form action="{{ path('rdv_confirmation' , { 'id': creneau.creneauAffiche.id}) }}" method="post">
+                                            {#<input type="hidden" name="id" value ="{{creneau.creneauAffiche.id }}"/>#}
+                                            <button class="btn btn-success" type="submit">Confirmer</button> 
+                                        </form>
+                                    {%elseif creneau.creneauAffiche.statutRdv == 'confirme' %}
+                                        RESERVE
+                                    {%endif%}
+                                {%else%} 
+                                {%endif%}
+                            </div>               
+                        {%endfor%}
+                    </div>
+                    {%endfor%}                
+                </div>
+                </div>
                 {%endfor%}
             </div>
-            {%endfor%}                
+            {%endfor%}
         </div>
-        </div>
-        {%endfor%}
     </div>
-    {%endfor%}
-</div>
 {%endfor%}
+</div>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <script type="text/javascript">
 
-    
+$('#myTab a').click(function (e){
+    e.preventDefault();
+    $(this).tab('show');
+});
+$(function(){
+    $('#myTab a:first').tab('show');
+});
+
+agenda[0]
 </script>
 {%endblock%}
