@@ -52,5 +52,23 @@ class RdvRepository extends EntityRepository
         
         return $query->getResult();        
     }
+    public function findSemaineMinutesMin($annee, $semaine,$poste){
+        
+        $query = $this->getEntityManager()->createQuery();
+        
+        $query->setDQL('
+                        SELECT min(c.heureDebut)
+                        FROM TransferReservationBundle:CreneauRdv c
+                        JOIN c.typePoste p
+                        WHERE c.semaine = :semaine
+                        AND c.annee = :annee
+                        AND p.id = :idPoste
+                ')
+                ->setParameter('idPoste', $poste->getId())
+                ->setParameter('semaine', $semaine)
+                ->setParameter('annee', $annee);        
+        
+        return $query->getSingleScalarResult();        
+    }
     
 }

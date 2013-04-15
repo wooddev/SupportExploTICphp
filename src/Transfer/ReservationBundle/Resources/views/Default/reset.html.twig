@@ -1,0 +1,18 @@
+{%extends "::base.html.twig"%}
+{%block body %}
+<h1>Reset des données de réservation</h1>
+
+<form action="{{ path('reset') }}" method="post">
+    <p>
+        <button type="submit">Valider la suppression des données</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('homepage') }}">
+            Retour page d'accueil
+        </a>
+    </li>
+</ul>
+{%endblock%}

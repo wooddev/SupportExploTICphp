@@ -34,5 +34,8 @@ TransferReservationBundle_statutcreneau:
 TransferReservationBundle_etatreservation:
     resource: "@TransferReservationBundle/Resources/config/routing/etatreservation.yml"
     prefix:   /etatreservation
+TransferReservationBundle_default:
+    resource: "@TransferReservationBundle/Resources/config/routing/default.yml"
+    prefix:   /
 
 

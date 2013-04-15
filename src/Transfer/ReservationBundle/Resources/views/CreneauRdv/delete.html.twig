@@ -1,0 +1,11 @@
+{%extends "::base.html.twig"%}
+{%block body %}
+<h1>Suppression de Creneaux Rdv</h1>
+
+<form action="{{ path('creneaurdv_supprimer_liste') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Supprimer</button>
+    </p>
+</form>
+{%endblock%}

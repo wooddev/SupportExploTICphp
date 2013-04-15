@@ -23,7 +23,7 @@ class CreneauRdvRepository extends EntityRepository
         AND cr.dateHeureDebut BETWEEN :min AND :max
         ");
         // Construction de l'interval de temps de recherche
-        $interval = new \DateInterval('PT35M'); //Période de Temps de 30 min
+        $interval = new \DateInterval('PT59M'); //Période de Temps de 60 min
         $min = clone $rdvRecherche->getDateHeureDebut();
         $min->sub($interval);
         $max = clone $rdvRecherche->getDateHeureDebut(); 
@@ -33,6 +33,31 @@ class CreneauRdvRepository extends EntityRepository
             'posteId'=> $rdvRecherche->getTypePoste()->getId(),
             'min'=> $min,
             'max'=> $max
+                ));
+        
+        return $query->getResult();
+    }
+    
+    public function findRechercheListe($creneauRecherche){
+
+        $query = $this->getEntityManager()->createQuery(
+        "SELECT cr
+        FROM TransferReservationBundle:CreneauRdv cr
+        JOIN cr.typePoste t
+        WHERE  t.id = :posteId
+        AND cr.heureDebut >= :heureDebut
+        AND cr.heureFin <= :heureFin
+        AND cr.dateHeureDebut >= :dateHeureDebut
+        AND cr.dateHeureFin <= :dateHeureFin  
+        AND cr.rdvs is EMPTY        
+        ");
+
+        $query->setParameters(array(
+            'posteId'=> $creneauRecherche->getTypePoste()->getId(),
+            'dateHeureDebut'=> $creneauRecherche->getDateHeureDebut(),
+            'dateHeureFin'=> $creneauRecherche->getDateHeureFin(),
+            'heureDebut'=> $creneauRecherche->getHeureDebut(),
+            'heureFin'=> $creneauRecherche->getHeureFin(),
                 ));
         
         return $query->getResult();

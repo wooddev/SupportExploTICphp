@@ -41,12 +41,18 @@
                             </li>
                             <li><a href="{{path('creneaurdvgen_generate')}}"> génération des créneaux rdv pour une semaine </a>
                             </li>
+                            <li><a href="{{path('creneaurdv_recherche_supprimer')}}"> suppression d'une plage de créneaux rdv</a>
+                            </li>
+                        </ul>
+                        <ul> Gestion de la base de données
+                            <li><a href="{{path('reset_form')}}"> Réinitialiser la base </a>
+                            </li>
                         </ul>
                         {%elseif is_granted('ROLE_USER')%}
                         <ul> Gérer mon planning
                             <li> <a href="{{path('creneaurdv_recherche',{'annee':2013,'semaine': 'now'|date('W')})}}"> rechercher un Créneau pour la <b>semaine en cours </b></a>
                             </li>
-                            <li> <a href="{{path('creneaurdv_recherche',{'annee':2013,'semaine':(1+('now'|date('W')))})}}"> rechercher un Créneeau pour la <b>semaine prochaine</b> </a>
+                            <li> <a href="{{path('creneaurdv_recherche',{'annee':2013,'semaine':(1+('now'|date('W')))})}}"> rechercher un Créneau pour la <b>semaine prochaine</b> </a>
                             </li>
                             <li><a href="{{path('rdv_transporteur',{'annee':2013,'semaine': 'now'|date('W')})}}">Mes créneaux pour la semaine en cours </a>
                             </li>                     

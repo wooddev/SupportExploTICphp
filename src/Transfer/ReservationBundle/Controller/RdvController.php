@@ -53,15 +53,14 @@ class RdvController extends Controller
                                 $em->getRepository('TransferReservationBundle:CreneauRdv')
                                             ->findByAnnee_Semaine_Poste(
                                                     $annee,$semaine,$poste));
-            
+            $minutesMin = new \DateTime($em->getRepository('TransferReservationBundle:Rdv')
+                                            ->findSemaineMinutesMin(
+                                                    $annee,$semaine,$poste));            
+            $min = (int)$minutesMin->format('H')*60 + (int)$minutesMin->format('i')-15;
             if($creneauRdvs){
                 $agendas->add( new \Transfer\MainBundle\Model\Agenda());
                 $agendas->last()->init($semaine,$annee,$poste);
-                if ($poste->getNom() == 'Fond mouvant'){
-                    $agendas->last()->generateAgenda($creneauRdvs,$rdvs,350 ,1200);
-                }else{
-                    $agendas->last()->generateAgenda($creneauRdvs,$rdvs, 280 ,1200);
-                }
+                $agendas->last()->generateAgenda($creneauRdvs,$rdvs, $min ,1200);                
             }
             else{ return new \Symfony\Component\HttpFoundation\Response('<p> Planning non défini </p>');}
         }        

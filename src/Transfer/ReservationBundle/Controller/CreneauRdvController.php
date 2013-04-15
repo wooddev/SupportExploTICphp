@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Transfer\ReservationBundle\Entity\CreneauRdv;
 use Transfer\ReservationBundle\Form\CreneauRdvType;
 use Transfer\ReservationBundle\Form\CreneauRdvRechercheType;
+use Transfer\ReservationBundle\Form\CreneauRdvRechercheListeType;
 
 /**
  * CreneauRdv controller.
@@ -204,16 +205,46 @@ class CreneauRdvController extends Controller
             'entity' => $entity,
             'form'   => $form->createView(),
         ));      
-
-//        $entity = new CreneauRdv();
-//        $entity->setAnnee(date('o')); // Année au format ISO !!IMPORTANT POUR RESPECTER LA CODIFICATION ISO DES SEMAINES 
-//        $entity->setSemaine(date('W'));
-//        $form   = $this->createForm(new CreneauRdvType(), $entity);
-//
-//        return $this->render('TransferReservationBundle:CreneauRdv:recherche/formulaire.html.twig', array(
-//            'entity' => $entity,
-//            'form'   => $form->createView(),
-//        ));
     }  
+    
+    public function rechercheSupprimerAction(){       
+               
+        $entity = new CreneauRdv();
+        $entity->setDateHeureDebut(new \DateTime(date('o').'W'.date('W')));
+        $entity->setDateHeureFin(new \DateTime(date('o').'W'.date('W').'6'));        
+        $form   = $this->createForm(new CreneauRdvRechercheListeType(), $entity);
+
+        return $this->render('TransferReservationBundle:CreneauRdv:delete.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));      
+    }  
+    
+    public function supprimerListeAction(Request $request){
+        $creneauRecherche = new CreneauRdv();
+        $form = $this->createForm(new CreneauRdvRechercheListeType(), $creneauRecherche);
+        $form->bind($request);
+        
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entities = $em->getRepository('TransferReservationBundle:CreneauRdv')->findRechercheListe($creneauRecherche);
+
+            if (!$entities) {
+                throw $this->createNotFoundException('Unable to find CreneauRdv entities.');
+            }
+            foreach($entities as $entity){
+                $em->remove($entity);    
+            }            
+            $em->flush();
+            
+            return $this->redirect($this->generateUrl('creneaurdv'));
+        }
+        
+        // recherche des créneaux => faire un repository 
+        // (Attention : vérifier l'absence de rdv liés)
+        
+        // suppression de la liste récupérée
+        
+    }
         
 }

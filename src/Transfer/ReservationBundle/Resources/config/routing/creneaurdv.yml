@@ -32,3 +32,12 @@ creneaurdv_delete:
 creneaurdv_recherche:
     pattern: /recherche/{semaine}/{annee}
     defaults: { _controller: "TransferReservationBundle:CreneauRdv:recherche"}
+    
+creneaurdv_recherche_supprimer:
+    pattern: /recherchesupprimer
+    defaults: { _controller: "TransferReservationBundle:CreneauRdv:rechercheSupprimer"}
+    
+creneaurdv_supprimer_liste:
+    pattern: /supprimerliste
+    defaults: { _controller: "TransferReservationBundle:CreneauRdv:supprimerListe"}
+    requirements: {_method: post}

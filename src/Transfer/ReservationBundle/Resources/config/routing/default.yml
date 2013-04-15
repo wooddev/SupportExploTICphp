@@ -1,0 +1,7 @@
+reset_form:
+    pattern:  /reset/form
+    defaults: { _controller: "TransferReservationBundle:Default:resetForm" }
+
+reset:
+    pattern:  /reset
+    defaults: { _controller: "TransferReservationBundle:Default:resetReservation" }
