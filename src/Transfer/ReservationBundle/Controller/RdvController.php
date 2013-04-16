@@ -331,7 +331,7 @@ class RdvController extends Controller
                 //Vidange du panier
                 //Recherche de rdv provisoires existants 
                 $provisoires = $em->getRepository('TransferReservationBundle:Rdv')
-                                        ->findByStatutRdv('provisoire');
+                                        ->findByStatutRdvForTrsp('provisoire', $transporteur);
                 //suppression des provisoires existants
                 if($provisoires){
                     foreach ($provisoires as $provisoire){
