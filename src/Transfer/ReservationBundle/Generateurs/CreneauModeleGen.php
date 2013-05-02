@@ -6,6 +6,7 @@
  */
 namespace Transfer\ReservationBundle\Generateurs;
 use Exception;
+use \Transfer\ReservationBundle\Entity\Disponibilite;
 
 /**
  * Description of CreneauModeleGen
@@ -23,20 +24,20 @@ class CreneauModeleGen {
     private $heureFin;
     private $minFin; //min
     private $pasDeTemps;
-    private $disponibilite;
+    private $disponibiliteTotale;
     private $CreneauxModeles;
     private $typePoste;
+    private $disponibilites;
     
     public function getCreneauxModels(){
         if (!$this->CreneauxModeles) {
             throw new Exception('Aucun créneau modèle généré');
         }
         else return $this->CreneauxModeles;
-    }
-      
+    }      
     
-    public function setDisponibilite($disponibilite){
-        return $this->disponibilite=$disponibilite;
+    public function setDisponibiliteTotale($disponibiliteTotale){
+        return $this->disponibiliteTotale=$disponibiliteTotale;
     }
    public function setHeureDebut($heureDebut){
        return $this->heureDebut= $heureDebut;
@@ -56,8 +57,8 @@ class CreneauModeleGen {
    public function setTypePoste($typePoste){
        return $this->typePoste=$typePoste;
    }
-    public function getDisponibilite(){
-        return $this->disponibilite;
+    public function getDisponibiliteTotale(){
+        return $this->disponibiliteTotale;
     }
    public function getHeureDebut(){
        return $this->heureDebut;
@@ -80,7 +81,7 @@ class CreneauModeleGen {
    
 
    
-   /**
+    /**
      * Constructeur de la classe
      * Permet de transmettre les paramètres 
      */
@@ -89,6 +90,7 @@ class CreneauModeleGen {
     public function __construct()
     {
         $this->CreneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->disponibilites = new \Doctrine\Common\Collections\ArrayCollection();
  
     }
     
@@ -102,26 +104,30 @@ class CreneauModeleGen {
      * @param type $_minFin
      * @param type $_heureFin
      * @param type $_pasDeTemps
-     * @param type $_disponibilite
+     * @param type $_disponibiliteTotale
      * @param \Transfer\ReservationBundle\Entity\TypePoste $typePoste
      */
     
     
     
     public function init($_heureDebut,$_minDebut, $_minFin,
-            $_heureFin,$_pasDeTemps, $_disponibilite,
+            $_heureFin,$_pasDeTemps, $_disponibiliteTotale,
             \Transfer\ReservationBundle\Entity\TypePoste $typePoste)
-    {
-        $this->CreneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
+    {        
         $this->typePoste= $typePoste;
         $this->heureDebut = $_heureDebut;
         $this->heureFin= $_heureFin;
         $this->minDebut= $_minDebut;
         $this->minFin= $_minFin;
         $this->pasDeTemps = $_pasDeTemps;      
-        $this->disponibilite = $_disponibilite;
+        $this->disponibiliteTotale = $_disponibiliteTotale;
     }
-    
+    public function addDisponibilite($typeCamion,$valeur){
+        $this->disponibilites->add(new Disponibilite());
+        $this->disponibilites->last()->setValeur($valeur);
+        $this->disponibilites->last()->setTypeCamion($typeCamion);        
+    }
+            
     /**
      * Méthode Générator :
      * Permet de générer les modèles de créneaux sur une semaine générique
@@ -140,12 +146,22 @@ class CreneauModeleGen {
             for ($min = $minDebutTot; $min <=$minFinTot; $min=$min+$this->pasDeTemps){
                 $this->CreneauxModeles->add(new CreneauModele());
                 $this->CreneauxModeles->last()->init(                
-                        $this->disponibilite,                           //disponibilite
+                        $this->disponibiliteTotale,                           //disponibiliteTotale
                         $i,                                             //jour
                         floor($min/60),                                 //heure
                         $min-floor($min/60)*60,                         //min 
                         $this->pasDeTemps,                              //durée
                         $this->typePoste);                             //poste
+               
+                foreach($this->disponibilites as $disponibilite){
+                    $this->CreneauxModeles->last()
+                            ->addDisponibilite(
+                                    new Disponibilite(
+                                            $disponibilite->getValeur(),
+                                            $disponibilite->getTypeCamion(), 
+                                            $this->CreneauxModeles->last()));
+                }
+                
             }
         }    
         

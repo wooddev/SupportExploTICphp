@@ -47,7 +47,7 @@ class Creneau
     /**
      * @var integer
      */
-    private $disponibilite;
+    private $disponibiliteTotale;
 
 
     public function __construct() {
@@ -206,26 +206,26 @@ class Creneau
     }
 
     /**
-     * Set disponibilite
+     * Set disponibiliteTotale
      *
-     * @param integer $disponibilite
+     * @param integer $disponibiliteTotale
      * @return Creneau
      */
-    public function setDisponibilite($disponibilite)
+    public function setDisponibiliteTotale($disponibiliteTotale)
     {
-        $this->disponibilite = $disponibilite;
+        $this->disponibiliteTotale = $disponibiliteTotale;
         $this->setDateModification();
         return $this;
     }
 
     /**
-     * Get disponibilite
+     * Get disponibiliteTotale
      *
      * @return integer 
      */
-    public function getDisponibilite()
+    public function getDisponibiliteTotale()
     {
-        return $this->disponibilite;
+        return $this->disponibiliteTotale;
     }
     /**
      * @var \Transfer\ReservationBundle\Entity\TypePoste
@@ -370,5 +370,49 @@ class Creneau
     
     public function getDebutInMinutes(){
         return $this->heure*60+$this->minute;
+    }
+    
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $disponibilites;
+
+
+    /**
+     * Add disponibilites
+     *
+     * @param \Transfer\ReservationBundle\Entity\Disponibilite $disponibilites
+     * @return Creneau
+     */
+    public function addDisponibilite(\Transfer\ReservationBundle\Entity\Disponibilite $disponibilites)
+    {
+        $this->disponibilites[] = $disponibilites;
+    
+        return $this;
+    }
+
+    /**
+     * Remove disponibilites
+     *
+     * @param \Transfer\ReservationBundle\Entity\Disponibilite $disponibilites
+     */
+    public function removeDisponibilite(\Transfer\ReservationBundle\Entity\Disponibilite $disponibilites)
+    {
+        $this->disponibilites->removeElement($disponibilites);
+    }
+
+    /**
+     * Get disponibilites
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDisponibilites()
+    {
+        return $this->disponibilites;
+    }
+    
+    public function setDisponibilites($disponibilites){
+        $this->disponibilites = $disponibilites;
     }
 }

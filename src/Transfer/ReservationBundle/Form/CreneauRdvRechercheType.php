@@ -13,7 +13,9 @@ class CreneauRdvRechercheType extends AbstractType
         $builder
             ->add('annee','hidden')
             ->add('semaine','hidden')
-            ->add('typePoste',null,array(
+            ->add('typeCamion','entity',array(
+                'class'=> 'TransferReservationBundle:TypeCamion',
+                'property'=>'nom',
                 'label'=>'Type de camion',
             ))                
             ->add('jour','choice',array(
@@ -32,7 +34,7 @@ class CreneauRdvRechercheType extends AbstractType
 //            ->add('duree' , 'hidden')
 //            ->add('heureDebut' , 'hidden')
 //            ->add('heureFin' , 'hidden')                
-//            ->add('disponibilite' , 'hidden')
+//            ->add('disponibiliteTotale' , 'hidden')
            
             ;
     }
@@ -40,7 +42,7 @@ class CreneauRdvRechercheType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Transfer\ReservationBundle\Entity\CreneauRdv'
+            'data_class' => 'Transfer\ReservationBundle\Recherche\RdvRecherche'
         ));
     }
 

@@ -9,6 +9,7 @@ use Transfer\ReservationBundle\Entity\CreneauRdv;
 use Transfer\ReservationBundle\Form\CreneauRdvType;
 use Transfer\ReservationBundle\Form\CreneauRdvRechercheType;
 use Transfer\ReservationBundle\Form\CreneauRdvRechercheListeType;
+use Transfer\ReservationBundle\Recherche\RdvRecherche;
 
 /**
  * CreneauRdv controller.
@@ -180,7 +181,7 @@ class CreneauRdvController extends Controller
     
     public function rechercheAction($semaine, $annee){       
                
-        $entity = new CreneauRdv();
+        $entity = new RdvRecherche();
         $entity->setAnnee($annee); // Année au format ISO !!IMPORTANT POUR RESPECTER LA CODIFICATION ISO DES SEMAINES 
         $entity->setSemaine($semaine);
         $form   = $this->createForm(new CreneauRdvRechercheType(), $entity);

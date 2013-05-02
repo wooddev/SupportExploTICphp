@@ -17,7 +17,7 @@ class CreneauModeleType extends AbstractType
             ->add('duree')
             ->add('heureDebut')
             ->add('heureFin')
-            ->add('disponibilite')
+            ->add('disponibiliteTotale')
             ->add('typePoste')
         ;
     }

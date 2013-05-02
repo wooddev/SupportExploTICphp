@@ -19,7 +19,7 @@ class CreneauPrefGen {
     //put your code here  
     
     private $creneauxModeles,
-            $disponibilite,
+            $disponibiliteTotale,
             $etatReservation,
             $transporteur,
             $creneauxPrefs;
@@ -53,12 +53,12 @@ class CreneauPrefGen {
         else return $this->creneauxPrefs;
     }
     
-    public function getDisponibilite(){
-        return $this->disponibilite;
+    public function getDisponibiliteTotale(){
+        return $this->disponibiliteTotale;
     }
     
-    public function setDisponibilite($disponbilite){
-        $this->disponibilite = $disponbilite;
+    public function setDisponibiliteTotale($disponbilite){
+        $this->disponibiliteTotale = $disponbilite;
         return $this;
     }
     
@@ -88,10 +88,10 @@ class CreneauPrefGen {
 
      */
    
-    public function init($creneauxModeles, $disponibilite, $etatReservation,$transporteur)
+    public function init($creneauxModeles, $disponibiliteTotale, $etatReservation,$transporteur)
     {
         $this->creneauxModeles = $creneauxModeles;        
-        $this->disponibilite = $disponibilite;
+        $this->disponibiliteTotale = $disponibiliteTotale;
         $this->etatReservation= $etatReservation;
         $this->transporteur = $transporteur;
     }

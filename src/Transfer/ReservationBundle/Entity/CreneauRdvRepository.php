@@ -17,26 +17,29 @@ class CreneauRdvRepository extends EntityRepository
         $query = $this->getEntityManager()->createQuery(
         "SELECT cr
         FROM TransferReservationBundle:CreneauRdv cr
-        JOIN cr.typePoste t
-        WHERE  cr.disponibilite > 0
-        AND t.id = :posteId
+        WHERE  cr.disponibiliteTotale > 0
+        AND (SELECT min(dispo.valeur)
+            FROM TransferReservationBundle:Disponibilite dispo
+            JOIN dispo.typeCamion tc
+            WHERE tc.nom = :typeCamion
+            AND dispo.creneau = cr)>0
         AND cr.dateHeureDebut BETWEEN :min AND :max
         ");
         // Construction de l'interval de temps de recherche
-        $interval = new \DateInterval('PT59M'); //Période de Temps de 60 min
+        $interval = new \DateInterval('PT30M'); //Période de Temps de 60 min
         $min = clone $rdvRecherche->getDateHeureDebut();
         $min->sub($interval);
         $max = clone $rdvRecherche->getDateHeureDebut(); 
         $max->add($interval);
         //
         $query->setParameters(array(
-            'posteId'=> $rdvRecherche->getTypePoste()->getId(),
             'min'=> $min,
-            'max'=> $max
+            'max'=> $max,
+            'typeCamion'=>$rdvRecherche->getTypeCamion()->getNom()
                 ));
         
         return $query->getResult();
-    }
+    }   
     
     public function findRechercheListe($creneauRecherche){
 
@@ -80,7 +83,7 @@ class CreneauRdvRepository extends EntityRepository
                     "SELECT cr
                     FROM TransferReservationBundle:CreneauRdv cr
                     JOIN cr.typePoste t
-                    WHERE  cr.disponibilite > 0
+                    WHERE  cr.disponibiliteTotale > 0
                     AND t.nom = :nomPoste
                     AND cr.jour = :jour
                     AND cr.dateHeureDebut ".$signe." :date

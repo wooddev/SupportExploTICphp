@@ -12,7 +12,7 @@ class CreneauPrefType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('disponibilite')
+            ->add('disponibiliteTotale')
 //            ->add('creneauModele')
             ->add('creneauModele','entity',array(
                 'class' => 'TransferReservationBundle:CreneauModele',

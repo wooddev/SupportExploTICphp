@@ -24,7 +24,7 @@ class CreneauModeleGenController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = new CreneauModeleGen();
-        $entity->init(6,0, 0, 19, 25,1, $em->getRepository('TransferReservationBundle:TypePoste')->find(1));           
+        $entity->init(6,0, 0, 19, 25,2, $em->getRepository('TransferReservationBundle:TypePoste')->find(1));           
         $form   = $this->createForm(new CreneauModeleGenType(), $entity);
 
         return $this->render('TransferReservationBundle:CreneauModele:generate.html.twig', array(
@@ -58,6 +58,16 @@ class CreneauModeleGenController extends Controller
             }
 
             $em->flush();
+            
+            //################################################################
+            //Attribution des disponibilites par type de camion
+            //VERSION FIGEE ACTUELLEMENT            
+            $autonome  = $em->getRepository('TransferReservationBundle:TypeCamion')->findByNom('Fond Mouvant');
+            $autre  = $em->getRepository('TransferReservationBundle:TypeCamion')->findByNom('Autre type');            
+            $generateur->addDisponibilite($autonome[0], 2);
+            $generateur->addDisponibilite($autre[0], 1);            
+            //#################################################################
+            
             $generateur->generate();        
             foreach ($generateur->getCreneauxModels() as $creneauModele){
                 $em->persist($creneauModele);

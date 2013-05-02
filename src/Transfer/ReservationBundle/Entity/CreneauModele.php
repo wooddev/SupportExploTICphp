@@ -10,18 +10,19 @@ use Doctrine\ORM\Mapping as ORM;
 class CreneauModele extends Creneau
 {
         
-    public function init($disponibilite, $jour, $heure,
+    public function init($disponibiliteTotale, $jour, $heure,
             $minute,$duree,
-            \Transfer\ReservationBundle\Entity\TypePoste $typePoste) 
+            \Transfer\ReservationBundle\Entity\TypePoste $typePoste
+            ) 
     {    
-        $this->setDisponibilite($disponibilite);
+        $this->setDisponibiliteTotale($disponibiliteTotale);
         $this->setJour($jour);
         $this->setHeure($heure);    
         $this->setMinute($minute);
         $this->setDuree($duree);
-
-        $this->setTypePoste($typePoste);     
-                         
+        
+        $this->setTypePoste($typePoste);            
+        
         $this->setHeureDebut(new \DateTime);
 
         $this->getHeureDebut()->setISODate(2000,1,$jour);

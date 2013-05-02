@@ -32,7 +32,7 @@ class CreneauModeleGenType extends AbstractType
                 'precision'=>0,
                 'label'=>'durée d\'un créneau'
             ))
-            ->add('disponibilite','number',array(
+            ->add('disponibiliteTotale','number',array(
                 'precision'=>0,
                 'label'=>'Nombre de camions autorisés par créneau'
             ))

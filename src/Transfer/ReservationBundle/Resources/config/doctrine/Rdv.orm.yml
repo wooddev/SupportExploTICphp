@@ -10,7 +10,9 @@ Transfer\ReservationBundle\Entity\Rdv:
     manyToOne:
       creneauRdv:
         targetEntity: CreneauRdv
-        inversedBy: Rdvs        
+        inversedBy: Rdvs     
+      typeCamion:
+        targetEntity: TypeCamion        
     fields:
         id:
             type: integer

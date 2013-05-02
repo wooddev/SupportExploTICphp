@@ -84,7 +84,7 @@ class CreneauRdvGen {
         
         foreach($this->creneauxModeles as $creneauModele){
             $this->creneauxRdvs->add(new \Transfer\ReservationBundle\Entity\CreneauRdv());
-            $this->creneauxRdvs->last()->setDisponibilite($creneauModele->getDisponibilite());
+            $this->creneauxRdvs->last()->setDisponibiliteTotale($creneauModele->getDisponibiliteTotale());
             $this->creneauxRdvs->last()->setDuree($creneauModele->getDuree());
             $this->creneauxRdvs->last()->setHeure($creneauModele->getHeure());
             $this->creneauxRdvs->last()->setMinute($creneauModele->getMinute());
@@ -94,7 +94,16 @@ class CreneauRdvGen {
             $this->creneauxRdvs->last()->setTypePoste($creneauModele->getTypePoste());
             $this->creneauxRdvs->last()->setAnnee($this->year);
             $this->creneauxRdvs->last()->setSemaine($this->week);   
-            $this->creneauxRdvs->last()->calculDateTime();            
+            $this->creneauxRdvs->last()->calculDateTime();
+            foreach($creneauModele->getDisponibilites() as $disponibilite){
+                $this->creneauxRdvs->last()
+                        ->AddDisponibilite(
+                                new \Transfer\ReservationBundle\Entity\Disponibilite(
+                                        $disponibilite->getValeur(),
+                                        $disponibilite->getTypeCamion(),
+                                        $this->creneauxRdvs->last()));
+            }
+            
         }   
     }
    

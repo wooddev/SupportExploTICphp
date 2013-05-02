@@ -17,7 +17,7 @@ class CreneauRdvType extends AbstractType
             ->add('duree')
             ->add('heureDebut')
             ->add('heureFin')
-            ->add('disponibilite')
+            ->add('disponibiliteTotale')
             ->add('semaine')
             ->add('annee')
             ->add('typePoste')

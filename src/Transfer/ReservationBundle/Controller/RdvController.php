@@ -9,7 +9,7 @@ use Transfer\ReservationBundle\Entity\Rdv;
 use Transfer\ReservationBundle\Form\RdvType;
 use Transfer\ReservationBundle\Entity\CreneauRdv;
 use Transfer\ReservationBundle\Entity\Evenement;
-
+use Transfer\ReservationBundle\Recherche\RdvResultat;
 /**
  * Rdv controller.
  *
@@ -220,40 +220,46 @@ class RdvController extends Controller
     
     public function reservationRechercheAction(Request $request){
         
-        $rdvRecherche = new CreneauRdv();
+        $rdvRecherche = new \Transfer\ReservationBundle\Recherche\RdvRecherche();
         $form = $this->createForm(new \Transfer\ReservationBundle\Form\CreneauRdvRechercheType(), $rdvRecherche);
+        
+        //Intégration du contenu du formulaire dans le rdvRecherche
         $form->bind($request);
         
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();       
                         
             ////////////// CONTROLE DES QUOTAS ///////////////////////   
-            $autorisation = $em->getRepository('TransferProfilBundle:Transporteur')
-                                ->testAutorisation($rdvRecherche->getAnnee(),
-                                        $rdvRecherche->getSemaine(),1); //!!!! Transporteur 1 pour l'instant !!!
-            
-            if($autorisation <1){
-                return $this->render('TransferReservationBundle:CreneauRdv:recherche/quota.html.twig'); 
-            }
+//            $autorisation = $em->getRepository('TransferProfilBundle:Transporteur')
+//                                ->testAutorisation($rdvRecherche->getAnnee(),
+//                                        $rdvRecherche->getSemaine(),1); //!!!! Transporteur 1 pour l'instant !!!
+//            
+//            if($autorisation <1){
+//                return $this->render('TransferReservationBundle:CreneauRdv:recherche/quota.html.twig'); 
+//            }
             ////////////////////////////////////////////////////////////
             
+            //Conversion des Année-semaine-jour-heure en DateTime
             $rdvRecherche->calculDateTime();
-                    
+            
+            //Récupération des créneaux disponibles dans la plage recherchée
             $creneauxRdvBruts = $em->getRepository('TransferReservationBundle:CreneauRdv')
                                     ->findByRecherche($rdvRecherche);
             if ($creneauxRdvBruts == null){
                 return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');
             }
+            
+            //Construction d'une collection afin de pouvoir trier les créneaux
             $creneauxRdvTries = new \Transfer\MainBundle\Model\Sorter();
-
-            foreach ($creneauxRdvBruts as $creneauRdvBrut){
+            foreach ($creneauxRdvBruts as $creneauRdvBrut){    
+                //Encapsulation des créneaux dans un objet RdvResultat (pour faire les opérations de tri)
                 $creneauxRdvTries->add(new \Transfer\ReservationBundle\Recherche\RdvResultat($creneauRdvBrut,$rdvRecherche));            
             }
 
             
             $creneauxRdvTries->sortArray('getDiffTemps');
             
-            return $this->reservation($creneauxRdvTries);
+            return $this->reservation($creneauxRdvTries,$rdvRecherche->getTypeCamion());
 
         }
         else{return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');}
@@ -294,7 +300,7 @@ class RdvController extends Controller
             return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');
         }           
         
-        return $this->reservation($creneauxRdvProcheDispo);
+        return $this->reservation($creneauxRdvProcheDispo, $rdvEnCours->getTypeCamion());
     }
     
     public function getUserTransporteur(){
@@ -314,15 +320,16 @@ class RdvController extends Controller
         //////////////////////////////////////////////////////////////
     }
     
-    public function reservation($creneauxRdv){
+    public function reservation($creneauxRdv, $typeCamion){
         foreach ($creneauxRdv as $creneauRdv){
             $em = $this->getDoctrine()->getManager();
             $creneauRdvSync = $em->getRepository('TransferReservationBundle:CreneauRdv')                    
                                         ->find($creneauRdv->getId());
 
-            if ($creneauRdvSync->getDisponibilite() > 0){
+            if ($creneauRdvSync->getDisponibiliteTotale() > 0){
                 //On bloque le créneau tout de suite
-                $creneauRdvSync->setDisponibilite($creneauRdvSync->getDisponibilite()-1);
+                $creneauRdvSync->setDisponibiliteTotale($creneauRdvSync->getDisponibiliteTotale()-1);
+                
                 $em->persist($creneauRdvSync);
                 $em->flush();
                 
@@ -336,7 +343,7 @@ class RdvController extends Controller
                 if($provisoires){
                     foreach ($provisoires as $provisoire){
                         $creneauRdvProvisoire = $provisoire->getCreneauRdv();
-                        $creneauRdvProvisoire->setDisponibilite($creneauRdvProvisoire->getDisponibilite()+1);
+                        $creneauRdvProvisoire->setDisponibiliteTotale($creneauRdvProvisoire->getDisponibiliteTotale()+1);
                         $em->persist($creneauRdvProvisoire);
                         $em->remove($provisoire);
                     }
@@ -344,7 +351,7 @@ class RdvController extends Controller
                 }                    
                 // création du rdv recherché
                 $rdv = new \Transfer\ReservationBundle\Entity\Rdv();
-                $rdv->init($creneauRdvSync);
+                $rdv->init($creneauRdvSync, $typeCamion);                
                 // Création de l'évenement de réservation
                 $evenement = new Evenement();
                 $evenement->setRdv($rdv);

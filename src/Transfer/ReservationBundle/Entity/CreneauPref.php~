@@ -18,7 +18,7 @@ class CreneauPref
     /**
      * @var integer
      */
-    private $disponibilite;
+    private $disponibiliteTotale;
 
     /**
      * @var \Transfer\ReservationBundle\Entity\CreneauModele
@@ -47,26 +47,26 @@ class CreneauPref
     }
 
     /**
-     * Set disponibilite
+     * Set disponibiliteTotale
      *
-     * @param integer $disponibilite
+     * @param integer $disponibiliteTotale
      * @return CreneauPref
      */
-    public function setDisponibilite($disponibilite)
+    public function setDisponibiliteTotale($disponibiliteTotale)
     {
-        $this->disponibilite = $disponibilite;
+        $this->disponibiliteTotale = $disponibiliteTotale;
     
         return $this;
     }
 
     /**
-     * Get disponibilite
+     * Get disponibiliteTotale
      *
      * @return integer 
      */
-    public function getDisponibilite()
+    public function getDisponibiliteTotale()
     {
-        return $this->disponibilite;
+        return $this->disponibiliteTotale;
     }
 
     /**
@@ -164,5 +164,9 @@ class CreneauPref
     public function getStatut()
     {
         return $this->statut;
+    }
+    
+    public function getCreneauStructure(){
+        return $this->getCreneauModele();
     }
 }

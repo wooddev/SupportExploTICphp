@@ -16,11 +16,6 @@ class CreneauPref
     private $id;
 
     /**
-     * @var integer
-     */
-    private $disponibilite;
-
-    /**
      * @var \Transfer\ReservationBundle\Entity\CreneauModele
      */
     private $creneauModele;
@@ -44,30 +39,7 @@ class CreneauPref
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set disponibilite
-     *
-     * @param integer $disponibilite
-     * @return CreneauPref
-     */
-    public function setDisponibilite($disponibilite)
-    {
-        $this->disponibilite = $disponibilite;
-    
-        return $this;
-    }
-
-    /**
-     * Get disponibilite
-     *
-     * @return integer 
-     */
-    public function getDisponibilite()
-    {
-        return $this->disponibilite;
-    }
+    }    
 
     /**
      * Set creneauModele

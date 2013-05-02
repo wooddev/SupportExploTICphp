@@ -19,6 +19,4 @@ Transfer\ReservationBundle\Entity\CreneauPref:
       id: true
       generator:
         strategy: AUTO
-    disponibilite:
-      type: integer
   lifecycleCallbacks: {  }

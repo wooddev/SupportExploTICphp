@@ -47,7 +47,7 @@ class Creneau
     /**
      * @var integer
      */
-    private $disponibilite;
+    private $disponibiliteTotale;
 
 
     public function __construct() {
@@ -206,26 +206,26 @@ class Creneau
     }
 
     /**
-     * Set disponibilite
+     * Set disponibiliteTotale
      *
-     * @param integer $disponibilite
+     * @param integer $disponibiliteTotale
      * @return Creneau
      */
-    public function setDisponibilite($disponibilite)
+    public function setDisponibiliteTotale($disponibiliteTotale)
     {
-        $this->disponibilite = $disponibilite;
+        $this->disponibiliteTotale = $disponibiliteTotale;
         $this->setDateModification();
         return $this;
     }
 
     /**
-     * Get disponibilite
+     * Get disponibiliteTotale
      *
      * @return integer 
      */
-    public function getDisponibilite()
+    public function getDisponibiliteTotale()
     {
-        return $this->disponibilite;
+        return $this->disponibiliteTotale;
     }
     /**
      * @var \Transfer\ReservationBundle\Entity\TypePoste
@@ -305,9 +305,9 @@ class Creneau
      * @param \DateTime $dateArchivage
      * @return Creneau
      */
-    public function setDateArchivage($dateArchivage)
+    public function setDateArchivage()
     {
-        $this->dateArchivage = $dateArchivage;
+        $this->dateArchivage = new \DateTime(date('Y-m-d H:i:s'));
     
         return $this;
     }

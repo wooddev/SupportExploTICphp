@@ -1,0 +1,19 @@
+Transfer\ReservationBundle\Entity\Disponibilite:
+    type: entity
+    table: null
+    repositoryClass: Transfer\ReservationBundle\Entity\DisponibiliteRepository
+    manyToOne:
+      typeCamion:
+        targetEntity: TypeCamion
+      creneau:
+        targetEntity: Creneau
+        inversedBy: disponibilites
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        valeur:
+            type: integer
+    lifecycleCallbacks: {  }
