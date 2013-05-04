@@ -115,4 +115,44 @@ class CreneauRdvRepository extends EntityRepository
                 ));
         return $query->getResult();
     }
+    
+    public function tryBooking($creneauTest, $typeCamion){
+        $em= $this->getEntityManager();
+        $query1 = $em->createQuery(
+        "SELECT cr
+        FROM TransferReservationBundle:CreneauRdv cr
+        WHERE cr.id = :id
+        ");
+        $query2 = $this->getEntityManager()->createQuery(
+        "SELECT dispo
+        FROM TransferReservationBundle:disponibilite dispo
+        JOIN dispo.creneau cr
+        JOIN dispo.typeCamion tc
+        WHERE cr.id = :creneau
+        AND tc.id = :typeCamion
+        ");
+        
+        $query1->setParameters(array(
+            'id'=>$creneauTest->getId(),
+                ));
+        $query2->setParameters(array(
+            'typeCamion'=>$typeCamion->getId(),
+            'creneau'=>$creneauTest->getId(),
+                ));
+        
+        $creneau = $query1->getSingleResult();
+        $dispo = $query2->getSingleResult();
+        
+        if( ($creneau->getDisponibiliteTotale() >0) AND ($dispo->getValeur()>0) ){
+            $creneau->setDisponibiliteTotale($creneau->getDisponibiliteTotale()-1);
+            $dispo->setValeur($dispo->getValeur()-1);
+            $em->persist($dispo);
+            $em->persist($creneau);
+            $em->flush();
+            return $creneau;
+        }        
+        return false;       
+        
+    }
+    
 }

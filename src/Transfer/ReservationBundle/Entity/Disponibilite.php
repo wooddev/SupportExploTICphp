@@ -109,6 +109,13 @@ class Disponibilite
         return $this->creneau;
     }
     
+    public function setValeurUp(){
+        ++$this->valeur;
+    }
+    public function setValeurDown(){
+        --$this->valeur;
+    }
+    
     function __construct($valeur = null, 
                         \Transfer\ReservationBundle\Entity\TypeCamion $typeCamion = null, 
                         \Transfer\ReservationBundle\Entity\Creneau $creneau = null) 

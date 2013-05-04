@@ -87,8 +87,29 @@ class RdvRepository extends EntityRepository
                 ->setParameter('statut', $statut);
         
         return $query->getResult();        
-    }
+    }   
     
-            
+    public function findByStatutRdv($transporteur, $annee,$semaine,$statut){
+        $query = $this->getEntityManager()->createQuery();
+        
+        $query->setDQL('
+                        SELECT r
+                        FROM TransferReservationBundle:Rdv r
+                        JOIN r.evenements e
+                        JOIN e.transporteur t
+                        JOIN r.creneauRdv c
+                        WHERE t.id = :id
+                        AND c.semaine = :semaine
+                        AND c.annee = :annee
+                        AND r.statutRdv = :statut
+                ')
+                ->setParameter('id', $transporteur->getId())
+                ->setParameter('semaine', $semaine)
+                ->setParameter('annee', $annee)
+                ->setParameter('statut',$statut);
+        
+        return $query->getResult();        
+    }
+      
             
 }

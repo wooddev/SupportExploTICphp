@@ -159,6 +159,12 @@ class Rdv
     public function getSemaine(){
         return $this->creneauRdv->getSemaine();
     }
+    public function getDateHeureFin(){
+        return $this->creneauRdv->getDateHeureFin();
+    }
+    public function getDateHeureDebut(){
+        return $this->creneauRdv->getDateHeureDebut();
+    }
     /**
      * @var \Transfer\ReservationBundle\Entity\TypeCamion
      */
