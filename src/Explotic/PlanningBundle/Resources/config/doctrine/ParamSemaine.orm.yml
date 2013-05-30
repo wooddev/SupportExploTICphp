@@ -1,0 +1,13 @@
+Explotic\PlanningBundle\Entity\ParamSemaine:
+  type: entity
+  table: null
+  repositoryClass: Explotic\PlanningBundle\Entity\ParamSemaineRepository   
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    jourFin:
+      type: integer
+  lifecycleCallbacks: {  }

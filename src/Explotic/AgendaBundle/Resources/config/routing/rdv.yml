@@ -1,0 +1,30 @@
+rdv:
+    pattern:  /
+    defaults: { _controller: "ExploticAgendaBundle:Rdv:index" }
+
+rdv_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticAgendaBundle:Rdv:show" }
+
+rdv_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticAgendaBundle:Rdv:new" }
+
+rdv_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticAgendaBundle:Rdv:create" }
+    requirements: { _method: post }
+
+rdv_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticAgendaBundle:Rdv:edit" }
+
+rdv_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticAgendaBundle:Rdv:update" }
+    requirements: { _method: post }
+
+rdv_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticAgendaBundle:Rdv:delete" }
+    requirements: { _method: post }

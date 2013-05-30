@@ -3,8 +3,8 @@ Explotic\PlanningBundle\Entity\Calendrier:
     table: null
     repositoryClass: Explotic\PlanningBundle\Entity\CalendrierRepository
     oneToMany:
-      jours:
-        targetEntity: Jour
+      dates:
+        targetEntity: Explotic\AgendaBundle\Entity\Rdv
         mappedBy: calendrier
     fields:
         id:

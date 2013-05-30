@@ -1,0 +1,12 @@
+div#fos_user_registration_form{
+    width:175px;
+    margin-top: 6px;
+    float:left;
+    border-right: 1px solid #cccccc;
+}
+div#fos_user_registration_form label{
+    
+}
+div#fos_user_registration_form input{
+    
+}

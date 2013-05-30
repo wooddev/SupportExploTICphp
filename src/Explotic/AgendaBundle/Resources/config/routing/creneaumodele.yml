@@ -1,0 +1,30 @@
+creneaumodele:
+    pattern:  /
+    defaults: { _controller: "ExploticAgendaBundle:CreneauModele:index" }
+
+creneaumodele_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticAgendaBundle:CreneauModele:show" }
+
+creneaumodele_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticAgendaBundle:CreneauModele:new" }
+
+creneaumodele_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticAgendaBundle:CreneauModele:create" }
+    requirements: { _method: post }
+
+creneaumodele_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticAgendaBundle:CreneauModele:edit" }
+
+creneaumodele_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticAgendaBundle:CreneauModele:update" }
+    requirements: { _method: post }
+
+creneaumodele_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticAgendaBundle:CreneauModele:delete" }
+    requirements: { _method: post }

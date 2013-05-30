@@ -1,0 +1,8 @@
+creneaumodele_generate:
+    pattern:  /generate
+    defaults: { _controller: "ExploticAgendaBundle:CreneauModeleGen:generate" }
+
+creneaumodelegen_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticAgendaBundle:CreneauModeleGen:create" }
+    requirements: { _method: post }

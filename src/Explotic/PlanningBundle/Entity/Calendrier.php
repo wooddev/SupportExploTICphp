@@ -3,7 +3,7 @@
 namespace Explotic\PlanningBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Explotic\PlanningBundle\Entity\Jour as Jour;
+
 
 /**
  * Explotic\PlanningBundle\Entity\Calendrier
@@ -25,71 +25,56 @@ class Calendrier
     {
         return $this->id;
     }
-    /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     */
-
+    
+    
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $jours;
+    private $dates;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->jours = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->dates = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
+
     /**
-     * Add jours
+     * Add dates
      *
-     * @param \Explotic\PlanningBundle\Entity\Jour $jours
+     * @param \Explotic\AgendaBundle\Entity\Rdv $dates
      * @return Calendrier
      */
-    public function addJour(\Explotic\PlanningBundle\Entity\Jour $jour)
+    public function addDate(\Explotic\AgendaBundle\Entity\Rdv $dates)
     {
-        $this->jours[] = $jour;
-    
-        return $this;
-    }
-    /**
-     * Add New jour
-     *
-     * @param \DateTime $date, Mat/Apm $creneau
-     * @return Calendrier
-     */
-    public function addNewJour($date, $creneau)
-    {
-        $jour = new \Jour($date, $creneau);
-        $jour->setCalendrier($this);
-        $this->jours->Add($jour);
+        $this->dates[] = $dates;
     
         return $this;
     }
 
     /**
-     * Remove jours
+     * Remove dates
      *
-     * @param \Explotic\PlanningBundle\Entity\Jour $jours
+     * @param \Explotic\AgendaBundle\Entity\Rdv $dates
      */
-    public function removeJour(\Explotic\PlanningBundle\Entity\Jour $jours)
+    public function removeDate(\Explotic\AgendaBundle\Entity\Rdv $dates)
     {
-        $this->jours->removeElement($jours);
+        $this->dates->removeElement($dates);
     }
 
     /**
-     * Get jours
+     * Get dates
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getJours()
+    public function getDates()
     {
-        return $this->jours;
+        return $this->dates;
     }
     
-    public function __toString(){
-        return strval($this->id);
+    public function __toString() {
+        return (string)$this->id;
     }
 }

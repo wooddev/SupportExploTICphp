@@ -1,0 +1,38 @@
+Explotic\AgendaBundle\Entity\Creneau:
+    type: entity
+    table: null
+    repositoryClass: Explotic\AgendaBundle\Entity\CreneauRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        jour:
+            type: integer
+        heure:
+            type: integer
+        minute:
+            type: integer
+        duree:
+            type: integer
+        heureDebut:
+            type: time
+        heureFin:
+            type: time
+        dateCreation:
+            type: date
+        dateArchivage:
+            type: date
+            nullable: true
+        dateModification:
+            type: date            
+    inheritanceType: JOINED
+    discriminatorColumn:
+      name: typeCreneau
+      type: string
+      length: 255
+    discriminatorMap:
+      creneauRdv : CreneauRdv
+      creneauModele: CreneauModele
+    lifecycleCallbacks: {  }

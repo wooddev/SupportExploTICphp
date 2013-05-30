@@ -1,0 +1,18 @@
+Explotic\AgendaBundle\Entity\CreneauRdv:
+    type: entity
+    table: null
+    repositoryClass: Explotic\AgendaBundle\Entity\CreneauRdvRepository
+    oneToMany:
+      rdvs:
+        targetEntity: Rdv
+        mappedBy: creneauRdv    
+    fields:
+      dateHeureDebut:
+        type: datetime
+      dateHeureFin:
+        type: datetime
+      semaine:
+          type: integer
+      annee:
+          type: integer
+    lifecycleCallbacks: {  }

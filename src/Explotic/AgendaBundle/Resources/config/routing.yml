@@ -1,0 +1,23 @@
+explotic_agenda_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: ExploticAgendaBundle:Default:index }
+
+explotic_agenda_creneaumodele:
+        resource: "@ExploticAgendaBundle/Resources/config/routing/creneaumodele.yml"
+        prefix:   /creneaumodele
+        
+explotic_agenda_creneaumodelegen:
+        resource: "@ExploticAgendaBundle/Resources/config/routing/creneaumodelegen.yml"
+        prefix:   /creneaumodelegen
+
+explotic_agenda_creneaurdvgen:
+        resource: "@ExploticAgendaBundle/Resources/config/routing/creneaurdvgen.yml"
+        prefix:   /creneaurdvgen
+
+explotic_agenda_creneaurdv:
+        resource: "@ExploticAgendaBundle/Resources/config/routing/creneaurdv.yml"
+        prefix:   /creneaurdv
+        
+explotic_agenda_rdv:
+        resource: "@ExploticAgendaBundle/Resources/config/routing/rdv.yml"
+        prefix:   /rdv

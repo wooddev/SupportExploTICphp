@@ -1,0 +1,9 @@
+creneaurdvgen_generate:
+    pattern:  /generate
+    defaults: { _controller: "ExploticAgendaBundle:CreneauRdvGen:generate" }
+
+creneaurdvgen_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticAgendaBundle:CreneauRdvGen:create" }
+    requirements: { _method: post }
+

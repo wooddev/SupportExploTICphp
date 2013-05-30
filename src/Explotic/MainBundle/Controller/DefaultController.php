@@ -6,6 +6,7 @@ use Ivory\GoogleMap\Overlays\Animation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ivory\GoogleMap\Controls\ControlPosition;
 
+
 class DefaultController extends Controller
 {
     public function indexAction()
@@ -24,19 +25,24 @@ class DefaultController extends Controller
             throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Veuillez vous authentifier');          
         }
         // Génération de l'agenda pour la semaine en cours
-        $agenda = new \Explotic\MainBundle\Model\Agenda();        
-        $agenda->init((int)date('W'), (int) date('Y'));        
-            //Recherche des jours figurant dans cette partie du calendrier   
+        $agenda = new \Explotic\AgendaBundle\Model\Agenda();        
+        $agenda->init((int)date('W'), (int) date('Y')); 
+        $creneauxStructures = new \Doctrine\Common\Collections\ArrayCollection(
+                $em->getRepository('ExploticAgendaBundle:CreneauRdv')
+                    ->findByPeriod($agenda->getDateDebut(),$agenda->getDateFin())
+                );   
+        //Recherche des jours figurant dans cette partie du calendrier   
         if (!(null===$user->getStagiaire()->getCalendrier())){
-            $jours = $em->getRepository('ExploticPlanningBundle:Jour')
-                        ->findByCalendrierAndDate(
-                                $user->getStagiaire()->getCalendrier()->getId(),
-                                $agenda->getDateDebut(),
-                                $agenda->getDateFin()
-                      );           
+            $creneauxAffiches = new \Doctrine\Common\Collections\ArrayCollection(
+                    $em->getRepository('ExploticAgendaBundle:Rdv')
+                        ->findByPeriod($agenda->getDateDebut(),$agenda->getDateFin(),$user->getStagiaire()->getCalendrier())
+                    );         
         } else{
-            $jours = null;
-        }
+            $creneauxAffiches = null;
+        }       
+        
+        $agenda->generateAgenda($creneauxStructures, $creneauxAffiches,420,1140);
+        
         // Conception de la carte
         
         $myUserMap = new \Explotic\MainBundle\Model\MyUserMap($this->get('ivory_google_map.map'), $user);       
@@ -68,7 +74,7 @@ class DefaultController extends Controller
         
         return $this->render('ExploticMainBundle:Default:monProfil.html.twig', array(
             'user' => $user,
-            'agenda'=>$agenda->generate($jours),
+            'agenda'=>$agenda,
             'map' => $myUserMap->getMap(),
         ));        
     }

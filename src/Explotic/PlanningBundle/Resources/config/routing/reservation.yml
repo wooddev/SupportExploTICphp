@@ -1,0 +1,30 @@
+reservation:
+    pattern:  /
+    defaults: { _controller: "ExploticPlanningBundle:Reservation:index" }
+
+reservation_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticPlanningBundle:Reservation:show" }
+
+reservation_new:
+    pattern:  /new
+    defaults: { _controller: "ExploticPlanningBundle:Reservation:new" }
+
+reservation_create:
+    pattern:  /create
+    defaults: { _controller: "ExploticPlanningBundle:Reservation:create" }
+    requirements: { _method: post }
+
+reservation_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ExploticPlanningBundle:Reservation:edit" }
+
+reservation_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ExploticPlanningBundle:Reservation:update" }
+    requirements: { _method: post }
+
+reservation_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ExploticPlanningBundle:Reservation:delete" }
+    requirements: { _method: post }

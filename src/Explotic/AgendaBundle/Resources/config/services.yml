@@ -1,0 +1,7 @@
+parameters:
+#    explotic_agenda.example.class: Explotic\AgendaBundle\Example
+
+services:
+#    explotic_agenda.example:
+#        class: %explotic_agenda.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,135 +1,142 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    <link href="{{asset('bundles/exploticmain/style.css')}}" rel="stylesheet" type="text/css" />
-    {% block stylesheets %} 
-    {% endblock %}
-{% block declare_script %}
-{% endblock %}
-{% block gmaps_script %}
-{% endblock %}        
-{% block jquery_script %}
-{% endblock %}   
-</head>
-
-<body {% block bodyOpt %}{% endblock %}>
-
-<!--Header Background Part Starts -->
-    <div id="header-bg">
-            <!--Header Contant Part Starts -->
-            <div id="header">
-                    <a href="{{asset('app_dev.php')}}">ExploTIC <br> Support Technique<!--img src="{{asset('/bundles/exploticmain/images/logo.gif')}}" alt="Package" width="205" height="62" border="0" class="logo" title="Package" /--></a>
-                    <!--Login Background Starts -->
-                    {% block login %}
-                    <div id="login-bg">
-                            <!--Login Area Starts -->
-                            <div id="login-area">
-                                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                                        <a href="{{ path('fos_user_security_logout') }}">
-                                            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                                        </a>
-                                    {% else %}                                        
-                                        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-                                    {% endif %}                                        
-                            </div>
-                            
-                            <!--Login Area Ends -->
-                    </div>
-                    {% endblock %}
-                    <!--Login Background Ends -->
-                    <br class="spacer" />
-            </div>
-            <!--Header Contant Part Ends -->
-    </div>
-    <!--Header Background Part Ends -->
-    <!--Navigation Background Part Starts -->
-    <div id="navigation-bg">
-        
-            <!--Navigation Part Starts -->
-            <div id="navigation">
-                    <ul class="mainMenu">
-                            <li><a href="{{path('homepage')}}"  title="">Accueil</a>
-                            </li>
-                            <li><a href="#"  title="">Mon Profil</a>
-                                <br class="spacer" />
-                                <ul class="subNav">
-                                        <li><a href="{{path('mon_profil')}}" title="Consulter mon profil">Consulter</a></li>
-                                        <li><a href="#" title="Modifier mon profil">Modifier</a></li>
-                                        <li><a href="#" title="Consulter mon planning">Mon Planning</a></li>
-                                        {% if is_granted('ROLE_RECRUTEUR') %}
-                                        <li><a href="#" title="Consulter mes recrutements">Mes Recrutements</a></li>  
-                                        {% endif %}
-                                </ul>                                
-                            </li>
-                            <li><a href="#"  title="">Formations</a>
-                            <br class="spacer" />
-                                <ul class="subNav">
-                                        <li><a href="{{path('module')}}" title="Présentation des modules">Modules</a></li>
-                                        <li><a href="#" title="Les sessions planifiées">Plannings</a></li>                                        
-                                </ul>                            
-                            <br class="spacer" />
-                            </li>
-                            {% if is_granted ('ROLE_SUPER_USER') %}
-                            <li><a href="#"  title="">Stagiaires</a>
-                            <br class="spacer" />
-                                <ul class="subNav">                                    
-                                        <li><a href="{{path('stagiaire')}}" title="Liste des profils">Profils</a></li>
-                                        <li><a href="{{path('entreprise')}}" title="Entreprises">Entreprises</a></li>
-                                </ul>
-                                <br class="spacer" />
-                            </li>
-                            {% endif %}
-                            <li><a href="#" title="Liste des formateurs">Formateurs</a></li>
-                            {% if is_granted ('ROLE_ADMIN')%}
-                            <li><a href="#"  title="">Admin</a>
-                            <br class="spacer" />
-                                <ul class="subNav">
-                                        <li><a href="{{path('user')}}" title="Liste des profils">Utilisateurs</a></li>
-                                        <li><a href="#" title="Entreprises">Roles</a></li>
-                                </ul>
-                                <br class="spacer" />
-                            </li>
-                            {%endif%}
-                    </ul>         
-                </div>
-            <!--Navigation Part Ends -->
-    </div>
-    <!--Navigation Background Part Ends -->
-    <!--Our Company Bacground Part Starts -->
-
-    <div id="bundleZone">        
-            <!--Our Company Part Starts -->
-            <div id="bundle-part">      
-                    <h2 class="bundle-hdr">{% block bundleTitle %} Bundle Name {%endblock%}</h2>
-                    {% block body %}
-                    {% endblock %}
-                    <br class="spacer" />
-            </div>
-            <!--Our Company Part Ends -->
-    </div>
-    <!--Our Company Bacground Part Ends -->
-    
-    <!--<div id="footer-bg">
-            <!--Footer Menu Part Starts --
-            <div id="footer-menu">
-                    <ul class="footMenu">
-                            <li class="noDivider"><a href="#" title="Home">Home</a></li>
-                            <li><a href="#" title="About">About</a></li>
-                            <li><a href="#" title="Services">Services</a></li>
-                            <li><a href="#" title="Support">Support</a></li>
-                            <li><a href="#" title="Chat">Chat</a></li>
-                            <li><a href="#" title="History">History</a></li>
-                            <li><a href="#" title="Contact">Contact</a></li>
-                    </ul>
-                    <br class="spacer" />                 
-            </div>
-            <!--Footer Menu Part Ends --
-    </div>
-    <!--Footer Part Ends -->       
-</body>
      
-</html>
+<!DOCTYPE html>
+<html>
+    <head>        
+        <meta name="Copyright" content="fcba" />
+        <meta name="language" content="FR" />
+        <META NAME  ="DESCRIPTION" content ="Support Technique au déploiement d'Explotic"/>
+        <meta name="Author" Content ="Adrien Arraiolos" />
+        <meta name="Keywords" Content ="Abatteuse, TIC, stanford
+              exploitation forestière, forêt, Explotic, FCBA" />
+        <meta http-equiv="PRAGMA" content="NO-CACHE" />                
+        <title>
+            ExploTIC - Support Technique
+        </title>
+        <meta charset="UTF-8" />               
+        <link href="{{asset('bundles/exploticmain/css_1/menus.css')}}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="{{asset('bundles/exploticmain/css_1/print.css')}}" media="print" />
+        <link href="{{asset('bundles/exploticmain/css_1/my_layout.css')}}" rel="stylesheet" type="text/css" />
+        {% block stylesheets %} 
+        {% endblock %}
+        {% block declare_script %}
+        {% endblock %}
+        {% block gmaps_script %}
+        {% endblock %}        
+        {% block jquery_script %}
+        {% endblock %}   
+    </head>
+    <body>
+        <div id="container">
+            <div id="header-container">                
+                <div id="header-wrapper">                
+                    <div id="header">   
+                        {#
+                            <a  href="http://www.fcba.fr" title ="Accès au site de FCBA">
+                                <img  src="{{asset('bundles/exploitmcsuivis/images/FCBA.gif')}}" alt="FCBA" border="0" /></a>
+                            <a  href="http://www.exploitmc.fr" title ="Accueil du site">
+                                <img  src="{{asset('bundles/exploitmcsuivis/images/bandeau2.jpg')}}"   alt="bandeau" border="0"/></a>
+                        #}
+                        <h0> Support Technique ExploTIC </h0>
+                    </div>
+                </div>
+            </div>
+            <div id="login-container">
+                <div id="login-wrapper">                  
+                    <div id="login">
+                        {% block login %}
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                                <a href="{{ path('fos_user_security_logout') }}">
+                                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                                </a>
+                            {% else %}                                        
+                                <a href="{{ path('fos_user_security_login') }}" style="border-right:1px solid; padding:0 4px;">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>                                
+                                <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+                            {% endif %}                                       
+                    {% endblock %}
+                    </div>
+                </div>
+            </div>
+            <div id="menu-container">
+                <div id="menu-wrapper">                  
+                  <div id="menu"> {#style="float:left;position:relative;left:-50%;"#}
+                            <ul class="pureCssMenu pureCssMenum" style="width:100%;">
+                                 <li class="pureCssMenui"><a class="pureCssMenui" href="{{ path('homepage')}}"> Accueil</a></li>
+                                 
+                                 <li class="pureCssMenui"><a class="pureCssMenui" href="#"><span>Profil</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+                                    <ul class="pureCssMenum">
+                                            <li class="pureCssMenui"><a class="pureCssMenui" href="{{path('mon_profil')}}">Consulter</a></li>
+                                            <li class="pureCssMenui"><a class="pureCssMenui" href="#">Modifier</a></li>
+                                            <li class="pureCssMenui"><a class="pureCssMenui" href="#">Planning</a></li>
+                                            {% if is_granted('ROLE_RECRUTEUR') %}
+                                            <li class="pureCssMenui"><a class="pureCssMenui" href="#">Recrutements</a></li>                                    
+                                            {% endif %}
+                                    </ul>
+                                 <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                                </li>
+                                
+                                <li class="pureCssMenui"><a class="pureCssMenui" href="#"><span>Formations</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+                                    <ul class="pureCssMenum">
+                                            <li class="pureCssMenui"><a class="pureCssMenui" href="{{path('module')}}">Modules</a></li>
+                                            <li class="pureCssMenui"><a class="pureCssMenui" href="#">Plannings</a></li>
+                                   </ul>                                         
+                                 <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                                </li>  
+                                
+                                
+                                {% if is_granted ('ROLE_SUPER_USER') %}                                                                                                
+                                <li class="pureCssMenui"><a class="pureCssMenui" href="#"><span>Stagiaires</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+                                    <ul class="pureCssMenum">
+                                            <li class="pureCssMenui"><a class="pureCssMenui" href="{{path('stagiaire')}}">Profils</a></li>
+                                            <li class="pureCssMenui"><a class="pureCssMenui" href="{{path('entreprise')}}">Entreprises</a></li>
+                                   </ul>                                         
+                                 <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                                </li>                               
+                                {% endif %}
 
+                                <li class="pureCssMenui"><a class="pureCssMenui" href="#"> Liste des formateurs</a></li>
+                                
+                                {% if is_granted ('ROLE_ADMIN')%}                                
+                                <li class="pureCssMenui"><a class="pureCssMenui" href="#"><span>Administration</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+                                    <ul class="pureCssMenum">
+                                            <li class="pureCssMenui"><a class="pureCssMenui" href="{{path('user')}}">Utilisateurs</a></li>
+                                            <li class="pureCssMenui"><a class="pureCssMenui" href="#">Rôles</a></li>
+                                   </ul>                                         
+                                 <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                                </li>
+                                {%endif%}
+                           </ul>                         
+                    </div>                    
+                </div>
+            </div>
+            <div id="content-container">
+                <div id="content-wrapper">
+                    <div id="content">
+                                    {% block body %}                                        
+                                        <div id="text-content">
+                                        {%block text%} 
+                                        {%endblock%}
+                                        </div>
+                                    {% endblock %}
+                                    {% block javascripts %}{% endblock %}
+                    </div><!--content-->           
+                </div><!--wrapper-->           
+            </div><!--container-->                   
+            <div id="footer-container">
+                <div id="footer-wrapper">
+                    <div id="footer">                    
+                        <div style="float:right">
+                            <p>Support technique ExploTIC</p>
+                            <p style="color:red;">
+                                Ver 0.1. - Dernière mise à jour : 16-05-2013 18:10
+                            </p>   
+                            <p><a href="#"> Mentions légales</a></p> 
+                            <p>  Copyright FCBA © ExploTIC, 2013</p> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>     
+    

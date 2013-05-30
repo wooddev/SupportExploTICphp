@@ -1,41 +1,40 @@
-<div style="float: left">
+<div class="profil-content">
+    <h1>Informations générales</h1>
      {%include 'ExploticTiersBundle:Stagiaire:show/content.html.twig' with {'entity':entity} %}        
 </div>
-<div style="float: left ">
+
+<div class="profil-content">
+    <h1>Informations sur l'entreprise</h1>
     {%include 'ExploticTiersBundle:Entreprise:show/content.html.twig' with {'entreprise':entity.entreprise} %}
 </div>
-<div style="float: top">
-    <br class="spacer">
-</div>
+<br class="spacer" style="float: top">
 
-<div style="float:left">
+<div class="profil-content">
     {%if entity.programmes is defined %}
         {%if entity.programmes|length >0 %}
             {%include 'ExploticFormationBundle:Programme:index/content.html.twig' with {'entities':entity.programmes,  'depuis':'stagiaire'} %}
         {%endif%}
     {%endif%}
 </div>
-<div style="float:left">
-    {%if entity.calendrier.id is defined %}
-            {%include 'ExploticPlanningBundle:Calendrier:show/week.html.twig' with {'entities':agenda} %}
+<br class="spacer" style="float: top">
+
+<div class="profil-content">
+    {%if agenda is defined %}
+            {%include 'ExploticAgendaBundle:Agenda:week.html.twig' with {'entities':agenda} %}
     {%endif%}
 </div>
-
-<div style="float:left">
+<br class="spacer" style="float: top">
+<div class="profil-content">
     {%if entity.postes is defined %}
         {%if entity.postes|length >0 %}
             {%include 'ExploticTiersBundle:Poste:index/content.html.twig' with {'entities':entity.postes, 'depuis':'stagiaire'} %}
         {%endif%}
     {%endif%}
 </div>
-<div style="float: top">
-    <br class="spacer">
-</div>
-<div style="float:left">
+<br class="spacer" style="float: top">
+<div class="profil-content">
     {%if entity.machine.reference is defined %}
             {%include 'ExploticTiersBundle:Machine:show/content.html.twig' with {'entity':entity.machine, 'depuis':'stagiaire'} %}
     {%endif%}
 </div>
-<div style="float: top">
-    <br class="spacer">
-</div>
+

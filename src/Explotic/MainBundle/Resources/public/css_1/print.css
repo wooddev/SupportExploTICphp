@@ -1,0 +1,263 @@
+body{
+ font-family : Verdana;
+ margin: 0;
+ padding:0;
+ background:#ffffff;
+ color: #333333;
+ height : 100%;
+ }
+
+#container
+{
+	display:block;
+        margin: 0 auto;
+        min-width: 950px;
+	background: #fff;
+}
+
+#header
+{
+        display: none;
+        text-align: center;
+        background: #ccc;
+        min-width: 995px;
+        margin : 0px;
+	padding: 0px;
+}
+
+#header h1 { margin: 0; }
+
+#navigation
+{
+	display: none;
+        float: left;
+	width: 100%;
+	background: #333;
+        min-width: 950px;
+}
+
+#navigation ul
+{
+	margin: 0;
+	padding: 0;
+}
+
+#navigation ul li
+{
+	list-style-type: none;
+	display: inline;
+}
+
+#navigation li a
+{
+	display: block;
+	float: left;
+	padding: 5px 10px;
+	color: #fff;
+	text-decoration: none;
+	border-right: 1px solid #fff;
+        border-left: 1px solid #fff;
+}
+
+#navigation li b
+{
+	display: block;
+	float: left;
+	padding: 5px 10px;
+	color: #fff;
+	text-decoration: none;
+        width:150px;
+}
+
+#navigation li a:hover { background: #383; }
+
+#content-container1
+{
+	background: #ccc;
+        float: left;
+	min-width: 900px;
+        width : 100%;
+	background: #fff;
+}
+
+#content-container2
+{
+	float: left;
+        width : 100%;
+	background: white;
+}
+
+
+#section-navigation
+{
+        display: none;
+        float:left;
+        border-style: none solid none solid;
+        border-color: #3D261D;
+        border-width: 1px;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 80%;
+        font-weight: bold;
+        background: #333;
+        width:168px;
+        height:100%;
+}
+
+#section-navigation h2 {
+        font: bold 14px Verdana, Arial, Helvetica, sans-serif;
+        color: #000;
+        margin: 0px;
+        padding: 0px 0px 0px 15px;
+}
+
+#section-navigation ul
+{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+                height:100%;
+}
+
+#section-navigation ul h1 {
+        font: bold 16px Verdana, Arial, Helvetica, sans-serif;
+        color: silver;
+        margin: 0px;
+        padding: 30px 0px 10px 5px;
+        z-index:2;
+}
+
+#section-navigation ul h3 {
+        font: bold 14px Verdana, Arial, Helvetica, sans-serif;
+        color: white;
+        margin: 0px;
+        padding: 10px 0px 5px 5px;
+        z-index:3;
+}
+
+
+#section-navigation img {
+    border: none;
+}
+
+#section-navigation li a {
+        height: 32px;
+          voice-family: "\"}\"";
+          voice-family: inherit;
+          height: 24px;
+        text-decoration: none;
+        }
+
+#section-navigation li a:link, #section-navigation li a:visited {
+        color: #E4D6CD;
+        display: block;
+        background:  url(menu1.gif);
+        padding: 8px 0 0 10px;
+        }
+
+#section-navigation li a:hover, #section-navigation li #current {
+        color: #FFF;
+        background:  url(menu1.gif) 0 -32px;
+        padding: 8px 0 0 10px;
+        }
+
+
+
+#content
+{
+        font-size: 90%;
+	float: left;
+	padding: 20px 5px  20px 20px;
+        min-width: 600px;
+        max-width : 70%;
+        height:100%;
+
+}
+
+#content h2 { margin: 0;  }
+
+#result {
+	padding: 20px 5px  20px 20px;
+        right: 180px;
+        left: 170px;
+        top : 200px;
+        bottom :0px;
+        min-width: 600px;
+        height:100%;
+
+}
+#chartdiv1{
+    display:block;
+    width:600px;
+    height:400px;
+    background-color:#FFFFFF
+}
+#chartdiv2{
+    display:block;
+    width:600px;
+    height:400px;
+    background-color:#FFFFFF
+}
+table.stats
+{text-align: center;
+font-family: Verdana, Geneva, Arial, Helvetica, sans-serif ;
+font-weight: normal;
+font-size: 11px;
+color: #fff;
+width: 280px;
+background-color: #666;
+border: 0px;
+border-collapse: collapse;
+border-spacing: 0px;}
+
+table.stats td
+{background-color: #CCC;
+color: #000;
+padding: 4px;
+text-align: left;
+border: 1px #fff solid;}
+
+table.stats td.hed
+{background-color: #666;
+color: #fff;
+padding: 4px;
+text-align: left;
+border-bottom: 2px #fff solid;
+font-size: 12px;
+font-weight: bold;}
+
+#aside
+{
+	float: right;
+	width: 120px;
+	padding: 5px 0;
+}
+
+#aside h3 { margin: 0; }
+
+#footer
+{
+	background: #ccc;
+	text-align: right;
+	padding: 20px;
+        clear:both;
+
+}
+
+/* BUTTONS */
+
+.buttons {
+    display : none;
+    width: 95px;
+    height : 36px;
+    overflow:visible;
+    color:white;
+    font-family: calibri;
+    font-size: 14px;
+    font-weight:bold;
+    background-color: transparent;
+    border: 0;
+    padding:3px 5px 3px 5px; /* IE6 */
+}
+
+
+

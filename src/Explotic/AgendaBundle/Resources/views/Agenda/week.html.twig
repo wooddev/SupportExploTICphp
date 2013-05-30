@@ -1,0 +1,110 @@
+
+<style type=text/css>
+div.agenda{
+    float:left;
+    margin: 5px 35px;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+div.agenda-header{
+    font-size:14px;
+}
+div.annee {
+    float: none;
+    display: left;
+}
+
+div.semaine{
+    float: none;
+    display: left;
+}
+div.jour-container{
+    float: left;
+}   
+
+div.jour{
+    float:left;
+}
+div.creneau{
+    float:none;
+    display:block;
+    border-style: solid;
+    border-width: 0px;
+    height: 15px;
+    width: 85px;
+    font-size: 10px;
+    padding : 0 10px;
+}
+.creneau-structure{
+    background: #b9d4b1;
+}
+.creneau-affiche{
+    background: #529924;
+}
+.creneau-vide{
+    background: #d6d6d5;
+}
+p{
+    margin:0;
+    padding:0;
+}
+.btn-success{
+    margin-top:-10px;
+    line-height:15px;
+    padding:1px;
+    font-size:10px;
+}
+form{
+    display:inline;
+    float:left;
+    margin : 0 2px;
+    padding : 0;
+        
+}
+    
+</style>
+
+
+<div class="tab-content">
+
+    <div class="tab-pane" id="agenda">   
+        <div class="agenda">    
+            <div class="agenda-header">
+            <h4>Planning du {{agenda.dateDebut | date('d/m/Y')}} au {{agenda.dateFin | date('d/m/Y')}}</h4>           
+            </div>
+            {%for agendaYear in agenda.agendasYear %}
+            <div class="annee"> 
+                {%for agendaWeek in agendaYear.agendasWeek%}
+                <div class="semaine"> Année : {{agendaYear.val}} | Semaine : {{agendaWeek.val}}
+                <div class="jour-container">
+                    {%for agendaDay in agendaWeek.agendasDay%}
+                    <div class="jour"> {{agendaDay.textVal}}
+                        {%for creneau in agendaDay.creneaux %}
+                            <div class="creneau creneau-{{creneau.type}}" style="height: {{0.2*creneau.duree}}px">
+                                {{creneau.dateTimeDebut|date('H:i')}}<br>
+                                {%if creneau.creneauAffiche.statutRdv is defined %}                            
+                                    {%if creneau.creneauAffiche.statutRdv == 'provisoire' %}
+                                        <form action="#" method="post">
+                                            <button class="btn btn-success" type="submit">Confirmer</button> 
+                                        </form>                                        
+                                    {%elseif creneau.creneauAffiche.statutRdv == 'confirme' %}
+                                        <form action="#" method="post">
+                                            <button class="btn btn-success" type="submit">Annuler</button> 
+                                        </form>   
+                                    {%endif%}
+                                {%else%} 
+                                {%endif%}
+                            </div>               
+                        {%endfor%}
+                    </div>
+                    {%endfor%}                
+                </div>
+                </div>
+                {%endfor%}
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</div>
+

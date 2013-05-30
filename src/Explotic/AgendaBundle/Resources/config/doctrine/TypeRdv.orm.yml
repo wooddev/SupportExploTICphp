@@ -1,0 +1,14 @@
+Explotic\AgendaBundle\Entity\TypeRdv:
+  type: entity
+  table: null
+  repositoryClass: Explotic\AgendaBundle\Entity\TypeRdvRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    nom:
+      type: string
+      length: 255
+  lifecycleCallbacks: {  }

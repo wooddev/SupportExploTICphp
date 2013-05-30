@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new Explotic\MainBundle\ExploticMainBundle(),
             new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
             new Sonata\jQueryBundle\SonatajQueryBundle(),
+            new Explotic\AgendaBundle\ExploticAgendaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {            

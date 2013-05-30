@@ -1,0 +1,23 @@
+Explotic\AgendaBundle\Entity\Rdv:
+    type: entity
+    table: null
+    repositoryClass: Explotic\AgendaBundle\Entity\RdvRepository
+    manyToOne:
+      creneauRdv:
+        targetEntity: CreneauRdv
+        inversedBy: Rdvs     
+      type:
+        targetEntity: TypeRdv   
+      calendrier:
+        targetEntity: Explotic\PlanningBundle\Entity\Calendrier
+        inversedBy: dates
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        statutRdv:
+            type: string
+            columnDefinition: ENUM('provisoire','confirme','annule')            
+    lifecycleCallbacks: {  }

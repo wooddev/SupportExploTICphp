@@ -1,0 +1,55 @@
+<h1>CreneauRdv list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Jour</th>
+            <th>Heure</th>
+            <th>Minute</th>
+            <th>Duree</th>
+            <th>Heuredebut</th>
+            <th>Heurefin</th>
+            <th>Dateheuredebut</th>
+            <th>Dateheurefin</th>
+            <th>Semaine</th>
+            <th>Annee</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('creneaurdv_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.jour }}</td>
+            <td>{{ entity.heure }}</td>
+            <td>{{ entity.minute }}</td>
+            <td>{{ entity.duree }}</td>
+            <td>{{ entity.heureDebut | date('Y-m-d H:i:s') }}</td>
+            <td>{{ entity.heureFin | date('Y-m-d H:i:s')}}</td>
+            <td>{% if entity.dateHeureDebut %}{{ entity.dateHeureDebut|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.dateHeureFin %}{{ entity.dateHeureFin|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.semaine }}</td>
+            <td>{{ entity.annee }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('creneaurdv_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('creneaurdv_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('creneaurdv_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>

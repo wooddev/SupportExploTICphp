@@ -1,0 +1,16 @@
+{%extends "::explotic.html.twig"%}
+{%block body%}
+<h1>CreneauRdv Generateur</h1>
+
+
+Saisir les dates de la période sur laquelle vous souhaitez générer des créneaux
+pour la planification des formations
+
+<form action="{{ path('creneaurdvgen_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Générateur</button>
+    </p>
+</form>
+{%endblock%}
+

@@ -55,21 +55,21 @@ class CalendrierController extends Controller
      */
     public function showWeekAction($id,$week,$year)
     {
-        $year = (int) $year;
-        $week= (int) $week;
-                        
-        $agenda = new \Explotic\MainBundle\Model\Agenda();
-        
-        $agenda->init($week, $year);
-        
-        //Recherche des jours figurant dans cette partie du calendrier   
-        $em = $this->getDoctrine()->getManager();
-        $jours = $em->getRepository('ExploticPlanningBundle:Jour')
-                        ->findByCalendrierAndDate($id,$agenda->getDateDebut(),$agenda->getDateFin());
-        
-        return $this->render('ExploticPlanningBundle:Calendrier:show/week.html.twig', array(
-            'agenda' => $agenda->generate($jours),
-            ));
+//        $year = (int) $year;
+//        $week= (int) $week;
+//                        
+//        $agenda = new \Explotic\MainBundle\Model\Agenda();
+//        
+//        $agenda->init($week, $year);
+//        
+//        //Recherche des jours figurant dans cette partie du calendrier   
+//        $em = $this->getDoctrine()->getManager();
+//        $jours = $em->getRepository('ExploticPlanningBundle:Jour')
+//                        ->findByCalendrierAndDate($id,$agenda->getDateDebut(),$agenda->getDateFin());
+//        
+//        return $this->render('ExploticPlanningBundle:Calendrier:show/week.html.twig', array(
+//            'agenda' => $agenda->generate($jours),
+//            ));
     }
 
     /**
