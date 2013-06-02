@@ -107,7 +107,7 @@ class CreneauRdvGen {
         }else{        
             for ($a = $anneeDebut; $a <= $anneeFin ; $a++){
                 if ($a == $anneeDebut){
-                    for($s= $semaineDebut; $s <=date("W", mktime(0, 0, 0, 31, 12, $a));$s++){
+                    for($s= $semaineDebut; $s <=date("W", mktime(0, 0, 0, 12, 28, $a));$s++){
                         $this->generateForWeek($s,$a);
                     }            
                 }
@@ -116,7 +116,7 @@ class CreneauRdvGen {
                         $this->generateForWeek($s,$a);
                     }  
                 }else{
-                    for($s= 1; $s <=date("W", mktime(0, 0, 0, 31, 12, $a));$s++){
+                    for($s= 1; $s <=date("W", mktime(0, 0, 0, 12, 28, $a));$s++){
                         $this->generateForWeek($s,$a);
                     }  
                 }

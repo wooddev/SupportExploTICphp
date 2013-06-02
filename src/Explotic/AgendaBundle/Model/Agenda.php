@@ -86,52 +86,86 @@ class Agenda {
         
         $this->dateDebut = new \DateTime($this->year.'W'.$this->week."1");
         
-        
-        if($week>48){ // gestion de la fin d'année ici aussi
-            $this->dateFin = new \DateTime(($this->year+1).'W'.($this->week+$duree-1-52)."6");
-        }else $this->dateFin = new \DateTime(($this->year).'W'.($this->week+$duree-1)."6");
+        $interval = new \DateInterval("P".$duree."W");
+        $this->dateFin = clone $this->dateDebut;
+        $this->dateFin->add($interval);
+
     }             
     
-    public function generateAgenda($creneauxStructures, $creneauxAffiches,$minDebut = null ,$minFin = null){
-        $year = $this->year;
-        $week= $this->week;  
-        $minutesDebutJours = $minDebut;
-        $minutesFinJours = $minFin;
-        $week0 = (int) $this->dateDebut->format('W');
-        $weekn = (int) $this->dateFin->format('W');
-        //On créé un agenda pour l'année
-        $this->agendasYear->add(new AgendaYear());
-        $this->agendasYear->last()->setVal((int)$year);
-        // Le calendrier s'étale sur $nbSemaines
-        for ($s = $week0; $s<=$weekn && $s<=52; $s++)
-        {
-            $this->agendasYear->last()->addAgendaWeek(new AgendaWeek());
-            $this->agendasYear->last()->getAgendasWeek()->last()->setVal($s); // Création d'une semaine d'agenda portant le numéro $s
+    /**
+     * 
+     * @param type $creneauxStructures >> créneaux utilisés comme support d'agenda
+     * @param type $creneauxAffiches >> Créneaux où un rdv a été posé
+     * @param type $minDebut >> minutes de démarrage de journée
+     * @param type $minFin >> minutes de fin de journée
+     * @param type $jn >> nb de journées par semaine
+     */
+    
+    public function generateAgenda($creneauxStructures, $creneauxAffiches,$minDebut = null ,$minFin = null,$jn = 5){
+        
+        $semaineDebut =(int) $this->dateDebut->format('W');
+        $anneeDebut = (int)$this->dateDebut->format('Y');
+        $semaineFin = (int)$this->dateFin->format('W');
+        $anneeFin = (int)$this->dateFin->format('Y');
+        
+        if($anneeDebut == $anneeFin){
+             //On créé un agenda pour l'année
+            $this->agendasYear->add(new AgendaYear());
+            $this->agendasYear->last()->setVal($anneeDebut);
+            for($s=$semaineDebut; $s <=$semaineFin;$s++){
+                $this->generateForWeek($s,$anneeDebut,$jn,$creneauxStructures, $creneauxAffiches,$minDebut,$minFin);
+            } 
             
-            // Sur 6 jours
-            for($j=1; $j<=5;$j++){                
-                $this->agendasYear->last()->getAgendasWeek()->last()->addAgendaDay(new AgendaDay());                                                
-                $this->agendasYear->last()->getAgendasWeek()->last()
-                                        ->getAgendasDay()->last()
-                                            ->setMinuteDebut($minutesDebutJours);
-                $this->agendasYear->last()->getAgendasWeek()->last()
-                                        ->getAgendasDay()->last()
-                                            ->setMinuteFin($minutesFinJours);
-                $criteria = Criteria::create()
-                        ->Where(Criteria::expr()
-                                    ->eq("jour",$j))
-                        ->andWhere(Criteria::expr()
-                                    ->eq("annee",$year))
-                        ->andWhere(Criteria::expr()
-                                    ->eq("semaine",$week))
-                        ->orderBy(array("heureDebut"=>"ASC"));   
-                $creneauxSelect = $creneauxStructures->matching($criteria);
-                
-                $this->agendasYear->last()->getAgendasWeek()->last()
-                                ->getAgendasDay()->last()
-                                    ->init($j,$year,$week,$creneauxSelect,
-                                                        $creneauxAffiches);  
+        }else{        
+            for ($a = $anneeDebut; $a <= $anneeFin ; $a++){
+                //On créé un agenda pour l'année
+                $this->agendasYear->add(new AgendaYear());
+                $this->agendasYear->last()->setVal($a);
+                if ($a == $anneeDebut){                   
+                    for($s= $semaineDebut; $s <=date("W", mktime(0, 0, 0, 12, 28, $a));$s++){
+                        $this->generateForWeek($s,$a,$jn,$creneauxStructures, $creneauxAffiches,$minDebut,$minFin);
+                    }            
+                }
+                elseif ($a == $anneeFin){
+                    for($s=1 ; $s <=$semaineFin;$s++){
+                        $this->generateForWeek($s,$a,$jn,$creneauxStructures, $creneauxAffiches,$minDebut,$minFin);
+                    }  
+                }else{
+                    for($s= 1; $s <=date("W", mktime(0, 0, 0, 12,28, $a));$s++){
+                        $this->generateForWeek($s,$a,$jn,$creneauxStructures, $creneauxAffiches,$minDebut,$minFin);
+                    }  
+                }
             }
+        }
+    }
+    
+    public function generateForWeek($s,$a,$jn,$creneauxStructures, $creneauxAffiches,$minDebut,$minFin){          
+        $this->agendasYear->last()->addAgendaWeek(new AgendaWeek());
+        $this->agendasYear->last()->getAgendasWeek()->last()->setVal($s); // Création d'une semaine d'agenda portant le numéro $s
+
+        // Sur jn jours
+        for($j=1; $j<=$jn;$j++){                
+            $this->agendasYear->last()->getAgendasWeek()->last()->addAgendaDay(new AgendaDay());                                                
+            $this->agendasYear->last()->getAgendasWeek()->last()
+                                    ->getAgendasDay()->last()
+                                        ->setMinuteDebut($minDebut);
+            $this->agendasYear->last()->getAgendasWeek()->last()
+                                    ->getAgendasDay()->last()
+                                        ->setMinuteFin($minFin);
+            $criteria = Criteria::create()
+                    ->Where(Criteria::expr()
+                                ->eq("jour",$j))
+                    ->andWhere(Criteria::expr()
+                                ->eq("annee",$a))
+                    ->andWhere(Criteria::expr()
+                                ->eq("semaine",$s))
+                    ->orderBy(array("heureDebut"=>"ASC"));   
+            $creneauxSelect = $creneauxStructures->matching($criteria);
+
+            $this->agendasYear->last()->getAgendasWeek()->last()
+                            ->getAgendasDay()->last()
+                                ->init($j,$a,$s,$creneauxSelect,
+                                                    $creneauxAffiches);  
         }
     }
 }

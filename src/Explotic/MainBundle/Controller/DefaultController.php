@@ -26,22 +26,25 @@ class DefaultController extends Controller
         }
         // Génération de l'agenda pour la semaine en cours
         $agenda = new \Explotic\AgendaBundle\Model\Agenda();        
-        $agenda->init((int)date('W'), (int) date('Y')); 
+        $agenda->init((int)date('W'), (int) date('Y'),null,60); 
         $creneauxStructures = new \Doctrine\Common\Collections\ArrayCollection(
                 $em->getRepository('ExploticAgendaBundle:CreneauRdv')
                     ->findByPeriod($agenda->getDateDebut(),$agenda->getDateFin())
                 );   
         //Recherche des jours figurant dans cette partie du calendrier   
-        if (!(null===$user->getStagiaire()->getCalendrier())){
-            $creneauxAffiches = new \Doctrine\Common\Collections\ArrayCollection(
-                    $em->getRepository('ExploticAgendaBundle:Rdv')
-                        ->findByPeriod($agenda->getDateDebut(),$agenda->getDateFin(),$user->getStagiaire()->getCalendrier())
-                    );         
-        } else{
-            $creneauxAffiches = null;
-        }       
+        if (!(null===$user->getStagiaire())){
+            if (!(null===$user->getStagiaire()->getCalendrier())){
+                $creneauxAffiches = new \Doctrine\Common\Collections\ArrayCollection(
+                        $em->getRepository('ExploticAgendaBundle:Rdv')
+                            ->findByPeriod($agenda->getDateDebut(),$agenda->getDateFin(),$user->getStagiaire()->getCalendrier())
+                        );         
+            } else{
+                $creneauxAffiches = null;
+            }
+            $agenda->generateAgenda($creneauxStructures, $creneauxAffiches,420,1140);
+        }
         
-        $agenda->generateAgenda($creneauxStructures, $creneauxAffiches,420,1140);
+        
         
         // Conception de la carte
         
