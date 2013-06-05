@@ -1,0 +1,26 @@
+
+{%extends "ExploticMainBundle::layout.html.twig" %}
+
+{% block bodyOpt %}onload="initialize()"{% endblock %}  
+{% block body %} 
+
+<div class="profil">
+    <div class="profil-content">
+        <h3>Mon Planning</h3>
+        <div>    
+        {%if agenda is defined %}
+                {%include 'ExploticAgendaBundle:Agenda:month.html.twig' with {'agenda':agenda} %}
+        {%endif%}
+        </div>
+    </div> 
+
+</div>
+
+
+
+    
+    
+
+
+{% endblock%}
+

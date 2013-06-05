@@ -12,8 +12,12 @@ Explotic\PlanningBundle\Entity\Session:
       poste:
         targetEntity: Explotic\TiersBundle\Entity\Poste
         nullable: true
-      intervention:
-        targetEntity: Explotic\FormationBundle\Entity\Intervention
+      interventionSalle:
+        targetEntity: Explotic\FormationBundle\Entity\InterventionSalle
+        nullable: true
+      interventionEntreprise:
+        targetEntity: Explotic\FormationBundle\Entity\InterventionEntreprise
+        nullable: true
     manyToMany:
       stagiaires:
         targetEntity: Explotic\TiersBundle\Entity\Stagiaire

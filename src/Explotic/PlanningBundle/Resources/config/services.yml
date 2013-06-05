@@ -1,7 +1,7 @@
 parameters:
-#    explotic_planning.example.class: Explotic\PlanningBundle\Example
+  explotic_planning.agenda_generator.class: Explotic\PlanningBundle\Services\AgendaGenerator
 
 services:
-#    explotic_planning.example:
-#        class: %explotic_planning.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+  explotic_planning.agenda_generator:
+    class: %explotic_planning.agenda_generator.class%
+    arguments:  ["@doctrine.orm.entity_manager"]

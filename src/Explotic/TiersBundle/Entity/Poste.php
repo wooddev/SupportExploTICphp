@@ -66,4 +66,8 @@ class Poste extends SiteIntervention
     {
         return $this->stagiaire;
     }
+    
+    public function __toString() {
+        return $this->getNomChantier().' '.$this->getStagiaire()->getNom().' '.$this->getStagiaire()->getEntreprise()->getRaisonSociale();
+    }
 }

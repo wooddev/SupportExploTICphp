@@ -13,8 +13,10 @@ class SessionType extends AbstractType
         $builder
             ->add('numero')
             ->add('calendrier')
-            ->add('siteIntervention')
-            ->add('intervention')
+            ->add('salle')
+            ->add('poste')
+            ->add('interventionSalle')
+            ->add('interventionEntreprise')
             ->add('stagiaires')
             ->add('formateurs')
         ;

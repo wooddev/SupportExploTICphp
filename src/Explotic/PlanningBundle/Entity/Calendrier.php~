@@ -73,4 +73,12 @@ class Calendrier
     {
         return $this->dates;
     }
+    
+    public function __toString() {
+        return (string)$this->id;
+    }
+    
+    
+        
+    
 }

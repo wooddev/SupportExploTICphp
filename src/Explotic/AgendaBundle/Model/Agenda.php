@@ -112,7 +112,7 @@ class Agenda {
              //On créé un agenda pour l'année
             $this->agendasYear->add(new AgendaYear());
             $this->agendasYear->last()->setVal($anneeDebut);
-            for($s=$semaineDebut; $s <=$semaineFin;$s++){
+            for($s=$semaineDebut; $s <$semaineFin;$s++){
                 $this->generateForWeek($s,$anneeDebut,$jn,$creneauxStructures, $creneauxAffiches,$minDebut,$minFin);
             } 
             

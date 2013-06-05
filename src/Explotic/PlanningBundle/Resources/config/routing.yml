@@ -1,11 +1,8 @@
-explotic_planning_calendrier:
-    resource: "@ExploticPlanningBundle/Resources/config/routing/calendrier.yml"
-    prefix:   /calendrier
 explotic_planning_credittemps:
     resource: "@ExploticPlanningBundle/Resources/config/routing/credittemps.yml"
     prefix:   /credittemps
 explotic_planning_session:
-    resource: "@ExploticPlanningBundle/Resources/config/routing/credittemps.yml"
+    resource: "@ExploticPlanningBundle/Resources/config/routing/session.yml"
     prefix:   /session
 explotic_planning_reservation:
         resource: "@ExploticPlanningBundle/Resources/config/routing/reservation.yml"

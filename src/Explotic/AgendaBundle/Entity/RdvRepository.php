@@ -12,13 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class RdvRepository extends EntityRepository
 {
-    public function findByPeriod($dateDebut, $dateFin,$calendrier){
+    public function findByPeriod($dateDebut, $dateFin,$idCalendrier){
         $query = $this->getEntityManager()->createQuery("
             SELECT r
             FROM ExploticAgendaBundle:Rdv r
             JOIN r.creneauRdv cr
             JOIN r.calendrier ca
-            WHERE ca.id = :idca
+            WHERE ca.id = :idCal
             AND cr.dateHeureDebut >= :debut
             AND cr.dateHeureFin <= :fin            
             ORDER BY cr.dateHeureDebut
@@ -26,7 +26,7 @@ class RdvRepository extends EntityRepository
         $query->setParameters(array(
            'debut'=> $dateDebut,
             'fin'=> $dateFin,
-            'idca'=> $calendrier->getId()
+            'idCal'=> $idCalendrier
         ));
         return $query->getResult();
     }

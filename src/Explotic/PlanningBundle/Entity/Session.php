@@ -40,13 +40,6 @@ class Session
      */
     private $calendrier;
 
-
-
-    /**
-     * @var Explotic\FormationBundle\Entity\Intervention
-     */
-    private $intervention;
-
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
@@ -112,28 +105,6 @@ class Session
         return $this->calendrier;
     }
    
-    /**
-     * Set intervention
-     *
-     * @param Explotic\FormationBundle\Entity\Intervention $intervention
-     * @return Session
-     */
-    public function setIntervention(\Explotic\FormationBundle\Entity\Intervention $intervention = null)
-    {
-        $this->intervention = $intervention;
-    
-        return $this;
-    }
-
-    /**
-     * Get intervention
-     *
-     * @return Explotic\FormationBundle\Entity\Intervention 
-     */
-    public function getIntervention()
-    {
-        return $this->intervention;
-    }
 
     /**
      * Add stagiaires
@@ -255,5 +226,63 @@ class Session
     public function getPoste()
     {
         return $this->poste;
+    }
+    
+    
+    /**
+     * @var \Explotic\FormationBundle\Entity\InterventionSalle
+     */
+    private $interventionSalle;
+
+    /**
+     * @var \Explotic\FormationBundle\Entity\InterventionEntreprise
+     */
+    private $interventionEntreprise;
+
+
+    /**
+     * Set interventionSalle
+     *
+     * @param \Explotic\FormationBundle\Entity\InterventionSalle $interventionSalle
+     * @return Session
+     */
+    public function setInterventionSalle(\Explotic\FormationBundle\Entity\InterventionSalle $interventionSalle = null)
+    {
+        $this->interventionSalle = $interventionSalle;
+    
+        return $this;
+    }
+
+    /**
+     * Get interventionSalle
+     *
+     * @return \Explotic\FormationBundle\Entity\InterventionSalle 
+     */
+    public function getInterventionSalle()
+    {
+        return $this->interventionSalle;
+    }
+
+    /**
+     * Set interventionEntreprise
+     *
+     * @param \Explotic\FormationBundle\Entity\InterventionEntreprise $interventionEntreprise
+     * @return Session
+     */
+    public function setInterventionEntreprise(\Explotic\FormationBundle\Entity\InterventionEntreprise $interventionEntreprise = null)
+    {
+        $this->interventionEntreprise = $interventionEntreprise;
+    
+        return $this;
+    }
+
+    /**
+     * Get interventionEntreprise
+     *
+     * @return \Explotic\FormationBundle\Entity\InterventionEntreprise 
+     */
+    public function getInterventionEntreprise()
+    {
+        return $this->interventionEntreprise;
     }
 }

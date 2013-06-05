@@ -124,13 +124,13 @@ class AgendaDay{
         $this->setDateTimeFin();
         
         if(null===$creneauxStructureJour){
-            $this->addCreneau(new AgendaCreneau(null,null,
+            $this->addCreneau(new AgendaCreneau(null,
                                         $this->getDateTimeDebut(),
                                         $this->getDateTimeFin(),
                                         'vide'));
         }
         elseif($creneauxStructureJour->count()==0){
-            $this->addCreneau(new AgendaCreneau(null,null,
+            $this->addCreneau(new AgendaCreneau(null,
                                         $this->getDateTimeDebut(),
                                         $this->getDateTimeFin(),
                                         'vide'));
@@ -140,7 +140,7 @@ class AgendaDay{
             //########Récupération des créneaux de structure dans l'agenda############
             //création d'un premier créneau vide
             if(!(null==$this->minuteDebut)){
-                $this->addCreneau(new AgendaCreneau(null,null,
+                $this->addCreneau(new AgendaCreneau(null,
                                             $this->getDateTimeDebut(),
                                             $creneauxStructureJour->first()->getHeureDebut(),
                                             'vide'));
@@ -151,20 +151,20 @@ class AgendaDay{
                 //cad encours(heure de début) != précédent(heure de fin)
                 //==> création d'un créneau vide
                 if($this->getCreneaux()->last()->getDateTimeFin()!=$creneau->getHeureDebut()){
-                    $this->addCreneau(new AgendaCreneau(null,null,
+                    $this->addCreneau(new AgendaCreneau(null,
                                                 $this->getCreneaux()->last()->getDateTimeFin(),
                                                 $creneau->getHeureDebut(),
                                                 'vide'));               
                 }
                 //Création et ajout d'une instance de creneauAgenda sur le modèle du créneau en cours
-                $this->addCreneau(new AgendaCreneau($creneau,null,                                    
+                $this->addCreneau(new AgendaCreneau($creneau,                                    
                                             $creneau->getHeureDebut(),
                                             $creneau->getHeureFin(),
                                             'structure'));
             }
             // création du dernier créneau vide
             if(!(null==$this->minuteFin)){
-                $this->addCreneau(new AgendaCreneau(null,null,
+                $this->addCreneau(new AgendaCreneau(null,
                                             $this->getCreneaux()->last()->getDateTimeFin(),
                                             $this->getDateTimeFin(),                                    
                                             'vide'));
@@ -179,7 +179,7 @@ class AgendaDay{
                                     ->where(Criteria::expr()->eq("creneauStructure",$creneau->getCreneauStructure()));          
 
                 if(($key = $this->getCreneaux()->matching($creneauModeleCrit)->key())){
-                    $this->getCreneaux()->get($key)->setCreneauAffiche($creneau);
+                    $this->getCreneaux()->get($key)->AddCreneauAffiche($creneau);
                     $this->getCreneaux()->get($key)->setType('affiche');
                 }
             }

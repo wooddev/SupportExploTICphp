@@ -40,13 +40,6 @@ class Session
      */
     private $calendrier;
 
-
-
-    /**
-     * @var Explotic\FormationBundle\Entity\Intervention
-     */
-    private $intervention;
-
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
@@ -112,28 +105,6 @@ class Session
         return $this->calendrier;
     }
    
-    /**
-     * Set intervention
-     *
-     * @param Explotic\FormationBundle\Entity\Intervention $intervention
-     * @return Session
-     */
-    public function setIntervention(\Explotic\FormationBundle\Entity\Intervention $intervention = null)
-    {
-        $this->intervention = $intervention;
-    
-        return $this;
-    }
-
-    /**
-     * Get intervention
-     *
-     * @return Explotic\FormationBundle\Entity\Intervention 
-     */
-    public function getIntervention()
-    {
-        return $this->intervention;
-    }
 
     /**
      * Add stagiaires
