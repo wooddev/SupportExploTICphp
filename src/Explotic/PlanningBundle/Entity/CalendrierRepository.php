@@ -12,4 +12,113 @@ use Doctrine\ORM\EntityRepository;
  */
 class CalendrierRepository extends EntityRepository
 {    
+    public function findAutorises(\Explotic\AdminBundle\Entity\User $user) {       
+                
+        foreach($user->getRoles() as $role){
+            if($role == "ROLE_ADMIN"){                        
+                $query = $this->getEntityManager()->createQuery("
+                            SELECT c
+                            FROM ExploticPlanningBundle:Calendrier  c                 
+                            ");
+                return $query->getResult();
+            }
+            elseif($role == "ROLE_FORMATEUR"){
+                $query = $this->getEntityManager()->createQuery("
+                            SELECT c
+                            FROM ExploticAdminBundle:User u
+                            JOIN u.formateur f                            
+                            JOIN f.calendrier c
+                            WHERE u.id = :userId
+                            ");     
+                $query->setParameter("userId", $user->getId());       
+                return $query->getResult();
+            }
+            elseif($role == "ROLE_RECRUTEUR"){   
+                $query1 = $this->getEntityManager()->createQuery("
+                            SELECT bcal
+                            FROM ExploticAdminBundle:User u
+                            JOIN u.recruteur r
+                            JOIN r.entreprises e
+                            JOIN e.bureau bur
+                            JOIN bur.calendrier bcal                            
+                            WHERE u.id = :userId                   
+                            "); 
+                $query2 = $this->getEntityManager()->createQuery("
+                            SELECT stcal
+                            FROM ExploticAdminBundle:User u
+                            JOIN u.recruteur r                            
+                            JOIN r.stagiaires st
+                            JOIN st.calendrier stcal                            
+                            WHERE u.id = :userId                   
+                            "); 
+                $query3 = $this->getEntityManager()->createQuery("
+                            SELECT pcal
+                            FROM ExploticAdminBundle:User u
+                            JOIN u.recruteur r                            
+                            JOIN r.stagiaires st
+                            JOIN st.poste pst
+                            JOIN pst.calendrier pcal
+                            WHERE u.id = :userId                   
+                            "); 
+                $query1->setParameter("userId", $user->getId());   
+                $query2->setParameter("userId", $user->getId());   
+                $query3->setParameter("userId", $user->getId());   
+                return array_merge($query1->getResult(),$query2->getResult(),$query3->getResult());
+            }
+            elseif($role == "ROLE_GERANT"){
+                $query1 = $this->getEntityManager()->createQuery("
+                            SELECT bcal
+                            FROM ExploticAdminBundle:User u
+                            JOIN u.entreprise e
+                            JOIN e.bureau bur
+                            JOIN bur.calendrier bcal                            
+                            WHERE u.id = :userId                   
+                            "); 
+                $query2 = $this->getEntityManager()->createQuery("
+                            SELECT stcal
+                            FROM ExploticAdminBundle:User u
+                            JOIN u.entreprise e                            
+                            JOIN e.stagiaires st
+                            JOIN st.calendrier stcal                            
+                            WHERE u.id = :userId                   
+                            "); 
+                $query3 = $this->getEntityManager()->createQuery("
+                            SELECT pcal
+                            FROM ExploticAdminBundle:User u
+                            JOIN u.entreprise e                            
+                            JOIN e.stagiaires st
+                            JOIN st.poste pst
+                            JOIN pst.calendrier pcal
+                            WHERE u.id = :userId                   
+                            "); 
+                $query1->setParameter("userId", $user->getId());   
+                $query2->setParameter("userId", $user->getId());   
+                $query3->setParameter("userId", $user->getId());   
+                return array_merge($query1->getResult(),$query2->getResult(),$query3->getResult());
+            }
+            elseif($role == "ROLE_STAGIAIRE"){
+                $query1 = $this->getEntityManager()->createQuery("
+                            SELECT stcal
+                            FROM ExploticAdminBundle:User u
+                            JOIN u.stagiaire st
+                            JOIN st.calendrier stcal                            
+                            WHERE u.id = :userId                   
+                            "); 
+                $query2 = $this->getEntityManager()->createQuery("
+                            SELECT pcal
+                            FROM ExploticAdminBundle:User u                
+                            JOIN u.stagiaire st
+                            JOIN st.poste pst
+                            JOIN pst.calendrier pcal
+                            WHERE u.id = :userId                   
+                            "); 
+                $query1->setParameter("userId", $user->getId());   
+                $query2->setParameter("userId", $user->getId());                   
+                return array_merge($query1->getResult(),$query2->getResult());               
+            }
+        }
+
+
+        
+    }
 }

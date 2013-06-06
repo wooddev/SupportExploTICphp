@@ -227,4 +227,62 @@ class Session
     {
         return $this->poste;
     }
+    
+    
+    /**
+     * @var \Explotic\FormationBundle\Entity\InterventionSalle
+     */
+    private $interventionSalle;
+
+    /**
+     * @var \Explotic\FormationBundle\Entity\InterventionEntreprise
+     */
+    private $interventionEntreprise;
+
+
+    /**
+     * Set interventionSalle
+     *
+     * @param \Explotic\FormationBundle\Entity\InterventionSalle $interventionSalle
+     * @return Session
+     */
+    public function setInterventionSalle(\Explotic\FormationBundle\Entity\InterventionSalle $interventionSalle = null)
+    {
+        $this->interventionSalle = $interventionSalle;
+    
+        return $this;
+    }
+
+    /**
+     * Get interventionSalle
+     *
+     * @return \Explotic\FormationBundle\Entity\InterventionSalle 
+     */
+    public function getInterventionSalle()
+    {
+        return $this->interventionSalle;
+    }
+
+    /**
+     * Set interventionEntreprise
+     *
+     * @param \Explotic\FormationBundle\Entity\InterventionEntreprise $interventionEntreprise
+     * @return Session
+     */
+    public function setInterventionEntreprise(\Explotic\FormationBundle\Entity\InterventionEntreprise $interventionEntreprise = null)
+    {
+        $this->interventionEntreprise = $interventionEntreprise;
+    
+        return $this;
+    }
+
+    /**
+     * Get interventionEntreprise
+     *
+     * @return \Explotic\FormationBundle\Entity\InterventionEntreprise 
+     */
+    public function getInterventionEntreprise()
+    {
+        return $this->interventionEntreprise;
+    }
 }

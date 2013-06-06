@@ -56,9 +56,17 @@ class RdvController extends Controller
      */
     public function newAction()
     {
-        $entity = new Rdv();
-        $form   = $this->createForm(new RdvType(), $entity);
-
+        $entity  = new Rdv();
+        
+        $dateDebut = new \DateTime();
+        $dateFin = new \DateTime();
+        $interval= new \DateInterval('P1M');
+        $dateFin->add($interval);
+        
+        $user = $this->get('security.context')->getToken()->getUser();
+        
+        $form = $this->createForm(new RdvType($dateDebut,$dateFin,$user), $entity);
+        
         return $this->render('ExploticAgendaBundle:Rdv:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -175,5 +183,25 @@ class RdvController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
+    }
+    
+    public function newListAction(){
+        
+        $entity  = new Rdv();
+        
+        $dateDebut = new \DateTime();
+        $dateFin = new \DateTime();
+        $interval= new \DateInterval(P1M);
+        $dateFin->add($interval);
+        
+        $user = $this->get('security.context')->getToken()->getUser();
+        
+        $form = $this->createForm(new RdvType($dateDebut,$dateFin,$user), $entity);
+        
+        return $this->render('ExploticAgendaBundle:Rdv:new.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+        
     }
 }

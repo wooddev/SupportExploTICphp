@@ -5,3 +5,4 @@ services:
   explotic_planning.agenda_generator:
     class: %explotic_planning.agenda_generator.class%
     arguments:  ["@doctrine.orm.entity_manager"]
+

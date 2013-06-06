@@ -12,5 +12,8 @@ Explotic\PlanningBundle\Entity\Calendrier:
             id: true
             generator:
                 strategy: AUTO
+        nom:
+          type: string
+          length: 255          
     lifecycleCallbacks: {  }
 

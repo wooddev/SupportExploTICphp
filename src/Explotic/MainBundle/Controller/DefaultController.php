@@ -81,7 +81,7 @@ class DefaultController extends Controller
         
         $calendrierListe = new \Doctrine\Common\Collections\ArrayCollection();
         
-        // Génération de l'agenda pour la semaine en cours
+        // Génération de l'agenda pour la semaine en cour, comme les 
        
         if (!(null===$user->getStagiaire())){
             $stagiaire = $user->getStagiaire();
