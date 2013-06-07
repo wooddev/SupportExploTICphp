@@ -5,4 +5,9 @@ services:
   explotic_planning.agenda_generator:
     class: %explotic_planning.agenda_generator.class%
     arguments:  ["@doctrine.orm.entity_manager"]
-
+  explotic_planning.repository.calendrier:
+    class: Explotic\PlanningBundle\Entity\CalendrierRepository
+    factory_service: doctrine.orm.default_entity_manager
+    factory_method: getRepository
+    arguments: ['ExploticPlanningBundle:Calendrier']  
+ 

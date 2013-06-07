@@ -1,7 +1,27 @@
 parameters:
-#    explotic_agenda.example.class: Explotic\AgendaBundle\Example
+    explotic_agenda.rdv_selector.class: Explotic\AgendaBundle\Model\RdvSelector
 
 services:
-#    explotic_agenda.example:
-#        class: %explotic_agenda.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    explotic_agenda.repository.rdv:
+        class: Explotic\AgendaBundle\Entity\RdvRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments: ['ExploticAgendaBundle:Rdv']
+    explotic_agenda.repository.type_rdv:
+        class: Explotic\AgendaBundle\Entity\TypeRdvRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments: ['ExploticAgendaBundle:TypeRdv']
+    explotic_agenda.repository.creneau_rdv:
+        class: Explotic\AgendaBundle\Entity\CreneauRdvRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments: ['ExploticAgendaBundle:CreneauRdv']
+    explotic_agenda.rdv_selector:
+        class: %explotic_agenda.rdv_selector.class%
+        arguments: 
+          -"@explotic_agenda.repository.rdv"
+          -"@explotic_agenda.repository.type_rdv"
+          -"@explotic_agenda.repository.creneau_rdv"
+          -"@explotic_planning.repository.calendrier"
+          -"@security.context"
