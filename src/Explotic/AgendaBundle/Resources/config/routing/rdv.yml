@@ -28,3 +28,13 @@ rdv_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "ExploticAgendaBundle:Rdv:delete" }
     requirements: { _method: post }
+    
+rdv_list_new:
+    pattern:  /{id}/{type}/newlist
+    defaults: { _controller: "ExploticAgendaBundle:Rdv:newList" }
+    
+rdv_list_create:
+    pattern:  /{id}/{type}/createlist
+    defaults: { _controller: "ExploticAgendaBundle:Rdv:createList" }
+    requirements: { _method: post }
+

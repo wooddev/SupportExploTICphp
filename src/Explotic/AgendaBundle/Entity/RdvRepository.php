@@ -30,4 +30,5 @@ class RdvRepository extends EntityRepository
         ));
         return $query->getResult();
     }
+
 }

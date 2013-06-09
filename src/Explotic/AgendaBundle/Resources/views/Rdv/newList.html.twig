@@ -1,0 +1,132 @@
+
+<style type=text/css>
+div.agenda{
+    float:left;
+    margin: 5px 35px;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+div.agenda-header{
+    font-size:14px;
+}
+div.annee {
+    float: none;
+    display: left;
+}
+
+div.semaine{
+    float: left;
+    display: left;
+}
+div.jour-container{
+    float: left;
+}   
+
+div.jour{
+    float:left;
+}
+div.creneau{
+    float:none;
+    display:block;
+    border-style: solid;
+    border-width: 0px;
+    height: 15px;
+    width: 80px;
+    font-size: 10px;
+    padding :1px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+.creneau-structure{
+    background: #b9d4b1;
+}
+.creneau-affiche{
+    background: #529924;
+}
+.creneau-vide{
+    background: #d6d6d5;
+}
+.creneau-content{
+    border : 1px solid black;
+    width: auto;
+    padding : 0 5px;
+    height : 98%;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 1px 1px 8px #aaa; 
+    -webkit-box-shadow: 1px 1px 8px #aaa;
+    box-shadow: 1px 1px 8px #aaa;
+}
+
+p{
+    margin:0;
+    padding:0;
+}
+.btn-success{
+    margin-top:-10px;
+    line-height:15px;
+    padding:1px;
+    font-size:10px;
+}
+form{
+    display:inline;
+    float:left;
+    margin : 0 2px;
+    padding : 0;
+        
+}
+    
+</style>
+
+<form action="{{ path('rdv_list_create' , { 'id': id, 'type': type}) }}" method="post">
+
+    <select name="statutRdv" multiple = "false">
+        <option value ="provisoire">Provisoire</option>
+        <option value ="confirme">Confirmé</option>
+    </select>
+<div class="tab-content">
+    <div class="tab-pane" id="agenda">   
+        <div class="agenda">    
+            <div class="agenda-header">
+            <h4>Du {{agenda.dateDebut | date('d/m/Y')}} au {{agenda.dateFin | date('d/m/Y')}}</h4>           
+            </div>
+            {%for agendaYear in agenda.agendasYear %}
+            <div class="annee"> 
+                {%for agendaWeek in agendaYear.agendasWeek%}
+                <div class="semaine"> 
+                <div class="jour-container">
+                    {%for agendaDay in agendaWeek.agendasDay%}
+                    <div class="jour"> {{agendaDay.textVal|upper|slice(0, 1)}} {{agendaDay.DateTimeDebut | date('d/m')}}
+                        {%for creneau in agendaDay.creneaux %}
+                            {%if creneau.type != "vide" %}
+                            <div class="creneau creneau-{{creneau.type}}" style="height: {{0.5*creneau.duree}}px">
+                                <div class="creneau-content">
+                                {{creneau.dateTimeDebut|date('H:i')}}-{{creneau.dateTimeFin|date('H:i')}}<br>
+                                {%if creneau.type == 'structure'%}
+                                    <input type="checkbox" name="creneauRdv[{{creneau.creneauStructure.id}}]" value = {{creneau.creneauStructure.id}}/>
+                                {%endif%}
+                                {%for creneauAffiche in creneau.creneauxAffiches%}
+                                    {%for info, val in creneauAffiche.nom%}
+                                        {{info}} : {{val}}
+                                    {%endfor%}                                    
+                                {%endfor%}
+                                </div>                                
+                            </div> 
+                            {%endif%}
+                        {%endfor%}
+                    </div>
+                    {%endfor%}                
+                </div>
+                </div>
+                {%endfor%}
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</div>
+<button class="btn btn-success" type="submit">Bloquer les dates</button> 
+</form>
+

@@ -285,4 +285,14 @@ class Session
     {
         return $this->interventionEntreprise;
     }
+    
+    public function getModuleNom(){
+        if (!(null === $this->interventionEntreprise)){
+            $this->interventionEntreprise->getModule()->getNom();            
+        }
+        elseif (!(null === $this->interventionSalle)){
+            $this->interventionSalle->getModule()->getNom();            
+        }
+        
+    }
 }

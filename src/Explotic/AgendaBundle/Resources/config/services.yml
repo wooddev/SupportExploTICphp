@@ -19,9 +19,4 @@ services:
         arguments: ['ExploticAgendaBundle:CreneauRdv']
     explotic_agenda.rdv_selector:
         class: %explotic_agenda.rdv_selector.class%
-        arguments: 
-          -"@explotic_agenda.repository.rdv"
-          -"@explotic_agenda.repository.type_rdv"
-          -"@explotic_agenda.repository.creneau_rdv"
-          -"@explotic_planning.repository.calendrier"
-          -"@security.context"
+        arguments: ["@explotic_agenda.repository.type_rdv","@explotic_agenda.repository.creneau_rdv","@explotic_planning.repository.calendrier", "@explotic_planning.agenda_generator"]

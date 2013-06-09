@@ -30,8 +30,8 @@ class DefaultController extends Controller
 
         if (!(null===$user->getStagiaire())){
             if (!(null===$user->getStagiaire()->getCalendrier())){        
-            $idCalendrierStg =  $user->getStagiaire()->getCalendrier();
-            $agendaStg = $this->container->get('explotic_planning.agenda_generator')->makeAgenda($idCalendrierStg, time(), 4);
+            $CalendrierStg =  $user->getStagiaire()->getCalendrier();
+            $agendaStg = $this->container->get('explotic_planning.agenda_generator')->makeAgenda(array($CalendrierStg), time(), 4);
             }
         }    
 

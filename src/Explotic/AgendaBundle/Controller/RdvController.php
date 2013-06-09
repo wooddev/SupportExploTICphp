@@ -185,23 +185,63 @@ class RdvController extends Controller
         ;
     }
     
-    public function newListAction(){
+    public function newListAction($type,$id){
         
-        $entity  = new Rdv();
+
         
         $dateDebut = new \DateTime();
         $dateFin = new \DateTime();
-        $interval= new \DateInterval(P1M);
+        $interval= new \DateInterval('P1M');
         $dateFin->add($interval);
         
-        $user = $this->get('security.context')->getToken()->getUser();
+        //$user = $this->get('security.context')->getToken()->getUser();
         
-        $form = $this->createForm(new RdvType($dateDebut,$dateFin,$user), $entity);
+        //###################################################
+        //###################################################
+        //###################################################
+        //######FAILLE DE SECURITE ICI ###################### 
+        //###################################################
+        //==>>>>>>>>> VERIFIER DROITS ACCES Du USER A TIERS<<<<
+        //>>>>>>>>>>>>EN COURS DE RESA <<<<<<<<<<<<<<<<<<<<<<<<
+        //###################################################
+        //###################################################
         
-        return $this->render('ExploticAgendaBundle:Rdv:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        $rdvSelector = $this->container->get('explotic_agenda.rdv_selector')
+                                ->generateSelector($dateDebut,4,array('type'=>$type,'id'=>$id));
         
+        
+        return $this->render('ExploticAgendaBundle:Rdv:newList.html.twig', array(
+            'rdvSelector'=>$rdvSelector,
+            'type'=>$type,
+            'id'=>$id,
+            'agenda'=> $rdvSelector->getAgenda(),
+        ));        
+    }
+    
+    public function createListAction($id, $type,  Request $request){
+        
+        $em = $this->getDoctrine()->getManager();
+        $creneauxRdvsIds = $request->request->get('creneauRdv');
+        $statut = $request->request->get('statutRdv');
+        
+        foreach($creneauxRdvsIds as $idCreneau){
+            $rdv = new Rdv();
+            if($type == 'Session'){
+                $typeRdv = $em->getRepository("ExploticAgendaBundle:TypeRdv")->find(2);               
+                $entity = $em->getRepository("ExploticPlanningBundle:".$type)->find($id); 
+            }else{
+                $typeRdv = $em->getRepository("ExploticAgendaBundle:TypeRdv")->find(1);
+                $entity = $em->getRepository("ExploticTiersBundle:".$type)->find($id);  
+            }
+
+            $rdv->setCalendrier($entity->getCalendrier());
+            $rdv->setType($typeRdv);
+            $rdv->setCreneauRdv($em->getRepository("ExploticAgendaBundle:CreneauRdv")->find($idCreneau));
+            $rdv->setStatutRdv($statut);
+            $em->persist($rdv);          
+        }
+        $em->flush(); 
+        
+        return $this->redirect($this->generateUrl('rdv'));
     }
 }
