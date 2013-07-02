@@ -102,6 +102,7 @@ class RdvRepository extends EntityRepository
                         AND c.semaine = :semaine
                         AND c.annee = :annee
                         AND r.statutRdv = :statut
+                        ORDER BY c.dateHeureDebut ASC
                 ')
                 ->setParameter('id', $transporteur->getId())
                 ->setParameter('semaine', $semaine)
