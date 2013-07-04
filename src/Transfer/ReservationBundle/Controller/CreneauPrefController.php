@@ -82,9 +82,10 @@ class CreneauPrefController extends Controller
      */
     public function newAction()
     {
+
         $entity = new CreneauPref();
         $form   = $this->createForm(new CreneauPrefType(), $entity);
-
+ 
         return $this->render('TransferReservationBundle:CreneauPref:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),

@@ -9,20 +9,22 @@ use Doctrine\ORM\EntityRepository;
 
 class CreneauPrefType extends AbstractType
 {
+    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('disponibiliteTotale')
 //            ->add('creneauModele')
             ->add('creneauModele','entity',array(
                 'class' => 'TransferReservationBundle:CreneauModele',
                 'query_builder' => function(EntityRepository $er){
                                 return $er->findDisponibles();            
-                        },
-                
+                        }, 
+                'expanded'=> true,
+                'multiple'=> true,
             ))
             ->add('transporteur')
             ->add('etatReservation')
+            ->add('statut')
         ;
     }
 

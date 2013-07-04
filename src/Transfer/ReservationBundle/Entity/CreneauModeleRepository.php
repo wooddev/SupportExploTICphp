@@ -21,7 +21,7 @@ class CreneauModeleRepository extends EntityRepository
                 ->from('TransferReservationBundle:CreneauModele','cm0 ')
                 ->leftjoin('cm0.creneauxPrefs', 'cp')
                 ->groupBy('cm0')
-                ->having('(cm0.disponibiliteTotale-sum(cp.disponibiliteTotale))<1')
+                ->having('count(cp)>0')
                 ;
 
         $qb ->select('cm')
@@ -31,6 +31,7 @@ class CreneauModeleRepository extends EntityRepository
         
         return $qb;                
     }
+
     
     public function find($id){
         return $this->getEntityManager()

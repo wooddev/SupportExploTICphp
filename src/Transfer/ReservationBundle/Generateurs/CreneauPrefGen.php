@@ -13,20 +13,21 @@ use Exception;
  * @author Adrien
  */
 
-use Transfer\ReservationBundle\Entity\CreneauModele;
+use Transfer\ReservationBundle\Entity\CreneauPref;
 
 class CreneauPrefGen {
     //put your code here  
     
     private $creneauxModeles,
-            $disponibiliteTotale,
             $etatReservation,
+            $statut,
             $transporteur,
             $creneauxPrefs;
     
     public function __construct(){
         $this->creneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->creneauxPrefs = new \Doctrine\Common\Collections\ArrayCollection();
+        
         return $this;
     }
     
@@ -51,16 +52,7 @@ class CreneauPrefGen {
             throw new Exception('Aucun créneau modèle associé');
         }
         else return $this->creneauxPrefs;
-    }
-    
-    public function getDisponibiliteTotale(){
-        return $this->disponibiliteTotale;
-    }
-    
-    public function setDisponibiliteTotale($disponbilite){
-        $this->disponibiliteTotale = $disponbilite;
-        return $this;
-    }
+    }       
     
     public function getEtatReservation(){
         return $this->etatReservation;
@@ -80,7 +72,14 @@ class CreneauPrefGen {
         return $this->transporteur;
     }
    
-    
+    public function getStatut() {
+        return $this->statut;
+    }
+
+    public function setStatut($statut) {
+        $this->statut = $statut;
+    }
+        
     /**
      * function init
      * 
@@ -88,12 +87,23 @@ class CreneauPrefGen {
 
      */
    
-    public function init($creneauxModeles, $disponibiliteTotale, $etatReservation,$transporteur)
+    public function init($creneauxModeles, $statut,$etatReservation,$transporteur)
     {
-        $this->creneauxModeles = $creneauxModeles;        
-        $this->disponibiliteTotale = $disponibiliteTotale;
+        $this->creneauxModeles = $creneauxModeles;    
+        $this->statut = $statut;
         $this->etatReservation= $etatReservation;
         $this->transporteur = $transporteur;
+    }
+    
+    public function generate(){
+        foreach($this->creneauxModeles as $creneauModele){
+            $this->creneauxPrefs->add(new CreneauPref());
+            $this->creneauxPrefs->last()->setCreneauModele($creneauModele);
+            $this->creneauxPrefs->last()->setStatut($this->statut);
+            $this->creneauxPrefs->last()->setEtatReservation($this->etatReservation);
+            $this->creneauxPrefs->last()->setTransporteur($this->transporteur);
+        }
+        return $this->creneauxPrefs;
     }
 
    
