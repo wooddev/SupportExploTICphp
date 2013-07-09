@@ -121,11 +121,11 @@ class AgendaCreneau{
         $this->dateTimeFin = $dateTimeFin;        
         $this->year = idate('Y',$dateTimeDebut->getTimestamp());
         $this->week = idate('W',$dateTimeDebut->getTimestamp());
-        $this->minuteDebut =    idate('i',$dateTimeDebut->getTimestamp())+
-                                (idate('H',$dateTimeDebut->getTimestamp())*60);        
-        $this->duree =  idate('i',$dateTimeFin->getTimestamp())+
-                        (idate('H',$dateTimeFin->getTimestamp())*60) 
-                        -$this->minuteDebut;
+        $this->minuteDebut =    (integer)$dateTimeDebut->format('h')*60
+                               +(integer)$dateTimeDebut->format('i');        
+        $this->duree =  (integer)$dateTimeFin->format('h')*60
+                       +(integer)$dateTimeFin->format('i')
+                       -$this->minuteDebut;
         $this->type = $type;
     }
       

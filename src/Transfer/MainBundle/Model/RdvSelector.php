@@ -1,10 +1,10 @@
 <?php
-namespace Explotic\AgendaBundle\Model;
+namespace Transfer\AgendaBundle\Model;
 
-use Explotic\PlanningBundle\Entity\CalendrierRepository;
-use Explotic\AgendaBundle\Entity\TypeRdvRepository;
-use Explotic\AgendaBundle\Entity\CreneauRdvRepository;
-use Explotic\PlanningBundle\Services\AgendaGenerator;
+use Transfer\PlanningBundle\Entity\CalendrierRepository;
+use Transfer\AgendaBundle\Entity\TypeRdvRepository;
+use Transfer\AgendaBundle\Entity\CreneauRdvRepository;
+use Transfer\PlanningBundle\Services\AgendaGenerator;
     
 
 /**

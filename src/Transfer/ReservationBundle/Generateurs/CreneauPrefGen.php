@@ -67,7 +67,7 @@ class CreneauPrefGen {
         return $this->transporteur;
     }
    
-    public function setTransporteur($transporteur){
+    public function setTransporteur(\Transfer\ProfilBundle\Entity\Transporteur $transporteur){
         $this->transporteur = $transporteur;
         return $this->transporteur;
     }

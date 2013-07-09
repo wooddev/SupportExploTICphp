@@ -80,8 +80,8 @@ class Agenda {
     }
     public function init($week,$year, $poste = null, $duree = 1){
         
-        $this->week = (int) $week;
-        $this->year = (int) $year;
+        $this->week =  $week;
+        $this->year =  $year;
         $this->poste = $poste;
         
         $this->dateDebut = new \DateTime($this->year.'W'.$this->week."1");
@@ -117,6 +117,7 @@ class Agenda {
                 $this->agendasYear->last()->getAgendasWeek()->last()
                                         ->getAgendasDay()->last()
                                             ->setminuteFin($minutesFinJours);
+                if(get_class($creneauxStructures->first())=='Transfer\ReservationBundle\Entity\CreneauRdv'){
                 $criteria = Criteria::create()
                         ->Where(Criteria::expr()
                                     ->eq("jour",$j))
@@ -124,7 +125,15 @@ class Agenda {
                                     ->eq("annee",$year))
                         ->andWhere(Criteria::expr()
                                     ->eq("semaine",$week))
-                        ->orderBy(array("heureDebut"=>"ASC"));                            
+                        ->orderBy(array("heureDebut"=>"ASC"));    
+                }elseif(get_class($creneauxStructures->first())=='Transfer\ReservationBundle\Entity\CreneauModele'){
+                    $criteria = Criteria::create()
+                        ->Where(Criteria::expr()
+                                    ->eq("jour",$j))
+                        ->orderBy(array("heureDebut"=>"ASC")); 
+                }else{
+                    throw new \Exception('Agendas compatible avec CreneauRdv et CreneauModele uniquement');
+                }
                 $this->agendasYear->last()->getAgendasWeek()->last()
                                 ->getAgendasDay()->last()
                                     ->init($j,$year,$week,$creneauxStructures->matching($criteria),

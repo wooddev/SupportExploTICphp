@@ -3,6 +3,7 @@
 namespace Transfer\ReservationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM; 
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * CreneauModele
@@ -92,5 +93,18 @@ class CreneauModele extends Creneau
                 .$this->getMinute().'-'
                 .$this->getDuree().' min /'
                 .$this->getTypePoste()->getNom();
+    }
+    
+    public function getSelectable(){
+        
+        $criteria = Criteria::create()
+                       ->where(Criteria::expr()->eq("statut",1)); 
+        
+        if ($this->creneauxPrefs->matching($criteria)->count()==0){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

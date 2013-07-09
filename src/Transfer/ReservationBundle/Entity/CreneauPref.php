@@ -140,5 +140,6 @@ class CreneauPref
     
     public function getCreneauStructure(){
         return $this->getCreneauModele();
-    }
+    }    
+    
 }

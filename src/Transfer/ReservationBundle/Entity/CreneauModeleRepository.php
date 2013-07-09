@@ -51,8 +51,38 @@ class CreneauModeleRepository extends EntityRepository
                     FROM TransferReservationBundle:CreneauModele cm
                     JOIN cm.statut st
                     WHERE st.nom = :nomStatut
+                    ORDER BY cm.jour, cm.heureDebut
                     ')
                 ->setParameter(':nomStatut',$nomStatut)
                 ->getResult();
+    }
+        public function findActifsByPoste($poste){
+        return $this->getEntityManager()
+                ->createQuery('
+                    SELECT cm
+                    FROM TransferReservationBundle:CreneauModele cm
+                    JOIN cm.statut st
+                    JOIN cm.typePoste p
+                    WHERE st.nom = :statut
+                    AND p.id = :idPoste
+                    ORDER BY cm.jour, cm.heureDebut
+                    ')
+                ->setParameter(':idPoste',$poste->getId())
+                ->setParameter(':statut','Actif')
+                ->getResult();
+    }
+    public function findSemaineMinutesMin($poste){
+        
+        $query = $this->getEntityManager()->createQuery();
+        
+        $query->setDQL('
+                        SELECT min(c.heureDebut)
+                        FROM TransferReservationBundle:CreneauModele c
+                        JOIN c.typePoste p
+                        WHERE p.id = :idPoste
+                ')
+                ->setParameter('idPoste', $poste->getId());   
+        
+        return $query->getSingleScalarResult();        
     }
 }

@@ -1,0 +1,5 @@
+services:
+    form.type.agenda:
+        class: Transfer\MainBundle\Form\Type\AgendaType
+        tags:
+            - { name: form.type, alias: agenda }

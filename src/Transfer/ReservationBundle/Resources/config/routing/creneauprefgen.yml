@@ -1,0 +1,10 @@
+creneauprefgen_generate:
+    pattern:  /generate
+    defaults: { _controller: "TransferReservationBundle:CreneauPrefGen:generate" }
+
+creneauprefgen_create:
+    pattern:  /create
+    defaults: { _controller: "TransferReservationBundle:CreneauPrefGen:create" }
+    requirements: { _method: post }
+    
+
