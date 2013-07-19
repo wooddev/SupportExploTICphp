@@ -7,6 +7,8 @@
 namespace Transfer\ReservationBundle\Generateurs;
 use Exception;
 use \Transfer\ReservationBundle\Entity\Disponibilite;
+use Doctrine\ORM\EntityManager;
+use Transfer\ReservationBundle\Services\AccesParametres;
 
 /**
  * Description of CreneauModeleGen
@@ -28,6 +30,19 @@ class CreneauModeleGen {
     private $CreneauxModeles;
     private $typePoste;
     private $disponibilites;
+    private $moteurReservation;  
+    
+    /**
+     * Constructeur de la classe
+     * Permet de transmettre les paramètres 
+     */   
+    public function __construct(\Transfer\ReservationBundle\Services\MoteurReservation $mR)
+    {
+        $this->CreneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->disponibilites = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->moteurReservation = $mR;
+ 
+    }
     
     public function getCreneauxModels(){
         if (!$this->CreneauxModeles) {
@@ -77,22 +92,7 @@ class CreneauModeleGen {
    }
    public function getTypePoste(){
        return $this->typePoste;
-   }
-   
-
-   
-    /**
-     * Constructeur de la classe
-     * Permet de transmettre les paramètres 
-     */
-    
-    
-    public function __construct()
-    {
-        $this->CreneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->disponibilites = new \Doctrine\Common\Collections\ArrayCollection();
- 
-    }
+   }  
     
     /**
      * function init
@@ -106,10 +106,7 @@ class CreneauModeleGen {
      * @param type $_pasDeTemps
      * @param type $_disponibiliteTotale
      * @param \Transfer\ReservationBundle\Entity\TypePoste $typePoste
-     */
-    
-    
-    
+     */    
     public function init($_heureDebut,$_minDebut, $_minFin,
             $_heureFin,$_pasDeTemps, $_disponibiliteTotale,
             \Transfer\ReservationBundle\Entity\TypePoste $typePoste)
@@ -122,6 +119,8 @@ class CreneauModeleGen {
         $this->pasDeTemps = $_pasDeTemps;      
         $this->disponibiliteTotale = $_disponibiliteTotale;
     }
+    
+    
     public function addDisponibilite($typeCamion,$valeur){
         $this->disponibilites->add(new Disponibilite());
         $this->disponibilites->last()->setValeur($valeur);
@@ -129,7 +128,7 @@ class CreneauModeleGen {
     }
             
     /**
-     * Méthode Générator :
+     * Méthode Générate :
      * Permet de générer les modèles de créneaux sur une semaine générique
      * à partir des propriétés du générateur
      * 
@@ -151,26 +150,11 @@ class CreneauModeleGen {
                         floor($min/60),                                 //heure
                         $min-floor($min/60)*60,                         //min 
                         $this->pasDeTemps,                              //durée
-                        $this->typePoste);                             //poste
-               
-                foreach($this->disponibilites as $disponibilite){
-                    $this->CreneauxModeles->last()
-                            ->addDisponibilite(
-                                    new Disponibilite(
-                                            $disponibilite->getValeur(),
-                                            $disponibilite->getTypeCamion(), 
-                                            $this->CreneauxModeles->last()));
+                        $this->typePoste);                             //poste      
                 }
-                
-            }
-        }    
-        
-    }
-    
-
-   
-   
-   
+        }          
+        $this->moteurReservation->fixDisponibilites($this->creneauxModeles, array('persist'=>false));        
+    }  
 }
 
 

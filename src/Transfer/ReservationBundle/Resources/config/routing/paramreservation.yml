@@ -1,0 +1,34 @@
+paramreservation:
+    pattern:  /
+    defaults: { _controller: "TransferReservationBundle:ParamReservation:index" }
+
+paramreservation_init:
+    pattern:  /init
+    defaults: { _controller: "TransferReservationBundle:ParamReservation:init" }
+    
+paramreservation_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TransferReservationBundle:ParamReservation:show" }
+
+paramreservation_new:
+    pattern:  /new
+    defaults: { _controller: "TransferReservationBundle:ParamReservation:new" }
+
+paramreservation_create:
+    pattern:  /create
+    defaults: { _controller: "TransferReservationBundle:ParamReservation:create" }
+    requirements: { _method: post }
+
+paramreservation_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TransferReservationBundle:ParamReservation:edit" }
+
+paramreservation_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TransferReservationBundle:ParamReservation:update" }
+    requirements: { _method: post|put }
+
+paramreservation_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TransferReservationBundle:ParamReservation:delete" }
+    requirements: { _method: post|delete }

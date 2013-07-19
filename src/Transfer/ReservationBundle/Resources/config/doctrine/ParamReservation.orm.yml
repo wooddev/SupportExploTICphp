@@ -1,0 +1,15 @@
+Transfer\ReservationBundle\Entity\ParamReservation:
+    type: entity
+    table: null
+    repositoryClass: Transfer\ReservationBundle\Entity\ParamReservationRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        parametres:
+            type: array
+        parametresReserves:
+            type: array        
+    lifecycleCallbacks: {  }

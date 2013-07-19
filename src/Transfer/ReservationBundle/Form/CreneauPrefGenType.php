@@ -21,14 +21,29 @@ class CreneauPrefGenType extends AbstractType
         $builder            
                 ->add('transporteur','entity', array(
                     'class'=>'Transfer\ProfilBundle\Entity\Transporteur'
-                ))              
+                ))
+                ->add('typeCamion','entity',array(
+                    'class'=>'Transfer\ReservationBundle\Entity\TypeCamion',
+                    'read_only'=>true,
+//                    'disabled'=>true,
+                    ))            
+//                ->add('etatReservation',"entity",array(
+//                    'class'=>'Transfer\ReservationBundle\Entity\EtatReservation',
+//                    'read_only'=> true,
+//                    'disabled'=>true,
+//                ))
+//                ->add('statut',"entity",array(
+//                    'class'=>'Transfer\ReservationBundle\Entity\StatutCreneau',
+//                    'read_only'=> true,
+//                    'disabled'=>true,
+//                ))
                 ->add('creneauxModeles','entity',array(
                     'class'=> 'Transfer\ReservationBundle\Entity\CreneauModele',
                     'expanded'=> true,
                     'multiple'=> true,
+                    'label'=>'Créneaux disponibles'
                     ))
-                //->add('etatReservation',"hidden")
-                //->add('statut',"hidden")
+
         ;
     }
 
@@ -47,6 +62,6 @@ class CreneauPrefGenType extends AbstractType
 
     public function getName()
     {
-        return 'transfer_reservationbundle_creneaupreftype';
+        return 'transfer_reservationbundle_creneauprefgentype';
     }
 }

@@ -1,0 +1,64 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h1>ParamReservation</h1>
+
+    <ul>
+    {%for key0,parametre0 in entity.parametres%}
+        <li>
+            {{key0}} :
+            {%if parametre0 is iterable%}
+                <ul>
+                {%for key1,parametre1 in parametre0%}
+                        <li>
+                            {{key1}} : {{parametre1}}
+                        </li>
+                {%endfor%}
+                </ul>
+            {%else%}
+            {{parametre0}}
+            {%endif%}
+        </li>            
+    {%endfor%}
+    </ul>  
+    <ul>
+    {%for key0,parametre0 in entity.parametresReserves%}
+        <li>
+            {{key0}} :
+            {%if parametre0 is iterable%}
+                <ul>
+                {%for key1,parametre1 in parametre0%}
+                        <li>{%if parametre1 is iterable%}
+                            {{key1}} :
+                            <ul>
+                                {%for key2,parametre2 in parametre1%}                                
+                                <li>{%if parametre2 is iterable%}
+                                    {{key2}} :
+                                    <ul>
+                                        {%for key3,parametre3 in parametre2%}
+                                        <li>                                    
+                                            {{key3}} : {{parametre3}}
+                                        </li>
+                                        {%endfor%}
+                                    </ul>
+                                    {%else%}
+                                    {{key2}} : {{parametre2}}
+                                    {%endif%}
+                                </li>                        
+                                    
+                                {%endfor%}
+                            </ul>
+                            {%else%}
+                            {{key1}} : {{parametre1}}
+                            {%endif%}
+                        </li>
+                {%endfor%}
+                </ul>
+            {%else%}
+            {{parametre0}}
+            {%endif%}
+        </li>            
+    {%endfor%}
+    </ul>  
+
+{% endblock %}

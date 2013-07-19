@@ -1,5 +1,14 @@
+creneauprefgen_selecttypecamion:
+    pattern:  /selecttypecamion
+    defaults: { _controller: "TransferReservationBundle:CreneauPrefGen:selectTypeCamion" }
+    
+creneauprefgen_generate_ajax:
+    pattern:  /generate_ajax
+    defaults: { _controller: "TransferReservationBundle:CreneauPrefGen:generateAjax" }
+#    requirements: { _method: post }
+    
 creneauprefgen_generate:
-    pattern:  /generate
+    pattern:  /generate/{typeCamionId}
     defaults: { _controller: "TransferReservationBundle:CreneauPrefGen:generate" }
 
 creneauprefgen_create:

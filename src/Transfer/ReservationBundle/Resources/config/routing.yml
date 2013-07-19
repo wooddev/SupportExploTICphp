@@ -40,5 +40,10 @@ TransferReservationBundle_etatreservation:
 TransferReservationBundle_default:
     resource: "@TransferReservationBundle/Resources/config/routing/default.yml"
     prefix:   /
+TransferReservationBundle_paramreservation:
+    resource: "@TransferReservationBundle/Resources/config/routing/paramreservation.yml"
+    prefix:   /paramreservation
 
-
+TransferReservationBundle_typecamion:
+    resource: "@TransferReservationBundle/Resources/config/routing/typecamion.yml"
+    prefix:   /typecamion

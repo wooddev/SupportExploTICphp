@@ -54,6 +54,7 @@ class Creneau
         
         $this->setDateCreation();
         $this->setDateModification();
+        $this->disponibilites = new \Doctrine\Common\Collections\ArrayCollection();
         
         return $this;
     }
@@ -395,11 +396,11 @@ class Creneau
     /**
      * Remove disponibilites
      *
-     * @param \Transfer\ReservationBundle\Entity\Disponibilite $disponibilites
+     * @param \Transfer\ReservationBundle\Entity\Disponibilite $disponibilite
      */
-    public function removeDisponibilite(\Transfer\ReservationBundle\Entity\Disponibilite $disponibilites)
+    public function removeDisponibilite(\Transfer\ReservationBundle\Entity\Disponibilite $disponibilite)
     {
-        $this->disponibilites->removeElement($disponibilites);
+        $this->disponibilites->removeElement($disponibilite);
     }
 
     /**

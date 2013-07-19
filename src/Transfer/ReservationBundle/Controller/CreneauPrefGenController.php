@@ -14,23 +14,85 @@ use Transfer\ReservationBundle\Form\CreneauPrefGenType;
  */
 class CreneauPrefGenController extends Controller
 {
-         /**
+    public function selectTypeCamionAction(){
+        $entity = new \Transfer\ReservationBundle\Generateurs\TypeCamionSelector();
+        $form = $this->createForm(new \Transfer\ReservationBundle\Form\SelectTypeCamionType(),$entity);
+        
+        return $this->render('TransferReservationBundle:CreneauPref:selecttypecamion.html.twig', array(
+            'form' => $form->createView(),
+            ));
+    }    
+    
+    public function generateAjaxAction(Request $request){
+        $entity = new \Transfer\ReservationBundle\Generateurs\TypeCamionSelector();
+        $form = $this->createForm(new \Transfer\ReservationBundle\Form\SelectTypeCamionType(),$entity);
+        $form->bind($request);
+        if(!($form->isValid())){
+            throw new \Exception();
+        }        
+        return $this->generateAction($entity->getTypeCamion()->getId());
+    }
+    
+    
+    /**
      * Displays a form to generate CreneauRdv.
      *
      */
-    public function generateAction()
-    {
-        $em = $this->getDoctrine()->getManager();
+    public function generateAction($typeCamionId)
+    {           
         
-        $generateur = new CreneauPrefGen();
+        $em = $this->getDoctrine()->getManager();  
+        
+        $typeCamion = $em->getRepository('TransferReservationBundle:TypeCamion')
+                            ->find($typeCamionId);
+        
+        $generateur = $this->get('transfer_reservation.generateur.creneau_pref');    
+        
+        $generateur->setTypeCamion($typeCamion);
         
         $generateur->setEtatReservation($em->getRepository('TransferReservationBundle:EtatReservation')
                                         ->findByNom('A réserver'));
         $generateur->setStatut($em->getRepository('TransferReservationBundle:StatutCreneau')
-                                        ->findByNom('Actif'));        
+                                        ->findByNom('Actif'));       
         
-             
-         
+        $formType = new CreneauPrefGenType();
+        $agendas= $this->buildAgendas($em,$typeCamion);
+        $formType->setAgendas($agendas);
+        $form = $this->createForm($formType, $generateur);     
+        
+        return $this->render('TransferReservationBundle:CreneauPref:generate.html.twig', array(
+            'generateur' => $generateur,
+            'agendas' => $agendas,
+            'typecamion'=>$typeCamion,
+            'form'   => $form->createView(),
+        ));
+    }
+    /**
+     * Creates a new CreneauRdv Collection
+     *
+     */
+    public function createAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+      
+        $generateur = $this->get('transfer_reservation.generateur.creneau_pref');    
+        $form = $this->createForm(new CreneauPrefGenType(), $generateur);
+        $form->bind($request);
+        
+        $etat= $em->getRepository('TransferReservationBundle:EtatReservation')
+                        ->findByNom('A réserver');
+        $statut = $em->getRepository('TransferReservationBundle:StatutCreneau')
+                        ->findByNom('Actif');
+        
+        $generateur->setEtatReservation($etat[0]);
+        $generateur->setStatut($statut[0]);
+        if ($form->isValid()){           
+            $generateur->reserver();             
+        }                
+        return $this->redirect($this->generateUrl('creneauprefgen_selecttypecamion'));   
+    }
+    
+    public function buildAgendas($em, $typeCamion){
         // récupérer ici la liste des rdv pour le transporteur associé à l'utilisateur en cours
         // Affichage dans un agenda avec typage associé aux événements? (au moins pour Réservé/confirmé/annulé)
        
@@ -42,7 +104,9 @@ class CreneauPrefGenController extends Controller
             $creneauxStructure = new \Doctrine\Common\Collections\ArrayCollection(
                         $em->getRepository('TransferReservationBundle:creneauModele')
                                         ->findActifsByPoste($poste));
-       
+            
+            $this->get('transfer_reservation.reservation')->fixDisponibilites($creneauxStructure,array('persist'=>true));
+            
             $creneauxAffiches = new \Doctrine\Common\Collections\ArrayCollection(
                                 $em->getRepository('TransferReservationBundle:CreneauPref')
                                             ->findActifsByPoste($poste));
@@ -51,58 +115,13 @@ class CreneauPrefGenController extends Controller
             $min = (int)$minutesMin->format('H')*60 + (int)$minutesMin->format('i')-15;
             if($creneauxStructure){
                 $agendas->add( new \Transfer\MainBundle\Model\Agenda());
-                $agendas->last()->init(10,1980,$poste,1);
-                $agendas->last()->generateAgenda($creneauxStructure,$creneauxAffiches, $min ,1200);                
+                $agendas->last()->init(1,1980,$poste,1);
+                $agendas->last()->generateAgenda($creneauxStructure,$creneauxAffiches, $min ,1200);   
+                $calculator = new \Transfer\ReservationBundle\Services\SelectableCalculator();
+                $calculator->calculate($agendas->last(), $typeCamion);                
             }
             else{ return new \Symfony\Component\HttpFoundation\Response('<p> Planning non défini </p>');}
-        }      
-         
-        $formType = new CreneauPrefGenType();
-        $formType->setAgendas($agendas);
-        $form = $this->createForm($formType, $generateur);     
-        
-        return $this->render('TransferReservationBundle:CreneauPref:generate.html.twig', array(
-            'generateur' => $generateur,
-            'agendas' => $agendas,
-            'form'   => $form->createView(),
-        ));
-    }
-    /**
-     * Creates a new CreneauRdv Collection
-     *
-     */
-    public function createAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        
-//        Version sans formulaire, à partir du constructeur modifié
-//        $posteAutonome = $em->getRepository('TransferReservationBundle:TypePoste')->find(1);
-//        $generateur  = new CreneauModeleGen(6,0, 0, 19, 20,$posteAutonome->getDisponibilite() , $posteAutonome);                
-// 
-        
-        
-        $generateur = new CreneauRdvGen();
-        $form = $this->createForm(new CreneauRdvGenType(), $generateur);
-        $form->bind($request);        
-        
-        if ($form->isValid()){            
-           
-
-            $creneauxModeles = $em->getRepository('TransferReservationBundle:CreneauModele')->findAll();
-            
-            $generateur->setCreneauxModeles($creneauxModeles);
-            
-            $generateur->generateCreneauxRdvs(); 
-            
-            foreach ($generateur->getCreneauxRdvs() as $creneauRdv){
-                $em->persist($creneauRdv);
-            }        
-            $em->flush();  
-        }
-       
-        return $this->render('TransferReservationBundle:CreneauRdv:index.html.twig', array(
-            'entities'      => $generateur->getCreneauxRdvs()
-        ));
+        } 
+        return $agendas;
     }
 }

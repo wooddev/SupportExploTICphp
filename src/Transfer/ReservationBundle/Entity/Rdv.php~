@@ -78,16 +78,12 @@ class Rdv
     public function getCreneauRdv()
     {
         return $this->creneauRdv;
-    }
-
-    /**
-     * @var \Transfer\ProfilBundle\Entity\Transporteur
-     */
-    
+    }    
         
-    public function init($creneauRdv){
+    public function init($creneauRdv, $typeCamion, $options = null){
         $this->setCreneauRdv($creneauRdv);                
-        $this->setStatutRdv('provisoire');               
+        $this->setStatutRdv('provisoire');      
+        $this->setTypeCamion($typeCamion);
     }
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -157,5 +153,39 @@ class Rdv
     }
     public function getSemaine(){
         return $this->creneauRdv->getSemaine();
+    }
+    public function getDateHeureFin(){
+        return $this->creneauRdv->getDateHeureFin();
+    }
+    public function getDateHeureDebut(){
+        return $this->creneauRdv->getDateHeureDebut();
+    }
+    /**
+     * @var \Transfer\ReservationBundle\Entity\TypeCamion
+     */
+    private $typeCamion;
+
+
+    /**
+     * Set typeCamion
+     *
+     * @param \Transfer\ReservationBundle\Entity\TypeCamion $typeCamion
+     * @return Rdv
+     */
+    public function setTypeCamion(\Transfer\ReservationBundle\Entity\TypeCamion $typeCamion = null)
+    {
+        $this->typeCamion = $typeCamion;
+    
+        return $this;
+    }
+
+    /**
+     * Get typeCamion
+     *
+     * @return \Transfer\ReservationBundle\Entity\TypeCamion 
+     */
+    public function getTypeCamion()
+    {
+        return $this->typeCamion;
     }
 }

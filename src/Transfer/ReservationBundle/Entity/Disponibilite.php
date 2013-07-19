@@ -126,5 +126,9 @@ class Disponibilite
             $this->creneau = $creneau;
         }
     }
+    
+    function getTypeCamionNom(){
+        return $this->typeCamion->getNom();
+    }
 
 }

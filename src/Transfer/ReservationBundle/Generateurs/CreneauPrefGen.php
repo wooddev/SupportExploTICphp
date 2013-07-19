@@ -18,16 +18,20 @@ use Transfer\ReservationBundle\Entity\CreneauPref;
 class CreneauPrefGen {
     //put your code here  
     
-    private $creneauxModeles,
+    private $moteurReservation,
+            $creneauxModeles,
             $etatReservation,
             $statut,
             $transporteur,
+            $typeCamion,
             $creneauxPrefs;
-    
-    public function __construct(){
+
+
+       
+    public function __construct(\Transfer\ReservationBundle\Services\MoteurReservation $moteurReservation){
         $this->creneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->creneauxPrefs = new \Doctrine\Common\Collections\ArrayCollection();
-        
+        $this->moteurReservation = $moteurReservation;        
         return $this;
     }
     
@@ -79,6 +83,14 @@ class CreneauPrefGen {
     public function setStatut($statut) {
         $this->statut = $statut;
     }
+    
+    public function getTypeCamion() {
+        return $this->typeCamion;
+    }
+
+    public function setTypeCamion(\Transfer\ReservationBundle\Entity\TypeCamion $typeCamion) {
+        $this->typeCamion = $typeCamion;
+    }
         
     /**
      * function init
@@ -87,23 +99,19 @@ class CreneauPrefGen {
 
      */
    
-    public function init($creneauxModeles, $statut,$etatReservation,$transporteur)
+    public function init($creneauxModeles, $statut,$etatReservation,$transporteur,$typeCamion)
     {
         $this->creneauxModeles = $creneauxModeles;    
         $this->statut = $statut;
         $this->etatReservation= $etatReservation;
         $this->transporteur = $transporteur;
+        $this->typeCamion = $typeCamion;
     }
     
-    public function generate(){
+    public function reserver(){
         foreach($this->creneauxModeles as $creneauModele){
-            $this->creneauxPrefs->add(new CreneauPref());
-            $this->creneauxPrefs->last()->setCreneauModele($creneauModele);
-            $this->creneauxPrefs->last()->setStatut($this->statut);
-            $this->creneauxPrefs->last()->setEtatReservation($this->etatReservation);
-            $this->creneauxPrefs->last()->setTransporteur($this->transporteur);
-        }
-        return $this->creneauxPrefs;
+            $this->moteurReservation->reservation($creneauModele, $this->typeCamion,$this->transporteur);
+        }        
     }
 
    

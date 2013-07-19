@@ -1,7 +1,18 @@
-parameters:
-#    transfer_reservation.example.class: Transfer\ReservationBundle\Example
-
 services:
-#    transfer_reservation.example:
-#        class: %transfer_reservation.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    transfer_reservation.repository.param_reservation:
+        class: Transfer\ReservationBundle\Entity\ParamReservationRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments: ['TransferReservationBundle:ParamReservation']
+    transfer_reservation.parametres:
+        class: Transfer\ReservationBundle\Services\AccesParametres
+        arguments: ["@transfer_reservation.repository.param_reservation","@doctrine.orm.entity_manager"]
+    transfer_reservation.reservation:
+        class: Transfer\ReservationBundle\Services\MoteurReservation
+        arguments: ["@doctrine.orm.entity_manager","@transfer_reservation.parametres","@transfer_profil.acces"]
+    transfer_reservation.generateur.creneau_modele:
+        class: Transfer\ReservationBundle\Generateurs\CreneauModeleGen
+        arguments: ["@transfer_reservation.reservation","@transfer_reservation.parametres"]
+    transfer_reservation.generateur.creneau_pref:
+        class: Transfer\ReservationBundle\Generateurs\CreneauPrefGen
+        arguments: ["@transfer_reservation.reservation"]

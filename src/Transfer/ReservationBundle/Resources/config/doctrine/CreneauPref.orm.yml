@@ -13,6 +13,8 @@ Transfer\ReservationBundle\Entity\CreneauPref:
       targetEntity: EtatReservation     
     statut:
       targetEntity: StatutCreneau
+    typeCamion:
+      targetEntity: TypeCamion      
   fields:
     id:
       type: integer

@@ -1,0 +1,59 @@
+{%extends '::base.html.twig'%}
+
+{% form_theme form 'TransferReservationBundle:Form:fields.html.twig' %}
+
+{%block body%}
+<h3> Gestion des créneaux pré-attribués </h3>
+
+<div id="select_type_camion" class='div-plain'>
+    <form action="{{ path('creneauprefgen_generate_ajax') }}" method="post" {{ form_enctype(form) }}>
+        <div id='selector'>{{ form_widget(form) }}</div>
+    </form>
+</div>
+<div id='form_generator' class='div-plain'>
+
+</div>
+
+{# Script AJAX pour l'actualisation de la page#}
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script type='text/javascript'>
+$(document).ready(function() {
+    $.ajax({
+        type: "POST",
+        data: $('form').serialize(),
+        url: "{{ path('creneauprefgen_generate_ajax')}}",
+        success: function(retour){
+            $('#form_generator').html(retour);  
+
+
+        },
+        error: function(){
+             $('#form_generator').html('Impossible de charger le formulaire de gestion des créneaux pré-attribués');
+
+        }
+    });
+
+    
+    $('#selector').change(function(){   
+        $.ajax({
+            type: "POST",
+            data: $('form').serialize(),
+            url: "{{ path('creneauprefgen_generate_ajax')}}",
+            success: function(retour){
+                $('#form_generator').html(retour);  
+                 
+                  
+            },
+            error: function(){
+                 $('#form_generator').html('Impossible de charger le formulaire de gestion des créneaux pré-attribués');
+                
+                }
+        });
+
+        return false;
+    });
+});
+</script>
+{%endblock%}

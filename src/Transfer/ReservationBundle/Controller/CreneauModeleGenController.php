@@ -7,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Transfer\ReservationBundle\Entity\CreneauModele;
 use Transfer\ReservationBundle\Form\CreneauModeleType;
-use Transfer\ReservationBundle\Generateurs\CreneauModeleGen;
 use Transfer\ReservationBundle\Form\CreneauModeleGenType;
 
 /**
@@ -23,7 +22,7 @@ class CreneauModeleGenController extends Controller
     public function generateAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = new CreneauModeleGen();
+        $entity = $this->get('transfer_reservation.generateur.creneau_modele');
         $entity->init(6,0, 0, 19, 25,2, $em->getRepository('TransferReservationBundle:TypePoste')->find(1));           
         $form   = $this->createForm(new CreneauModeleGenType(), $entity);
 
@@ -45,7 +44,7 @@ class CreneauModeleGenController extends Controller
 //        $generateur  = new CreneauModeleGen(6,0, 0, 19, 20,$posteAutonome->getDisponibilite() , $posteAutonome);                
 // 
       
-        $generateur = new CreneauModeleGen();
+        $generateur = $this->get('transfer_reservation.generateur.creneau_modele');
         $form = $this->createForm(new CreneauModeleGenType(), $generateur);
         $form->bind($request);        
         
@@ -58,17 +57,9 @@ class CreneauModeleGenController extends Controller
             }
 
             $em->flush();
+                        
+            $generateur->generate();  
             
-            //################################################################
-            //Attribution des disponibilites par type de camion
-            //VERSION FIGEE ACTUELLEMENT            
-            $autonome  = $em->getRepository('TransferReservationBundle:TypeCamion')->findByNom('Fond Mouvant');
-            $autre  = $em->getRepository('TransferReservationBundle:TypeCamion')->findByNom('Autre type');            
-            $generateur->addDisponibilite($autonome[0], 2);
-            $generateur->addDisponibilite($autre[0], 1);            
-            //#################################################################
-            
-            $generateur->generate();        
             foreach ($generateur->getCreneauxModels() as $creneauModele){
                 $em->persist($creneauModele);
             }        

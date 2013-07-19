@@ -11,7 +11,7 @@ Transfer\ReservationBundle\Entity\Creneau:
       disponibilites:
         targetEntity: Disponibilite
         mappedBy: creneau
-        cascade: ["remove","persist"]
+        cascade: ["all"]
     fields:
         id:
             type: integer

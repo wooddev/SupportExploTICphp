@@ -11,3 +11,12 @@ table.tablesorter thead tr .header.headerSortUp {
 table.tablesorter thead tr .header.headerSortUp  {
     background-image: url(../images/desc.png);
 }
+
+.div-plain{
+    float:left;
+    width:100%;
+}
+
+div.blind{
+    display:none;
+}

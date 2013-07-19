@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
+        <meta charset="utf-8" />
         <title>Transfer Démo</title>
-    <!-- Bootstrap -->
-    {% include 'BraincraftedBootstrapBundle::_stylesheets.html.twig' %}
-    
+        <link href="{{asset('bundles/transfermain/bootstrap/css/bootstrap.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('bundles/transfermain/bootstrap/css/bootstrap-responsive.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('bundles/transfermain/css/style.css')}}" rel="stylesheet" type="text/css" />
+        
     </head>
     <body>
-        <div class="container">
-            <div class="row">
-                <div class="span3">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span2">
                         <h2>Menu </h2>
 
                         {% if is_granted("ROLE_DAB") %}
@@ -32,7 +34,7 @@
                             </li>
                         </ul>
                         <ul>Gestion des créneaux pré-réservés
-                            <li><a href="{{path('creneaupref_showtransporteur', {'idTransporteur': 1})}}"> creneaux préférentiels du transporteur 1 </a>
+                            <li><a href="{{path('creneauprefgen_selecttypecamion')}}"> Définir les créneaux pré-attribués aux transporteurs</a>
                             </li>
                         </ul>
                         
@@ -61,7 +63,7 @@
                         </ul>
                         {%endif%}
                 </div>          
-                <div class="span8">
+                <div class="span10">
                     <div>
                                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                         {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
@@ -79,10 +81,9 @@
               <!--Body content-->
                 </div>
             </div>
-        </div>            
-        <!--script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script-->
-{% include 'BraincraftedBootstrapBundle::_javascripts.html.twig' %}
+        </div>    
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="{{asset('bundles/transfermain/bootstrap/js/bootstrap.min.js')}}" />
 {% block script %} {%endblock%}
     </body>
 </html>

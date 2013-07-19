@@ -7,10 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Transfer\ReservationBundle\Entity\Rdv;
 use Transfer\ReservationBundle\Form\RdvType;
-use Transfer\ReservationBundle\Entity\CreneauRdv;
 use Transfer\ReservationBundle\Entity\Evenement;
-use Transfer\ReservationBundle\Recherche\RdvResultat;
-use Doctrine\Common\Collections\Criteria;
 /**
  * Rdv controller.
  *
@@ -37,7 +34,7 @@ class RdvController extends Controller
         // Affichage dans un agenda avec typage associé aux événements? (au moins pour Réservé/confirmé/annulé)
         $em = $this->getDoctrine()->getManager();        
         
-        $transporteur = $this->getUserTransporteur();
+        $transporteur = $this->get('transfer_profil.acces')->getTransporteur();
         $rdvs_provisoire = $em->getRepository('TransferReservationBundle:Rdv')
                                         ->findByStatutRdv($transporteur,$annee,$semaine,'provisoire');
         $rdvs_confirmes = $em->getRepository('TransferReservationBundle:Rdv')
@@ -56,7 +53,7 @@ class RdvController extends Controller
         // Affichage dans un agenda avec typage associé aux événements? (au moins pour Réservé/confirmé/annulé)
         $em = $this->getDoctrine()->getManager();        
         
-        $transporteur = $this->getUserTransporteur();
+        $transporteur = $this->get('transfer_profil.acces')->getTransporteur();
        
         $postes = $em->getRepository('TransferReservationBundle:TypePoste')->findall();
         
@@ -283,13 +280,13 @@ class RdvController extends Controller
         }
         else{return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');}
     }
-    
+        
     public function confirmationAction($id){
         $em=$this->getDoctrine()->getManager();
         
         $rdvConfirme= $em->getRepository('TransferReservationBundle:Rdv')
                                 ->find($id);
-        $transporteur = $this->getUserTransporteur();
+        $transporteur = $this->get('transfer_profil.acces')->getTransporteur();
         
         $rdvConfirme->setStatutRdv('confirme');
         $evenement = new Evenement();
@@ -320,90 +317,41 @@ class RdvController extends Controller
         }           
         
         return $this->reservation($creneauxRdvProcheDispo, $rdvEnCours->getTypeCamion());
-    }
-    
-    public function getUserTransporteur(){
-        /////////////////////////////////////////////////////////////////
-        //////Récupération du transporteur associé à l'utilisateur///////
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        if(! is_object($user))
-        {
-            return new \Symfony\Component\HttpFoundation\Response('Veuillez vous authentifier');          
-        }     
-
-        if(!(is_object($user->getAgentTrsp()))){
-            return new \Symfony\Component\HttpFoundation\Response("
-                L'administrateur doit relier votre compte à une entreprise de transport");          
-        }   
-        return $user->getAgentTrsp()->getTransporteur();
-        //////////////////////////////////////////////////////////////
-    }
+    }    
     
     public function reservation($creneauxRdv, $typeCamion){
         foreach ($creneauxRdv as $creneauRdv){
-            $em = $this->getDoctrine()->getManager();
-            $creneauRdvSync = $em->getRepository('TransferReservationBundle:CreneauRdv')                    
-                                        ->tryBooking($creneauRdv, $typeCamion);
-            if(!($creneauRdvSync)){
-                //on passe au suivant
-            }else{ // Le créneau a été synchronisé par le repository et sa dispo réduite
-                
-                $transporteur = $this->getUserTransporteur();    
-                
-                //Vidange du panier du transporteur
-                $this->vidangePanier($transporteur);
-                
-                // création du rdv recherché
-                $rdv = new \Transfer\ReservationBundle\Entity\Rdv();                
-                $rdv->init($creneauRdvSync, $typeCamion);       
-                
-                // Création de l'évenement de réservation
-                $evenement = new Evenement();
-                $evenement->setRdv($rdv);
-                $evenement->setTransporteur($transporteur);
-                $evenement->setType('reservation');
-                
-                $em->persist($rdv);
-                $em->persist($evenement);
-                $em->flush();
-                
+            if(!($this->get('transfer_reservation.moteur')->reservation($creneauRdv,$typeCamion))){
                 return $this->redirect($this->generateUrl(
                         'rdv_transporteur',
                         array(
-                              'annee' =>  $creneauRdvSync->getAnnee(),
-                              'semaine'=> $creneauRdvSync->getSemaine())                                                                                                                              
+                              'annee' =>  $creneauRdv->getAnnee(),
+                              'semaine'=> $creneauRdv->getSemaine())                                                                                                                              
                 ));
             }
         }  
-    }
+    } 
     
-    public function vidangePanier($transporteur){
-        //Vidange du panier
-        //Recherche de rdv provisoires existants     
-        $em = $this->getDoctrine()->getManager();
-        $provisoires = $em->getRepository('TransferReservationBundle:Rdv')
-                                ->findByStatutRdvForTrsp('provisoire', $transporteur);
-        //suppression des provisoires existants
-        if($provisoires){
-            foreach ($provisoires as $provisoire){
-                //Remontée des dispo totales et par type de camion
-                $creneauRdvProvisoire = $provisoire->getCreneauRdv();
-                $creneauRdvProvisoire->setDisponibiliteTotale($creneauRdvProvisoire->getDisponibiliteTotale()+1);
-                $criteria =  Criteria::create()
-                                ->Where(Criteria::expr()
-                                            ->eq("typeCamion",$provisoire->getTypeCamion()));
-                $creneauRdvProvisoire->getDisponibilites()
-                                            ->matching($criteria)
-                                                ->first()
-                                                    ->setValeurUp();                                
-                $em->persist($creneauRdvProvisoire);
-                $em->remove($provisoire);
-            }
-            $em->flush(); 
-            return true; 
-        }  
-        return false;
-        
-    }
+       
+//    public function rechercheCreneauxRdv($date,$periode){
+//        //Récupération des créneaux disponibles dans la plage recherchée
+//        $creneauxRdvBruts = $em->getRepository('TransferReservationBundle:CreneauRdv')
+//                                ->findByRecherche($rdvRecherche);
+//        if ($creneauxRdvBruts == null){
+//            return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');
+//        }
+//
+//        //Construction d'une collection afin de pouvoir trier les créneaux
+//        $creneauxRdvTries = new \Transfer\MainBundle\Model\Sorter();
+//        foreach ($creneauxRdvBruts as $creneauRdvBrut){    
+//            //Encapsulation des créneaux dans un objet RdvResultat (pour faire les opérations de tri)
+//            $creneauxRdvTries->add(new \Transfer\ReservationBundle\Recherche\RdvResultat($creneauRdvBrut,$rdvRecherche));            
+//        }
+//
+//        $creneauxRdvTries->sortArray('getDiffTemps');
+//
+//        return $this->reservation($creneauxRdvTries,$rdvRecherche->getTypeCamion()); 
+//    }
+    
     
 }

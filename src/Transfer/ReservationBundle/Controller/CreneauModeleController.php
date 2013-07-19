@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Transfer\ReservationBundle\Entity\CreneauModele;
 use Transfer\ReservationBundle\Form\CreneauModeleType;
 use Transfer\ReservationBundle\Generateurs\CreneauModeleGen;
+use Transfer\ReservationBundle\Entity\Disponibilite;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * CreneauModele controller.
@@ -176,6 +178,6 @@ class CreneauModeleController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
-    }
+    }    
     
 }

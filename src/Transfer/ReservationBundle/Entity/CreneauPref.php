@@ -29,7 +29,11 @@ class CreneauPref
      * @var \Transfer\ReservationBundle\Entity\EtatReservation
      */
     private $etatReservation;
-
+  
+    /**
+     * @var \Transfer\ReservationBundle\Entity\TypeCamion
+     */
+    private $typeCamion;
 
     /**
      * Get id
@@ -141,5 +145,40 @@ class CreneauPref
     public function getCreneauStructure(){
         return $this->getCreneauModele();
     }    
+  
+
+
+    /**
+     * Set typeCamion
+     *
+     * @param \Transfer\ReservationBundle\Entity\TypeCamion $typeCamion
+     * @return CreneauPref
+     */
+    public function setTypeCamion(\Transfer\ReservationBundle\Entity\TypeCamion $typeCamion = null)
+    {
+        $this->typeCamion = $typeCamion;
+    
+        return $this;
+    }
+
+    /**
+     * Get typeCamion
+     *
+     * @return \Transfer\ReservationBundle\Entity\TypeCamion 
+     */
+    public function getTypeCamion()
+    {
+        return $this->typeCamion;
+    }
+    
+    
+    public function init($creneauModele, $typeCamion, $options){
+        $this->setCreneauModele($creneauModele);
+        $this->setTypeCamion($typeCamion);
+        $this->setStatut($options['statut']);
+        $this->setEtatReservation($options['etatReservation']);       
+    }
+
+            
     
 }

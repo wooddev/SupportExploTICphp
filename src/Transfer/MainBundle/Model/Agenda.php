@@ -78,18 +78,27 @@ class Agenda {
     public function getCreneauxAgenda() {
         return $this->creneauxAgenda;
     }
+    
+    public function formatWeek($int){
+        if(strlen($int)==1){
+            $formatWeek = (string)'0'.$int;
+        }else{
+            $formatWeek = (string) $int;
+        }
+	return $formatWeek;	
+    }
+    
     public function init($week,$year, $poste = null, $duree = 1){
         
         $this->week =  $week;
         $this->year =  $year;
         $this->poste = $poste;
         
-        $this->dateDebut = new \DateTime($this->year.'W'.$this->week."1");
-        
-        
+        $this->dateDebut = new \DateTime($this->year.'W'.$this->formatWeek($week)."1");
+                
         if($week>48){ // gestion de la fin d'année ici aussi
-            $this->dateFin = new \DateTime(($this->year+1).'W'.($this->week+$duree-1-52)."6");
-        }else $this->dateFin = new \DateTime(($this->year).'W'.($this->week+$duree-1)."6");
+            $this->dateFin = new \DateTime(($this->year+1).'W'.$this->formatWeek($this->week+$duree-1-52)."6");
+        }else $this->dateFin = new \DateTime(($this->year).'W'.$this->formatWeek($this->week+$duree-1)."6");
     }             
     
     public function generateAgenda($creneauxStructures, $creneauxAffiches,$minDebut,$minFin){

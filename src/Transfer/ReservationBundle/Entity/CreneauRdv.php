@@ -181,4 +181,11 @@ class CreneauRdv extends Creneau
     {
         return $this->dateHeureFin;
     }
+    
+    public function getNbReservation(TypeCamion $typeCamion){
+        $criteria = Criteria::create()
+                            ->Where(Criteria::expr()
+                                ->eq("typeCamion",$typeCamion));           
+        return $this->getRdvs()->matching($criteria)->count();           
+    }
 }

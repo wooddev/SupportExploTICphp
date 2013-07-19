@@ -32,18 +32,7 @@ class CreneauModeleRepository extends EntityRepository
         return $qb;                
     }
 
-    
-    public function find($id){
-        return $this->getEntityManager()
-                ->createQuery('
-                SELECT cm
-                FROM TransferReservationBundle:CreneauModele cm
-                WHERE cm.id = :id               
-                ')
-                ->setParameter(':id',$id)
-                ->getResult();
-    }
-    
+       
     public function findByNomStatut($nomStatut){
         return $this->getEntityManager()
                 ->createQuery('

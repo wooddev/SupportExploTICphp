@@ -3,6 +3,7 @@
 namespace Transfer\ReservationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM; 
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * CreneauModele
@@ -12,16 +13,17 @@ class CreneauModele extends Creneau
         
     public function init($disponibiliteTotale, $jour, $heure,
             $minute,$duree,
-            \Transfer\ReservationBundle\Entity\TypePoste $typePoste) 
+            \Transfer\ReservationBundle\Entity\TypePoste $typePoste
+            ) 
     {    
         $this->setDisponibiliteTotale($disponibiliteTotale);
         $this->setJour($jour);
         $this->setHeure($heure);    
         $this->setMinute($minute);
         $this->setDuree($duree);
-
-        $this->setTypePoste($typePoste);     
-                         
+        
+        $this->setTypePoste($typePoste);            
+        
         $this->setHeureDebut(new \DateTime);
 
         $this->getHeureDebut()->setISODate(2000,1,$jour);
@@ -91,5 +93,18 @@ class CreneauModele extends Creneau
                 .$this->getMinute().'-'
                 .$this->getDuree().' min /'
                 .$this->getTypePoste()->getNom();
+    }
+    
+    public function getSelectable(){
+        
+        $criteria = Criteria::create()
+                       ->where(Criteria::expr()->eq("statut",1)); 
+        
+        if ($this->creneauxPrefs->matching($criteria)->count()==0){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

@@ -16,11 +16,6 @@ class CreneauPref
     private $id;
 
     /**
-     * @var integer
-     */
-    private $disponibiliteTotale;
-
-    /**
      * @var \Transfer\ReservationBundle\Entity\CreneauModele
      */
     private $creneauModele;
@@ -34,7 +29,11 @@ class CreneauPref
      * @var \Transfer\ReservationBundle\Entity\EtatReservation
      */
     private $etatReservation;
-
+  
+    /**
+     * @var \Transfer\ReservationBundle\Entity\TypeCamion
+     */
+    private $typeCamion;
 
     /**
      * Get id
@@ -44,30 +43,7 @@ class CreneauPref
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set disponibiliteTotale
-     *
-     * @param integer $disponibiliteTotale
-     * @return CreneauPref
-     */
-    public function setDisponibiliteTotale($disponibiliteTotale)
-    {
-        $this->disponibiliteTotale = $disponibiliteTotale;
-    
-        return $this;
-    }
-
-    /**
-     * Get disponibiliteTotale
-     *
-     * @return integer 
-     */
-    public function getDisponibiliteTotale()
-    {
-        return $this->disponibiliteTotale;
-    }
+    }    
 
     /**
      * Set creneauModele
@@ -168,5 +144,41 @@ class CreneauPref
     
     public function getCreneauStructure(){
         return $this->getCreneauModele();
+    }    
+  
+
+
+    /**
+     * Set typeCamion
+     *
+     * @param \Transfer\ReservationBundle\Entity\TypeCamion $typeCamion
+     * @return CreneauPref
+     */
+    public function setTypeCamion(\Transfer\ReservationBundle\Entity\TypeCamion $typeCamion = null)
+    {
+        $this->typeCamion = $typeCamion;
+    
+        return $this;
     }
+
+    /**
+     * Get typeCamion
+     *
+     * @return \Transfer\ReservationBundle\Entity\TypeCamion 
+     */
+    public function getTypeCamion()
+    {
+        return $this->typeCamion;
+    }
+    
+    
+    public function init($creneauModele, $typeCamion, $options){
+        $this->setCreneauModele($creneauModele);
+        $this->setTypeCamion($typeCamion);
+        $this->setStatut($options['Statut']);
+        $this->setEtatReservation($options['EtatReservation']);       
+    }
+
+            
+    
 }

@@ -78,14 +78,9 @@ class Rdv
     public function getCreneauRdv()
     {
         return $this->creneauRdv;
-    }
-
-    /**
-     * @var \Transfer\ProfilBundle\Entity\Transporteur
-     */
-    
+    }    
         
-    public function init($creneauRdv, $typeCamion){
+    public function init($creneauRdv, $typeCamion, $options = null){
         $this->setCreneauRdv($creneauRdv);                
         $this->setStatutRdv('provisoire');      
         $this->setTypeCamion($typeCamion);

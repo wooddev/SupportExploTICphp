@@ -1,0 +1,30 @@
+typecamion:
+    pattern:  /
+    defaults: { _controller: "TransferReservationBundle:TypeCamion:index" }
+
+typecamion_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TransferReservationBundle:TypeCamion:show" }
+
+typecamion_new:
+    pattern:  /new
+    defaults: { _controller: "TransferReservationBundle:TypeCamion:new" }
+
+typecamion_create:
+    pattern:  /create
+    defaults: { _controller: "TransferReservationBundle:TypeCamion:create" }
+    requirements: { _method: post }
+
+typecamion_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TransferReservationBundle:TypeCamion:edit" }
+
+typecamion_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TransferReservationBundle:TypeCamion:update" }
+    requirements: { _method: post|put }
+
+typecamion_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TransferReservationBundle:TypeCamion:delete" }
+    requirements: { _method: post|delete }

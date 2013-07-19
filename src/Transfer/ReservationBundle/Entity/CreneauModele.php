@@ -107,4 +107,11 @@ class CreneauModele extends Creneau
             return false;
         }
     }
+    
+    public function getNbReservation(TypeCamion $typeCamion){
+        $criteria = Criteria::create()
+                            ->Where(Criteria::expr()
+                                ->eq("typeCamion",$typeCamion));           
+        return $this->getCreneauxPrefs()->matching($criteria)->count();           
+    }
 }

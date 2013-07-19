@@ -5,5 +5,5 @@ Transfer\ReservationBundle\Entity\CreneauModele:
       creneauxPrefs:
         targetEntity: CreneauPref
         mappedBy: creneauModele                  
-    repositoryClass: Transfer\ReservationBundle\Entity\CreneauModeleRepository          
+    repositoryClass: Transfer\ReservationBundle\Entity\CreneauModeleRepository               
     lifecycleCallbacks: {  }

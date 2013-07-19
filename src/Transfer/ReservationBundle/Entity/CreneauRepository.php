@@ -11,5 +11,40 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class CreneauRepository extends EntityRepository
-{
+{    
+   
+    
+    public function testReservation($creneau, $typeCamion){
+        $em= $this->getEntityManager();
+
+        $query = $this->getEntityManager()->createQuery(
+        "SELECT dispo
+        FROM TransferReservationBundle:disponibilite dispo
+        JOIN dispo.creneau cr
+        JOIN dispo.typeCamion tc
+        WHERE cr.id = :creneau
+        AND tc.id = :typeCamion
+        ");
+
+        $query->setParameters(array(
+            'typeCamion'=>$typeCamion->getId(),
+            'creneau'=>$creneauTest->getId(),
+                ));
+
+        $dispo = $query->getSingleResult();
+        
+        if( ($creneau->getDisponibiliteTotale() >0) AND ($dispo->getValeur()>0) ){
+            $creneau->setDisponibiliteTotale($creneau->getDisponibiliteTotale()-1);
+            $dispo->setValeur($dispo->getValeur()-1);
+            $em->persist($dispo);
+            $em->persist($creneau);
+            $em->flush();
+            return true;
+        }        
+        return false;               
+    }
+    
+    public function SupprimerReservation($creneau, $typeCamion){
+        
+    }
 }

@@ -11,7 +11,7 @@ namespace Transfer\MainBundle\Model;
 class AgendaCreneau{
     private $val;
     private $creneauStructure;
-    private $creneauAffiche;
+    private $creneauxAffiches;
     private $dateTimeDebut;
     private $dateTimeFin;
     private $year;
@@ -20,7 +20,7 @@ class AgendaCreneau{
     private $minuteDebut; // minutes de début et fin du créneau % à la journée
     private $duree;
     private $type;
-            
+                
     public function getYear() {
         return $this->year;
     }
@@ -50,8 +50,8 @@ class AgendaCreneau{
         return $this->creneauStructure;
     }
 
-    public function getCreneauAffiche() {
-        return $this->creneauAffiche;
+    public function getCreneauxAffiches() {
+        return $this->creneauxAffiches;
     }
     
     public function getDateTimeDebut() {
@@ -74,8 +74,8 @@ class AgendaCreneau{
         $this->creneauStructure = $CreneauStructure;
     }
 
-    public function setCreneauAffiche($CreneauAffiche) {
-        $this->creneauAffiche = $CreneauAffiche;
+    public function AddCreneauAffiche($CreneauAffiche) {
+        $this->creneauxAffiches->add($CreneauAffiche);
     }
     
     public function setDateTimeDebut($dateTimeDebut) {
@@ -102,30 +102,31 @@ class AgendaCreneau{
         $this->type = $type;
     }
     
-    public function __construct($creneauStructure,$creneauAffiche,                                                
+    public function __construct($creneauStructure,                                                
                         $dateTimeDebut,$dateTimeFin,
-                        $type){
-        $this->init($creneauStructure,$creneauAffiche,                                                
+                        $type)
+    {
+        $this->creneauxAffiches = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->init($creneauStructure,                                                
                         $dateTimeDebut,$dateTimeFin,
                         $type);
     }
 
         
-    public function init($creneauStructure,$creneauAffiche,                                                
+    public function init($creneauStructure,                                                
                         $dateTimeDebut,$dateTimeFin,
                         $type)
     {
         $this->creneauStructure = $creneauStructure;
-        $this->creneauAffiche = $creneauAffiche;
         $this->dateTimeDebut = $dateTimeDebut;
         $this->dateTimeFin = $dateTimeFin;        
         $this->year = idate('Y',$dateTimeDebut->getTimestamp());
         $this->week = idate('W',$dateTimeDebut->getTimestamp());
-        $this->minuteDebut =    (integer)$dateTimeDebut->format('h')*60
-                               +(integer)$dateTimeDebut->format('i');        
-        $this->duree =  (integer)$dateTimeFin->format('h')*60
-                       +(integer)$dateTimeFin->format('i')
-                       -$this->minuteDebut;
+        $this->minuteDebut =    idate('i',$dateTimeDebut->getTimestamp())+
+                                (idate('H',$dateTimeDebut->getTimestamp())*60);        
+        $this->duree =  idate('i',$dateTimeFin->getTimestamp())+
+                        (idate('H',$dateTimeFin->getTimestamp())*60) 
+                        -$this->minuteDebut;
         $this->type = $type;
     }
       
