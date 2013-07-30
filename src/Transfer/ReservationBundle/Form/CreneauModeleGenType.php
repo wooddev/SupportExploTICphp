@@ -40,6 +40,12 @@ class CreneauModeleGenType extends AbstractType
                 'class'=>'Transfer\ReservationBundle\Entity\TypePoste',
                 'property'=>'nom'
             ))
+//            ->add('statut','entity',array(
+//                'class'=>'Transfer\ReservationBundle\Entity\StatutCreneau',
+//                'property'=>'nom',
+//                'label'=>'Statut des créneaux (non modifiable)',
+//                'read_only'=>true,
+//            ))
         ;
     }
 

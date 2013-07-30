@@ -6,11 +6,11 @@ Transfer\ReservationBundle\Entity\Rdv:
       evenements:
         targetEntity: Evenement
         mappedBy: rdv
-        cascade: ["remove","persist"]
+        cascade: ["all"]          
     manyToOne:
       creneauRdv:
         targetEntity: CreneauRdv
-        inversedBy: Rdvs     
+        inversedBy: rdvs     
       typeCamion:
         targetEntity: TypeCamion        
     fields:

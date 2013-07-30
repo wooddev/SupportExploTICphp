@@ -111,6 +111,81 @@ class RdvRepository extends EntityRepository
         
         return $query->getResult();        
     }
+    
+    public function findByJourPoste($poste,$annee,$semaine,$jour,$statut){
+        $query = $this->getEntityManager()->createQuery("
+            SELECT r
+            FROM TransferReservationBundle:Rdv r
+            JOIN r.creneauRdv cr
+            JOIN cr.typePoste tp
+            WHERE cr.annee = :annee
+            AND cr.semaine = :semaine
+            AND cr.jour = :jour
+            AND tp.id = :idPoste
+            AND r.statutRdv = :statut
+            ");
+       $query->setParameters(array(
+           'annee'=>$annee,
+           'semaine'=>$semaine,
+           'jour'=>$jour,
+           'idPoste'=>$poste->getId(),
+           'statut'=>$statut,
+       ));
+       return $query->getResult();
+    }
+    public function findBySemainePoste($poste,$annee,$semaine,$statut){
+        $query = $this->getEntityManager()->createQuery("
+            SELECT r
+            FROM TransferReservationBundle:Rdv r
+            JOIN r.creneauRdv cr
+            JOIN cr.typePoste tp
+            WHERE cr.annee = :annee
+            AND cr.semaine = :semaine
+            AND tp.id = :idPoste
+            AND r.statutRdv = :statut
+            ");
+       $query->setParameters(array(
+           'annee'=>$annee,
+           'semaine'=>$semaine,
+           'idPoste'=>$poste->getId(),
+           'statut'=>$statut,
+       ));
+       return $query->getResult();
+    }
+    /**
+     * récupère les Rdv provisoires réalisés après l'intervalle de temps
+     * fixé dans les paramètres et associés aux créneaux de la semaine en cours
+     * et de la semaine suivante (pour des raisons de performances)
+     * 
+     * 
+     * @param type $interval
+     * @return type
+     */
+    public function findProvisoires($interval){
+        $q = $this->getEntityManager()->createQuery("
+            SELECT r
+            FROM TransferReservationBundle:Rdv r
+            JOIN r.evenements e
+            JOIN r.creneauRdv cr
+            WHERE r.statutRdv = 'provisoire'
+            AND e.type = 'reservation'
+            AND e.dateRealisation <= :dateReservation   
+            AND cr.dateHeureDebut BETWEEN :dateCreneau1 AND :dateCreneau2
+            ");
+        $dateReservation = new \DateTime();
+        $dateReservation->sub($interval);
+        
+        $dateCreneau1 = new \DateTime('monday this week');
+        $dateCreneau2 = new \DateTime('sunday next week');
+        
+        $q->setParameters(array(
+            'dateReservation'=> $dateReservation ,
+            'dateCreneau1'=>$dateCreneau1,
+            'dateCreneau2'=>$dateCreneau2,
+            ));
+        return $q->getResult();
+        
+    }
       
             
 }

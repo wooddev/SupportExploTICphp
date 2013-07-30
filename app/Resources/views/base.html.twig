@@ -5,65 +5,84 @@
         <title>Transfer Démo</title>
         <link href="{{asset('bundles/transfermain/bootstrap/css/bootstrap.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('bundles/transfermain/bootstrap/css/bootstrap-responsive.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('bundles/transfermain/css/style.css')}}" rel="stylesheet" type="text/css" />
-        
+        <link href="{{asset('bundles/transfermain/css/style.css')}}" rel="stylesheet" type="text/css" />        
     </head>
-    <body>
+    <body>        
         <div class="container-fluid">
             <div class="row-fluid">
-                <div class="span2">
-                        <h2>Menu </h2>
-
-                        {% if is_granted("ROLE_DAB") %}
-                        <ul> Gestion du site
-                            <li><a href="{{path('typeposte')}}">  Gestion des postes de déchargement </a>
-                            </li>
-                            <li><a href="{{path('transporteur')}}">  Gestion des transporteurs </a>
-                            </li>                            
-                            <li><a href="{{path('agenttrsp')}}">  Gestion des agents des transporteurs </a>
-                            </li>                            
-                            <li><a href="{{path('fos_user_registration_register')}}">  nouvel utilisateur </a>
-                            </li>
-                            <li><a href="{{path('user')}}">  Liste des utilisateurs </a>
-                            </li>
-                        </ul>                        
-                        <ul> Gestion des modèles de planning
-                            <li><a href="{{path('creneaumodele_generate')}}">  Générer les créneaux modèles </a>
-                            </li>
-                            <li> <a href="{{path('creneaumodele')}}">  liste des créneaux modèles</a>
-                            </li>
-                        </ul>
-                        <ul>Gestion des créneaux pré-réservés
-                            <li><a href="{{path('creneauprefgen_selecttypecamion')}}"> Définir les créneaux pré-attribués aux transporteurs</a>
-                            </li>
-                        </ul>
+                <div class="span3">
                         
-                        <ul> Gestion des créneaux pour la recherche de rendez-vous
-                            <li><a href="{{path('creneaurdv')}}"> liste créneaux rdv </a>
-                            </li>
-                            <li><a href="{{path('creneaurdvgen_generate')}}"> génération des créneaux rdv pour une semaine </a>
-                            </li>
-                            <li><a href="{{path('creneaurdv_recherche_supprimer')}}"> suppression d'une plage de créneaux rdv</a>
-                            </li>
-                        </ul>
-                        <ul> Gestion de la base de données
-                            <li><a href="{{path('reset_form')}}"> Réinitialiser la base </a>
-                            </li>
-                        </ul>
-                        {%elseif is_granted('ROLE_USER')%}
-                        <ul> Gérer mon planning
-                            <li> <a href="{{path('creneaurdv_recherche',{'annee':2013,'semaine': 'now'|date('W')})}}"> rechercher un Créneau pour la <b>semaine en cours </b></a>
-                            </li>
-                            <li> <a href="{{path('creneaurdv_recherche',{'annee':2013,'semaine':(1+('now'|date('W')))})}}"> rechercher un Créneau pour la <b>semaine prochaine</b> </a>
-                            </li>
-                            <li><a href="{{path('rdv_transporteur',{'annee':2013,'semaine': 'now'|date('W')})}}">Mes créneaux pour la semaine en cours </a>
-                            </li>                     
-                            <li><a href="{{path('rdv_transporteur',{'annee':2013,'semaine': (1+('now'|date('W')))})}}">Mes créneaux pour la semaine prochaine </a>
-                            </li>                     
-                        </ul>
-                        {%endif%}
+                        <div class="dropdown clearfix">
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin-bottom: 5px; *width: 180px;">        
+                        {% if is_granted("ROLE_RECEP") %}
+                        <li><div class="menu-titre">Arrivées du jour</div></li>
+                                <li ><a tabindex="-1"  href="{{ path('planning_jour',{'date':'now'}) }}">  Planning </a>
+                                </li>
+                                <li><a tabindex="-1" href="{#{path('acquittement')}#}#">  Acquittement des livraisons </a>
+                                </li>
+                                <li class="divider"></li>
+                            {%endif%}
+                            {% if is_granted("ROLE_DAB") %}
+                                <div class="menu-titre"> Gestion du site</div>
+                                <li><a href="{{path('typeposte')}}">  Gestion des postes de déchargement </a>
+                                </li>
+                                <li><a href="{{path('transporteur')}}">  Gestion des transporteurs </a>
+                                </li>                            
+                                <li><a href="{{path('agenttrsp')}}">  Gestion des agents des transporteurs </a>
+                                </li>                            
+                                <li><a href="{{path('fos_user_registration_register')}}">  nouvel utilisateur </a>
+                                </li>
+                                <li><a href="{{path('user')}}">  Liste des utilisateurs </a>
+                                </li>
+                                <li class="divider"></li>
+                                <div class="menu-titre"> Gestion des modèles de planning</div>
+                                <li><a href="{{path('creneaumodele_generate')}}">  Générer les créneaux modèles </a>
+                                </li>
+                                <li> <a href="{{path('creneaumodele')}}">  liste des créneaux modèles</a>
+                                </li>
+                                <li class="divider"></li>
+                                <div class="menu-titre">Gestion des créneaux pré-réservés</div>
+                                <li><a href="{{path('creneauprefgen_selecttypecamion')}}"> Définir les créneaux pré-attribués aux transporteurs</a>
+                                </li>
+                                <li><a href="{{path('creneaupref_reservation',{'semaine':'now'|date('W'),'annee':'now'|date('Y')} )}}"> Forcer la réservation automatique de créneaux</a>
+                                </li>
+                                <li class="divider"></li>
+                                <div class="menu-titre">Gestion des créneaux pour la recherche de rendez-vous</div>
+                                <li><a href="{{path('creneaurdv')}}"> liste créneaux rdv </a>
+                                </li>
+                                <li><a href="{{path('creneaurdvgen_generate')}}"> génération des créneaux rdv pour une semaine </a>
+                                </li>
+                                <li><a href="{{path('creneaurdv_recherche_supprimer')}}"> suppression d'une plage de créneaux rdv</a>
+                                </li>
+                                <li class="divider"></li>
+                                <div class="menu-titre">Gestion des rendez-vous</div>
+                                <li><a href="{{path('planning_semaine',{'date':'now'})}}"> Planning de la semaine en cours</a>
+                                </li>
+                                <li class="divider"></li>
+                                <div class="menu-titre">Gestion de l'application Transfer</div>
+                                <li><a href="{{path('paramreservation_init')}}"> Réinitialiser les paramètres de réservation </a>
+                                </li>
+                                <li><a href="{{path('paramreservation')}}"> Editer les paramètres de réservation </a>
+                                </li>
+                                <li><a href="{{path('reset_form')}}"> Réinitialiser la base </a>
+                                </li>
+
+                            {%elseif is_granted('ROLE_USER')%}
+                                <li class="divider"></li>
+                                <div class="menu-titre">Gérer mon planning</div>
+                                <li> <a href="{{path('creneaurdv_recherche',{'annee':2013,'semaine': 'now'|date('W')})}}"> rechercher un Créneau pour la <b>semaine en cours </b></a>
+                                </li>
+                                <li> <a href="{{path('creneaurdv_recherche',{'annee':2013,'semaine':(1+('now'|date('W')))})}}"> rechercher un Créneau pour la <b>semaine prochaine</b> </a>
+                                </li>
+                                <li><a href="{{path('rdv_transporteur',{'annee':2013,'semaine': 'now'|date('W')})}}">Mes créneaux pour la semaine en cours </a>
+                                </li>                     
+                                <li><a href="{{path('rdv_transporteur',{'annee':2013,'semaine': (1+('now'|date('W')))})}}">Mes créneaux pour la semaine prochaine </a>
+                                </li>                   
+                            {%endif%}
+                            </ul>                              
+                        </div>
                 </div>          
-                <div class="span10">
+                <div class="span9">
                     <div>
                                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                         {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
@@ -83,7 +102,7 @@
             </div>
         </div>    
         <script src="http://code.jquery.com/jquery.js"></script>
-        <script src="{{asset('bundles/transfermain/bootstrap/js/bootstrap.min.js')}}" />
+       
 {% block script %} {%endblock%}
     </body>
 </html>

@@ -5,6 +5,10 @@ creneaupref:
 creneaupref_reset:
     pattern:  /reset
     defaults: { _controller: "TransferReservationBundle:CreneauPref:reset" }
+    
+creneaupref_reservation:
+    pattern:  /reservationauto/{semaine}/{annee}
+    defaults: { _controller: "TransferReservationBundle:CreneauPref:reservationAuto" }
 
 creneaupref_show:
     pattern:  /{id}/show

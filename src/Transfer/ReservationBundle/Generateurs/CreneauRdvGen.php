@@ -17,6 +17,7 @@ class CreneauRdvGen {
     private $creneauxModeles;
     private $week;
     private $year;
+    private $statut;
     
     private $creneauxRdvs;
     
@@ -47,6 +48,7 @@ class CreneauRdvGen {
         $this->week = $week;
         $this->year = $year;    
         $this->creneauxRdvs = new \Doctrine\Common\Collections\ArrayCollection();
+        
     }
     
     public function setCreneauxModeles($creneauxModeles){                
@@ -76,6 +78,16 @@ class CreneauRdvGen {
     }
 
     
+    public function getStatut() {
+        return $this->statut;
+    }
+
+    public function setStatut($statut) {
+        $this->statut = $statut;
+    }
+
+        
+    
     /**
      * 
      */
@@ -94,15 +106,8 @@ class CreneauRdvGen {
             $this->creneauxRdvs->last()->setTypePoste($creneauModele->getTypePoste());
             $this->creneauxRdvs->last()->setAnnee($this->year);
             $this->creneauxRdvs->last()->setSemaine($this->week);   
+            $this->creneauxRdvs->last()->setStatut($this->statut);   
             $this->creneauxRdvs->last()->calculDateTime();
-            foreach($creneauModele->getDisponibilites() as $disponibilite){
-                $this->creneauxRdvs->last()
-                        ->AddDisponibilite(
-                                new \Transfer\ReservationBundle\Entity\Disponibilite(
-                                        $disponibilite->getValeur(),
-                                        $disponibilite->getTypeCamion(),
-                                        $this->creneauxRdvs->last()));
-            }
             
         }   
     }

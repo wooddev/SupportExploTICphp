@@ -23,6 +23,14 @@ class CreneauPrefGenController extends Controller
             ));
     }    
     
+    /**
+     * Récupère le type de camion choisi par l'utilisateur (mode AJAX)
+     * 
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return type
+     * @throws \Exception
+     */
+    
     public function generateAjaxAction(Request $request){
         $entity = new \Transfer\ReservationBundle\Generateurs\TypeCamionSelector();
         $form = $this->createForm(new \Transfer\ReservationBundle\Form\SelectTypeCamionType(),$entity);
@@ -45,7 +53,7 @@ class CreneauPrefGenController extends Controller
         
         $typeCamion = $em->getRepository('TransferReservationBundle:TypeCamion')
                             ->find($typeCamionId);
-        
+        //On utilise la classe creneauPrefGen pour concevoir le formulaire de création des créneaux prefs
         $generateur = $this->get('transfer_reservation.generateur.creneau_pref');    
         
         $generateur->setTypeCamion($typeCamion);
@@ -56,6 +64,7 @@ class CreneauPrefGenController extends Controller
                                         ->findByNom('Actif'));       
         
         $formType = new CreneauPrefGenType();
+        //Construction de l'agenda servant de support d'affichage des créneaux modèles dans le formulaire
         $agendas= $this->buildAgendas($em,$typeCamion);
         $formType->setAgendas($agendas);
         $form = $this->createForm($formType, $generateur);     

@@ -34,4 +34,18 @@ class CreneauPrefRepository extends EntityRepository
                 ");
         return $query->getResult();
     }
+    
+    public function findOrdered(){
+        $query = $this->getEntityManager()->createQuery("
+            SELECT cp
+            FROM TransferReservationBundle:CreneauPref cp
+            JOIN cp.transporteur t
+            JOIN cp.statut st
+            JOIN cp.etatReservation er
+            JOIN cp.creneauModele cm
+            WHERE st.nom='Actif'
+            ORDER BY t.priorite DESC, cm.jour ASC, cm.heure ASC, cm.minute ASC
+            ");
+        return $query->getResult();
+    }
 }

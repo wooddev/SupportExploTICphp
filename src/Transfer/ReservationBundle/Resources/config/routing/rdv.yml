@@ -46,4 +46,11 @@ rdv_confirmation:
     pattern: /confirmation/{id}
     defaults: {_controller: "TransferReservationBundle:Rdv:confirmation" }
     requirements: { _method: post }
+
+planning_jour:
+    pattern: /planning_jour/{date}
+    defaults: {_controller: "TransferReservationBundle:Rdv:planningJourShow" }
     
+planning_semaine:
+    pattern: /planning_semaine/{date}
+    defaults: {_controller: "TransferReservationBundle:Rdv:planningSemaineShow" }

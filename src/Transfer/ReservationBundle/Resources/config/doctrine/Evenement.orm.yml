@@ -8,7 +8,11 @@ Transfer\ReservationBundle\Entity\Evenement:
         inversedBy: evenements
       rdv:
         targetEntity: Rdv
-        inversedBy: evenements
+        inversedBy: evenements   
+        joinColumn:
+          name: rdv_id
+          referencedColumnName: id
+          onDelete: CASCADE
     fields:
         id:
             type: integer

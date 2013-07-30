@@ -20,3 +20,19 @@ table.tablesorter thead tr .header.headerSortUp  {
 div.blind{
     display:none;
 }
+
+form.form-btn{
+    float:left;
+    color: red;     
+}
+
+form.form-btn button{
+    float:left;
+    margin:  0 auto;    
+}
+
+.menu-titre{
+    font-size:1.2em;
+    font-weight: bold;
+    margin:4px 0 2px 8px;
+}

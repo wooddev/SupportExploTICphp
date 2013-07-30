@@ -3,6 +3,7 @@
 namespace Transfer\ReservationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * Rdv
@@ -136,10 +137,18 @@ class Rdv
      * @param type $type
      */
     
-    public function  getTransporteur($type){
-        $criteria = \Doctrine\Common\Collections\Criteria::create()
-                            ->where(Criteria::expr()->eq("type",$type));
-        return $this->getEvenements()->matching($criteria)->last()->getTransporteur();
+    public function  getTransporteur($type='confirmation'){
+        if($this->evenements->count()>0){
+            $criteria = Criteria::create()
+                            ->where(Criteria::expr()->eq("type", $type));
+            if(is_object($this->evenements->matching($criteria)->last())){
+                return $this->evenements->matching($criteria)->last()->getTransporteur();
+            }else{
+                return $this->evenements->last()->getTransporteur();
+            }            
+        }else{
+            return null;
+        }
     }
     
     Public function getCreneauStructure(){
@@ -188,4 +197,5 @@ class Rdv
     {
         return $this->typeCamion;
     }
+
 }

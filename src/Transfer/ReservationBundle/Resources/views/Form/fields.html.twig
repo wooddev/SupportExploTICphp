@@ -89,6 +89,7 @@
          }
 
          </style>
+         <script src="{{asset('bundles/transfermain/bootstrap/js/bootstrap.min.js')}}" />         
          <ul class="nav nav-tabs" id="myTab">
           
          {%for agenda in form.parent.vars.agendas%}
@@ -101,7 +102,7 @@
              <div class="tab-pane" id="agenda{{loop.index}}">                    
                  <div class="agenda">    
                      <div class="agenda-header">
-                     <h4>Planning du {{agenda.dateDebut | date('d/m/Y')}} au {{agenda.dateFin | date('d/m/Y')}}</h4>           
+                     
                     <p> Type de camion : {{agenda.poste}}</p>
                     </div>
                     {%for agendaYear in agenda.agendasYear %}
@@ -112,7 +113,7 @@
                             {%for agendaDay in agendaWeek.agendasDay%}
                             <div class="jour" style='width:{{90/(agendaWeek.agendasDay|length)}}%;'> {{agendaDay.val}}
                                  {%for creneau in agendaDay.creneaux %}
-                                    <div class="creneau creneau-{{creneau.type}}" style="height: {{2.1*creneau.duree}}px">
+                                    <div class="creneau creneau-{{creneau.type}}" style="min-height: 58px; height: {{2.1*creneau.duree}}px">
                                             <div class="creneau-content">      
                                     {%if creneau.type =='vide'%}
                                     

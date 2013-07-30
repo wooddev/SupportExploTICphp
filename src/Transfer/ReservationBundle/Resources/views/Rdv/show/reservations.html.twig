@@ -1,43 +1,65 @@
 {% extends "::base.html.twig" %}
 {%block body%}
 {%set j = 0 %}
-<div class="row">
-    <div class="span 4">
+<div class="row-fluid">
+    <div class="span12">
         <h3>Créneau recherché (réservation provisoire)</h3>
         <ul class="thumbnails">                
     {%for rdv in provisoires%}
                 <li class="span4">
                     <div href="#" class="thumbnail">
-                    Horaire de réception : {{rdv.dateHeureDebut|date('d/m/Y H:i')}} - {{rdv.dateHeureFin|date('d/m/Y H:i')}}<br>
-                    Type de camion : {{rdv.typeCamion.nom}}<br>
-                    Pont réservé : {{rdv.creneauRdv.typePoste}}<br>
-                    dispo Totale : {{rdv.creneauRdv.disponibiliteTotale}}<br>
-                    dispo par camion :
-                    <ul>
-                    {%for dispo in rdv.creneauRdv.disponibilites %}        
-                        <li>{{dispo.typeCamion.nom}} : {{dispo.valeur}}</li>        
-                    {%endfor%}
-                    </ul>
-                    <div class="row">
-                    <form class="span 2" action="{{ path('rdv_reservation_proche' , { 'idRdv': rdv.id, 'mode': 'precedent'}) }}" method="post">
-                        <button class="btn btn-success" type="submit"><</button> 
-                    </form>
-                    <form class="span 2" action="{{ path('rdv_confirmation' , { 'id': rdv.id}) }}" method="post">
-                        <button class="btn btn-success" type="submit">Confirmer</button> 
-                    </form>
-                    <form class="span 2" action="{{ path('rdv_reservation_proche' , { 'idRdv': rdv.id, 'mode': 'suivant'}) }}" method="post">
-                        <button class="btn btn-success" type="submit">></button> 
-                    </form> 
+                        Horaire de réception : {{rdv.dateHeureDebut|date('d/m/Y H:i')}} - {{rdv.dateHeureFin|date('d/m/Y H:i')}}<br>
+                        Type de camion : {{rdv.typeCamion.nom}}<br>
+                        Pont réservé : {{rdv.creneauRdv.typePoste}}<br>
+                        dispo Totale : {{rdv.creneauRdv.disponibiliteTotale}}<br>
+                        dispo par camion :
+                        <ul>
+                        {%for dispo in rdv.creneauRdv.disponibilites %}        
+                            <li>{{dispo.typeCamion.nom}} : {{dispo.valeur}}</li>        
+                        {%endfor%}
+                        </ul> 
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="row-fluid">
+                                    <div class="span5">
+                                        <form class='row-fluid' action="{{ path('rdv_reservation_proche' , { 'idRdv': rdv.id, 'mode': 'precedent'}) }}" method="post">
+                                            <div class="span8">
+                                            </div>                                                
+                                            <div class="span4"> 
+                                                <button class="btn btn-success" type="submit"><</button> 
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="span2">
+                                        <form class='row-fluid' action="{{ path('rdv_confirmation' , { 'id': rdv.id}) }}" method="post">
+                                            <div class='span12'>                 
+                                                <button class="btn btn-success" type="submit">OK</button> 
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="span5">
+                                        <form class='row-fluid' action="{{ path('rdv_reservation_proche' , { 'idRdv': rdv.id, 'mode': 'suivant'}) }}" method="post">
+                                            <div class="span2">
+                                                <button class="btn btn-success" type="submit">></button> 
+                                            </div>
+                                            <div class="span10">
+                                            </div>                                            
+                                        </form> 
+                                    </div>
+                                </div>                            
+                            </div>
+                        </div>
                     </div>
-                    </div>
+
+                    
                 </li> 
     {%endfor%}            
         </ul>
     </div>
-
-    <div class="span8">
-        <h3>Créneaux réservés</h3>   
-            
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <h3>Créneaux réservés</h3>               
     {%for rdv in confirmes %}
         {%if rdv.jour > j%} 
             </ul>
@@ -45,7 +67,8 @@
             <ul class="thumbnails"> 
         {%endif%}
               <li class="span3">
-                  <div href="#" class="thumbnail">
+                <div href="#" class="thumbnail">
+                <p>
                 Horaire de réception :<br> {{rdv.dateHeureDebut|date('d/m/Y H:i')}} - {{rdv.dateHeureFin|date('d/m/Y H:i')}}<br>
                 Type de camion : <br>{{rdv.typeCamion.nom}}<br>
                 {#Pont réservé : {{rdv.creneauRdv.typePoste}}<br>
@@ -55,8 +78,9 @@
                 {%for dispo in rdv.creneauRdv.disponibilites %}        
                     <li>{{dispo.typeCamion.nom}} : {{dispo.valeur}}</li>        
                 {%endfor%}
-                </ul>
-                </div>#}
+                </ul>#}
+                </p>
+                </div>
             </li>
         {%if rdv.jour > j%} 
             
@@ -65,6 +89,7 @@
     {%endfor%}        
     </div>
 </div>
+
         
 
 

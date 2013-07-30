@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class CreneauRdvRepository extends EntityRepository
 {
-    public function findByRecherche($rdvRecherche){
+    public function findByRecherche($rdvRecherche,$dateHeureDebut,$dateHeureFin){
 
         $query = $this->getEntityManager()->createQuery(
         "SELECT cr
@@ -26,6 +26,30 @@ class CreneauRdvRepository extends EntityRepository
         AND cr.dateHeureDebut BETWEEN :min AND :max
         ");
         // Construction de l'interval de temps de recherche
+        $query->setParameters(array(
+            'min'=> $dateHeureDebut,
+            'max'=> $dateHeureFin,
+            'typeCamion'=>$rdvRecherche->getTypeCamion()->getNom()
+                ));
+        
+        return $query->getResult();
+    }   
+    public function findByRecherchePoste(\Transfer\ReservationBundle\Recherche\RdvRecherche $rdvRecherche){
+
+        $query = $this->getEntityManager()->createQuery(
+        "SELECT cr
+        FROM TransferReservationBundle:CreneauRdv cr
+        JOIN cr.typePoste tp
+        WHERE  cr.disponibiliteTotale > 0
+        AND (SELECT min(dispo.valeur)
+            FROM TransferReservationBundle:Disponibilite dispo
+            JOIN dispo.typeCamion tc            
+            WHERE tc.nom = :typeCamion
+            AND dispo.creneau = cr)>0
+        AND cr.dateHeureDebut BETWEEN :min AND :max
+        AND tp.id = :typePosteId
+        ");
+        // Construction de l'interval de temps de recherche
         $interval = new \DateInterval('PT30M'); //Période de Temps de 60 min
         $min = clone $rdvRecherche->getDateHeureDebut();
         $min->sub($interval);
@@ -35,36 +59,13 @@ class CreneauRdvRepository extends EntityRepository
         $query->setParameters(array(
             'min'=> $min,
             'max'=> $max,
+            'typePosteId'=>$rdvRecherche->getTypePoste()->getId(),
             'typeCamion'=>$rdvRecherche->getTypeCamion()->getNom()
                 ));
         
         return $query->getResult();
     }   
     
-    public function findRechercheListe($creneauRecherche){
-
-        $query = $this->getEntityManager()->createQuery(
-        "SELECT cr
-        FROM TransferReservationBundle:CreneauRdv cr
-        JOIN cr.typePoste t
-        WHERE  t.id = :posteId
-        AND cr.heureDebut >= :heureDebut
-        AND cr.heureFin <= :heureFin
-        AND cr.dateHeureDebut >= :dateHeureDebut
-        AND cr.dateHeureFin <= :dateHeureFin  
-        AND cr.rdvs is EMPTY        
-        ");
-
-        $query->setParameters(array(
-            'posteId'=> $creneauRecherche->getTypePoste()->getId(),
-            'dateHeureDebut'=> $creneauRecherche->getDateHeureDebut(),
-            'dateHeureFin'=> $creneauRecherche->getDateHeureFin(),
-            'heureDebut'=> $creneauRecherche->getHeureDebut(),
-            'heureFin'=> $creneauRecherche->getHeureFin(),
-                ));
-        
-        return $query->getResult();
-    }
     
     public function findProche($creneauRdv, $mode){
         
@@ -116,43 +117,109 @@ class CreneauRdvRepository extends EntityRepository
         return $query->getResult();
     }
     
-    public function tryBooking($creneauTest, $typeCamion){
-        $em= $this->getEntityManager();
-        $query1 = $em->createQuery(
-        "SELECT cr
-        FROM TransferReservationBundle:CreneauRdv cr
-        WHERE cr.id = :id
-        ");
-        $query2 = $this->getEntityManager()->createQuery(
-        "SELECT dispo
-        FROM TransferReservationBundle:disponibilite dispo
-        JOIN dispo.creneau cr
-        JOIN dispo.typeCamion tc
-        WHERE cr.id = :creneau
-        AND tc.id = :typeCamion
-        ");
+    public function findForFix(){
+        $q = $this->getEntityManager()->createQuery("
+            SELECT cr
+            FROM TransferReservationBundle:CreneauRdv cr
+            WHERE  cr.dateHeureDebut BETWEEN :dateCreneau1 AND :dateCreneau2
+            ");
         
-        $query1->setParameters(array(
-            'id'=>$creneauTest->getId(),
-                ));
-        $query2->setParameters(array(
-            'typeCamion'=>$typeCamion->getId(),
-            'creneau'=>$creneauTest->getId(),
-                ));
+        $dateCreneau1 = new \DateTime('monday this week');
+        $dateCreneau2 = new \DateTime('sunday next week');
         
-        $creneau = $query1->getSingleResult();
-        $dispo = $query2->getSingleResult();
-        
-        if( ($creneau->getDisponibiliteTotale() >0) AND ($dispo->getValeur()>0) ){
-            $creneau->setDisponibiliteTotale($creneau->getDisponibiliteTotale()-1);
-            $dispo->setValeur($dispo->getValeur()-1);
-            $em->persist($dispo);
-            $em->persist($creneau);
-            $em->flush();
-            return $creneau;
-        }        
-        return false;       
-        
+        $q->setParameters(array(
+            'dateCreneau1'=>$dateCreneau1,
+            'dateCreneau2'=>$dateCreneau2,
+            ));
+        return $q->getResult();
     }
     
+    /**
+     * METHODE utilisée pour supprimer une plage de créneaux
+     * @param CreneauRdv $creneauRecherche
+     * @return type
+     */
+    
+    public function findRechercheListe(CreneauRdv $creneauRecherche){
+
+        $query = $this->getEntityManager()->createQuery(
+        "SELECT cr
+        FROM TransferReservationBundle:CreneauRdv cr
+        JOIN cr.typePoste t
+        WHERE  t.id = :posteId
+        AND cr.dateHeureDebut >= :dateHeureDebut
+        AND cr.dateHeureFin <= :dateHeureFin  
+        AND cr.rdvs is EMPTY        
+        ");
+
+        $query->setParameters(array(
+            'posteId'=> $creneauRecherche->getTypePoste()->getId(),
+            'dateHeureDebut'=> $creneauRecherche->getDateHeureDebut(),
+            'dateHeureFin'=> $creneauRecherche->getDateHeureFin(),
+
+                ));
+        
+        return $query->getResult();
+    }
+    
+    public function findByPeriod(\DateTime $dateTimeDebut,\DateTime $dateTimeFin){
+        $q = $this->getEntityManager()->createQuery("
+                    SELECT cr
+                    FROM TransferReservationBundle:CreneauRdv cr
+                    WHERE cr.dateHeureDebut BETWEEN :date1 AND :date2
+                    ");
+        $q->setParameters(array(
+            'date1'=>$dateTimeDebut,
+            'date2'=>$dateTimeFin,
+        ));
+        return $q->getResult();
+    }
+    
+    /**
+     * 
+     * Méthode obsolète, remplacée par le service moteur reservation
+     * 
+     * @param type $creneauTest
+     * @param type $typeCamion
+     * @return boolean
+     */
+//    public function tryBooking($creneauTest, $typeCamion){
+//        $em= $this->getEntityManager();
+//        $query1 = $em->createQuery(
+//        "SELECT cr
+//        FROM TransferReservationBundle:CreneauRdv cr
+//        WHERE cr.id = :id
+//        ");
+//        $query2 = $this->getEntityManager()->createQuery(
+//        "SELECT dispo
+//        FROM TransferReservationBundle:disponibilite dispo
+//        JOIN dispo.creneau cr
+//        JOIN dispo.typeCamion tc
+//        WHERE cr.id = :creneau
+//        AND tc.id = :typeCamion
+//        ");
+//        
+//        $query1->setParameters(array(
+//            'id'=>$creneauTest->getId(),
+//                ));
+//        $query2->setParameters(array(
+//            'typeCamion'=>$typeCamion->getId(),
+//            'creneau'=>$creneauTest->getId(),
+//                ));
+//        
+//        $creneau = $query1->getSingleResult();
+//        $dispo = $query2->getSingleResult();
+//        
+//        if( ($creneau->getDisponibiliteTotale() >0) AND ($dispo->getValeur()>0) ){
+//            $creneau->setDisponibiliteTotale($creneau->getDisponibiliteTotale()-1);
+//            $dispo->setValeur($dispo->getValeur()-1);
+//            $em->persist($dispo);
+//            $em->persist($creneau);
+//            $em->flush();
+//            return $creneau;
+//        }        
+//        return false;       
+//        
+//    }
+     
 }

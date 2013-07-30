@@ -30,9 +30,16 @@ class ParamReservationController extends Controller
             "DisponibiliteTotale"=>2,
             'DisponibiliteFondMouvant'=>2,
             'DisponibiliteAutresTypes'=>1,
+            "IntervalVidangeProvisoires"=>'PT1M',
+            'DebutVidangeInact'=>'Friday 00:01',
+            'FinVidangeInact'=>'Friday 12:30',
+            'DebutReservations'=>'Friday 12:30',
+            'IntervalleRecherche'=>'PT1H',
         ));        
         
         $paramReservation->setParametresReserves(array(
+            'EtatVidange'=>true,
+            'ProchaineVidange'=> '2013/01/01 00:00',
             'Transfer\ReservationBundle\Entity\CreneauRdv'=>array(
                 'reservation'=>'Transfer\ReservationBundle\Entity\Rdv',
                 'vidange'=>true,

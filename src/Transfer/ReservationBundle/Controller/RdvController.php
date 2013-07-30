@@ -12,7 +12,7 @@ use Transfer\ReservationBundle\Entity\Evenement;
  * Rdv controller.
  *
  */
-class RdvController extends Controller
+class RdvController extends Controller implements VidangeRequiseController
 {
     /**
      * Lists all Rdv entities.
@@ -38,8 +38,8 @@ class RdvController extends Controller
         $rdvs_provisoire = $em->getRepository('TransferReservationBundle:Rdv')
                                         ->findByStatutRdv($transporteur,$annee,$semaine,'provisoire');
         $rdvs_confirmes = $em->getRepository('TransferReservationBundle:Rdv')
-                                        ->findByStatutRdv($transporteur,$annee, $semaine,'confirme');            
-            
+                                        ->findByStatutRdv($transporteur,$annee, $semaine,'confirme');     
+
         return $this->render('TransferReservationBundle:Rdv:show/reservations.html.twig', array(
             'provisoires'=>$rdvs_provisoire,
             'confirmes'      => $rdvs_confirmes,
@@ -91,6 +91,49 @@ class RdvController extends Controller
      *
      */
     public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('TransferReservationBundle:Rdv')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Rdv entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('TransferReservationBundle:Rdv:show.html.twig', array(
+            'entity'      => $entity,
+            'delete_form' => $deleteForm->createView(),        ));
+    }
+    
+    public function planningJourShowAction(\DateTime $date){
+        
+        $agendas = $this->get('transfer.agenda_builder')->planningJourBuilder($date);
+        $dayNum =(int) $date->format('N') -1;
+       return $this->render('TransferReservationBundle:Rdv:show/agendaJour.html.twig', array(
+            'agendas' => $agendas,
+           'dayNum' => $dayNum,
+            ));  
+    }
+    
+    public function planningSemaineShowAction(\DateTime $date){
+        
+        $agendas = $this->get('transfer.agenda_builder')->planningSemaineBuilder($date);
+       return $this->render('TransferReservationBundle:Rdv:show/agendaSemaine.html.twig', array(
+            'agendas' => $agendas,
+            ));  
+    }
+    
+    public function acquittementShowAction($rdvId){
+        
+    }
+    
+    /**
+     * Finds and displays a Rdv entity.
+     *
+     */
+    public function show2Action($id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -234,6 +277,13 @@ class RdvController extends Controller
         ;
     }
     
+    /**
+     * Méthode éxécutée après soumission du formulaire de recherche par l'utilisateur
+     * 
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return type
+     */
+    
     public function reservationRechercheAction(Request $request){
         
         $rdvRecherche = new \Transfer\ReservationBundle\Recherche\RdvRecherche();
@@ -258,24 +308,36 @@ class RdvController extends Controller
             //Conversion des Année-semaine-jour-heure en DateTime
             $rdvRecherche->calculDateTime();
             
-            //Récupération des créneaux disponibles dans la plage recherchée
+            //Définition de la plage de recherche à partir du paramètres fixé dans l'objet de paramétrage
+            $dateHeureDebut = clone $rdvRecherche->getDateHeureDebut();
+            $dateHeureDebut->sub(new \DateInterval($this->get('transfer_reservation.parametres')->getIntervalleRecherche()));
+            $dateHeureFin = clone $rdvRecherche->getDateHeureDebut();
+            $dateHeureFin->add(new \DateInterval($this->get('transfer_reservation.parametres')->getIntervalleRecherche()));            
+            
+            //Mise à jour des disponibilités sur la plage de recherche
+             $this->get('transfer_reservation.reservation')->fixDisponibilites(
+                            $em->getRepository('TransferReservationBundle:CreneauRdv')
+                                ->findByPeriod($dateHeureDebut,$dateHeureFin), 
+                            array('persist'=>true));
+
+            //Récupération des créneaux disponibles dans la plage recherchée          
             $creneauxRdvBruts = $em->getRepository('TransferReservationBundle:CreneauRdv')
-                                    ->findByRecherche($rdvRecherche);
+                                    ->findByRecherche($rdvRecherche,$dateHeureDebut,$dateHeureFin);
             if ($creneauxRdvBruts == null){
                 return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');
             }
             
             //Construction d'une collection afin de pouvoir trier les créneaux
-            $creneauxRdvTries = new \Transfer\MainBundle\Model\Sorter();
+            $resultatsTries = new \Transfer\MainBundle\Model\Sorter();
             foreach ($creneauxRdvBruts as $creneauRdvBrut){    
                 //Encapsulation des créneaux dans un objet RdvResultat (pour faire les opérations de tri)
-                $creneauxRdvTries->add(new \Transfer\ReservationBundle\Recherche\RdvResultat($creneauRdvBrut,$rdvRecherche));            
+                $resultatsTries->add(new \Transfer\ReservationBundle\Recherche\RdvResultatAsso($creneauRdvBrut,$rdvRecherche));            
             }
 
             
-            $creneauxRdvTries->sortArray('getDiffTemps');
+            $resultatsTries->sortArray('getDiffTemps');
             
-            return $this->reservation($creneauxRdvTries,$rdvRecherche->getTypeCamion());
+            return $this->reservation($resultatsTries,$rdvRecherche->getTypeCamion());
 
         }
         else{return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');}
@@ -319,17 +381,32 @@ class RdvController extends Controller
         return $this->reservation($creneauxRdvProcheDispo, $rdvEnCours->getTypeCamion());
     }    
     
-    public function reservation($creneauxRdv, $typeCamion){
-        foreach ($creneauxRdv as $creneauRdv){
-            if(!($this->get('transfer_reservation.moteur')->reservation($creneauRdv,$typeCamion))){
+    /**
+     * Méthode du controller qui appelle le service de réservation (moteurReservation)
+     * @param type $resultatsTries
+     * @param type $typeCamion
+     * @return type
+     */
+    
+    public function reservation($resultatsTries, $typeCamion){
+
+        foreach ($resultatsTries as $resultat){            
+            if($this->get('transfer_reservation.reservation')->reservation(
+                            $resultat->getCreneauRdv(),
+                            $typeCamion,
+                            $this->get('transfer_profil.acces')->getTransporteur(),
+                            array('vidange'=>true))
+                    )
+                {
                 return $this->redirect($this->generateUrl(
                         'rdv_transporteur',
                         array(
-                              'annee' =>  $creneauRdv->getAnnee(),
-                              'semaine'=> $creneauRdv->getSemaine())                                                                                                                              
+                              'annee' =>  $resultat->getCreneauRdv()->getAnnee(),
+                              'semaine'=> $resultat->getCreneauRdv()->getSemaine())                                                                                                                              
                 ));
             }
         }  
+        return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');
     } 
     
        

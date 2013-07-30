@@ -57,17 +57,20 @@ class CreneauRdvGenController extends Controller
         
         if ($form->isValid()){            
            
-
+            $statutActif = $em->getRepository('TransferReservationBundle:StatutCreneau')->findOneByNom('Actif');
             $creneauxModeles = $em->getRepository('TransferReservationBundle:CreneauModele')->findAll();
             
             $generateur->setCreneauxModeles($creneauxModeles);
+            $generateur->setStatut($statutActif);
             
             $generateur->generateCreneauxRdvs(); 
             
             foreach ($generateur->getCreneauxRdvs() as $creneauRdv){
                 $em->persist($creneauRdv);
-            }        
-            $em->flush();  
+            }            
+//            $em->flush();  
+            
+            $this->get('transfer_reservation.reservation')->fixDisponibilites($generateur->getCreneauxRdvs(),array('persist'=>true));
         }
        
         return $this->render('TransferReservationBundle:CreneauRdv:index.html.twig', array(

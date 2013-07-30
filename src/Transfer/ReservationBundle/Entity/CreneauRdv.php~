@@ -3,6 +3,7 @@
 namespace Transfer\ReservationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM; 
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * CreneauRdv
@@ -180,5 +181,12 @@ class CreneauRdv extends Creneau
     public function getDateHeureFin()
     {
         return $this->dateHeureFin;
+    }
+    
+    public function getNbReservation(TypeCamion $typeCamion){
+        $criteria = Criteria::create()
+                            ->Where(Criteria::expr()
+                                ->eq("typeCamion",$typeCamion));           
+        return $this->getRdvs()->matching($criteria)->count();           
     }
 }

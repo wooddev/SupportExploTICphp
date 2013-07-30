@@ -14,12 +14,14 @@ class AccesProfil {
     
     public function __construct(\Symfony\Component\Security\Core\SecurityContext $securityContext) {
         $this->securityContext=$securityContext;
-        $user = $this->securityContext->getToken()->getUser();
-        if(! is_object($user))
-        {
-            throw new \Exception('Veuillez vous authentifier');          
-        }else{ 
-            $this->user=$user;
+        if( is_object($this->securityContext->getToken())){
+           $user = $this->securityContext->getToken()->getUser();        
+            if(! is_object($user))
+            {
+               // throw new \Exception('Veuillez vous authentifier');          
+            }else{ 
+                $this->user=$user;
+            }
         }
     }
     

@@ -44,7 +44,7 @@ class MoteurReservation {
         $autres = $em->getRepository('TransferReservationBundle:TypeCamion')->findOneByNom('Autre type');       
                 
         foreach($creneaux as $creneau){                        
-            $this->calculDisponibilites($creneau, $fdMouvant, $autres);  
+            $this->calculDisponibilites($creneau, $fdMouvant, $autres,$options);  
             if(isset($options['persist']) && $options['persist'] ){
                 $em->persist($creneau);   
             }
@@ -61,7 +61,7 @@ class MoteurReservation {
         $fdMouvant = $em->getRepository('TransferReservationBundle:TypeCamion')->findOneByNom('Fond mouvant');
         $autres = $em->getRepository('TransferReservationBundle:TypeCamion')->findOneByNom('Autre type');       
                                        
-        $this->calculDisponibilites($creneau, $fdMouvant, $autres);  
+        $this->calculDisponibilites($creneau, $fdMouvant, $autres,$options);  
         if(isset($options['persist']) && $options['persist'] ){
             $em->persist($creneau);
             $em->flush();   
@@ -77,12 +77,16 @@ class MoteurReservation {
      * @return type
      */
     
-    public function calculDisponibilites($creneau,$fdMouvant,$autres){
+    public function calculDisponibilites($creneau,$fdMouvant,$autres,$options){
           
             $nbFdMouvant = $creneau->getNbReservation($fdMouvant);
             $nbAutres = $creneau->getNbReservation($autres);
-            
-            $creneau->getDisponibilites()->clear();  
+            if(isset($options['persist']) && $options['persist'] ){
+                foreach($creneau->getDisponibilites() as $dispo){
+                    $this->em->remove($dispo);
+                }  
+            }
+            $creneau->getDisponibilites()->clear();     
             
             $creneau->addDisponibilite(new \Transfer\ReservationBundle\Entity\Disponibilite());
             $creneau->getDisponibilites()->last()->setCreneau($creneau);   
@@ -96,7 +100,7 @@ class MoteurReservation {
             $creneau->getDisponibilites()->last()->setTypeCamion($autres); 
             
             $creneau->setDisponibiliteTotale($this->parametres->getDisponibiliteTotale()-$nbFdMouvant-$nbAutres);
-            
+
             return $creneau;
     }
     
@@ -122,7 +126,7 @@ class MoteurReservation {
         $criteria = Criteria::create()
                            ->Where(Criteria::expr()
                                 ->eq("typeCamion",$typeCamion));        
-        $dispo = $creneau->getDisponibilites->matching($criteria)->first();   
+        $dispo = $creneau->getDisponibilites()->matching($criteria)->first();   
         
         if( $dispo->getValeur()<$this->parametres->getDisponibiliteCamion($typeCamion->getNom())
             &&   $creneau->getDisponibiliteTotale()<$this->parametres->getDisponibiliteTotale() )
@@ -148,18 +152,31 @@ class MoteurReservation {
             foreach ($provisoires as $provisoire){
                 //Remontée des dispo totales et par type de camion
                 $creneauRdvProvisoire = $provisoire->getCreneauRdv();
-                $$this->augmenterDisponibilite($creneauRdvProvisoire, $provisoire->getTypeCamion());
-                $this->em->persist($creneauRdvProvisoire);
+                $this->augmenterDisponibilite($creneauRdvProvisoire, $provisoire->getTypeCamion());
+                $this->em->persist($creneauRdvProvisoire);               
                 $this->em->remove($provisoire);
             }
             $this->em->flush(); 
             return true; 
         }  
-        return false;
-        
+        return false;        
     }
     
-    public function reservation($creneau,$typeCamion,$transporteur){
+    public function vidangeSelection($rdvsSelection){
+        //Vidange du panier
+
+        //suppression des provisoires transmis
+        foreach ($rdvsSelection as $provisoire){
+            //Remontée des dispo totales et par type de camion
+            $creneauRdvProvisoire = $provisoire->getCreneauRdv();
+            $this->augmenterDisponibilite($creneauRdvProvisoire, $provisoire->getTypeCamion());
+            $this->em->persist($creneauRdvProvisoire);               
+            $this->em->remove($provisoire);
+        }
+        $this->em->flush();      
+    }
+    
+    public function reservation($creneau,$typeCamion,$transporteur,$options=array('vidange'=>true)){
         //Identification des classes créneaux et réservation
         $className = get_class($creneau);
         $reservationClassName = $this->parametres->getReservationClassName($className);
@@ -170,7 +187,7 @@ class MoteurReservation {
         // >> Si réussite blocage :
         if($this->reduireDisponibilite( $creneauSync,$typeCamion)){
             try{
-                if($this->parametres->getVidange($className)){
+                if($this->parametres->getVidange($className) && $options['vidange']==true){
                     //Vidange du panier du transporteur si requis par le type de réservation
                     $this->vidangePanier($reservationClassName, $transporteur);
                 }
@@ -181,7 +198,7 @@ class MoteurReservation {
 
                 // Création de l'évenement de réservation si requis par le type de réservation
                 if($this->parametres->getEvenement($className)){
-                    $evenement = new Evenement();
+                    $evenement = new \Transfer\ReservationBundle\Entity\Evenement();
                     $evenement->setRdv($reservation);
                     $evenement->setTransporteur($transporteur);
                     $evenement->setType('reservation');

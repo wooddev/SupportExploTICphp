@@ -3,3 +3,6 @@ services:
         class: Transfer\MainBundle\Form\Type\AgendaType
         tags:
             - { name: form.type, alias: agenda }
+    transfer.agenda_builder:
+        class: Transfer\MainBundle\Services\AgendaBuilder
+        arguments: ["@doctrine.orm.entity_manager"]

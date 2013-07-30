@@ -175,8 +175,8 @@ class CreneauPref
     public function init($creneauModele, $typeCamion, $options){
         $this->setCreneauModele($creneauModele);
         $this->setTypeCamion($typeCamion);
-        $this->setStatut($options['Statut']);
-        $this->setEtatReservation($options['EtatReservation']);       
+        $this->setStatut($options['statut']);
+        $this->setEtatReservation($options['etatReservation']);       
     }
 
             

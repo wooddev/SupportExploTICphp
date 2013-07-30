@@ -234,7 +234,71 @@ class CreneauPrefController extends Controller
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
+                
+    }
+    
+    public function reservationAutoAction($semaine,$annee){
+        $em=$this->getDoctrine()->getEntityManager();
         
+        $reserve = $em->getRepository('TransferReservationBundle:EtatReservation')
+                        ->findOneByNom('Réservé');      
+        $aReserver= $em->getRepository('TransferReservationBundle:EtatReservation')
+                        ->findOneByNom('A réserver');      
         
+        $creneauxPrefs = $em->getRepository('TransferReservationBundle:CreneauPref')
+                            ->findOrdered();
+        
+        foreach($creneauxPrefs as $creneauPref){
+            $creneauPref->setEtatReservation($aReserver);
+            $em->persist($creneauPref);
+        }
+        $em->flush();
+        
+        foreach($creneauxPrefs as $creneauPref){
+            if($creneauPref->getEtatReservation() == $aReserver){
+                $rdvRecherche = new \Transfer\ReservationBundle\Recherche\RdvRecherche();
+
+                $rdvRecherche->setAnnee($annee); // Année au format ISO !!IMPORTANT POUR RESPECTER LA CODIFICATION ISO DES SEMAINES 
+                $rdvRecherche->setSemaine($semaine);
+                $rdvRecherche->setJour($creneauPref->getCreneauModele()->getJour());
+                $rdvRecherche->setHeure($creneauPref->getCreneauModele()->getHeure());
+                $rdvRecherche->setMinute($creneauPref->getCreneauModele()->getMinute());
+                $rdvRecherche->calculDateTime();
+
+                $rdvRecherche->setTypePoste($creneauPref->getCreneauModele()->getTypePoste());
+                $rdvRecherche->setTypeCamion($creneauPref->getTypeCamion());
+
+                $creneauxRdvLibres = $em->getRepository("TransferReservationBundle:CreneauRdv")->findByRecherchePoste($rdvRecherche);
+
+                if((!(null===$creneauxRdvLibres)) AND count($creneauxRdvLibres)>0){
+                    //Construction d'une collection afin de pouvoir trier les créneaux
+                    $creneauxRdvTries = new \Transfer\MainBundle\Model\Sorter();            
+                    foreach ($creneauxRdvLibres as $creneauRdvLibre){    
+                        //Encapsulation des créneaux dans un objet RdvResultat (pour faire les opérations de tri)
+                        $creneauxRdvTries->add(new \Transfer\ReservationBundle\Recherche\RdvResultatAsso($creneauRdvLibre,$rdvRecherche));            
+                    }            
+                    $creneauxRdvTries->sortArray('getDiffTemps');
+
+                    foreach ($creneauxRdvTries as $rdvResultat){
+
+                        if($this->get('transfer_reservation.reservation')->reservation( $rdvResultat->getCreneauRdv(),
+                                                                                        $creneauPref->getTypeCamion(),
+                                                                                        $creneauPref->getTransporteur(),
+                                                                                        array('vidange'=>false))){
+                            $creneauPref->setEtatReservation($reserve);
+                            $em->persist($creneauPref);
+                            $em->flush();
+                            break;
+                        }
+                    }
+                }else{
+                    //si pas de réservation
+                    //rien, on passe au suivant
+                }
+            }
+        }
+        return $this->redirect($this->generateUrl('rdv'));
+        
+                
     }
 }

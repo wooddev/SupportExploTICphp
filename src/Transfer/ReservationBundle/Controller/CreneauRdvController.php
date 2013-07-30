@@ -228,6 +228,16 @@ class CreneauRdvController extends Controller
         
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $creneauRecherche
+                    ->getDateHeureDebut()
+                        ->setTime(
+                                $creneauRecherche->getHeureDebut()->format('h'),
+                                $creneauRecherche->getHeureDebut()->format('i') );    
+            $creneauRecherche
+                    ->getDateHeureFin()
+                        ->setTime(
+                                $creneauRecherche->getHeureFin()->format('H'),
+                                $creneauRecherche->getHeureFin()->format('i') );
             $entities = $em->getRepository('TransferReservationBundle:CreneauRdv')->findRechercheListe($creneauRecherche);
 
             if (!$entities) {

@@ -27,10 +27,11 @@ class CreneauModeleGen {
     private $minFin; //min
     private $pasDeTemps;
     private $disponibiliteTotale;
-    private $CreneauxModeles;
+    private $creneauxModeles;
     private $typePoste;
     private $disponibilites;
-    private $moteurReservation;  
+    private $moteurReservation;
+    private $statut;
     
     /**
      * Constructeur de la classe
@@ -38,17 +39,17 @@ class CreneauModeleGen {
      */   
     public function __construct(\Transfer\ReservationBundle\Services\MoteurReservation $mR)
     {
-        $this->CreneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creneauxModeles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->disponibilites = new \Doctrine\Common\Collections\ArrayCollection();
         $this->moteurReservation = $mR;
  
     }
     
-    public function getCreneauxModels(){
-        if (!$this->CreneauxModeles) {
+    public function getCreneauxModeles(){
+        if (!$this->creneauxModeles) {
             throw new Exception('Aucun créneau modèle généré');
         }
-        else return $this->CreneauxModeles;
+        else return $this->creneauxModeles;
     }      
     
     public function setDisponibiliteTotale($disponibiliteTotale){
@@ -93,8 +94,23 @@ class CreneauModeleGen {
    public function getTypePoste(){
        return $this->typePoste;
    }  
-    
-    /**
+   public function getDisponibilites() {
+       return $this->disponibilites;
+   }
+
+   public function setDisponibilites($disponibilites) {
+       $this->disponibilites = $disponibilites;
+   }
+
+   public function getStatut() {
+       return $this->statut;
+   }
+
+   public function setStatut($statut) {
+       $this->statut = $statut;
+   }
+
+       /**
      * function init
      * 
      * Permet d'initialiser la classe en dehors du constructeur     * 
@@ -109,7 +125,8 @@ class CreneauModeleGen {
      */    
     public function init($_heureDebut,$_minDebut, $_minFin,
             $_heureFin,$_pasDeTemps, $_disponibiliteTotale,
-            \Transfer\ReservationBundle\Entity\TypePoste $typePoste)
+            \Transfer\ReservationBundle\Entity\TypePoste $typePoste,
+            \Transfer\ReservationBundle\Entity\StatutCreneau $statut)
     {        
         $this->typePoste= $typePoste;
         $this->heureDebut = $_heureDebut;
@@ -118,14 +135,9 @@ class CreneauModeleGen {
         $this->minFin= $_minFin;
         $this->pasDeTemps = $_pasDeTemps;      
         $this->disponibiliteTotale = $_disponibiliteTotale;
+        $this->statut = $statut;
     }
     
-    
-    public function addDisponibilite($typeCamion,$valeur){
-        $this->disponibilites->add(new Disponibilite());
-        $this->disponibilites->last()->setValeur($valeur);
-        $this->disponibilites->last()->setTypeCamion($typeCamion);        
-    }
             
     /**
      * Méthode Générate :
@@ -143,14 +155,15 @@ class CreneauModeleGen {
                 
         for ($i = 1; $i <= 6; $i++) {
             for ($min = $minDebutTot; $min <=$minFinTot; $min=$min+$this->pasDeTemps){
-                $this->CreneauxModeles->add(new CreneauModele());
-                $this->CreneauxModeles->last()->init(                
+                $this->creneauxModeles->add(new CreneauModele());
+                $this->creneauxModeles->last()->init(                
                         $this->disponibiliteTotale,                           //disponibiliteTotale
                         $i,                                             //jour
                         floor($min/60),                                 //heure
                         $min-floor($min/60)*60,                         //min 
                         $this->pasDeTemps,                              //durée
-                        $this->typePoste);                             //poste      
+                        $this->typePoste,
+                        $this->statut);                             //poste      
                 }
         }          
         $this->moteurReservation->fixDisponibilites($this->creneauxModeles, array('persist'=>false));        
