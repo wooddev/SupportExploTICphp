@@ -1,6 +1,6 @@
 Transfer\ReservationBundle\Entity\TypePoste:
     type: entity
-    table: null
+    table: typeposte
     repositoryClass: Transfer\ReservationBundle\Entity\TypePosteRepository
     fields:
         id:

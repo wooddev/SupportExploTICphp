@@ -1,6 +1,6 @@
 Transfer\ReservationBundle\Entity\StatutCreneau:
     type: entity
-    table: null
+    table: statutcreneau
     repositoryClass: Transfer\ReservationBundle\Entity\StatutCreneauRepository
     fields:
         id:

@@ -1,6 +1,6 @@
 Transfer\ReservationBundle\Entity\CreneauRdv:
     type: entity
-    table: null
+    table: creneaurdv
     repositoryClass: Transfer\ReservationBundle\Entity\CreneauRdvRepository
     oneToMany:
       rdvs:

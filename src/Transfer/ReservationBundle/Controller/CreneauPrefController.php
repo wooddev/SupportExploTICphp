@@ -267,8 +267,14 @@ class CreneauPrefController extends Controller
 
                 $rdvRecherche->setTypePoste($creneauPref->getCreneauModele()->getTypePoste());
                 $rdvRecherche->setTypeCamion($creneauPref->getTypeCamion());
-
-                $creneauxRdvLibres = $em->getRepository("TransferReservationBundle:CreneauRdv")->findByRecherchePoste($rdvRecherche);
+                
+                //Définition de la plage de recherche à partir du paramètres fixé dans l'objet de paramétrage
+                $dateHeureDebut = clone $rdvRecherche->getDateHeureDebut();
+                $dateHeureDebut->sub(new \DateInterval($this->get('transfer_reservation.parametres')->getIntervalleRecherche()));
+                $dateHeureFin = clone $rdvRecherche->getDateHeureDebut();
+                $dateHeureFin->add(new \DateInterval($this->get('transfer_reservation.parametres')->getIntervalleRecherche()));
+                
+                $creneauxRdvLibres = $em->getRepository("TransferReservationBundle:CreneauRdv")->findByRecherchePoste($rdvRecherche,$dateHeureDebut,$dateHeureFin);
 
                 if((!(null===$creneauxRdvLibres)) AND count($creneauxRdvLibres)>0){
                     //Construction d'une collection afin de pouvoir trier les créneaux

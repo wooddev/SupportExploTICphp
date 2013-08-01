@@ -66,13 +66,12 @@
                                 </li>
                                 <li><a href="{{path('reset_form')}}"> Réinitialiser la base </a>
                                 </li>
-
-                            {%elseif is_granted('ROLE_USER')%}
                                 <li class="divider"></li>
+                            {%elseif is_granted('ROLE_TRANSPORTEUR')%}                               
                                 <div class="menu-titre">Gérer mon planning</div>
-                                <li> <a href="{{path('creneaurdv_recherche',{'annee':2013,'semaine': 'now'|date('W')})}}"> rechercher un Créneau pour la <b>semaine en cours </b></a>
+                                <li> <a href="{{path('creneaurdv_recherche_trsp',{'annee':2013,'semaine': 'now'|date('W')})}}"> rechercher un Créneau pour la <b>semaine en cours </b></a>
                                 </li>
-                                <li> <a href="{{path('creneaurdv_recherche',{'annee':2013,'semaine':(1+('now'|date('W')))})}}"> rechercher un Créneau pour la <b>semaine prochaine</b> </a>
+                                <li> <a href="{{path('creneaurdv_recherche_trsp',{'annee':2013,'semaine':(1+('now'|date('W')))})}}"> rechercher un Créneau pour la <b>semaine prochaine</b> </a>
                                 </li>
                                 <li><a href="{{path('rdv_transporteur',{'annee':2013,'semaine': 'now'|date('W')})}}">Mes créneaux pour la semaine en cours </a>
                                 </li>                     

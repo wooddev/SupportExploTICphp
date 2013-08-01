@@ -24,7 +24,8 @@
         "twitter/bootstrap": "2.3.*",
         "knplabs/knp-menu": "2.0.*@dev",
         "knplabs/knp-menu-bundle": "2.0.x-dev",
-        "friendsofsymfony/user-bundle": "dev-master"
+        "friendsofsymfony/user-bundle": "dev-master",
+        "winzou/console-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

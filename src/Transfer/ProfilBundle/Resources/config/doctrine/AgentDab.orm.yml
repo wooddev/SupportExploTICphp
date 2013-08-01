@@ -1,6 +1,6 @@
 Transfer\ProfilBundle\Entity\AgentDab:
   type: entity
-  table: null
+  table: agentdab
   repositoryClass: Transfer\ProfilBundle\Entity\AgentDabRepository
   oneToOne:
       user:

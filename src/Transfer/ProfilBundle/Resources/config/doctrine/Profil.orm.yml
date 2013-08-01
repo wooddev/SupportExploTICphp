@@ -1,6 +1,6 @@
 Transfer\ProfilBundle\Entity\Profil:
   type: entity
-  table: null
+  table: profil
   repositoryClass: Transfer\ProfilBundle\Entity\ProfilRepository
   inheritanceType: SINGLE_TABLE
   discriminatorColumn:

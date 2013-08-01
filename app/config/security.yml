@@ -4,8 +4,7 @@ security:
 
     role_hierarchy:        
         ROLE_TRANSPORTEUR : ROLE_USER
-        ROLE_RECEP : ROLE_USER
-        ROLE_DAB: [ROLE_TRANSPORTEUR, ROLE_RECEP]
+        ROLE_DAB: ROLE_RECEP
         ROLE_ADMIN: ROLE_DAB
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
@@ -20,14 +19,13 @@ security:
         #firewall par défaut
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-            
+            security: false           
+    
         #Firewall pour les pages de connexion
         login:
           pattern: ^/(login$|register|resetting)
           anonymous: true
 
-          
         #Firewall principal du site
         main:
             pattern: ^/
@@ -46,9 +44,11 @@ security:
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/resetting, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/console, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/dab, roles: ROLE_DAB}
         - { path: ^/admin, roles: ROLE_ADMIN}
+        - {path: ^/console, roles: ROLE_ADMIN}
         
-        #- { path: ^/formation/, roles: ROLE_ADMIN}
         
         #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
     

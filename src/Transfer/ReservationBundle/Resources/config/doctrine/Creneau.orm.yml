@@ -1,6 +1,6 @@
 Transfer\ReservationBundle\Entity\Creneau:
     type: entity
-    table: null
+    table: creneau
     repositoryClass: Transfer\ReservationBundle\Entity\CreneauRepository
     manyToOne:
       typePoste:

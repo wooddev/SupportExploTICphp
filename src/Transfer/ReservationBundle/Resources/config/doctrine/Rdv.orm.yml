@@ -1,6 +1,6 @@
 Transfer\ReservationBundle\Entity\Rdv:
     type: entity
-    table: null
+    table: rdv
     repositoryClass: Transfer\ReservationBundle\Entity\RdvRepository
     oneToMany:
       evenements:

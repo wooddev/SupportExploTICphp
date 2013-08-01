@@ -1,6 +1,6 @@
 Transfer\ReservationBundle\Entity\CreneauPref:
   type: entity
-  table: null
+  table: creneaupref
   repositoryClass: Transfer\ReservationBundle\Entity\CreneauPrefRepository
   manyToOne:
     creneauModele:

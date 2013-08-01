@@ -1,6 +1,6 @@
 Transfer\ReservationBundle\Entity\ParamReservation:
     type: entity
-    table: null
+    table: paramreservation
     repositoryClass: Transfer\ReservationBundle\Entity\ParamReservationRepository
     fields:
         id:

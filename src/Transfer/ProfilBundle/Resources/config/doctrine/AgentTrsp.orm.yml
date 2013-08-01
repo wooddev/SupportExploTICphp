@@ -1,6 +1,6 @@
 Transfer\ProfilBundle\Entity\AgentTrsp:
   type: entity
-  table: null
+  table: agenttrsp
   repositoryClass: Transfer\ProfilBundle\Entity\AgentTrspRepository
   oneToOne:
       user:

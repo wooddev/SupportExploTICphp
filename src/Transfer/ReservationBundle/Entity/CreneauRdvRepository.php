@@ -34,7 +34,7 @@ class CreneauRdvRepository extends EntityRepository
         
         return $query->getResult();
     }   
-    public function findByRecherchePoste(\Transfer\ReservationBundle\Recherche\RdvRecherche $rdvRecherche){
+    public function findByRecherchePoste(\Transfer\ReservationBundle\Recherche\RdvRecherche $rdvRecherche,$dateHeureDebut,$dateHeureFin){
 
         $query = $this->getEntityManager()->createQuery(
         "SELECT cr
@@ -57,8 +57,8 @@ class CreneauRdvRepository extends EntityRepository
         $max->add($interval);
         //
         $query->setParameters(array(
-            'min'=> $min,
-            'max'=> $max,
+            'min'=> $dateHeureDebut,
+            'max'=> $dateHeureFin,
             'typePosteId'=>$rdvRecherche->getTypePoste()->getId(),
             'typeCamion'=>$rdvRecherche->getTypeCamion()->getNom()
                 ));

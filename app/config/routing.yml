@@ -9,6 +9,9 @@ transfer_profil:
 transfer_reservation:
     resource: "@TransferReservationBundle/Resources/config/routing.yml"
     prefix:   /reservation
+transfer_reservation_dab:
+    resource: "@TransferReservationBundle/Resources/config/routingdab.yml"
+    prefix:   /dab
 
 # Internal routing configuration to handle ESI
 # ****** WARNING ******

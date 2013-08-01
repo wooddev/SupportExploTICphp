@@ -1,6 +1,6 @@
 Transfer\ReservationBundle\Entity\EtatReservation:
     type: entity
-    table: null
+    table: etatreservation
     repositoryClass: Transfer\ReservationBundle\Entity\EtatReservationRepository
     fields:
         id:

@@ -1,6 +1,6 @@
 Transfer\ProfilBundle\Entity\Transporteur:
     type: entity
-    table: null
+    table: transporteur
     repositoryClass: Transfer\ProfilBundle\Entity\TransporteurRepository
     oneToMany:
       evenements:

@@ -314,30 +314,9 @@ class RdvController extends Controller implements VidangeRequiseController
             $dateHeureFin = clone $rdvRecherche->getDateHeureDebut();
             $dateHeureFin->add(new \DateInterval($this->get('transfer_reservation.parametres')->getIntervalleRecherche()));            
             
-            //Mise à jour des disponibilités sur la plage de recherche
-             $this->get('transfer_reservation.reservation')->fixDisponibilites(
-                            $em->getRepository('TransferReservationBundle:CreneauRdv')
-                                ->findByPeriod($dateHeureDebut,$dateHeureFin), 
-                            array('persist'=>true));
-
-            //Récupération des créneaux disponibles dans la plage recherchée          
-            $creneauxRdvBruts = $em->getRepository('TransferReservationBundle:CreneauRdv')
-                                    ->findByRecherche($rdvRecherche,$dateHeureDebut,$dateHeureFin);
-            if ($creneauxRdvBruts == null){
-                return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');
-            }
             
-            //Construction d'une collection afin de pouvoir trier les créneaux
-            $resultatsTries = new \Transfer\MainBundle\Model\Sorter();
-            foreach ($creneauxRdvBruts as $creneauRdvBrut){    
-                //Encapsulation des créneaux dans un objet RdvResultat (pour faire les opérations de tri)
-                $resultatsTries->add(new \Transfer\ReservationBundle\Recherche\RdvResultatAsso($creneauRdvBrut,$rdvRecherche));            
-            }
-
             
-            $resultatsTries->sortArray('getDiffTemps');
-            
-            return $this->reservation($resultatsTries,$rdvRecherche->getTypeCamion());
+            return $this->reservation($rdvRecherche,$dateHeureDebut,$dateHeureFin,$em);
 
         }
         else{return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');}
@@ -370,15 +349,24 @@ class RdvController extends Controller implements VidangeRequiseController
         $em= $this->getDoctrine()->getManager();
         $rdvEnCours = $em->getRepository('TransferReservationBundle:Rdv')->find($idRdv);
         $CreneauEnCours = $rdvEnCours->getCreneauRdv();
+        $rdvRecherche = new \Transfer\ReservationBundle\Recherche\RdvRecherche();
+        $rdvRecherche->setDateHeureDebut($CreneauEnCours->getDateHeureDebut());
+        $rdvRecherche->setDateHeureFin($CreneauEnCours->getDateHeureFin());
+        $rdvRecherche->setTypeCamion($rdvEnCours->getTypeCamion());
 
-        $creneauxRdvProcheDispo = $em->getRepository('TransferReservationBundle:CreneauRdv')
-                                ->findProche($CreneauEnCours, $mode);
+        //Définition de la plage de recherche à partir du paramètres fixé dans l'objet de paramétrage
+        $dateHeureDebut = clone $CreneauEnCours->getDateHeureDebut();
+        $dateHeureFin = clone $CreneauEnCours->getDateHeureDebut();        
+        switch($mode){
+            case "suivant":
+                $dateHeureFin->add(new \DateInterval($this->get('transfer_reservation.parametres')->getIntervalleRecherche()));  
+                break;
+            case "precedent":
+                $dateHeureDebut->sub(new \DateInterval($this->get('transfer_reservation.parametres')->getIntervalleRecherche()));  
+                break;
+        }
         
-        if ($creneauxRdvProcheDispo==null){            
-            return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');
-        }           
-        
-        return $this->reservation($creneauxRdvProcheDispo, $rdvEnCours->getTypeCamion());
+        return $this->reservation($rdvRecherche,$dateHeureDebut,$dateHeureFin,$em);;
     }    
     
     /**
@@ -388,12 +376,32 @@ class RdvController extends Controller implements VidangeRequiseController
      * @return type
      */
     
-    public function reservation($resultatsTries, $typeCamion){
+    public function reservation($rdvRecherche,$dateHeureDebut, $dateHeureFin,$em){
+        //Mise à jour des disponibilités sur la plage de recherche
+         $this->get('transfer_reservation.reservation')->fixDisponibilites(
+                        $em->getRepository('TransferReservationBundle:CreneauRdv')
+                            ->findByPeriod($dateHeureDebut,$dateHeureFin), 
+                        array('persist'=>true));
 
+        //Récupération des créneaux disponibles dans la plage recherchée          
+        $creneauxRdvBruts = $em->getRepository('TransferReservationBundle:CreneauRdv')
+                                ->findByRecherche($rdvRecherche,$dateHeureDebut,$dateHeureFin);
+        if ($creneauxRdvBruts == null){
+            return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');
+        }
+
+        //Construction d'une collection afin de pouvoir trier les créneaux
+        $resultatsTries = new \Transfer\MainBundle\Model\Sorter();
+        foreach ($creneauxRdvBruts as $creneauRdvBrut){    
+            //Encapsulation des créneaux dans un objet RdvResultat (pour faire les opérations de tri)
+            $resultatsTries->add(new \Transfer\ReservationBundle\Recherche\RdvResultatAsso($creneauRdvBrut,$rdvRecherche));            
+        }
+
+        $resultatsTries->sortArray('getDiffTemps');
         foreach ($resultatsTries as $resultat){            
             if($this->get('transfer_reservation.reservation')->reservation(
                             $resultat->getCreneauRdv(),
-                            $typeCamion,
+                            $rdvRecherche->getTypeCamion(),
                             $this->get('transfer_profil.acces')->getTransporteur(),
                             array('vidange'=>true))
                     )

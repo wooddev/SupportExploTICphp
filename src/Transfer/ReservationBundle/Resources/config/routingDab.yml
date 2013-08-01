@@ -1,0 +1,39 @@
+transfer_reservation_creneauRdv:
+    resource: "@TransferReservationBundle/Resources/config/routing/creneaurdv.yml"
+    prefix:   /creneaurdv
+transfer_reservation_creneauModele:
+    resource: "@TransferReservationBundle/Resources/config/routing/creneaumodele.yml"
+    prefix:   /creneaumodele
+transfer_reservation_creneauModeleGen:
+    resource: "@TransferReservationBundle/Resources/config/routing/creneaumodelegen.yml"
+    prefix:   /creneaumodelegen
+transfer_reservation_creneauRdvGen:
+    resource: "@TransferReservationBundle/Resources/config/routing/creneaurdvgen.yml"
+    prefix:   /creneaurdvgen
+transfer_reservation_typeposte:
+    resource: "@TransferReservationBundle/Resources/config/routing/typeposte.yml"
+    prefix:   /typeposte
+transfer_reservation_poste:
+    resource: "@TransferReservationBundle/Resources/config/routing/poste.yml"
+    prefix: /poste
+transfer_reservation_creneauPref:
+    resource: "@TransferReservationBundle/Resources/config/routing/creneaupref.yml"
+    prefix: /creneaupref
+transfer_reservation_creneauPrefGen:
+    resource: "@TransferReservationBundle/Resources/config/routing/creneauprefgen.yml"
+    prefix: /creneauprefgen
+TransferReservationBundle_statutcreneau:
+    resource: "@TransferReservationBundle/Resources/config/routing/statutcreneau.yml"
+    prefix:   /statutcreneau
+TransferReservationBundle_etatreservation:
+    resource: "@TransferReservationBundle/Resources/config/routing/etatreservation.yml"
+    prefix:   /etatreservation
+TransferReservationBundle_default:
+    resource: "@TransferReservationBundle/Resources/config/routing/default.yml"
+    prefix:   /
+TransferReservationBundle_paramreservation:
+    resource: "@TransferReservationBundle/Resources/config/routing/paramreservation.yml"
+    prefix:   /paramreservation
+TransferReservationBundle_typecamion:
+    resource: "@TransferReservationBundle/Resources/config/routing/typecamion.yml"
+    prefix:   /typecamion

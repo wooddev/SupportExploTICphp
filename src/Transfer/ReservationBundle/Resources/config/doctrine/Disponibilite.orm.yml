@@ -1,6 +1,6 @@
 Transfer\ReservationBundle\Entity\Disponibilite:
     type: entity
-    table: null
+    table: disponibilite
     repositoryClass: Transfer\ReservationBundle\Entity\DisponibiliteRepository
     manyToOne:
       typeCamion:

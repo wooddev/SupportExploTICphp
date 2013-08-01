@@ -1,6 +1,6 @@
 Transfer\ReservationBundle\Entity\Evenement:
     type: entity
-    table: null
+    table: evenement
     repositoryClass: Transfer\ReservationBundle\Entity\EvenementRepository
     manyToOne:
       transporteur:

@@ -1,6 +1,6 @@
 Transfer\ReservationBundle\Entity\TypeCamion:
     type: entity
-    table: null
+    table: typecamion
     repositoryClass: Transfer\ReservationBundle\Entity\TypeCamionRepository
     fields:
         id:
