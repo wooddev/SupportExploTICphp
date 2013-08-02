@@ -10,7 +10,7 @@
     <body>        
         <div class="container-fluid">
             <div class="row-fluid">
-                <div class="span3">
+                <div class="span4">
                         
                         <div class="dropdown clearfix">
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin-bottom: 5px; *width: 180px;">        
@@ -81,7 +81,7 @@
                             </ul>                              
                         </div>
                 </div>          
-                <div class="span9">
+                <div class="span8">
                     <div>
                                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                         {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
