@@ -10,7 +10,7 @@ use Transfer\ProfilBundle\Entity\Profil;
  */
 class AgentTrsp extends Profil
 {
-
+    const role = 'ROLE_TRANSPORTEUR';
     /**
      * @var \Transfer\ProfilBundle\Entity\Transporteur
      */

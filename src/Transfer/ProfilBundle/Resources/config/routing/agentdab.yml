@@ -1,0 +1,30 @@
+agentdab:
+    pattern:  /
+    defaults: { _controller: "TransferProfilBundle:AgentDab:index" }
+
+agentdab_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TransferProfilBundle:AgentDab:show" }
+
+agentdab_new:
+    pattern:  /new
+    defaults: { _controller: "TransferProfilBundle:AgentDab:new" }
+
+agentdab_create:
+    pattern:  /create
+    defaults: { _controller: "TransferProfilBundle:AgentDab:create" }
+    requirements: { _method: post }
+
+agentdab_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TransferProfilBundle:AgentDab:edit" }
+
+agentdab_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TransferProfilBundle:AgentDab:update" }
+    requirements: { _method: post|put }
+
+agentdab_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TransferProfilBundle:AgentDab:delete" }
+    requirements: { _method: post|delete }

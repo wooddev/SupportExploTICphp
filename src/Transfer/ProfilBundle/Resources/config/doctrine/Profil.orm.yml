@@ -10,6 +10,12 @@ Transfer\ProfilBundle\Entity\Profil:
   discriminatorMap:
     agentdab: AgentDab
     agenttrsp: AgentTrsp
+    agentreception: AgentReception
+  oneToOne:
+    user:
+      targetEntity: Transfer\MainBundle\Entity\User
+      inversedBy: profil
+      nullable: true
   fields:
     id:
       type: integer
@@ -30,4 +36,7 @@ Transfer\ProfilBundle\Entity\Profil:
       length: 255
     dateEnregistrement:
       type: datetime
-  lifecycleCallbacks: {  }
+    dateModification:
+      type: datetime
+  lifecycleCallbacks:
+    prePersist: [ setDateModification ]

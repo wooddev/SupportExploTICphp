@@ -6,24 +6,20 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class AgentTrspType extends AbstractType
+class AgentDabType extends AbstractType
 {
+    private $userForm;
+    public function __construct($userForm) {
+        $this->userForm = $userForm;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $role = 'ROLE_TRANSPORTEUR';
+        $role = 'ROLE_DAB';
         $builder
             ->add('nom')
             ->add('prenom')
             ->add('courriel')
-            ->add('telephone')            
-//            ->add('transporteur','entity',array(
-//                'class'=>'TransferProfilBundle:Transporteur',
-//                'property' => 'nom'))
-            ->add('transporteur',null,array(
-                'required'=>true,
-                'empty_value'=>'choisir un transporteur'
-                
-            ))
+            ->add('telephone')    
             ->add('user','entity',array(
                 'class'=> "TransferMainBundle:User",
                 'query_builder'=>function(\Doctrine\ORM\EntityRepository $er) use ($role){
@@ -31,17 +27,18 @@ class AgentTrspType extends AbstractType
                     },
                 ))
             ;
+        ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Transfer\ProfilBundle\Entity\AgentTrsp'
+            'data_class' => 'Transfer\ProfilBundle\Entity\AgentDab'
         ));
     }
 
     public function getName()
     {
-        return 'transfer_profilbundle_agenttrsptype';
+        return 'transfer_profilbundle_agentdabtype';
     }
 }

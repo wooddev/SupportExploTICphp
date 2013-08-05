@@ -1,0 +1,6 @@
+Transfer\ProfilBundle\Entity\AgentReception:
+    type: entity
+    table: null
+    repositoryClass: Transfer\ProfilBundle\Entity\AgentReceptionRepository
+    
+    lifecycleCallbacks: {  }

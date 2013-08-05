@@ -111,7 +111,7 @@ class CreneauPrefGenController extends Controller
         
         foreach ($postes as $poste){
             $creneauxStructure = new \Doctrine\Common\Collections\ArrayCollection(
-                        $em->getRepository('TransferReservationBundle:creneauModele')
+                        $em->getRepository('TransferReservationBundle:CreneauModele')
                                         ->findActifsByPoste($poste));
             
             $this->get('transfer_reservation.reservation')->fixDisponibilites($creneauxStructure,array('persist'=>true));
@@ -119,7 +119,7 @@ class CreneauPrefGenController extends Controller
             $creneauxAffiches = new \Doctrine\Common\Collections\ArrayCollection(
                                 $em->getRepository('TransferReservationBundle:CreneauPref')
                                             ->findActifsByPoste($poste));
-            $minutesMin = new \DateTime($em->getRepository('TransferReservationBundle:creneauModele')
+            $minutesMin = new \DateTime($em->getRepository('TransferReservationBundle:CreneauModele')
                                             ->findSemaineMinutesMin($poste));            
             $min = (int)$minutesMin->format('H')*60 + (int)$minutesMin->format('i')-15;
             if($creneauxStructure){

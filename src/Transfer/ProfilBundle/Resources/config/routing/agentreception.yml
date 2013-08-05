@@ -1,0 +1,30 @@
+agentreception:
+    pattern:  /
+    defaults: { _controller: "TransferProfilBundle:AgentReception:index" }
+
+agentreception_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TransferProfilBundle:AgentReception:show" }
+
+agentreception_new:
+    pattern:  /new
+    defaults: { _controller: "TransferProfilBundle:AgentReception:new" }
+
+agentreception_create:
+    pattern:  /create
+    defaults: { _controller: "TransferProfilBundle:AgentReception:create" }
+    requirements: { _method: post }
+
+agentreception_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TransferProfilBundle:AgentReception:edit" }
+
+agentreception_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TransferProfilBundle:AgentReception:update" }
+    requirements: { _method: post|put }
+
+agentreception_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TransferProfilBundle:AgentReception:delete" }
+    requirements: { _method: post|delete }

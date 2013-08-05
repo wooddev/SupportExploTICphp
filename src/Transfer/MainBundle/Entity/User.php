@@ -29,60 +29,33 @@ class User extends BaseUser
     {
         return $this->id;
     }
+   
     /**
-     * @var \Transfer\ProfilBundle\Entity\AgentDab
+     * @var \Transfer\ProfilBundle\Entity\Profil
      */
-    private $agentDab;
-
-    /**
-     * @var \Transfer\ProfilBundle\Entity\AgentTrsp
-     */
-    private $agentTrsp;
+    private $profil;
 
 
     /**
-     * Set agentDab
+     * Set profil
      *
-     * @param \Transfer\ProfilBundle\Entity\AgentDab $agentDab
+     * @param \Transfer\ProfilBundle\Entity\Profil $profil
      * @return User
      */
-    public function setAgentDab(\Transfer\ProfilBundle\Entity\AgentDab $agentDab = null)
+    public function setProfil(\Transfer\ProfilBundle\Entity\Profil $profil = null)
     {
-        $this->agentDab = $agentDab;
+        $this->profil = $profil;
     
         return $this;
     }
 
     /**
-     * Get agentDab
+     * Get profil
      *
-     * @return \Transfer\ProfilBundle\Entity\AgentDab 
+     * @return \Transfer\ProfilBundle\Entity\Profil 
      */
-    public function getAgentDab()
+    public function getProfil()
     {
-        return $this->agentDab;
-    }
-
-    /**
-     * Set agentTrsp
-     *
-     * @param \Transfer\ProfilBundle\Entity\AgentTrsp $agentTrsp
-     * @return User
-     */
-    public function setAgentTrsp(\Transfer\ProfilBundle\Entity\AgentTrsp $agentTrsp = null)
-    {
-        $this->agentTrsp = $agentTrsp;
-    
-        return $this;
-    }
-
-    /**
-     * Get agentTrsp
-     *
-     * @return \Transfer\ProfilBundle\Entity\AgentTrsp 
-     */
-    public function getAgentTrsp()
-    {
-        return $this->agentTrsp;
+        return $this->profil;
     }
 }

@@ -140,6 +140,10 @@ class Profil
      * @var datetime
      */
     private $dateEnregistrement;
+    /**
+     * @var datetime
+     */
+    private $dateModification;
 
 
     /**
@@ -148,9 +152,9 @@ class Profil
      * @param \datetime $dateEnregistrement
      * @return Utilisateur
      */
-    public function setDateEnregistrement(\datetime $dateEnregistrement)
+    public function setDateEnregistrement()
     {
-        $this->dateEnregistrement = $dateEnregistrement;
+        $this->dateEnregistrement = new \DateTime();
     
         return $this;
     }
@@ -163,5 +167,63 @@ class Profil
     public function getDateEnregistrement()
     {
         return $this->dateEnregistrement;
+    }
+    /**
+     * Set dateEnregistrement
+     *
+     * @param \datetime $dateEnregistrement
+     * @return Utilisateur
+     */
+    public function setDateModification()
+    {
+        $this->dateModification = new \DateTime();
+    
+        return $this;
+    }
+
+    /**
+     * Get dateEnregistrement
+     *
+     * @return \datetime 
+     */
+    public function getDateModification()
+    {
+        return $this->dateModification;
+    }
+    
+    public function __toString() {
+        return $this->getNom().' '.$this->getPrenom();
+    }
+    /**
+     * @var \Transfer\MainBundle\Entity\User
+     */
+    private $user;
+
+
+    /**
+     * Set user
+     *
+     * @param \Transfer\MainBundle\Entity\User $user
+     * @return Profil
+     */
+    public function setUser(\Transfer\MainBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Transfer\MainBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+    
+    public function __construct() {
+        $this->setDateEnregistrement();
     }
 }

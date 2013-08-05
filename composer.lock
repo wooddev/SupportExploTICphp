@@ -41,7 +41,7 @@
                     "Braincrafted\\BootstrapBundle": ""
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -548,7 +548,7 @@
                     "email": "stof@notk.org"
                 },
                 {
-                    "name": "Knplabs",
+                    "name": "KnpLabs",
                     "homepage": "http://knplabs.com"
                 },
                 {
@@ -1360,16 +1360,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.13.1",
+            "version": "v1.13.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "v1.13.1"
+                "reference": "v1.13.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/v1.13.1",
-                "reference": "v1.13.1",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/v1.13.2",
+                "reference": "v1.13.2",
                 "shasum": ""
             },
             "require": {
@@ -1388,7 +1388,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -1405,19 +1405,19 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-06-06 06:06:01"
+            "time": "2013-08-03 15:35:31"
         },
         {
             "name": "twitter/bootstrap",
             "version": "v2.3.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twitter/bootstrap.git",
+                "url": "https://github.com/twbs/bootstrap.git",
                 "reference": "v2.3.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twitter/bootstrap/zipball/v2.3.2",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/v2.3.2",
                 "reference": "v2.3.2",
                 "shasum": ""
             },
@@ -1427,12 +1427,12 @@
                 "Apache-2.0"
             ],
             "description": "Sleek, intuitive, and powerful front-end framework for faster and easier web development.",
-            "homepage": "http://twitter.github.com/bootstrap/",
+            "homepage": "http://twbs.github.com/bootstrap/",
             "keywords": [
                 "bootstrap",
                 "css"
             ],
-            "time": "2013-05-17 17:26:09"
+            "time": "2013-07-27 06:36:38"
         },
         {
             "name": "winzou/console-bundle",

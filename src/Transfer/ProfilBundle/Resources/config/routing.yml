@@ -6,5 +6,10 @@ transfer_profil_transporteur:
     prefix: /transporteur
 transfer_profil_agenttrsp:
     resource: "@TransferProfilBundle/Resources/config/routing/agenttrsp.yml"
-    prefix: /agenttrsp
-  
+    prefix: /agenttrsp 
+transferProfilBundle_agentdab:
+    resource: "@TransferProfilBundle/Resources/config/routing/agentdab.yml"
+    prefix:   /agentdab   
+transferProfilBundle_agentreception:
+    resource: "@TransferProfilBundle/Resources/config/routing/agentreception.yml"
+    prefix:   /agentreception

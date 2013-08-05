@@ -39,4 +39,36 @@ class AgentTrsp extends Profil
     {
         return $this->transporteur;
     }
+    /**
+     * @var \Transfer\MainBundle\Entity\User
+     */
+    private $user;
+
+
+    /**
+     * Set user
+     *
+     * @param \Transfer\MainBundle\Entity\User $user
+     * @return AgentTrsp
+     */
+    public function setUser(\Transfer\MainBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Transfer\MainBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+    
+    public function __toString() {
+        return $this->transporteur->getNom().'/'.$this->getNom().' '.$this->getPrenom();
+    }
 }

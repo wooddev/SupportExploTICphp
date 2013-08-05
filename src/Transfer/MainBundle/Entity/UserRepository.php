@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+    public function findRoleLike($role){
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb ->select('u')
+            ->from('TransferMainBundle:User','u')
+            ->join('u.profil', 'p')
+            ->andWhere($qb->expr()->andX(                    
+                    $qb->expr()->like('u.roles', ':role'))   
+                    )                 
+            ->setParameter('role', '%'.$role.'%');
+            
+        return $qb;
+    }
 }

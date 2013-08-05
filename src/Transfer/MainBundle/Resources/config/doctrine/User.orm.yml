@@ -3,13 +3,9 @@ Transfer\MainBundle\Entity\User:
     table: fos_user
     repositoryClass: Transfer\MainBundle\Entity\UserRepository
     oneToOne:
-        agentDab:
-            targetEntity: Transfer\ProfilBundle\Entity\AgentDab
-            inversedBy: user
-            nullable: true
-        agentTrsp:
-            targetEntity: Transfer\ProfilBundle\Entity\AgentTrsp
-            inversedBy: user
+        profil:
+            targetEntity: Transfer\ProfilBundle\Entity\Profil
+            mappedBy: user
             nullable: true
     fields:
         id:
