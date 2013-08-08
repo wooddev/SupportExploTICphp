@@ -20,4 +20,29 @@ services:
         class: Transfer\ReservationBundle\Event\VidangeListener
         arguments: ["@transfer_reservation.parametres","@transfer_reservation.reservation","@doctrine.orm.entity_manager"]
         tags:
-          - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+    transfer_reservation.admin.typeposte:
+        class: Transfer\ReservationBundle\Admin\TypePosteAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Paramétrage du module de réservation, label: Postes de déchargement }
+        arguments: [null, Transfer\ReservationBundle\Entity\TypePoste, null]  
+    transfer_reservation.admin.typecamion:
+        class: Transfer\ReservationBundle\Admin\TypeCamionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Paramétrage du module de réservation, label: Types de camion }
+        arguments: [null, Transfer\ReservationBundle\Entity\TypeCamion, null]  
+    transfer_reservation.admin.paramreservation:
+        class: Transfer\ReservationBundle\Admin\ParamReservationAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Paramétrage du module de réservation, label: Paramètres généraux }
+        arguments: [null, Transfer\ReservationBundle\Entity\ParamReservation, null]  
+    transfer_reservation.admin.statutcreneau:
+        class: Transfer\ReservationBundle\Admin\StatutCreneauAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Paramétrage du module de réservation, label: Statuts des créneaux }
+        arguments: [null, Transfer\ReservationBundle\Entity\StatutCreneau, null]  
+    transfer_reservation.admin.etatreservation:
+        class: Transfer\ReservationBundle\Admin\EtatReservationAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Paramétrage du module de réservation, label: Etapes de réservation }
+        arguments: [null, Transfer\ReservationBundle\Entity\EtatReservation, null]  

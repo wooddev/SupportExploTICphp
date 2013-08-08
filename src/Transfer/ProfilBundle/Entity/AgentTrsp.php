@@ -3,14 +3,13 @@
 namespace Transfer\ProfilBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Transfer\ProfilBundle\Entity\Profil;
 
 /**
  * AgentTrsp
  */
-class AgentTrsp extends Profil
+class AgentTrsp extends \Transfer\MainBundle\Entity\User
 {
-    const role = 'ROLE_TRANSPORTEUR';
+     protected static $roles_const = array('ROLE_TRANSPORTEUR');
     /**
      * @var \Transfer\ProfilBundle\Entity\Transporteur
      */
@@ -39,36 +38,14 @@ class AgentTrsp extends Profil
     {
         return $this->transporteur;
     }
-    /**
-     * @var \Transfer\MainBundle\Entity\User
-     */
-    private $user;
 
-
-    /**
-     * Set user
-     *
-     * @param \Transfer\MainBundle\Entity\User $user
-     * @return AgentTrsp
-     */
-    public function setUser(\Transfer\MainBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-    
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \Transfer\MainBundle\Entity\User 
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
     
     public function __toString() {
-        return $this->transporteur->getNom().'/'.$this->getNom().' '.$this->getPrenom();
+        if($this->transporteur && $this->transporteur->getNom()){
+        return $this->transporteur->getNom().'/'.$this->getLastname().' '.$this->getFirstName();
+        }
+        else{
+            return $this->getLastname().' '.$this->getFirstName();
+        }
     }
 }

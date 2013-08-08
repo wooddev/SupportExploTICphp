@@ -2,11 +2,16 @@ Transfer\MainBundle\Entity\User:
     type: entity
     table: fos_user
     repositoryClass: Transfer\MainBundle\Entity\UserRepository
-    oneToOne:
-        profil:
-            targetEntity: Transfer\ProfilBundle\Entity\Profil
-            mappedBy: user
-            nullable: true
+    inheritanceType: SINGLE_TABLE
+    discriminatorColumn:
+      name: profil
+      type: string
+      length: 255
+    discriminatorMap:
+      agentdab:       Transfer\ProfilBundle\Entity\AgentDab
+      agenttrsp:      Transfer\ProfilBundle\Entity\AgentTrsp
+      agentreception: Transfer\ProfilBundle\Entity\AgentReception
+      user:           Transfer\MainBundle\Entity\User
     fields:
         id:
             type: integer

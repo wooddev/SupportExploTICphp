@@ -19,13 +19,14 @@
         "sensio/distribution-bundle": "2.3.*",
         "sensio/framework-extra-bundle": "2.3.*",
         "sensio/generator-bundle": "2.3.*",
-        "incenteev/composer-parameter-handler": "~2.0",      
-        "braincrafted/bootstrap-bundle":"1.2.0",
-        "twitter/bootstrap": "2.3.*",
-        "knplabs/knp-menu": "2.0.*@dev",
-        "knplabs/knp-menu-bundle": "2.0.x-dev",
-        "friendsofsymfony/user-bundle": "dev-master",
-        "winzou/console-bundle": "dev-master"
+        "incenteev/composer-parameter-handler": "~2.0",
+        "winzou/console-bundle": "dev-master",
+        "sonata-project/admin-bundle": "2.2.*@dev",
+        "sonata-project/cache-bundle": "2.1.*@dev",
+        "sonata-project/intl-bundle": "2.1.*@dev",        
+        "sonata-project/easy-extends-bundle" : "dev-master",
+        "sonata-project/doctrine-orm-admin-bundle": "dev-master",
+        "sonata-project/user-bundle": "2.2.*@dev"       
     },
     "scripts": {
         "post-install-cmd": [
@@ -44,7 +45,8 @@
         ]
     },
    "config": {
-         "bin-dir": "bin"
+         "bin-dir": "bin",
+         "process-timeout": 35
      },
     "minimum-stability": "stable",
     "extra": {

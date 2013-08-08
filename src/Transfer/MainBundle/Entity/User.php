@@ -15,9 +15,19 @@ class User extends BaseUser
      */
     protected $id;
 
+     protected static $roles_const = null;
     
     public function __construct() {
         parent::__construct();
+        
+        if(!self::$roles_const){
+            if(is_array(self::$roles_const)){
+                foreach( self::$roles_const as $role){
+                    $this->addRole($role);
+                }
+            }
+        }
+        
     }
 
     /**
@@ -30,32 +40,6 @@ class User extends BaseUser
         return $this->id;
     }
    
-    /**
-     * @var \Transfer\ProfilBundle\Entity\Profil
-     */
-    private $profil;
 
 
-    /**
-     * Set profil
-     *
-     * @param \Transfer\ProfilBundle\Entity\Profil $profil
-     * @return User
-     */
-    public function setProfil(\Transfer\ProfilBundle\Entity\Profil $profil = null)
-    {
-        $this->profil = $profil;
-    
-        return $this;
-    }
-
-    /**
-     * Get profil
-     *
-     * @return \Transfer\ProfilBundle\Entity\Profil 
-     */
-    public function getProfil()
-    {
-        return $this->profil;
-    }
 }

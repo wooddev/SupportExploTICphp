@@ -5,7 +5,7 @@ imports:
 
 framework:
     #esi:             ~
-    translator:      { fallback: %locale% }
+    translator:     { fallback: %locale% }
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -28,7 +28,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form:
       resources:
-        - "BraincraftedBootstrapBundle:Form:form_div_layout.html.twig"
+        - form_div_layout.html.twig
 
 # Assetic Configuration
 assetic:
@@ -55,9 +55,17 @@ doctrine:
         charset:  UTF8
         mapping_types:
           enum: string
+        types:
+            json: "Sonata\Doctrine\Types\JsonType"
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
+        entity_managers:
+            default:
+                auto_mapping: true
+                mappings:
+                    FOSUserBundle: ~
+                    SonataUserBundle: ~
+                    ApplicationSonataUserBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -67,16 +75,82 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-#knpMenu configuration
-knp_menu:
-  twig:
-    template: "BraincraftedBootstrapBundle:Menu:menu.html.twig"
+
     
 # FOSUser Configuration
 fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Transfer\MainBundle\Entity\User
-    registration:
-      form:
-        type: fos_user_registration
+    group:
+      group_class: Transfer\MainBundle\Entity\Group
+    profile:
+        form:
+            type:     fos_user.profile
+            handler:  fos_user.profile.form.handler.default
+            name:     fos_user.profile_form
+#    registration:
+#      form:
+#        type: fos_user_registration
+        
+sonata_admin:
+    title:      Administration de l'application TransFER
+    title_logo: ./bundles/transfermain/images/logo_simple.gif
+    templates:
+        ## default global templates
+        layout:  TransferMainBundle::my_sonata_layout.html.twig
+        ajax:    SonataAdminBundle::ajax_layout.html.twig
+ 
+        ## default actions templates, should extend a global templates
+        list:    SonataAdminBundle:CRUD:list.html.twig
+        show:    SonataAdminBundle:CRUD:show.html.twig
+        edit:    SonataAdminBundle:CRUD:edit.html.twig
+        history: SonataAdminBundle:CRUD:history.html.twig
+        preview: SonataAdminBundle:CRUD:preview.html.twig
+        delete:  SonataAdminBundle:CRUD:delete.html.twig
+    security:
+        handler: sonata.admin.security.handler.acl
+        # acl security information
+        information:
+            GUEST:    [VIEW, LIST]
+            SIMPLE_EDITOR: [EDIT,LIST]
+            STAFF:    [EDIT, LIST, CREATE]
+            EDITOR:   [OPERATOR, EXPORT]
+            ADMIN:    [MASTER]
+        # permissions not related to an object instance and also to be available when objects do not exist
+        # the DELETE admin permission means the user is allowed to batch delete objects
+        admin_permissions: [CREATE, LIST, DELETE, UNDELETE, EXPORT, OPERATOR, MASTER]
+        # permission related to the objects
+        object_permissions: [VIEW, EDIT, DELETE, UNDELETE, OPERATOR, MASTER, OWNER]
+ 
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+ 
+        sonata.block.service.text:
+        sonata.block.service.action:
+        sonata.block.service.rss:
+
+sonata_user:
+    security_acl:     true
+    class:
+        user:         Transfer\MainBundle\Entity\User
+        group:         Transfer\MainBundle\Entity\Group
+    admin:                  # Admin Classes
+        user:
+            class:          Sonata\UserBundle\Admin\Entity\UserAdmin
+            controller:     SonataAdminBundle:CRUD
+            translation:    SonataUserBundle
+ 
+        group:
+            class:          Sonata\UserBundle\Admin\Entity\GroupAdmin
+            controller:     SonataAdminBundle:CRUD
+            translation:    SonataUserBundle
+    profile:  # Profile Form (firstname, lastname, etc ...)
+        form:
+            type:               sonata_user_profile
+            handler:            sonata.user.profile.form.handler.default
+            name:               sonata_user_profile_form
+            validation_groups:  [Profile]

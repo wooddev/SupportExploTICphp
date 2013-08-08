@@ -1,7 +1,33 @@
 parameters:
-#    transfer_profil.example.class: Transfer\ProfilBundle\Example
 
 services:
     transfer_profil.acces:
         class: Transfer\ProfilBundle\Services\AccesProfil
-        arguments: ["@security.context"]
+        arguments: ["@security.context","@doctrine.orm.entity_manager"]
+    transfer_profil.admin.transporteurs:
+        class: Transfer\ProfilBundle\Admin\TransporteurAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Entreprises, label: Transporteurs }
+        arguments: [null, Transfer\ProfilBundle\Entity\Transporteur, null]
+    transfer_profil.admin.profil:
+        abstract: true   
+        calls:
+            - [ setUserManager, [ '@fos_user.user_manager' ] ]
+    transfer_profil.admin.agentdab:
+        class: Transfer\ProfilBundle\Admin\AgentDabAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Profils des Agents DAB }
+        arguments: [null, Transfer\ProfilBundle\Entity\AgentDab, null]        
+        parent: transfer_profil.admin.profil
+    transfer_profil.admin.agenttrsp:        
+        class: Transfer\ProfilBundle\Admin\AgentTrspAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Profils des agents transporteurs }
+        arguments: [null, Transfer\ProfilBundle\Entity\AgentTrsp, null]
+        parent: transfer_profil.admin.profil
+    transfer_profil.admin.agentreception:
+        class: Transfer\ProfilBundle\Admin\AgentReceptionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Profils des récéptionnaires }
+        arguments: [null, Transfer\ProfilBundle\Entity\AgentReception, null]
+        parent: transfer_profil.admin.profil

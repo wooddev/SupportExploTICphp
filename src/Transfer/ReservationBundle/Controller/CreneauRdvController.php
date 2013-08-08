@@ -188,17 +188,9 @@ class CreneauRdvController extends Controller
         $dateDebut = new \DateTime($annee.'W'.$semaine);
         $dateFin = new \DateTime($annee.'W'.$semaine."6");
         //Récupération du transporteur associé à l'utilisateur
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        if(! is_object($user))
-        {
-            return new \Symfony\Component\HttpFoundation\Response('Veuillez vous authentifier');          
-        }     
+        $transporteur = $this->get('transfer_profil.acces')->getTransporteur();
         
-        if(!(is_object($user->getAgentTrsp()))){
-            return new \Symfony\Component\HttpFoundation\Response("
-                L'administrateur doit relier votre compte à une entreprise de transport");          
-        }   
-        $transporteur = $user->getAgentTrsp()->getTransporteur();
+        
         return $this->render('TransferReservationBundle:CreneauRdv:recherche/formulaire.html.twig', array(
             'transporteur'=>$transporteur,
             'dateDebut'=> $dateDebut,

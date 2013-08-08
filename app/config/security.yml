@@ -1,3 +1,6 @@
+parameters:
+    security.acl.permission.map.class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap
+
 security:
     encoders:
         FOS\UserBundle\Model\UserInterface : sha512        
@@ -5,8 +8,8 @@ security:
     role_hierarchy:        
         ROLE_TRANSPORTEUR : ROLE_USER
         ROLE_DAB: ROLE_RECEP
-        ROLE_ADMIN: ROLE_DAB
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ADMIN: [ROLE_USER, ROLE_DAB, ROLE_SONATA_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
         fos_userbundle:
@@ -20,7 +23,25 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false           
-    
+        
+        # -> custom firewall for the admin area of the URL
+        admin:
+            pattern:      /admin(.*)
+            form_login:
+                provider:       fos_userbundle
+                login_path:     /admin/login
+                use_forward:    false
+                check_path:     /admin/login_check
+                failure_path:   null 
+            remember_me:
+                key: %secret%
+            logout:
+                path:           /admin/logout
+                target: /admin/dashboard
+                invalidate_session: false   
+            anonymous:    true
+        # -> end custom configuration
+        
         #Firewall pour les pages de connexion
         login:
           pattern: ^/(login$|register|resetting)
@@ -28,10 +49,14 @@ security:
 
         #Firewall principal du site
         main:
-            pattern: ^/
+            pattern: .*
             form_login:
-                provider: fos_userbundle
-                csrf_provider: form.csrf_provider
+                provider:       fos_userbundle
+                csrf_provider:  form.csrf_provider
+                login_path:     /login
+                use_forward:    false
+                check_path:     /login_check
+                failure_path:   null
             remember_me:
               key: %secret%
             logout: 
@@ -40,13 +65,30 @@ security:
               invalidate_session: false              
             anonymous: false
             
-    access_control:
-        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-        - { path: ^/resetting, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-        - { path: ^/console, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+    acl:
+        connection: default
+    
+    access_control:      
+      # URL of FOSUserBundle which need to be available to anonymous users
+        - { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/_profiler, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+ 
+        # -> custom access control for the admin area of the URL
+        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        # -> end
+ 
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+ 
+        # Secured part of the site
+        # This config requires being logged for the whole site and having the admin role for the admin part.
+        # Change these rules to adapt them to your needs
+        - { path: ^/admin, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+        - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/dab, roles: ROLE_DAB}
-        - { path: ^/admin, roles: ROLE_ADMIN}
         - {path: ^/console, roles: ROLE_ADMIN}
         
         
