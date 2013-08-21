@@ -1,6 +1,6 @@
 Explotic\TiersBundle\Entity\Geometry:
     type: entity
-    table: null
+    table: geometry
     repositoryClass: Explotic\TiersBundle\Entity\GeometryRepository
     fields:
         id:

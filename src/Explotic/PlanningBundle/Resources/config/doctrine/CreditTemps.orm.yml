@@ -1,6 +1,6 @@
 Explotic\PlanningBundle\Entity\CreditTemps:
     type: entity
-    table: null
+    table: credittemps
     repositoryClass: Explotic\PlanningBundle\Entity\CreditTempsRepository
     fields:
         id:

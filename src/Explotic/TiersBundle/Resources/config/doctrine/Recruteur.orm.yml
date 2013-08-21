@@ -1,6 +1,6 @@
 Explotic\TiersBundle\Entity\Recruteur:
   type: entity
-  table: null
+  table: recruteur
   repositoryClass: Explotic\TiersBundle\Entity\RecruteurRepository
   manyToOne:
     employeur:

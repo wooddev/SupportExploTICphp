@@ -1,6 +1,6 @@
 Explotic\AgendaBundle\Entity\Creneau:
     type: entity
-    table: null
+    table: creneau
     repositoryClass: Explotic\AgendaBundle\Entity\CreneauRepository
     fields:
         id:

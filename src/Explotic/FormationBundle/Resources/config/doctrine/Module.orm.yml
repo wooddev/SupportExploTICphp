@@ -1,6 +1,6 @@
 Explotic\FormationBundle\Entity\Module:
     type: entity
-    table: null
+    table: module
     repositoryClass: Explotic\FormationBundle\Entity\ModuleRepository
     oneToMany:
       interventionSalles:

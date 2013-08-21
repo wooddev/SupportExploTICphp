@@ -1,6 +1,6 @@
 Explotic\PlanningBundle\Entity\ParamSemaine:
   type: entity
-  table: null
+  table: paramsemaine
   repositoryClass: Explotic\PlanningBundle\Entity\ParamSemaineRepository   
   fields:
     id:

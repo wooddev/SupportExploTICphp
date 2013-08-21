@@ -1,6 +1,6 @@
 Explotic\FormationBundle\Entity\Intervention:
     type: entity
-    table: null
+    table: intervention
     repositoryClass: Explotic\FormationBundle\Entity\InterventionRepository
     fields:
         id:

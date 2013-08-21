@@ -138,7 +138,13 @@ class Entreprise
     }
     
     public function __toString() {
-        return $this->getRaisonSociale().' ('.$this->getBureau()->getLocalisation()->getCommune().')';
+//        $rs=$this->getRaisonSociale();
+        $ans=$this->getRaisonSociale().' '.$this->getBureau()->getLocalisation()->getCommune();
+//        return $rs.' ('.$ville.')';
+//        if (!$this->raisonSociale){
+//            $ans = 'Rs vide pour id='.$this->getId();
+//        }else{$ans = $this->getRaisonSociale();} 
+        return $ans;
     }
     /**
      * @var string

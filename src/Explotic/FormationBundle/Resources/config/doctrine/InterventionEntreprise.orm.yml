@@ -1,6 +1,6 @@
 Explotic\FormationBundle\Entity\InterventionEntreprise:
     type: entity
-    table: null
+    table: interventionentreprise
     repositoryClass: Explotic\FormationBundle\Entity\InterventionEntrepriseRepository
     manyToOne:
       module:

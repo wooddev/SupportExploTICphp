@@ -1,6 +1,6 @@
 Explotic\AgendaBundle\Entity\Rdv:
     type: entity
-    table: null
+    table: rdv
     repositoryClass: Explotic\AgendaBundle\Entity\RdvRepository
     manyToOne:
       creneauRdv:

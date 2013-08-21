@@ -1,5 +1,5 @@
 Explotic\AgendaBundle\Entity\CreneauModele:
   type: entity
-  table: null
+  table: creneaumodele
   repositoryClass: Explotic\AgendaBundle\Entity\CreneauModeleRepository  
   lifecycleCallbacks: {  }

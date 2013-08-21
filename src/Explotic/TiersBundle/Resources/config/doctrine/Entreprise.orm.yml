@@ -1,6 +1,6 @@
 Explotic\TiersBundle\Entity\Entreprise:
     type: entity
-    table: null
+    table: entreprise
     repositoryClass: Explotic\TiersBundle\Entity\EntrepriseRepository
     oneToOne:
       bureau:

@@ -1,6 +1,6 @@
 Explotic\TiersBundle\Entity\Stagiaire:
     type: entity
-    table: null
+    table: stagiaire
     repositoryClass: Explotic\TiersBundle\Entity\StagiaireRepository
     oneToOne:
       calendrier:

@@ -1,6 +1,6 @@
 Explotic\TiersBundle\Entity\SiteIntervention:
     type: entity
-    table: null
+    table: siteintervention
     repositoryClass: Explotic\TiersBundle\Entity\SiteInterventionRepository    
     oneToOne:
       localisation:

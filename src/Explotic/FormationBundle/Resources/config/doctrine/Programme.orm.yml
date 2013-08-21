@@ -1,6 +1,6 @@
 Explotic\FormationBundle\Entity\Programme:
     type: entity
-    table: null
+    table: programme
     repositoryClass: Explotic\FormationBundle\Entity\ProgrammeRepository
     manyToOne:
       module:

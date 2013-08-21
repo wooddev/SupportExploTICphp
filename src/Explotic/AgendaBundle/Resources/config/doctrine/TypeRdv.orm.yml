@@ -1,6 +1,6 @@
 Explotic\AgendaBundle\Entity\TypeRdv:
   type: entity
-  table: null
+  table: typerdv
   repositoryClass: Explotic\AgendaBundle\Entity\TypeRdvRepository
   fields:
     id:

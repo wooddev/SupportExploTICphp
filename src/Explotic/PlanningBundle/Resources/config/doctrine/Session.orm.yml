@@ -1,6 +1,6 @@
 Explotic\PlanningBundle\Entity\Session:
     type: entity
-    table: null
+    table: session
     repositoryClass: Explotic\PlanningBundle\Entity\SessionRepository
     oneToOne:
       calendrier:

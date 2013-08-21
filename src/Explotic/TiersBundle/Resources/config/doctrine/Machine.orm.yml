@@ -1,6 +1,6 @@
 Explotic\TiersBundle\Entity\Machine:
     type: entity
-    table: null
+    table: machine
     repositoryClass: Explotic\TiersBundle\Entity\MachineRepository
     manyToOne:
       entreprise:

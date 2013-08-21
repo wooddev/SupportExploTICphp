@@ -1,6 +1,6 @@
 Explotic\TiersBundle\Entity\Formateur:
     type: entity
-    table: null
+    table: formateur
     repositoryClass: Explotic\TiersBundle\Entity\FormateurRepository
     oneToOne:
       calendrier:

@@ -1,6 +1,6 @@
 Explotic\TiersBundle\Entity\Organisme:
     type: entity
-    table: null
+    table: organisme
     repositoryClass: Explotic\TiersBundle\Entity\OrganismeRepository
     fields:
         id:

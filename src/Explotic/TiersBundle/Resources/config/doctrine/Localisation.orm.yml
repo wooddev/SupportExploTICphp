@@ -1,6 +1,6 @@
 Explotic\TiersBundle\Entity\Localisation:
     type: entity
-    table: null
+    table: localisation
     repositoryClass: Explotic\TiersBundle\Entity\LocalisationRepository
     oneToOne:
       geometry:
