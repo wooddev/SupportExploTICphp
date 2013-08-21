@@ -1,5 +1,10 @@
 <?php
 namespace Transfer\ReservationBundle\Services;
+
+use DateInterval;
+use DateTime;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\Serializer\Exception\Exception;
 use Transfer\ReservationBundle\Entity\ParamReservationRepository;
 /**
  * Description of AccesParametres
@@ -12,9 +17,13 @@ class AccesParametres {
     private $em;
     
     public function __construct(ParamReservationRepository $paramReservationRepository,
-                                \Doctrine\ORM\EntityManager $em) {
-        $this->paramReservation = $paramReservationRepository->findAll()[0];
-        $this->em = $em;
+                                EntityManager $em) {
+        
+        $arrayParam = $paramReservationRepository->findAll();
+        if(count($arrayParam)>0){
+            $this->paramReservation = $arrayParam[0];            
+        }
+        $this->em = $em;       
     }
     
     public function getDisponibiliteTotale(){
@@ -62,10 +71,10 @@ class AccesParametres {
     }
     
     public function getDebutVidangeInact(){
-        return new \DateTime($this->paramReservation->getParametres()['DebutVidangeInact']);
+        return new DateTime($this->paramReservation->getParametres()['DebutVidangeInact']);
     }
     public function getFinVidangeInact(){
-        return new \DateTime($this->paramReservation->getParametres()['FinVidangeInact']);
+        return new DateTime($this->paramReservation->getParametres()['FinVidangeInact']);
     }
     public function getEtatVidange(){
         return $this->paramReservation->getParametresReserves()['EtatVidange'];
@@ -76,11 +85,11 @@ class AccesParametres {
         $this->em->flush();
     }
     public function getProchaineVidange(){
-        return new \DateTime($this->paramReservation->getParametresReserves()['ProchaineVidange']);
+        return new DateTime($this->paramReservation->getParametresReserves()['ProchaineVidange']);
     }
     public function setProchaineVidange(){        
-        $dateHeure = new \DateTime();
-        $dateHeure->add(new \DateInterval('PT30S'));
+        $dateHeure = new DateTime();
+        $dateHeure->add(new DateInterval('PT30S'));
         $this->paramReservation->getParametresReserves()['ProchaineVidange'] = $dateHeure->format('Y/m/d h:i');
         $this->em->persist($this->paramReservation);
         $this->em->flush();

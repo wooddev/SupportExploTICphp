@@ -11,7 +11,8 @@
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span4">
-                        
+                    {%if is_granted('IS_AUTHENTICATED_REMEMBERED')%}
+                    
                         <div class="dropdown clearfix">
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin-bottom: 5px; *width: 180px;">        
                         {% if is_granted("ROLE_RECEP") %}
@@ -80,6 +81,7 @@
                             {%endif%}
                             </ul>                              
                         </div>
+                    {%endif%}
                 </div>          
                 <div class="span8">
                     <div>
@@ -88,8 +90,6 @@
                                         <a href="{{ path('fos_user_security_logout') }}">
                                             {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                                         </a>
-                                    {% else %}                                        
-                                        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
                                     {% endif %}                                        
                         </div>
                 {%block body %}
