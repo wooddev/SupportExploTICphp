@@ -21,7 +21,7 @@ class CreneauModeleGenController extends Controller
     public function generateAction()
     {
         $entity = new CreneauModeleGen();
-        $entity->init(8,0, 12, 0, 4);           
+        $entity->init(8,0, 12, 0, 240);           
         $form   = $this->createForm(new CreneauModeleGenType(), $entity);
 
         return $this->render('ExploticAgendaBundle:CreneauModele:generate.html.twig', array(

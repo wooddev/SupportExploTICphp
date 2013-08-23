@@ -50,12 +50,17 @@ class CreneauRdvGenController extends Controller
             
             $generateur->setCreneauxModeles($creneauxModeles);
             
-            $generateur->generateCreneauxRdvs(); 
-            
+            $generateur->generateCreneauxRdvs($em->getRepository('ExploticAgendaBundle:CreneauRdv')); 
+            $i=0;
             foreach ($generateur->getCreneauxRdvs() as $creneauRdv){
+                $i++;
                 $em->persist($creneauRdv);
-            }        
-            $em->flush();  
+                if($i==floor($i/10)*10){
+                    $em->flush();
+                }
+            }    
+            $em->flush();
+            
         }
        
         return $this->render('ExploticAgendaBundle:CreneauRdv:index.html.twig', array(

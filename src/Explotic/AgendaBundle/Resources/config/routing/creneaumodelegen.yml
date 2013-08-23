@@ -1,4 +1,4 @@
-creneaumodele_generate:
+creneaumodelegen_generate:
     pattern:  /generate
     defaults: { _controller: "ExploticAgendaBundle:CreneauModeleGen:generate" }
 

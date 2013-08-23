@@ -105,7 +105,17 @@
                                  <!--[if lte IE 6]></td></tr></table></a><![endif]-->
                                 </li>
                                 <li class="pureCssMenui"><a class="pureCssMenui" href="#"><span>Sessions</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-                                    <ul class="pureCssMenum">
+                                    <ul class="pureCssMenum">                                            
+                                            <li class="pureCssMenui">
+                                                <a class="pureCssMenui" href="{{path('creneaumodelegen_generate')}}">
+                                                    Initialiser les créneaux modèles
+                                                </a>
+                                            </li>
+                                            <li class="pureCssMenui">
+                                                <a class="pureCssMenui" href="{{path('creneaurdvgen_generate')}}">
+                                                    Initialiser les créneaux à venir
+                                                </a>
+                                            </li>
                                             <li class="pureCssMenui"><a class="pureCssMenui" href="#">Nouvelle session</a></li>
                                             <li class="pureCssMenui"><a class="pureCssMenui" href="#">Gérer les sessions</a></li>
                                    </ul>                                         

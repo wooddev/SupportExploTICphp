@@ -26,4 +26,20 @@ class CreneauRdvRepository extends EntityRepository
         ));
         return $query->getResult();
     }
+    
+    public function testExist($s,$a,$j){
+        $query = $this->getEntityManager()->createQuery("
+            SELECT cr
+            FROM ExploticAgendaBundle:CreneauRdv cr
+            WHERE cr.jour =:j
+            AND cr.annee = :a
+            AND cr.semaine = :s
+            ");
+        $query->setParameters(array(
+            'a'=>$a,
+            's'=>$s,
+            'j'=>$j,
+            ));
+        return $query->getResult();
+    }
 }

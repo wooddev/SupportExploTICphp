@@ -92,7 +92,7 @@ class CreneauRdvGen {
      * 
      */
     
-    public function generateCreneauxRdvs(){
+    public function generateCreneauxRdvs(\Explotic\AgendaBundle\Entity\CreneauRdvRepository $repo){
         
         $semaineDebut = $this->dateDebut->format('W');
         $anneeDebut = $this->dateDebut->format('Y');
@@ -101,41 +101,43 @@ class CreneauRdvGen {
         
         if($anneeDebut == $anneeFin){
             for($s=$semaineDebut; $s <=$semaineFin;$s++){
-                $this->generateForWeek($s,$anneeDebut);
+                $this->generateForWeek($s,$anneeDebut, $repo);
             } 
             
         }else{        
             for ($a = $anneeDebut; $a <= $anneeFin ; $a++){
                 if ($a == $anneeDebut){
                     for($s= $semaineDebut; $s <=date("W", mktime(0, 0, 0, 12, 28, $a));$s++){
-                        $this->generateForWeek($s,$a);
+                        $this->generateForWeek($s,$a, $repo);
                     }            
                 }
                 elseif ($a == $anneeFin){
                     for($s=1 ; $s <=$semaineFin;$s++){
-                        $this->generateForWeek($s,$a);
+                        $this->generateForWeek($s,$a,$repo);
                     }  
                 }else{
                     for($s= 1; $s <=date("W", mktime(0, 0, 0, 12, 28, $a));$s++){
-                        $this->generateForWeek($s,$a);
+                        $this->generateForWeek($s,$a,$repo);
                     }  
                 }
             }
         }
     }
     
-    public function generateForWeek($s,$a){      
+    public function generateForWeek($s,$a,  \Explotic\AgendaBundle\Entity\CreneauRdvRepository $repo){      
         foreach($this->creneauxModeles as $creneauModele){
-            $this->creneauxRdvs->add(new \Explotic\AgendaBundle\Entity\CreneauRdv());
-            $this->creneauxRdvs->last()->setDuree($creneauModele->getDuree());
-            $this->creneauxRdvs->last()->setHeure($creneauModele->getHeure());
-            $this->creneauxRdvs->last()->setMinute($creneauModele->getMinute());
-            $this->creneauxRdvs->last()->setHeureDebut($creneauModele->getHeureDebut());
-            $this->creneauxRdvs->last()->setHeureFin($creneauModele->getHeureFin());
-            $this->creneauxRdvs->last()->setJour($creneauModele->getJour());
-            $this->creneauxRdvs->last()->setAnnee($a);
-            $this->creneauxRdvs->last()->setSemaine($s);   
-            $this->creneauxRdvs->last()->calculDateTime();            
+            if(count($repo->testExist($s,$a,$creneauModele->getJour()))==0){
+                $this->creneauxRdvs->add(new \Explotic\AgendaBundle\Entity\CreneauRdv());
+                $this->creneauxRdvs->last()->setDuree($creneauModele->getDuree());
+                $this->creneauxRdvs->last()->setHeure($creneauModele->getHeure());
+                $this->creneauxRdvs->last()->setMinute($creneauModele->getMinute());
+                $this->creneauxRdvs->last()->setHeureDebut($creneauModele->getHeureDebut());
+                $this->creneauxRdvs->last()->setHeureFin($creneauModele->getHeureFin());
+                $this->creneauxRdvs->last()->setJour($creneauModele->getJour());
+                $this->creneauxRdvs->last()->setAnnee($a);
+                $this->creneauxRdvs->last()->setSemaine($s);   
+                $this->creneauxRdvs->last()->calculDateTime(); 
+            }
             
         }   
     }
