@@ -21,9 +21,6 @@ class CreneauPrefGen {
     private $moteurReservation,
             //Créneaux Modèles disponibles
             $creneauxModeles,
-            //Données par défaut à l'instaciation d'un créneau pref
-            $etatReservation,
-            $statut,
             //Options choisies par l'utilisateur
             $transporteur,
             $typeCamion,
@@ -60,16 +57,7 @@ class CreneauPrefGen {
             throw new Exception('Aucun créneau modèle associé');
         }
         else return $this->creneauxPrefs;
-    }       
-    
-    public function getEtatReservation(){
-        return $this->etatReservation;
-    }
-    
-    public function setEtatReservation($etat){
-        $this->etatReservation = $etat;
-        return $this;
-    }
+    }      
     
     public function getTransporteur(){
         return $this->transporteur;
@@ -78,18 +66,7 @@ class CreneauPrefGen {
     public function setTransporteur(\Transfer\ProfilBundle\Entity\Transporteur $transporteur){
         $this->transporteur = $transporteur;
         return $this->transporteur;
-    }
-   
-    public function getStatut() {
-        return $this->statut;
-    }
-
-    public function setStatut($statut) {
-        $this->statut = $statut;
-    }
-    
-    
-    
+    }     
     
     public function getTypeCamion() {
         return $this->typeCamion;
@@ -106,11 +83,9 @@ class CreneauPrefGen {
 
      */
    
-    public function init($creneauxModeles, $statut,$etatReservation,$transporteur,$typeCamion)
+    public function init($creneauxModeles,$transporteur,$typeCamion)
     {
         $this->creneauxModeles = $creneauxModeles;    
-        $this->statut = $statut;
-        $this->etatReservation= $etatReservation;
         $this->transporteur = $transporteur;
         $this->typeCamion = $typeCamion;
     }

@@ -84,14 +84,6 @@ class CreneauPrefGenController extends Controller
         $form = $this->createForm(new CreneauPrefGenType(), $generateur);
         $form->bind($request);
         
-        $etat= $em->getRepository('TransferReservationBundle:EtatReservation')
-                        ->findByNom('A réserver');
-        $statut = $em->getRepository('TransferReservationBundle:StatutCreneau')
-                        ->findByNom('Actif');
-        
-        $generateur->setEtatReservation($etat[0]);
-        $generateur->setStatut($statut[0]);
-        
         if ($form->isValid()){           
             $generateur->reserver();             
         }                
