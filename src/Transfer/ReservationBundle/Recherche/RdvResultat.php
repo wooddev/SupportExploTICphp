@@ -10,6 +10,8 @@ use Transfer\ReservationBundle\Entity\CreneauRdv;
  *  --  Elle sert de support au tri des créneaux du plus proche au plus éloigné du créneau ciblé 
  * 
  * @author Adrien
+ * 
+ * !!!!!!!!!!!!OBSOLETE >> REMPLACE PAR RdvResultatAsso!!!!!!!!!!!!!!!!!!
  */
 class RdvResultat extends CreneauRdv
 {

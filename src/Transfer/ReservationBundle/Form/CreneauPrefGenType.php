@@ -27,16 +27,6 @@ class CreneauPrefGenType extends AbstractType
                     'read_only'=>true,
 //                    'disabled'=>true,
                     ))            
-//                ->add('etatReservation',"entity",array(
-//                    'class'=>'Transfer\ReservationBundle\Entity\EtatReservation',
-//                    'read_only'=> true,
-//                    'disabled'=>true,
-//                ))
-//                ->add('statut',"entity",array(
-//                    'class'=>'Transfer\ReservationBundle\Entity\StatutCreneau',
-//                    'read_only'=> true,
-//                    'disabled'=>true,
-//                ))
                 ->add('creneauxModeles','entity',array(
                     'class'=> 'Transfer\ReservationBundle\Entity\CreneauModele',
                     'expanded'=> true,

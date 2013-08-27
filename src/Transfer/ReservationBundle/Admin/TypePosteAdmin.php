@@ -22,12 +22,14 @@ class TypePosteAdmin extends Admin {
     {
         $showMapper
             ->add('nom')
+            ->add('disponibilite')
         ;
     }
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('nom')            
+            ->add('nom')
+            ->add('disponibilite')                
         ;
     }
 
@@ -35,6 +37,7 @@ class TypePosteAdmin extends Admin {
     {
         $listMapper
             ->addIdentifier('nom')
+            ->add('disponibilite')
             ->add('_action', 'actions', array(
                 'actions' => array(
                 'view' => array(),
