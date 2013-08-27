@@ -30,49 +30,18 @@ class Calendrier
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $dates;
+    private $bookings;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->dates = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bookings = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+
     
-
-    /**
-     * Add dates
-     *
-     * @param \Explotic\AgendaBundle\Entity\Rdv $dates
-     * @return Calendrier
-     */
-    public function addDate(\Explotic\AgendaBundle\Entity\Rdv $dates)
-    {
-        $this->dates[] = $dates;
-    
-        return $this;
-    }
-
-    /**
-     * Remove dates
-     *
-     * @param \Explotic\AgendaBundle\Entity\Rdv $dates
-     */
-    public function removeDate(\Explotic\AgendaBundle\Entity\Rdv $dates)
-    {
-        $this->dates->removeElement($dates);
-    }
-
-    /**
-     * Get dates
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getDates()
-    {
-        return $this->dates;
-    }
     
     public function __toString() {
         return (string)$this->id;

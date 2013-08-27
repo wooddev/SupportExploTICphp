@@ -108,61 +108,6 @@ class Rdv
     }
     public function getDateHeureDebut(){
         return $this->creneauRdv->getDateHeureDebut();
-    }
-    /**
-     * @var \Explotic\AgendaBundle\Entity\TypeRdv
-     */
-    private $type;
-
-
-    /**
-     * Set type
-     *
-     * @param \Explotic\AgendaBundle\Entity\TypeRdv $type
-     * @return Rdv
-     */
-    public function setType(\Explotic\AgendaBundle\Entity\TypeRdv $type = null)
-    {
-        $this->type = $type;
+    }    
     
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return \Explotic\AgendaBundle\Entity\TypeRdv 
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-    /**
-     * @var \Explotic\PlanningBundle\Entity\Calendrier
-     */
-    private $calendrier;
-
-
-    /**
-     * Set calendrier
-     *
-     * @param \Explotic\PlanningBundle\Entity\Calendrier $calendrier
-     * @return Rdv
-     */
-    public function setCalendrier(\Explotic\PlanningBundle\Entity\Calendrier $calendrier = null)
-    {
-        $this->calendrier = $calendrier;
-    
-        return $this;
-    }
-
-    /**
-     * Get calendrier
-     *
-     * @return \Explotic\PlanningBundle\Entity\Calendrier 
-     */
-    public function getCalendrier()
-    {
-        return $this->calendrier;
-    }
 }

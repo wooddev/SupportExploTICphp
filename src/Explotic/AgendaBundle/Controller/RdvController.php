@@ -185,6 +185,16 @@ class RdvController extends Controller
         ;
     }
     
+    /**
+     * 
+     * @param type $type
+     * @param type $id
+     * @return type
+     *## VALEURS ACCEPTEES POUR OPTIONS ##
+     * - type : stagiaire, bureau, poste, salle, formateur, session
+     * - id (de l'entité associée au calendrier)
+     */
+    
     public function newListAction($type,$id){
         
 
@@ -217,7 +227,16 @@ class RdvController extends Controller
             'agenda'=> $rdvSelector->getAgenda(),
         ));        
     }
-    
+    /**
+     * 
+     * @param type $id
+     * @param type $type
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return type
+     *  ## VALEURS ACCEPTEES POUR OPTIONS ##
+     * - type : stagiaire, bureau, poste, salle, formateur, session
+     * - id (de l'entité associée au calendrier)
+     */
     public function createListAction($id, $type,  Request $request){
         
         $em = $this->getDoctrine()->getManager();

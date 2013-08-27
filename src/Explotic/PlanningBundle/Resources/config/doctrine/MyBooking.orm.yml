@@ -1,0 +1,9 @@
+Explotic\PlanningBundle\Entity\MyBooking:
+  type: entity
+  table: mybooking
+  repositoryClass: Explotic\PlanningBundle\Entity\MyBookingRepository
+  manyToOne:
+    calendrier:
+        targetEntity: Explotic\PlanningBundle\Entity\Calendrier
+        inversedBy: bookings
+  lifecycleCallbacks: {  }

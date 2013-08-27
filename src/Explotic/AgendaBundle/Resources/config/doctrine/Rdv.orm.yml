@@ -5,12 +5,7 @@ Explotic\AgendaBundle\Entity\Rdv:
     manyToOne:
       creneauRdv:
         targetEntity: CreneauRdv
-        inversedBy: Rdvs     
-      type:
-        targetEntity: TypeRdv   
-      calendrier:
-        targetEntity: Explotic\PlanningBundle\Entity\Calendrier
-        inversedBy: dates
+        inversedBy: Rdvs      
     fields:
         id:
             type: integer
@@ -20,4 +15,11 @@ Explotic\AgendaBundle\Entity\Rdv:
         statutRdv:
             type: string
             columnDefinition: ENUM('provisoire','confirme','annule')            
+    inheritanceType: JOINED
+    discriminatorColumn:
+      name: custom_rdv
+      type: string
+      length: 255
+#    discriminatorMap:
+#      mybooking : Explotic\PlanningBundle\Entity\MyBooking
     lifecycleCallbacks: {  }

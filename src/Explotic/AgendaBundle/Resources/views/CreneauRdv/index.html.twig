@@ -1,3 +1,5 @@
+{% extends "::explotic.html.twig"%}
+{%block body%}
 <h1>CreneauRdv list</h1>
 
 <table class="records_list">
@@ -8,8 +10,6 @@
             <th>Heure</th>
             <th>Minute</th>
             <th>Duree</th>
-            <th>Heuredebut</th>
-            <th>Heurefin</th>
             <th>Dateheuredebut</th>
             <th>Dateheurefin</th>
             <th>Semaine</th>
@@ -25,8 +25,6 @@
             <td>{{ entity.heure }}</td>
             <td>{{ entity.minute }}</td>
             <td>{{ entity.duree }}</td>
-            <td>{{ entity.heureDebut | date('Y-m-d H:i:s') }}</td>
-            <td>{{ entity.heureFin | date('Y-m-d H:i:s')}}</td>
             <td>{% if entity.dateHeureDebut %}{{ entity.dateHeureDebut|date('Y-m-d H:i:s') }}{% endif %}</td>
             <td>{% if entity.dateHeureFin %}{{ entity.dateHeureFin|date('Y-m-d H:i:s') }}{% endif %}</td>
             <td>{{ entity.semaine }}</td>
@@ -53,3 +51,4 @@
         </a>
     </li>
 </ul>
+{%endblock%}

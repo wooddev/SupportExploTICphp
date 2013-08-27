@@ -38,7 +38,7 @@ class AgendaGenerator {
         
         foreach($calendrierListe as $val ){
             $calendrierRdvs = $em->getRepository('ExploticAgendaBundle:Rdv')
-                 ->findByPeriod($agenda->getDateDebut(),$agenda->getDateFin(),$val['id']); 
+                 ->findByPeriod($agenda->getDateDebut(),$agenda->getDateFin(),$val->getId()); 
              foreach ($calendrierRdvs as $rdv){
                  $creneauAffiche = new \Explotic\AgendaBundle\Model\CreneauAffiche($rdv,$val['nom']);
                  $creneauxAffiches->add(clone $creneauAffiche);

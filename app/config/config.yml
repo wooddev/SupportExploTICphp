@@ -142,3 +142,18 @@ ivory_google_map:
 
         # google map Api language, default en
         language: fr
+        
+explotic_agenda: 
+    booking_types:
+        session:
+            status_options: ['Prévue', 'Fixée', 'Réalisée', 'Annulée']
+            default_status: 'Prévue'
+            booking_class: Explotic\PlanningBundle\Entity\MyBooking
+        tiers : 
+            status_options: ['Disponible','Indisponible']
+            default_status: 'Disponible'
+            booking_class: Explotic\PlanningBundle\Entity\MyBooking
+
+
+        
+      

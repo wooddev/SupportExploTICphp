@@ -24,6 +24,30 @@ class Configuration implements ConfigurationInterface
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
 
+        $rootNode
+            ->children()
+                ->arrayNode('booking_types')
+                    ->isRequired()
+                    ->requiresAtLeastOneElement()
+                    ->useAttributeAsKey('context')
+                    ->prototype('array')
+                        ->children()
+                            ->arrayNode('status_options')
+                            ->isRequired()
+                            ->requiresAtLeastOneElement()                               
+                                ->prototype('scalar')->isRequired()->end()                                
+                            ->end()                            
+                            ->scalarNode('default_status')->isRequired()->end()
+                            ->scalarNode('booking_class')
+                                ->isRequired()
+                                ->defaultValue('rdv')
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;    
+        
         return $treeBuilder;
     }
 }

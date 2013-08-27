@@ -1,4 +1,5 @@
 parameters:
+    #explotic_agenda.booking_types: Défini dans config.yml 
     explotic_agenda.rdv_selector.class: Explotic\AgendaBundle\Model\RdvSelector
 
 services:
