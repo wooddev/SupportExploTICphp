@@ -1,0 +1,204 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1036{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sa200\sl276\slmult1\lang12\f0\fs22 XyloLink Moteur de r\'e9servation\par
+========================\par
+Ce document explique le fonctionnement du syst\'e8me de r\'e9servation XyloLink, utilis\'e9 dans les projets TransFER et ExploTIC\par
+\par
+1) Principe de fonctionnement g\'e9n\'e9ral\par
+----------------------------------\par
+Le moteur de r\'e9servation XyloLink est un syst\'e8me permettant de r\'e9server des cr\'e9neaux associ\'e9s \'e0 un type d'intervention, dans le cas pr\'e9sent (TransFER) afin de planifier et g\'e9rer des livraisons de plaquettes.\par
+2) Concepts mis en oeuvre :\par
+-----------------------------------\par
+1. Cr\'e9ation de cr\'e9neaux de r\'e9servation sur mesure par l'administrateur,\par
+2. S\'e9lection des cr\'e9neaux \'e0 reserver par recherche ou s\'e9lection directe,\par
+3. Algorithme de r\'e9servation bas\'e9 sur un syst\'e8me de gestion de stock. Un cr\'e9neau peut-\'eatre r\'e9serv\'e9 plusieurs fois dans les limites de sa disponibilit\'e9. Cette disponibilt\'e9 peut-\'eatre "typ\'e9e" (disponibilit\'e9 sp\'e9cifique en fonction du type de camion, du type d'intervention...),\par
+4. Syst\'e8me s\'e9curis\'e9, bloquant les risques de surr\'e9servation.\par
+5. Restitution des r\'e9sultats sous forme d'agendas\par
+3) Sp\'e9cifications techniques\par
+-----------------------------------\par
+A. Mod\'e8les de donn\'e9es\par
+1. Class Creneau : Super classe qui d\'e9finit la structure \'e9l\'e9mentaire des cr\'e9neaux.\par
+Associ\'e9 \'e0 :\par
+- une heure de d\'e9but / fin d\'e9clin\'e9e en dateTime et en H/min\par
+- un jour de la semaine (int)\par
+2. Class CreneauModele : Classe qui permet de param\'e9trer une semaine type servant de mod\'e8le \'e0 la cr\'e9ation des CreneauRdv\par
+3. Class CreneauRdv : Classe qui permet de d\'e9finir les cr\'e9neaux pour une semaine sp\'e9cifique\par
+4. Class Rdv : Classe qui permet de r\'e9server un cr\'e9neau\par
+B. Services associ\'e9s\par
+1. Formulaire de recherche\par
+- G\'e9r\'e9 par une classe de recherche "RechercheRdv", non persist\'e9e. La classe RechercheRdv \'e9tend CreneauRdv afin d'y associer des crit\'e8res de recherche suppl\'e9mentaire (ex : typeCamion)\par
+Mode 1: S\'e9lection d'une liste de cr\'e9neau par s\'e9lection directe (formulaire chckbox, pour les cr\'e9neaux mod\'e8les dans TransFER)\par
+\tab * R\'e9cup\'e9ration des cr\'e9neaux pour la p\'e9riode demand\'e9e\par
+\tab * Calcul des disponibilit\'e9s : Statut disponible / non disponible en fonction des crit\'e8res de calculs associ\'e9s au formulaire (typeCamion dans TransFER)\par
+Mode 2 : Recherche d'un cr\'e9neau proche d'une date/heure : \par
+\tab *Formulaire standard, d\'e9finit par CreneauRdvRechercheType()\par
+2. Moteur de recherche\par
+Mode 1 : S\'e9lection d'une liste\par
+3. Moteur d'affichage des r\'e9sultats\par
+\par
+\par
+When it comes to installing the Symfony Standard Edition, you have the\par
+following options.\par
+\par
+### Use Composer (*recommended*)\par
+\par
+As Symfony uses [Composer][2] to manage its dependencies, the recommended way\par
+to create a new project is to use it.\par
+\par
+If you don't have Composer yet, download it following the instructions on\par
+{\field{\*\fldinst{HYPERLINK "http://getcomposer.org/"}}{\fldrslt{\ul\cf1 http://getcomposer.org/}}}\f0\fs22  or just run the following command:\par
+\par
+    curl -s {\field{\*\fldinst{HYPERLINK "https://getcomposer.org/installer"}}{\fldrslt{\ul\cf1 https://getcomposer.org/installer}}}\f0\fs22  | php\par
+\par
+Then, use the `create-project` command to generate a new Symfony application:\par
+\par
+    php composer.phar create-project symfony/framework-standard-edition path/to/install 2.1.x-dev\par
+\par
+For an exact version, replace 2.1.x-dev with the latest Symfony version (e.g. 2.1.1).\par
+\par
+Composer will install Symfony and all its dependencies under the\par
+`path/to/install` directory.\par
+\par
+### Download an Archive File\par
+\par
+To quickly test Symfony, you can also download an [archive][3] of the Standard\par
+Edition and unpack it somewhere under your web server root directory.\par
+\par
+If you downloaded an archive "without vendors", you also need to install all\par
+the necessary dependencies. Download composer (see above) and run the\par
+following command:\par
+\par
+    php composer.phar install\par
+\par
+2) Checking your System Configuration\par
+-------------------------------------\par
+\par
+Before starting coding, make sure that your local system is properly\par
+configured for Symfony.\par
+\par
+Execute the `check.php` script from the command line:\par
+\par
+    php app/check.php\par
+\par
+Access the `config.php` script from a browser:\par
+\par
+    {\field{\*\fldinst{HYPERLINK "http://localhost/path/to/symfony/app/web/config.php"}}{\fldrslt{\ul\cf1 http://localhost/path/to/symfony/app/web/config.php}}}\f0\fs22\par
+\par
+If you get any warnings or recommendations, fix them before moving on.\par
+\par
+3) Browsing the Demo Application\par
+--------------------------------\par
+\par
+Congratulations! You're now ready to use Symfony.\par
+\par
+From the `config.php` page, click the "Bypass configuration and go to the\par
+Welcome page" link to load up your first Symfony page.\par
+\par
+You can also use a web-based configurator by clicking on the "Configure your\par
+Symfony Application online" link of the `config.php` page.\par
+\par
+To see a real-live Symfony page in action, access the following page:\par
+\par
+    web/app_dev.php/demo/hello/Fabien\par
+\par
+4) Getting started with Symfony\par
+-------------------------------\par
+\par
+This distribution is meant to be the starting point for your Symfony\par
+applications, but it also contains some sample code that you can learn from\par
+and play with.\par
+\par
+A great way to start learning Symfony is via the [Quick Tour][4], which will\par
+take you through all the basic features of Symfony2.\par
+\par
+Once you're feeling good, you can move onto reading the official\par
+[Symfony2 book][5].\par
+\par
+A default bundle, `AcmeDemoBundle`, shows you Symfony2 in action. After\par
+playing with it, you can remove it by following these steps:\par
+\par
+  * delete the `src/Acme` directory;\par
+\par
+  * remove the routing entries referencing AcmeBundle in\par
+    `app/config/routing_dev.yml`;\par
+\par
+  * remove the AcmeBundle from the registered bundles in `app/AppKernel.php`;\par
+\par
+  * remove the `web/bundles/acmedemo` directory;\par
+\par
+  * remove the `security.providers`, `security.firewalls.login` and\par
+    `security.firewalls.secured_area` entries in the `security.yml` file or\par
+    tweak the security configuration to fit your needs.\par
+\par
+What's inside?\par
+---------------\par
+\par
+The Symfony Standard Edition is configured with the following defaults:\par
+\par
+  * Twig is the only configured template engine;\par
+\par
+  * Doctrine ORM/DBAL is configured;\par
+\par
+  * Swiftmailer is configured;\par
+\par
+  * Annotations for everything are enabled.\par
+\par
+It comes pre-configured with the following bundles:\par
+\par
+  * **FrameworkBundle** - The core Symfony framework bundle\par
+\par
+  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including\par
+    template and routing annotation capability\par
+\par
+  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM\par
+\par
+  * [**TwigBundle**][8] - Adds support for the Twig templating engine\par
+\par
+  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security\par
+    component\par
+\par
+  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for\par
+    sending emails\par
+\par
+  * [**MonologBundle**][11] - Adds support for Monolog, a logging library\par
+\par
+  * [**AsseticBundle**][12] - Adds support for Assetic, an asset processing\par
+    library\par
+\par
+  * [**JMSSecurityExtraBundle**][13] - Allows security to be added via\par
+    annotations\par
+\par
+  * [**JMSDiExtraBundle**][14] - Adds more powerful dependency injection\par
+    features\par
+\par
+  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and\par
+    the web debug toolbar\par
+\par
+  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for\par
+    configuring and working with Symfony distributions\par
+\par
+  * [**SensioGeneratorBundle**][15] (in dev/test env) - Adds code generation\par
+    capabilities\par
+\par
+  * **AcmeDemoBundle** (in dev/test env) - A demo bundle with some example\par
+    code\par
+\par
+Enjoy!\par
+\par
+[1]:  {\field{\*\fldinst{HYPERLINK "http://symfony.com/doc/2.1/book/installation.html"}}{\fldrslt{\ul\cf1 http://symfony.com/doc/2.1/book/installation.html}}}\f0\fs22\par
+[2]:  {\field{\*\fldinst{HYPERLINK "http://getcomposer.org/"}}{\fldrslt{\ul\cf1 http://getcomposer.org/}}}\f0\fs22\par
+[3]:  {\field{\*\fldinst{HYPERLINK "http://symfony.com/download"}}{\fldrslt{\ul\cf1 http://symfony.com/download}}}\f0\fs22\par
+[4]:  {\field{\*\fldinst{HYPERLINK "http://symfony.com/doc/2.1/quick_tour/the_big_picture.html"}}{\fldrslt{\ul\cf1 http://symfony.com/doc/2.1/quick_tour/the_big_picture.html}}}\f0\fs22\par
+[5]:  {\field{\*\fldinst{HYPERLINK "http://symfony.com/doc/2.1/index.html"}}{\fldrslt{\ul\cf1 http://symfony.com/doc/2.1/index.html}}}\f0\fs22\par
+[6]:  {\field{\*\fldinst{HYPERLINK "http://symfony.com/doc/2.1/bundles/SensioFrameworkExtraBundle/index.html"}}{\fldrslt{\ul\cf1 http://symfony.com/doc/2.1/bundles/SensioFrameworkExtraBundle/index.html}}}\f0\fs22\par
+[7]:  {\field{\*\fldinst{HYPERLINK "http://symfony.com/doc/2.1/book/doctrine.html"}}{\fldrslt{\ul\cf1 http://symfony.com/doc/2.1/book/doctrine.html}}}\f0\fs22\par
+[8]:  {\field{\*\fldinst{HYPERLINK "http://symfony.com/doc/2.1/book/templating.html"}}{\fldrslt{\ul\cf1 http://symfony.com/doc/2.1/book/templating.html}}}\f0\fs22\par
+[9]:  {\field{\*\fldinst{HYPERLINK "http://symfony.com/doc/2.1/book/security.html"}}{\fldrslt{\ul\cf1 http://symfony.com/doc/2.1/book/security.html}}}\f0\fs22\par
+[10]: {\field{\*\fldinst{HYPERLINK "http://symfony.com/doc/2.1/cookbook/email.html"}}{\fldrslt{\ul\cf1 http://symfony.com/doc/2.1/cookbook/email.html}}}\f0\fs22\par
+[11]: {\field{\*\fldinst{HYPERLINK "http://symfony.com/doc/2.1/cookbook/logging/monolog.html"}}{\fldrslt{\ul\cf1 http://symfony.com/doc/2.1/cookbook/logging/monolog.html}}}\f0\fs22\par
+[12]: {\field{\*\fldinst{HYPERLINK "http://symfony.com/doc/2.1/cookbook/assetic/asset_management.html"}}{\fldrslt{\ul\cf1 http://symfony.com/doc/2.1/cookbook/assetic/asset_management.html}}}\f0\fs22\par
+[13]: {\field{\*\fldinst{HYPERLINK "http://jmsyst.com/bundles/JMSSecurityExtraBundle/master"}}{\fldrslt{\ul\cf1 http://jmsyst.com/bundles/JMSSecurityExtraBundle/master}}}\f0\fs22\par
+[14]: {\field{\*\fldinst{HYPERLINK "http://jmsyst.com/bundles/JMSDiExtraBundle/master"}}{\fldrslt{\ul\cf1 http://jmsyst.com/bundles/JMSDiExtraBundle/master}}}\f0\fs22\par
+[15]: {\field{\*\fldinst{HYPERLINK "http://symfony.com/doc/2.1/bundles/SensioGeneratorBundle/index.html"}}{\fldrslt{\ul\cf1 http://symfony.com/doc/2.1/bundles/SensioGeneratorBundle/index.html}}}\f0\fs22\par
+}
+ 

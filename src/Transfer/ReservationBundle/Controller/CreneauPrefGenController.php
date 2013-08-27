@@ -57,11 +57,7 @@ class CreneauPrefGenController extends Controller
         $generateur = $this->get('transfer_reservation.generateur.creneau_pref');    
         
         $generateur->setTypeCamion($typeCamion);
-        
-        $generateur->setEtatReservation($em->getRepository('TransferReservationBundle:EtatReservation')
-                                        ->findByNom('A réserver'));
-        $generateur->setStatut($em->getRepository('TransferReservationBundle:StatutCreneau')
-                                        ->findByNom('Actif'));       
+          
         
         $formType = new CreneauPrefGenType();
         //Construction de l'agenda servant de support d'affichage des créneaux modèles dans le formulaire
@@ -95,6 +91,7 @@ class CreneauPrefGenController extends Controller
         
         $generateur->setEtatReservation($etat[0]);
         $generateur->setStatut($statut[0]);
+        
         if ($form->isValid()){           
             $generateur->reserver();             
         }                

@@ -28,8 +28,8 @@ class TypePosteAdmin extends Admin {
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('nom')                      
-            ->add('disponibilite')
+            ->add('nom')
+            ->add('disponibilite')                
         ;
     }
 

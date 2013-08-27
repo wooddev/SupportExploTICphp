@@ -19,11 +19,15 @@ class CreneauPrefGen {
     //put your code here  
     
     private $moteurReservation,
+            //Créneaux Modèles disponibles
             $creneauxModeles,
+            //Données par défaut à l'instaciation d'un créneau pref
             $etatReservation,
             $statut,
+            //Options choisies par l'utilisateur
             $transporteur,
             $typeCamion,
+            // Créneaux prefs générés
             $creneauxPrefs;
 
 
@@ -83,6 +87,9 @@ class CreneauPrefGen {
     public function setStatut($statut) {
         $this->statut = $statut;
     }
+    
+    
+    
     
     public function getTypeCamion() {
         return $this->typeCamion;
