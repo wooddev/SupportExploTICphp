@@ -88,6 +88,9 @@ class CreneauPrefGen {
         $this->statut = $statut;
     }
     
+    
+    
+    
     public function getTypeCamion() {
         return $this->typeCamion;
     }
