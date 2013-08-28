@@ -78,4 +78,37 @@ class Calendrier
     {
         return $this->nom;
     }
+
+    /**
+     * Add bookings
+     *
+     * @param \Explotic\AgendaBundle\Entity\Rdv $bookings
+     * @return Calendrier
+     */
+    public function addBooking(\Explotic\AgendaBundle\Entity\Rdv $bookings)
+    {
+        $this->bookings[] = $bookings;
+    
+        return $this;
+    }
+
+    /**
+     * Remove bookings
+     *
+     * @param \Explotic\AgendaBundle\Entity\Rdv $bookings
+     */
+    public function removeBooking(\Explotic\AgendaBundle\Entity\Rdv $bookings)
+    {
+        $this->bookings->removeElement($bookings);
+    }
+
+    /**
+     * Get bookings
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBookings()
+    {
+        return $this->bookings;
+    }
 }

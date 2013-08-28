@@ -13,8 +13,7 @@ Explotic\AgendaBundle\Entity\Rdv:
             generator:
                 strategy: AUTO
         statutRdv:
-            type: string
-            columnDefinition: ENUM('provisoire','confirme','annule')            
+            type: string       
     inheritanceType: JOINED
     discriminatorColumn:
       name: custom_rdv

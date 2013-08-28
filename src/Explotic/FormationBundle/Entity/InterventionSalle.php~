@@ -95,4 +95,8 @@ class InterventionSalle extends Intervention
     {
         return $this->module;
     }
+     
+    public function __toString() {
+        return $this->getNom().'/ étape : '.$this->getStade();
+    }
 }
