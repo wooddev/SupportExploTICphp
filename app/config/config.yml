@@ -108,6 +108,17 @@ sonata_admin:
         history: SonataAdminBundle:CRUD:history.html.twig
         preview: SonataAdminBundle:CRUD:preview.html.twig
         delete:  SonataAdminBundle:CRUD:delete.html.twig
+    dashboard:
+      blocks:
+          -
+              position: left
+              type: sonata.admin.block.admin_list
+          -
+              position: right
+              type: sonata.block.service.text
+              settings: 
+                  content: >
+                    <p style="float:right;"><a href="../">Retour à l'accueil</a></p>
     security:
         handler: sonata.admin.security.handler.acl
         # acl security information
