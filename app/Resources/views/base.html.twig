@@ -14,12 +14,6 @@
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         <div class="dropdown clearfix">
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin-bottom: 5px; *width: 180px;">        
-                            {% if is_granted("ROLE_SONATA_ADMIN") %}
-                            <li><div class="menu-titre">Gestion de l'application</div></li>
-                                <li ><a tabindex="-1"  href="{{ path('sonata_admin_dashboard') }}">  Accès à la console</a>
-                                </li>
-                                <li class="divider"></li>
-                            {%endif%}    
                             {% if is_granted("ROLE_RECEP") %}
                             <li><div class="menu-titre">Arrivées du jour</div></li>
                                 <li ><a tabindex="-1"  href="{{ path('planning_jour',{'date':'now'}) }}">  Planning </a>
@@ -29,18 +23,12 @@
                                 <li class="divider"></li>
                             {%endif%}                                                   
                             {% if is_granted("ROLE_DAB") %}
-                                <div class="menu-titre"> Gestion du site</div>
-                                <li><a href="{{path('typeposte')}}">  Gestion des postes de déchargement </a>
-                                </li>
-                                <li><a href="{{path('transporteur')}}">  Gestion des transporteurs </a>
-                                </li>                            
-                                <li><a href="{{path('agenttrsp')}}">  Gestion des agents des transporteurs </a>
-                                </li>                            
-                                <li><a href="{{path('fos_user_registration_register')}}">  nouvel utilisateur </a>
-                                </li>
-                                <li><a href="{{path('user')}}">  Liste des utilisateurs </a>
+                                <div class="menu-titre">Gestion des rendez-vous</div>
+                                <li><a href="{{path('planning_semaine',{'date':'now'})}}"> Planning de la semaine en cours</a>
                                 </li>
                                 <li class="divider"></li>
+                            {%endif%}
+                            {% if is_granted("ROLE_DAB") %}
                                 <div class="menu-titre"> Gestion des modèles de planning</div>
                                 <li><a href="{{path('creneaumodele_generate')}}">  Générer les créneaux modèles </a>
                                 </li>
@@ -61,19 +49,8 @@
                                 <li><a href="{{path('creneaurdv_recherche_supprimer')}}"> suppression d'une plage de créneaux rdv</a>
                                 </li>
                                 <li class="divider"></li>
-                                <div class="menu-titre">Gestion des rendez-vous</div>
-                                <li><a href="{{path('planning_semaine',{'date':'now'})}}"> Planning de la semaine en cours</a>
-                                </li>
-                                <li class="divider"></li>
-                                <div class="menu-titre">Gestion de l'application Transfer</div>
-                                <li><a href="{{path('paramreservation_init')}}"> Réinitialiser les paramètres de réservation </a>
-                                </li>
-                                <li><a href="{{path('paramreservation')}}"> Editer les paramètres de réservation </a>
-                                </li>
-                                <li><a href="{{path('reset_form')}}"> Réinitialiser la base </a>
-                                </li>
-                                <li class="divider"></li>
-                            {%elseif is_granted('ROLE_TRANSPORTEUR')%}                               
+                            {%endif%}
+                            {%if is_granted('ROLE_TRANSPORTEUR')%}                               
                                 <div class="menu-titre">Gérer mon planning</div>
                                 <li> <a href="{{path('creneaurdv_recherche_trsp',{'annee':2013,'semaine': 'now'|date('W')})}}"> rechercher un Créneau pour la <b>semaine en cours </b></a>
                                 </li>
@@ -84,6 +61,18 @@
                                 <li><a href="{{path('rdv_transporteur',{'annee':2013,'semaine': (1+('now'|date('W')))})}}">Mes créneaux pour la semaine prochaine </a>
                                 </li>                   
                             {%endif%}
+                            {% if is_granted("ROLE_SONATA_ADMIN") %}
+                            <li><div class="menu-titre">Gestion de l'application</div></li>
+                                <li ><a tabindex="-1"  href="{{ path('sonata_admin_dashboard') }}">  Accès à la console</a>
+                                </li>
+                                {%if is_granted("ROLE_DAB")%}
+                                <li><a href="{{path('paramreservation_init')}}"> Réinitialiser les paramètres de réservation </a>
+                                </li>
+                                <li><a href="{{path('reset_form')}}"> Réinitialiser la base </a>
+                                </li>
+                                {%endif%}
+                                <li class="divider"></li>
+                            {%endif%}  
                             </ul>                              
                         </div>
                     {%endif%}
