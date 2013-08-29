@@ -17,7 +17,8 @@ use FOS\UserBundle\Model\UserManagerInterface;
 
 
 class ProfilAdmin extends UserAdmin{
-
+    
+    protected static $groups_disp = true;
 
     /**
      * {@inheritdoc}
@@ -101,10 +102,14 @@ class ProfilAdmin extends UserAdmin{
                 ->add('username')
                 ->add('email')
                 ->add('plainPassword', 'text', array('required' => false))
-            ->end()
-            ->with('Groups')
-                ->add('groups', 'sonata_type_model', array('required' => false, 'expanded' => true, 'multiple' => true))
-            ->end()
+            ->end();
+        if(static::$groups_disp){
+            $formMapper            
+                ->with('Groups')
+                    ->add('groups', 'sonata_type_model', array('required' => false, 'expanded' => true, 'multiple' => true))
+                ->end();
+        }        
+        $formMapper                
             ->with('Profile')
 //                ->add('dateOfBirth', 'birthday', array('required' => false))
                 ->add('firstname', null, array('required' => false))
@@ -134,7 +139,7 @@ class ProfilAdmin extends UserAdmin{
 //            ->end()
         ;
 
-        $formMapper                
+        $formMapper              
                 ->with('Management')
                     //->add('locked', null, array('required' => false))
                     //->add('expired', null, array('required' => false))

@@ -11,7 +11,8 @@ use Sonata\AdminBundle\Form\FormMapper;
  * @author Adrien
  */
 class AgentTrspAdmin extends ProfilAdmin {
- 
+    protected static $groups_disp = false;
+    
     protected function configureFormFields(FormMapper $formMapper)
     {
         parent::configureFormFields($formMapper);

@@ -9,6 +9,8 @@ namespace Transfer\ProfilBundle\Admin;
  */
 class AgentDabAdmin extends ProfilAdmin {
     //put your code here
+    
+    protected static $groups_disp = true;
 }
 
 ?>
