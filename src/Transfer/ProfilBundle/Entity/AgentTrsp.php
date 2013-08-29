@@ -40,12 +40,12 @@ class AgentTrsp extends \Transfer\MainBundle\Entity\User
     }
 
     
-    public function __toString() {
-        if($this->transporteur && $this->transporteur->getNom()){
-        return $this->transporteur->getNom().'/'.$this->getLastname().' '.$this->getFirstName();
-        }
-        else{
-            return $this->getLastname().' '.$this->getFirstName();
-        }
-    }
+//    public function __toString() {
+//        if($this->transporteur && $this->transporteur->getUserName()){
+//        return $this->transporteur->getNom().'/'.$this->getLastname().' '.$this->getFirstName();
+//        }
+//        else{
+//            return $this->getLastname().' '.$this->getFirstName();
+//        }
+//    }
 }
