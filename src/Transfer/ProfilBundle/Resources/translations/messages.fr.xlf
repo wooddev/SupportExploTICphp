@@ -450,6 +450,14 @@
                 <source>Enabled</source>
                 <target>Activé</target>
             </trans-unit>
+            <trans-unit id="created_at">
+                <source>Created At</source>
+                <target>Date de création</target>
+            </trans-unit>
+            <trans-unit id="priorite">
+                <source>Priorite</source>
+                <target>Priorité</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -27,10 +27,14 @@ class ProfilAdmin extends UserAdmin{
     {
         $listMapper
             ->addIdentifier('username')
-            ->add('email')
-            ->add('groups')
+            ->add('email');
+        if(static::$groups_disp){
+            $listMapper
+                    ->add('groups');            
+        }
+        $listMapper
             ->add('enabled', null, array('editable' => true))
-            ->add('locked', null, array('editable' => true))
+            //  ->add('locked', null, array('editable' => true))
             ->add('createdAt')
         ;
 
@@ -48,9 +52,12 @@ class ProfilAdmin extends UserAdmin{
     {
         $filterMapper
             ->add('username')
-            ->add('locked')
-            ->add('groups')                
-        ;
+            ->add('enabled');
+        if(static::$groups_disp){
+            $filterMapper
+                    ->add('groups');            
+        }
+        
     }
 
     /**
@@ -62,10 +69,15 @@ class ProfilAdmin extends UserAdmin{
             ->with('General')
                 ->add('username')
                 ->add('email')
-            ->end()
-            ->with('Groups')
-                ->add('groups')
-            ->end()
+            ->end();
+        
+        if(static::$groups_disp){
+            $showMapper
+                    ->with('Groups')
+                        ->add('groups')
+                    ->end();
+        }
+        $showMapper
             ->with('Profile')
 //                ->add('dateOfBirth')
                 ->add('firstname')
