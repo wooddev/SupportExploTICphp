@@ -13,7 +13,8 @@ class CreneauModele extends Creneau
         
     public function init($disponibiliteTotale, $jour, $heure,
             $minute,$duree,
-            \Transfer\ReservationBundle\Entity\TypePoste $typePoste
+            \Transfer\ReservationBundle\Entity\TypePoste $typePoste,
+            \Transfer\ReservationBundle\Entity\StatutCreneau $statut
             ) 
     {    
         $this->setDisponibiliteTotale($disponibiliteTotale);
@@ -33,6 +34,8 @@ class CreneauModele extends Creneau
         //ajout de la durée du créneau à heurefin
         //(utilisation des fonctions natives de php sur les objets DateTime)
         $this->getHeureFin()->add(\DateInterval::createFromDateString($duree.' minutes'));
+        
+        $this->setStatut($statut);
         
         return $this;
     }    

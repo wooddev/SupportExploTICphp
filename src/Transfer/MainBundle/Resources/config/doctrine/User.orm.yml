@@ -18,4 +18,5 @@ Transfer\MainBundle\Entity\User:
             id: true
             generator:
                 strategy: AUTO      
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks: 
+        prePersist: [prePersistAction]
