@@ -117,7 +117,17 @@ class RdvController extends Controller implements VidangeRequiseController
             ));  
     }
     
-    public function planningSemaineShowAction(\DateTime $date){
+    public function planningSemaineShowAction($week,$year){
+        
+        $date = new \DateTime();
+        $date->setISODate(2013, 36);
+        
+        $agendas = $this->get('transfer.agenda_builder')->planningSemaineBuilder($date);
+       return $this->render('TransferReservationBundle:Rdv:show/agendaSemaine.html.twig', array(
+            'agendas' => $agendas,
+            ));  
+    }
+    public function planningDateShowAction(\DateTime $date){
         
         $agendas = $this->get('transfer.agenda_builder')->planningSemaineBuilder($date);
        return $this->render('TransferReservationBundle:Rdv:show/agendaSemaine.html.twig', array(

@@ -24,7 +24,9 @@
                             {%endif%}                                                   
                             {% if is_granted("ROLE_DAB") %}
                                 <div class="menu-titre">Gestion des rendez-vous</div>
-                                <li><a href="{{path('planning_semaine',{'date':'now'})}}"> Planning de la semaine en cours</a>
+                                <li><a href="{{path('planning_semaine',{'year':'now'|date('Y'),'week': 'now'|date('W')})}}"> Planning de la semaine en cours</a>
+                                </li>
+                                <li><a href="{{path('planning_semaine',{'year':'now'|date('Y'),'week': 1+('now'|date('W'))})}}"> Planning de la semaine prochaine</a>
                                 </li>
                                 <li class="divider"></li>
                             {%endif%}
@@ -52,13 +54,13 @@
                             {%endif%}
                             {%if is_granted('ROLE_TRANSPORTEUR')%}                               
                                 <div class="menu-titre">Gérer mon planning</div>
-                                <li> <a href="{{path('creneaurdv_recherche_trsp',{'annee':2013,'semaine': 'now'|date('W')})}}"> rechercher un Créneau pour la <b>semaine en cours </b></a>
+                                <li> <a href="{{path('creneaurdv_recherche_trsp',{'annee':'now'|date('Y'),'semaine': 'now'|date('W')})}}"> rechercher un Créneau pour la <b>semaine en cours </b></a>
                                 </li>
-                                <li> <a href="{{path('creneaurdv_recherche_trsp',{'annee':2013,'semaine':(1+('now'|date('W')))})}}"> rechercher un Créneau pour la <b>semaine prochaine</b> </a>
+                                <li> <a href="{{path('creneaurdv_recherche_trsp',{'annee':'now'|date('Y'),'semaine':(1+('now'|date('W')))})}}"> rechercher un Créneau pour la <b>semaine prochaine</b> </a>
                                 </li>
-                                <li><a href="{{path('rdv_transporteur',{'annee':2013,'semaine': 'now'|date('W')})}}">Mes créneaux pour la semaine en cours </a>
+                                <li><a href="{{path('rdv_transporteur',{'annee':'now'|date('Y'),'semaine': 'now'|date('W')})}}">Mes créneaux pour la semaine en cours </a>
                                 </li>                     
-                                <li><a href="{{path('rdv_transporteur',{'annee':2013,'semaine': (1+('now'|date('W')))})}}">Mes créneaux pour la semaine prochaine </a>
+                                <li><a href="{{path('rdv_transporteur',{'annee':'now'|date('Y'),'semaine': (1+('now'|date('W')))})}}">Mes créneaux pour la semaine prochaine </a>
                                 </li>                   
                             {%endif%}
                             {% if is_granted("ROLE_SONATA_ADMIN") %}
