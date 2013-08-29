@@ -216,15 +216,15 @@
             </trans-unit>
             <trans-unit id="form_general">
                 <source>General</source>
-                <target>Général</target>
+                <target>Comptes d'accès</target>
             </trans-unit>
             <trans-unit id="form_groups">
                 <source>Groups</source>
-                <target>Groupes</target>
+                <target>Gestion des droits</target>
             </trans-unit>
             <trans-unit id="form_management">
                 <source>Management</source>
-                <target>Gestion</target>
+                <target>Autorisation de connexion</target>
             </trans-unit>
             <trans-unit id="form_profile">
                 <source>Profile</source>
@@ -441,6 +441,14 @@
             <trans-unit id="phone">
                 <source>Phone</source>
                 <target>Téléphone</target>
+            </trans-unit>
+            <trans-unit id="locked">
+                <source>Locked</source>
+                <target>Verrouillé</target>
+            </trans-unit>
+            <trans-unit id="enabled">
+                <source>Enabled</source>
+                <target>Activé</target>
             </trans-unit>
         </body>
     </file>

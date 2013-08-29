@@ -19,6 +19,7 @@ class User extends BaseUser
     
     public function __construct() {
         parent::__construct();
+        $this->setEnabled(true);
         
 //        if(!self::$roles_const){
 //            if(is_array(self::$roles_const)){
@@ -37,7 +38,7 @@ class User extends BaseUser
                 $this->addRole($role);                
             }
         }
-        $this->setEnabled(true);
+        
     }
 
 
