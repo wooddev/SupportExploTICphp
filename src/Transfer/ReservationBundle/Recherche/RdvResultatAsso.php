@@ -39,7 +39,7 @@ class RdvResultatAsso
             $dateHeureDebut=$creneauRdv->getDateHeureDebut();        
             if(!($rdvRecherche == null)){
                 $intervalDiff = $dateHeureDebut->diff($rdvRecherche->getDateHeureDebut(), true);
-                $this->diffTemps = $intervalDiff->i;
+                $this->diffTemps = $intervalDiff->h*60 + $intervalDiff->i;
             }
         }
 

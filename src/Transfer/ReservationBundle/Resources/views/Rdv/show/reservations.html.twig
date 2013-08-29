@@ -8,8 +8,8 @@
     {%for rdv in provisoires%}
                 <li class="span4">
                     <div href="#" class="thumbnail">
-                        Horaire de réception : {{rdv.dateHeureDebut|date('d/m/Y H:i')}} - {{rdv.dateHeureFin|date('d/m/Y H:i')}}<br>
-                        Type de camion : {{rdv.typeCamion.nom}}<br>
+                        Heure de rendez-vous : {{rdv.dateHeureDebut|date('d/m/Y H:i')}} <br>
+                        {{rdv.typeCamion.nom}}<br>
                         Pont réservé : {{rdv.creneauRdv.typePoste}}<br>
                         dispo Totale : {{rdv.creneauRdv.disponibiliteTotale}}<br>
                         dispo par camion :
@@ -69,8 +69,8 @@
               <li class="span3">
                 <div href="#" class="thumbnail">
                 <p>
-                Horaire de réception :<br> {{rdv.dateHeureDebut|date('d/m/Y H:i')}} - {{rdv.dateHeureFin|date('d/m/Y H:i')}}<br>
-                Type de camion : <br>{{rdv.typeCamion.nom}}<br>
+                Heure de rendez-vous :<br> {{rdv.dateHeureDebut|date('d/m/Y H:i')}} <br>
+                <br>{{rdv.typeCamion.nom}}<br>
                 {#Pont réservé : {{rdv.creneauRdv.typePoste}}<br>
                 dispo Totale : {{rdv.creneauRdv.disponibiliteTotale}}<br>
                 dispo par camion :

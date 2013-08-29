@@ -14,14 +14,20 @@
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         <div class="dropdown clearfix">
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin-bottom: 5px; *width: 180px;">        
-                        {% if is_granted("ROLE_RECEP") %}
-                        <li><div class="menu-titre">Arrivées du jour</div></li>
+                            {% if is_granted("ROLE_SONATA_ADMIN") %}
+                            <li><div class="menu-titre">Gestion de l'application</div></li>
+                                <li ><a tabindex="-1"  href="{{ path('sonata_admin_dashboard') }}">  Accès à la console</a>
+                                </li>
+                                <li class="divider"></li>
+                            {%endif%}    
+                            {% if is_granted("ROLE_RECEP") %}
+                            <li><div class="menu-titre">Arrivées du jour</div></li>
                                 <li ><a tabindex="-1"  href="{{ path('planning_jour',{'date':'now'}) }}">  Planning </a>
                                 </li>
                                 <li><a tabindex="-1" href="{#{path('acquittement')}#}#">  Acquittement des livraisons </a>
                                 </li>
                                 <li class="divider"></li>
-                            {%endif%}
+                            {%endif%}                                                   
                             {% if is_granted("ROLE_DAB") %}
                                 <div class="menu-titre"> Gestion du site</div>
                                 <li><a href="{{path('typeposte')}}">  Gestion des postes de déchargement </a>
@@ -90,7 +96,7 @@
                                             {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                                         </a>
                                     {% else %}                                        
-                                        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                                        
                                     {% endif %}                                        
                         </div>
                 {%block body %}

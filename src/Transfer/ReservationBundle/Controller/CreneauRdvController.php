@@ -184,6 +184,8 @@ class CreneauRdvController extends Controller
         $entity = new RdvRecherche();
         $entity->setAnnee($annee); // Année au format ISO !!IMPORTANT POUR RESPECTER LA CODIFICATION ISO DES SEMAINES 
         $entity->setSemaine($semaine);
+        $entity->setHeure(8);
+        $entity->setMinute(0);
         $form   = $this->createForm(new CreneauRdvRechercheType(), $entity);
         $dateDebut = new \DateTime($annee.'W'.$semaine);
         $dateFin = new \DateTime($annee.'W'.$semaine."6");

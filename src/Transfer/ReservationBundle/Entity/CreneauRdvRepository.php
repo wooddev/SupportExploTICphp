@@ -23,7 +23,7 @@ class CreneauRdvRepository extends EntityRepository
             JOIN dispo.typeCamion tc
             WHERE tc.nom = :typeCamion
             AND dispo.creneau = cr)>0
-        AND cr.dateHeureDebut> :min AND  cr.dateHeureDebut< :min
+        AND cr.dateHeureDebut> :min AND  cr.dateHeureDebut< :max
         ");
         // Construction de l'interval de temps de recherche
         $query->setParameters(array(
@@ -31,6 +31,7 @@ class CreneauRdvRepository extends EntityRepository
             'max'=> $dateHeureFin,
             'typeCamion'=>$rdvRecherche->getTypeCamion()->getNom()
                 ));
+        $sql=$query->getSQL();
         
         return $query->getResult();
     }   
