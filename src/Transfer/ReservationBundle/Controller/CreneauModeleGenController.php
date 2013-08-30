@@ -46,26 +46,21 @@ class CreneauModeleGenController extends Controller
         $form->bind($request);        
         
         if ($form->isValid()){
-            $creneauxOld = $em->getRepository('TransferReservationBundle:CreneauModele')
-                                    ->findByTypePoste($generateur->getTypePoste());
-        
-            foreach($creneauxOld as $creneau){
-                $em->remove($creneau);
-            }
-
-            $em->flush();
             $generateur->setStatut($em->getRepository('TransferReservationBundle:StatutCreneau')->find(1));
-            $generateur->generate();  
+            
+            $generateur->generate();
             
             foreach ($generateur->getCreneauxModeles() as $creneauModele){
-                $em->persist($creneauModele);
+                //si il y a chevauchement avec des créneaux existants >> on ne persiste pas
+                $test=$em->getRepository('TransferReservationBundle:CreneauModele')->testExist($creneauModele);
+                if(!$test){
+                    $em->persist($creneauModele);
+                }
             }        
             $em->flush();  
         }
        
-        return $this->render('TransferReservationBundle:CreneauModele:index.html.twig', array(
-            'entities'      => $generateur->getCreneauxModeles()
-        ));
+        return $this->redirect($this->generateUrl('creneaumodele'));
     }
 
     /**
@@ -154,6 +149,7 @@ class CreneauModeleGenController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
-    }
+    }   
+    
     
 }

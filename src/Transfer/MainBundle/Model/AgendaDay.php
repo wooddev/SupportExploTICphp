@@ -114,7 +114,7 @@ class AgendaDay{
      * @param type $creneauxStructureJour
      * @param type $creneauxAffichesJour
      */
-    public function init($j,$year,$s,$creneauxStructureJour, $creneauxAffichesJour){
+    public function init($j,$year,$s,$creneauxStructureJour=null, $creneauxAffichesJour=null){
         
         $this->setVal($j);// Création d'un jour d'agenda portant le numéro $s
         $this->setDate(new \DateTime());

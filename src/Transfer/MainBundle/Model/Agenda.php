@@ -125,28 +125,35 @@ class Agenda {
                                             ->setMinuteDebut($minutesDebutJours);
                 $this->agendasYear->last()->getAgendasWeek()->last()
                                         ->getAgendasDay()->last()
-                                            ->setminuteFin($minutesFinJours);
-                if(get_class($creneauxStructures->first())=='Transfer\ReservationBundle\Entity\CreneauRdv'){
-                $criteria = Criteria::create()
-                        ->Where(Criteria::expr()
-                                    ->eq("jour",$j))
-                        ->andWhere(Criteria::expr()
-                                    ->eq("annee",$year))
-                        ->andWhere(Criteria::expr()
-                                    ->eq("semaine",$week))
-                        ->orderBy(array("heureDebut"=>"ASC"));    
-                }elseif(get_class($creneauxStructures->first())=='Transfer\ReservationBundle\Entity\CreneauModele'){
+                                            ->setminuteFin($minutesFinJours);                
+                
+                if(!$creneauxStructures->isEmpty() ){
+                    if(get_class($creneauxStructures->first())=='Transfer\ReservationBundle\Entity\CreneauRdv'){
                     $criteria = Criteria::create()
-                        ->Where(Criteria::expr()
-                                    ->eq("jour",$j))
-                        ->orderBy(array("heureDebut"=>"ASC")); 
+                            ->Where(Criteria::expr()
+                                        ->eq("jour",$j))
+                            ->andWhere(Criteria::expr()
+                                        ->eq("annee",$year))
+                            ->andWhere(Criteria::expr()
+                                        ->eq("semaine",$week))
+                            ->orderBy(array("heureDebut"=>"ASC"));    
+                    }elseif(!$creneauxStructures->isEmpty() && get_class($creneauxStructures->first())=='Transfer\ReservationBundle\Entity\CreneauModele'){
+                        $criteria = Criteria::create()
+                            ->Where(Criteria::expr()
+                                        ->eq("jour",$j))
+                            ->orderBy(array("heureDebut"=>"ASC")); 
+                    }else{
+                        throw new \Exception('Agendas compatible avec CreneauRdv et CreneauModele uniquement');
+                    }
+                    $this->agendasYear->last()->getAgendasWeek()->last()
+                                    ->getAgendasDay()->last()
+                                        ->init($j,$year,$week,$creneauxStructures->matching($criteria),
+                                                            $creneauxAffiches);  
                 }else{
-                    throw new \Exception('Agendas compatible avec CreneauRdv et CreneauModele uniquement');
+                    $this->agendasYear->last()->getAgendasWeek()->last()
+                                    ->getAgendasDay()->last()
+                                        ->init($j,$year,$week);  
                 }
-                $this->agendasYear->last()->getAgendasWeek()->last()
-                                ->getAgendasDay()->last()
-                                    ->init($j,$year,$week,$creneauxStructures->matching($criteria),
-                                                        $creneauxAffiches);  
             }
         }
     }

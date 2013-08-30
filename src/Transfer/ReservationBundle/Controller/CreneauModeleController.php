@@ -24,11 +24,12 @@ class CreneauModeleController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        
+        $agendas = $this->buildAgendas($em);
 
-        $entities = $em->getRepository('TransferReservationBundle:CreneauModele')->findAll();
-
-        return $this->render('TransferReservationBundle:CreneauModele:index.html.twig', array(
-            'entities' => $entities,
+        return $this->render('TransferReservationBundle:CreneauModele:show/agenda.html.twig', array(
+            'agendas' => $this->buildAgendas($em)
+,
         ));
     }
 
@@ -179,5 +180,36 @@ class CreneauModeleController extends Controller
             ->getForm()
         ;
     }    
+    
+    public function buildAgendas($em){
+        // récupérer ici la liste des rdv pour le transporteur associé à l'utilisateur en cours
+        // Affichage dans un agenda avec typage associé aux événements? (au moins pour Réservé/confirmé/annulé)
+       
+        $postes = $em->getRepository('TransferReservationBundle:TypePoste')->findall();
+        
+        $agendas = new \Doctrine\Common\Collections\ArrayCollection();
+        
+        foreach ($postes as $poste){
+            $creneauxStructure = new \Doctrine\Common\Collections\ArrayCollection(
+                        $em->getRepository('TransferReservationBundle:CreneauModele')
+                                        ->findActifsByPoste($poste));
+            
+            $this->get('transfer_reservation.reservation')->fixDisponibilites($creneauxStructure,array('persist'=>true));
+            
+            $creneauxAffiches = new \Doctrine\Common\Collections\ArrayCollection(
+                                $em->getRepository('TransferReservationBundle:CreneauPref')
+                                            ->findActifsByPoste($poste));
+            $minutesMin = new \DateTime($em->getRepository('TransferReservationBundle:CreneauModele')
+                                            ->findSemaineMinutesMin($poste));            
+            $min = (int)$minutesMin->format('H')*60 + (int)$minutesMin->format('i')-15;
+            if($creneauxStructure){
+                $agendas->add( new \Transfer\MainBundle\Model\Agenda());
+                $agendas->last()->init(1,1980,$poste,1);
+                $agendas->last()->generateAgenda($creneauxStructure,$creneauxAffiches, $min ,1200);              
+            }
+            else{ return new \Symfony\Component\HttpFoundation\Response('<p> Planning non défini </p>');}
+        } 
+        return $agendas;
+    }
     
 }

@@ -74,4 +74,51 @@ class CreneauModeleRepository extends EntityRepository
         
         return $query->getSingleScalarResult();        
     }
+    
+    
+    /**
+     * Recherche les créneaux chevauchés par le créneau transmis
+     * 
+     * @param \Transfer\ReservationBundle\Entity\CreneauModele $creneauModele
+     * @return type
+     */
+    public function findOverlay(CreneauModele $creneauModele){
+        $query = $this->getEntityManager()->createQuery("
+            SELECT cm
+            FROM TransferReservationBundle:CreneauModele cm
+            JOIN cm.typePoste tp
+            WHERE tp.id = :tpId
+            AND cm.jour = :jour
+            AND (
+                    (cm.heureDebut>=:hd AND cm.heureFin<=:hf)
+                    OR( cm.heureDebut<=:hd AND cm.heureFin>=:hf)
+                    OR( cm.heureDebut between :hd AND :hf)
+                    OR(cm.heureFin between :hd AND :hf)
+                )
+            ");
+        
+        $query->setParameters(array(
+            'tpId'=> $creneauModele->getTypePoste()->getId(),
+            'hd' => $creneauModele->getHeureDebut()->format('H:i:s'),
+            'hf' => $creneauModele->getHeureFin()->format('H:i:s'),
+            'jour'=>$creneauModele->getJour(),
+            ));
+        $query->getSQL();
+        return $query->getResult();                       
+    }
+    /**
+     * Test si le créneau transmis chevauche des créneaux existants
+     * 
+     * @param \Transfer\ReservationBundle\Entity\CreneauModele $creneauModele
+     * @return boolean
+     */
+    public function testExist(CreneauModele $creneauModele){
+        if(count($this->findOverlay($creneauModele))>0){
+            return true;
+        }else{
+            return false;
+        }
+        
+        
+    }
 }
