@@ -176,6 +176,54 @@ class CreneauRdvRepository extends EntityRepository
         return $q->getResult();
     }
     
+    
+    /**
+     * Recherche les créneaux chevauchés par le créneau transmis
+     * 
+     * @param \Transfer\ReservationBundle\Entity\CreneauModele $creneauModele
+     * @return type
+     */
+    public function findOverlay(CreneauRdv $creneau){
+        $query = $this->getEntityManager()->createQuery("
+            SELECT c
+            FROM TransferReservationBundle:CreneauRdv c
+            JOIN c.typePoste tp
+            JOIN c.statut s
+            WHERE tp.id = :tpId
+            AND s.nom='Actif'
+            AND (
+                    (c.dateHeureDebut>=:hd AND c.dateHeureFin<=:hf)
+                    OR( c.dateHeureDebut<=:hd AND c.dateHeureFin>=:hf)
+                    OR( c.dateHeureDebut between :hd AND :hf)
+                    OR(c.dateHeureFin between :hd AND :hf)
+                )
+            ");
+        
+        $query->setParameters(array(
+            'tpId'=> $creneau->getTypePoste()->getId(),
+            'hd' => $creneau->getDateHeureDebut(),
+            'hf' => $creneau->getDateHeureFin(),            
+            ));
+        $query->getSQL();
+        return $query->getResult();                       
+    }
+    /**
+     * Test si le créneau transmis chevauche des créneaux existants
+     * 
+     * @param \Transfer\ReservationBundle\Entity\CreneauModele $creneauModele
+     * @return boolean
+     */
+    public function testExist(CreneauRdv $creneau){
+        if(count($this->findOverlay($creneau))>0){
+            return true;
+        }else{
+            return false;
+        }
+        
+        
+    }
+    
+    
     /**
      * 
      * Méthode obsolète, remplacée par le service moteur reservation

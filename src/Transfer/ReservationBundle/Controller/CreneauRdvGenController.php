@@ -66,7 +66,9 @@ class CreneauRdvGenController extends Controller
             $generateur->generateCreneauxRdvs(); 
             
             foreach ($generateur->getCreneauxRdvs() as $creneauRdv){
-                $em->persist($creneauRdv);
+                if(!$em->getRepository('TransferReservationBundle:CreneauRdv')->testExist($creneauRdv)){
+                    $em->persist($creneauRdv);
+                }
             }            
 //            $em->flush();  
             

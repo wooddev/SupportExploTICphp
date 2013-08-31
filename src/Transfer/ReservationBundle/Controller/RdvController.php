@@ -120,7 +120,7 @@ class RdvController extends Controller implements VidangeRequiseController
     public function planningSemaineShowAction($week,$year){
         
         $date = new \DateTime();
-        $date->setISODate(2013, 36);
+        $date->setISODate($year,$week);
         
         $agendas = $this->get('transfer.agenda_builder')->planningSemaineBuilder($date);
        return $this->render('TransferReservationBundle:Rdv:show/agendaSemaine.html.twig', array(
