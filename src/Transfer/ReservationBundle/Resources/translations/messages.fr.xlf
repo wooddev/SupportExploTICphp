@@ -2,9 +2,13 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
-            <trans-unit id="1">
-                <source>Symfony2 is great</source>
-                <target>J'aime Symfony2</target>
+            <trans-unit id="fond_mouvant">
+                <source>Fond mouvant</source>
+                <target>FM</target>
+            </trans-unit>
+            <trans-unit id="autre_type">
+                <source>Autre type</source>
+                <target>Autre</target>
             </trans-unit>
         </body>
     </file>
