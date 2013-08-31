@@ -123,10 +123,11 @@ class RdvController extends Controller implements VidangeRequiseController
         $date->setISODate($year,$week);
         
         $agendas = $this->get('transfer.agenda_builder')->planningSemaineBuilder($date);
-       return $this->render('TransferReservationBundle:Rdv:show/agendaSemaine.html.twig', array(
-            'agendas' => $agendas,
+        return $this->render('TransferReservationBundle:Rdv:show/agendaSemaine.html.twig', array(
+            'agendas' => $agendas
             ));  
     }
+    
     public function planningDateShowAction(\DateTime $date){
         
         $agendas = $this->get('transfer.agenda_builder')->planningSemaineBuilder($date);
@@ -329,7 +330,10 @@ class RdvController extends Controller implements VidangeRequiseController
             return $this->reservation($rdvRecherche,$dateHeureDebut,$dateHeureFin,$em);
 
         }
-        else{return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');}
+        else{
+            throw $this->createNotFoundException('Erreur de formulaire !  Veuillez relancer votre recherche');
+
+        }
     }
         
     public function confirmationAction($id){
@@ -396,57 +400,65 @@ class RdvController extends Controller implements VidangeRequiseController
         //Récupération des créneaux disponibles dans la plage recherchée          
         $creneauxRdvBruts = $em->getRepository('TransferReservationBundle:CreneauRdv')
                                 ->findByRecherche($rdvRecherche,$dateHeureDebut,$dateHeureFin);
-        if ($creneauxRdvBruts == null){
-            return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');
-        }
+        if (!empty($creneauxRdvBruts)){        
 
-        //Construction d'une collection afin de pouvoir trier les créneaux
-        $resultatsTries = new \Transfer\MainBundle\Model\Sorter();
-        foreach ($creneauxRdvBruts as $creneauRdvBrut){    
-            //Encapsulation des créneaux dans un objet RdvResultat (pour faire les opérations de tri)
-            $resultatsTries->add(new \Transfer\ReservationBundle\Recherche\RdvResultatAsso($creneauRdvBrut,$rdvRecherche));            
-        }
-
-        $resultatsTries->sortArray('getDiffTemps');
-        foreach ($resultatsTries as $resultat){            
-            if($this->get('transfer_reservation.reservation')->reservation(
-                            $resultat->getCreneauRdv(),
-                            $rdvRecherche->getTypeCamion(),
-                            $this->get('transfer_profil.acces')->getTransporteur(),
-                            array('vidange'=>true))
-                    )
-                {
-                return $this->redirect($this->generateUrl(
-                        'rdv_transporteur',
-                        array(
-                              'annee' =>  $resultat->getCreneauRdv()->getAnnee(),
-                              'semaine'=> $resultat->getCreneauRdv()->getSemaine())                                                                                                                              
-                ));
+            //Construction d'une collection afin de pouvoir trier les créneaux
+            $resultatsTries = new \Transfer\MainBundle\Model\Sorter();
+            foreach ($creneauxRdvBruts as $creneauRdvBrut){    
+                //Encapsulation des créneaux dans un objet RdvResultat (pour faire les opérations de tri)
+                $resultatsTries->add(new \Transfer\ReservationBundle\Recherche\RdvResultatAsso($creneauRdvBrut,$rdvRecherche));            
             }
-        }  
-        return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');
+
+            $resultatsTries->sortArray('getDiffTemps');
+            foreach ($resultatsTries as $resultat){            
+                if($this->get('transfer_reservation.reservation')->reservation(
+                                $resultat->getCreneauRdv(),
+                                $rdvRecherche->getTypeCamion(),
+                                $this->get('transfer_profil.acces')->getTransporteur(),
+                                array('vidange'=>true))
+                        )
+                    {
+                    return $this->redirect($this->generateUrl(
+                            'rdv_transporteur',
+                            array(
+                                  'annee' =>  $resultat->getCreneauRdv()->getAnnee(),
+                                  'semaine'=> $resultat->getCreneauRdv()->getSemaine())                                                                                                                              
+                    ));
+                }
+            }        
+        }
+        //si échec
+        return $this->echecReservation($dateHeureDebut->format('W'),$dateHeureFin->format('o'));
     } 
     
+    public function echecReservation($week,$year){
+        
+        //Si aucun résultat
+        $simpleInterval= new \DateInterval($this->get('transfer_reservation.parametres')->getIntervalleRecherche());
+        $virtualDate1= new \DateTime();
+        $virtualDate2= clone $virtualDate1;
+        $virtualDate1->add($simpleInterval);
+        $virtualDate1->add($simpleInterval);
+        $doubleInterval = $virtualDate2->diff($virtualDate1,true);
+        
+        if(((int)$doubleInterval->format('%h'))>0){
+            $message = $doubleInterval->format('%hh%I');
+        }else{
+            $message=$doubleInterval->format('%I minutes');
+        }
+        
+        $this->get('session')->getFlashBag()->add(
+                        'alert',
+                        'Aucun créneau disponible dans un intervalle de '.$message.' !
+                         Veuillez relancer votre recherche à un autre horaire.'
+                );
+        
+        return $this->redirect($this->generateUrl('creneaurdv_recherche',array(
+                    'semaine'=>$week,
+                    'annee'=>$year
+                        )
+                    ));       
+    }
+    
        
-//    public function rechercheCreneauxRdv($date,$periode){
-//        //Récupération des créneaux disponibles dans la plage recherchée
-//        $creneauxRdvBruts = $em->getRepository('TransferReservationBundle:CreneauRdv')
-//                                ->findByRecherche($rdvRecherche);
-//        if ($creneauxRdvBruts == null){
-//            return $this->render('TransferReservationBundle:CreneauRdv:recherche/echec.html.twig');
-//        }
-//
-//        //Construction d'une collection afin de pouvoir trier les créneaux
-//        $creneauxRdvTries = new \Transfer\MainBundle\Model\Sorter();
-//        foreach ($creneauxRdvBruts as $creneauRdvBrut){    
-//            //Encapsulation des créneaux dans un objet RdvResultat (pour faire les opérations de tri)
-//            $creneauxRdvTries->add(new \Transfer\ReservationBundle\Recherche\RdvResultat($creneauRdvBrut,$rdvRecherche));            
-//        }
-//
-//        $creneauxRdvTries->sortArray('getDiffTemps');
-//
-//        return $this->reservation($creneauxRdvTries,$rdvRecherche->getTypeCamion()); 
-//    }
-    
-    
 }

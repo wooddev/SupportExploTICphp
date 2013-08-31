@@ -31,7 +31,6 @@ class CreneauRdvRepository extends EntityRepository
             'max'=> $dateHeureFin,
             'typeCamion'=>$rdvRecherche->getTypeCamion()->getNom()
                 ));
-        $sql=$query->getSQL();
         
         return $query->getResult();
     }   
@@ -150,6 +149,8 @@ class CreneauRdvRepository extends EntityRepository
         WHERE  t.id = :posteId
         AND cr.dateHeureDebut >= :dateHeureDebut
         AND cr.dateHeureFin <= :dateHeureFin  
+        AND cr.heureDebut >= :heureDebut
+        AND cr.heureFin <= :heureFin       
         AND cr.rdvs is EMPTY        
         ");
 
@@ -157,7 +158,8 @@ class CreneauRdvRepository extends EntityRepository
             'posteId'=> $creneauRecherche->getTypePoste()->getId(),
             'dateHeureDebut'=> $creneauRecherche->getDateHeureDebut(),
             'dateHeureFin'=> $creneauRecherche->getDateHeureFin(),
-
+            'heureDebut'=>$creneauRecherche->getHeureDebut()->format('H:i:s'),
+            'heureFin'=>$creneauRecherche->getHeureFin()->format('H:i:s'),
                 ));
         
         return $query->getResult();
@@ -193,9 +195,9 @@ class CreneauRdvRepository extends EntityRepository
             AND s.nom='Actif'
             AND (
                     (c.dateHeureDebut>=:hd AND c.dateHeureFin<=:hf)
-                    OR( c.dateHeureDebut<=:hd AND c.dateHeureFin>=:hf)
-                    OR( c.dateHeureDebut between :hd AND :hf)
-                    OR(c.dateHeureFin between :hd AND :hf)
+                    OR( c.dateHeureDebut<:hd AND c.dateHeureFin>:hf)
+                    OR( c.dateHeureDebut > :hd AND c.dateHeureDebut<:hf)
+                    OR(c.dateHeureFin > :hd AND c.dateHeureFin <:hf)
                 )
             ");
         
@@ -204,7 +206,7 @@ class CreneauRdvRepository extends EntityRepository
             'hd' => $creneau->getDateHeureDebut(),
             'hf' => $creneau->getDateHeureFin(),            
             ));
-        $query->getSQL();
+//        $query->getSQL();
         return $query->getResult();                       
     }
     /**

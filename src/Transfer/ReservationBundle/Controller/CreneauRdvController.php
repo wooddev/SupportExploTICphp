@@ -182,6 +182,7 @@ class CreneauRdvController extends Controller
     public function rechercheAction($semaine, $annee){       
                
         $entity = new RdvRecherche();
+
         $entity->setAnnee($annee); // Année au format ISO !!IMPORTANT POUR RESPECTER LA CODIFICATION ISO DES SEMAINES 
         $entity->setSemaine($semaine);
         $entity->setHeure(8);
@@ -225,7 +226,7 @@ class CreneauRdvController extends Controller
             $creneauRecherche
                     ->getDateHeureDebut()
                         ->setTime(
-                                $creneauRecherche->getHeureDebut()->format('h'),
+                                $creneauRecherche->getHeureDebut()->format('H'),
                                 $creneauRecherche->getHeureDebut()->format('i') );    
             $creneauRecherche
                     ->getDateHeureFin()
@@ -235,20 +236,22 @@ class CreneauRdvController extends Controller
             $entities = $em->getRepository('TransferReservationBundle:CreneauRdv')->findRechercheListe($creneauRecherche);
 
             if (!$entities) {
-                throw $this->createNotFoundException('Unable to find CreneauRdv entities.');
+                $this->get('session')->getFlashBag()->add(
+                        'alert',
+                        'Aucun créneau ne peut être supprimé sur la plage demandée'
+                );
+            }else{
+                foreach($entities as $entity){
+                    $em->remove($entity);    
+                }                 
+                $em->flush();
             }
-            foreach($entities as $entity){
-                $em->remove($entity);    
-            }            
-            $em->flush();
             
-            return $this->redirect($this->generateUrl('creneaurdv'));
-        }
-        
-        // recherche des créneaux => faire un repository 
-        // (Attention : vérifier l'absence de rdv liés)
-        
-        // suppression de la liste récupérée
+            return $this->redirect($this->generateUrl('planning_semaine',array(
+                'year'=>$creneauRecherche->getDateHeureDebut()->format('o'), //iso Year
+                'week'=>$creneauRecherche->getDateHeureDebut()->format('W'), //iso Week                
+                    )));
+        }        
         
     }
         

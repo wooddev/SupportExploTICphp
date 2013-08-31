@@ -90,6 +90,13 @@
                                         
                                     {% endif %}                                        
                         </div>
+                {%for flashMessage in app.session.flashbag.get('alert')%}
+                <div class="alert">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Info :</strong>
+                    {{flashMessage}}
+                </div>        
+                {%endfor%}
                 {%block body %}
 
 
@@ -100,6 +107,11 @@
         </div>    
         
        
-{% block script %}<script src="http://code.jquery.com/jquery.js"></script> {%endblock%}
+{% block script %}
+            <script src="http://code.jquery.com/jquery.js"></script>
+            <script src="{{asset('bundles/transfermain/bootstrap/js/bootstrap.min.js')}}"></script>
+            
+
+{%endblock%}
     </body>
 </html>
