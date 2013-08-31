@@ -101,7 +101,7 @@
                         <div class="semaine"> {#Année : {{agendaYear.val}} | Semaine : {{agendaWeek.val}}#}
                         <div class="jour-container">
                             {%for agendaDay in agendaWeek.agendasDay%}
-                            <div class="jour" style='width:{{90/(agendaWeek.agendasDay|length)}}%;'> {{agendaDay.val}}
+                            <div class="jour" style='width:{{90/(agendaWeek.agendasDay|length)}}%;'> {{agendaDay.textVal}}
                                  {%for creneau in agendaDay.creneaux %}
                                     <div class="creneau creneau-{{creneau.type}}" style="min-height: 58px; height: {{2.1*creneau.duree}}px">
                                             <div class="creneau-content">      

@@ -303,7 +303,10 @@ class CreneauPrefController extends Controller
                 }
             }
         }
-        return $this->redirect($this->generateUrl('rdv'));
+        return $this->redirect($this->generateUrl('planning_semaine',array(
+            'week'=>$semaine,
+            'year'=>$annee,
+        )));
         
                 
     }
