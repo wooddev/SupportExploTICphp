@@ -28,3 +28,12 @@ creneaumodele_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "TransferReservationBundle:CreneauModele:delete" }
     requirements: { _method: post }
+
+creneaumodele_recherche_supprimer:
+    pattern: /recherchesupprimer
+    defaults: { _controller: "TransferReservationBundle:CreneauModele:rechercheSupprimer"}
+    
+creneaumodele_supprimer_liste:
+    pattern: /supprimerliste
+    defaults: { _controller: "TransferReservationBundle:CreneauModele:supprimerListe"}
+    requirements: {_method: post}

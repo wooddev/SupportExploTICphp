@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Transfer\ReservationBundle\Entity\CreneauModele;
 use Transfer\ReservationBundle\Form\CreneauModeleType;
+use Transfer\ReservationBundle\Form\CreneauModeleRechercheType;
 use Transfer\ReservationBundle\Generateurs\CreneauModeleGen;
 use Transfer\ReservationBundle\Entity\Disponibilite;
 use Doctrine\Common\Collections\Criteria;
@@ -210,6 +211,53 @@ class CreneauModeleController extends Controller
             else{ return new \Symfony\Component\HttpFoundation\Response('<p> Planning non défini </p>');}
         } 
         return $agendas;
+    }
+    
+    public function rechercheSupprimerAction(){       
+               
+        $entity = new \Transfer\ReservationBundle\Recherche\CreneauModeleRecherche();
+        $entity->setHeureDebut(new \DateTime(date('o').'W'.date('W')));
+        $entity->setHeureFin(new \DateTime(date('o').'W'.date('W').'6'));  
+        $entity->setJours(array(1));
+        $form   = $this->createForm(new CreneauModeleRechercheType(), $entity);
+
+        return $this->render('TransferReservationBundle:CreneauModele:delete.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));      
+    }  
+    
+    public function supprimerListeAction(Request $request){
+        $creneauRecherche = new \Transfer\ReservationBundle\Recherche\CreneauModeleRecherche();
+        $form = $this->createForm(new CreneauModeleRechercheType(), $creneauRecherche);
+        $form->bind($request);
+        
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            
+            $entities = $em->getRepository('TransferReservationBundle:CreneauModele')->findRecherche($creneauRecherche);
+
+            if (!$entities) {
+                $this->get('session')->getFlashBag()->add(
+                        'alert',
+                        'Aucun créneau ne peut être supprimé sur la plage demandée'
+                );
+            }else{
+                foreach($entities as $entity){
+                    $em->remove($entity);    
+
+                }
+                $em->flush();         
+                $this->get('session')->getFlashBag()->add(
+                        'alert',
+                        count($entities).' créneaux ont été supprimés'
+                );
+                
+            }
+            
+            return $this->redirect($this->generateUrl('creneaumodele'));
+        }        
+        
     }
     
 }

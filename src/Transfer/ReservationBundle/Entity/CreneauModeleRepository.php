@@ -121,4 +121,33 @@ class CreneauModeleRepository extends EntityRepository
         
         
     }
+    
+    /**
+     * 
+     * @param \Transfer\ReservationBundle\Recherche\CreneauModeleRecherche $creneauRecherche
+     */ 
+    public function findRecherche(\Transfer\ReservationBundle\Recherche\CreneauModeleRecherche $creneauRecherche){
+        $query= $this->getEntityManager()->createQuery("
+            SELECT cm            
+            FROM TransferReservationBundle:CreneauModele cm
+            JOIN cm.typePoste tp
+            WHERE cm.jour IN (:jours)
+            AND cm.heureDebut >= :hd
+            AND cm.heureFin <= :hf
+            AND tp.id IN (:tpIds)
+            AND cm.creneauxPrefs is EMPTY
+            ");
+        $tpIds= array();
+        foreach($creneauRecherche->getPostes() as $poste){
+            $tpIds[]=$poste->getId();
+        }
+        
+        $query->setParameters(array(
+            'jours'=>$creneauRecherche->getJours(),
+            'hd'=>$creneauRecherche->getHeureDebut()->format('H:i:s'),
+            'hf'=>$creneauRecherche->getHeureFin()->format('H:i:s'),
+            'tpIds'=>$tpIds,
+        ));
+        return $query->getResult();
+    }
 }
