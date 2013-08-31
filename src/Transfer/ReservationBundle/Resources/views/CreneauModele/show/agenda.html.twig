@@ -108,12 +108,12 @@
                                     {%if creneau.type =='vide'%}
                                     
                                     {%else%}                                                                          
-                                        {{creneau.dateTimeDebut|date('H:i')}}-{{creneau.dateTimeFin|date('H:i')}}                                    
+                                        {{creneau.dateTimeDebut|date('H:i')}}                              
                                         {%if creneau.creneauxAffiches is defined %} 
                                                 
                                                    {%for creneauAffiche in creneau.creneauxAffiches%}
                                                             {%if creneauAffiche.Transporteur.nom is defined%}
-                                                            <br>{{creneauAffiche.Transporteur.nom}}-{{creneauAffiche.TypeCamion}}                                                            
+                                                            <br>{{creneauAffiche.Transporteur.nom}}-{{creneauAffiche.TypeCamion|trans({},"abbrev")}}                                                            
                                                             {%endif%}
                                                                                                                 
                                                    {%endfor%}

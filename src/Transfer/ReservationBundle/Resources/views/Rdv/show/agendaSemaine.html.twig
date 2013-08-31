@@ -121,7 +121,7 @@
 
                                           {%for creneauAffiche in creneau.creneauxAffiches%}
                                                    {%if creneauAffiche.Transporteur.nom is defined%}
-                               <br>{{creneauAffiche.Transporteur.nom}}-{{creneauAffiche.TypeCamion|trans}}-{{creneauAffiche.StatutRdv|first| capitalize}}                                                           
+                               <br>{{creneauAffiche.Transporteur.nom}}-{{creneauAffiche.TypeCamion|trans({},"abbrev")}}-{{creneauAffiche.StatutRdv|trans({},"abbrev")}}                                                           
                                                    {%endif%}
 
                                           {%endfor%}

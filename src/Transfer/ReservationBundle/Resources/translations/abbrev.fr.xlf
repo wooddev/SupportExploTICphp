@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="fond_mouvant">
+                <source>Fond mouvant</source>
+                <target>FM</target>
+            </trans-unit>
+            <trans-unit id="autre_type">
+                <source>Autre type</source>
+                <target>Autre</target>
+            </trans-unit>
+            <trans-unit id="confirme">
+                <source>confirme</source>
+                <target>Conf.</target>
+            </trans-unit>
+            <trans-unit id="provisoire">
+                <source>provisoire</source>
+                <target>Prov.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
