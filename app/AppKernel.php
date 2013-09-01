@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new Sonata\IntlBundle\SonataIntlBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),            
+            new Sonata\MediaBundle\SonataMediaBundle(),
             new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
             new Explotic\TiersBundle\ExploticTiersBundle(),
             new Explotic\PlanningBundle\ExploticPlanningBundle(),
@@ -34,6 +35,7 @@ class AppKernel extends Kernel
             new Explotic\MainBundle\ExploticMainBundle(),
             new Explotic\AgendaBundle\ExploticAgendaBundle(),      
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
+            new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {            

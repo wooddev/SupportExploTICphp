@@ -11,7 +11,13 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('ExploticMainBundle:Default:index.html.twig');
+        $mediaManager= $this->get('sonata.media.manager.media');
+//        $mediaManager= new \Sonata\MediaBundle\Entity\MediaManager();
+        $media=$mediaManager->findOneBy(array('name'=>'1470E'));      
+
+        return $this->render('ExploticMainBundle:Default:index.html.twig',array(
+            'media'=>$media,
+            ));
     }
     
     public function monProfilAction(){
