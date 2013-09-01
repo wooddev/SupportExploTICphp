@@ -7,79 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Recruteur
  */
-class Recruteur
+class Recruteur extends \Explotic\AdminBundle\Entity\User
 {
-    /**
-     * @var integer
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $nom;
-
-    /**
-     * @var string
-     */
-    private $prenom;
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return Recruteur
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-    
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return string 
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * Set prenom
-     *
-     * @param string $prenom
-     * @return Recruteur
-     */
-    public function setPrenom($prenom)
-    {
-        $this->prenom = $prenom;
-    
-        return $this;
-    }
-
-    /**
-     * Get prenom
-     *
-     * @return string 
-     */
-    public function getPrenom()
-    {
-        return $this->prenom;
-    }
+  
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -92,7 +22,6 @@ class Recruteur
     {
         $this->stagiaires = new \Doctrine\Common\Collections\ArrayCollection();
         $this->entreprises = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->comptes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -192,48 +121,7 @@ class Recruteur
     public function getEntreprises()
     {
         return $this->entreprises;
-    }
-       
-    public function __toString()
-    {
-        return $this->getPrenom().' '.$this->getNom();
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $comptes;
+    }       
 
 
-    /**
-     * Add comptes
-     *
-     * @param \Explotic\AdminBundle\Entity\User $comptes
-     * @return Recruteur
-     */
-    public function addCompte(\Explotic\AdminBundle\Entity\User $comptes)
-    {
-        $this->comptes[] = $comptes;
-    
-        return $this;
-    }
-
-    /**
-     * Remove comptes
-     *
-     * @param \Explotic\AdminBundle\Entity\User $comptes
-     */
-    public function removeCompte(\Explotic\AdminBundle\Entity\User $comptes)
-    {
-        $this->comptes->removeElement($comptes);
-    }
-
-    /**
-     * Get comptes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getComptes()
-    {
-        return $this->comptes;
-    }
 }

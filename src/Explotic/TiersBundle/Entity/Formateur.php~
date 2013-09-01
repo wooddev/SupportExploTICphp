@@ -7,79 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Explotic\TiersBundle\Entity\Formateur
  */
-class Formateur
+class Formateur extends \Explotic\AdminBundle\Entity\User
 {
-    /**
-     * @var integer $id
-     */
-    private $id;
-
-    /**
-     * @var string $nom
-     */
-    private $nom;
-
-    /**
-     * @var string $prenom
-     */
-    private $prenom;
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return Formateur
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
     
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return string 
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * Set prenom
-     *
-     * @param string $prenom
-     * @return Formateur
-     */
-    public function setPrenom($prenom)
-    {
-        $this->prenom = $prenom;
-    
-        return $this;
-    }
-
-    /**
-     * Get prenom
-     *
-     * @return string 
-     */
-    public function getPrenom()
-    {
-        return $this->prenom;
-    }
     /**
      * @var Explotic\PlanningBundle\Entity\Calendrier
      */
@@ -147,7 +77,6 @@ class Formateur
     public function __construct()
     {
         $this->sessions = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->comptes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -190,39 +119,5 @@ class Formateur
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $comptes;
-
-
-    /**
-     * Add comptes
-     *
-     * @param \Explotic\AdminBundle\Entity\User $comptes
-     * @return Formateur
-     */
-    public function addCompte(\Explotic\AdminBundle\Entity\User $comptes)
-    {
-        $this->comptes[] = $comptes;
-    
-        return $this;
-    }
-
-    /**
-     * Remove comptes
-     *
-     * @param \Explotic\AdminBundle\Entity\User $comptes
-     */
-    public function removeCompte(\Explotic\AdminBundle\Entity\User $comptes)
-    {
-        $this->comptes->removeElement($comptes);
-    }
-
-    /**
-     * Get comptes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getComptes()
-    {
-        return $this->comptes;
-    }
+   
 }

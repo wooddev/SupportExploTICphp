@@ -10,11 +10,7 @@ Explotic\TiersBundle\Entity\Recruteur:
     stagiaires:
       targetEntity: Explotic\TiersBundle\Entity\Stagiaire
       mappedBy: recruteur
-      nullable: true
-    comptes:
-      targetEntity: Explotic\AdminBundle\Entity\User
-      mappedBy: recruteur
-      nullable: true      
+      nullable: true    
   manyToMany:
     entreprises:
       targetEntity: Entreprise
@@ -26,17 +22,5 @@ Explotic\TiersBundle\Entity\Recruteur:
             referencedColumnName: id
         inverseJoinColumns :
           entreprise_id:
-            referencedColumnName: id
-  fields:
-    id:
-      type: integer
-      id: true
-      generator:
-        strategy: AUTO
-    nom:
-      type: string
-      length: 255
-    prenom:
-      type: string
-      length: 255
+            referencedColumnName: id    
   lifecycleCallbacks: {  }

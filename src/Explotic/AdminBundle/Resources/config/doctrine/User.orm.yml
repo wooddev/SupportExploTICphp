@@ -1,27 +1,22 @@
 Explotic\AdminBundle\Entity\User:
-  type: entity
-  table: fos_user
-  manyToOne:
-    entreprise:
-      targetEntity: Explotic\TiersBundle\Entity\Entreprise
-      inversedBy: comptes
-      nullable: true
-    recruteur:
-      targetEntity: Explotic\TiersBundle\Entity\Recruteur
-      inversedBy: comptes
-      nullable: true
-    stagiaire:
-      targetEntity: Explotic\TiersBundle\Entity\Stagiaire
-      inversedBy: comptes
-      nullable: true
-    formateur:
-      targetEntity: Explotic\TiersBundle\Entity\Formateur
-      inversedBy: comptes
-      nullable: true
-  fields:
-    id:
-      type: integer
-      id: true
-      generator:
-        strategy: AUTO
-  lifecycleCallbacks: {  }
+    type: entity
+    table: fos_user
+    repositoryClass: Explotic\AdminBundle\Entity\UserRepository
+    inheritanceType: SINGLE_TABLE
+    discriminatorColumn:
+      name: profil
+      type: string
+      length: 255
+    discriminatorMap:
+      stagiaire:       Explotic\TiersBundle\Entity\Stagiaire
+      recruteur:       Explotic\TiersBundle\Entity\Recruteur
+      entreprise:      Explotic\TiersBundle\Entity\Entreprise
+      formateur:       Explotic\TiersBundle\Entity\Formateur
+      user:            Explotic\AdminBundle\Entity\User    
+    fields:
+      id:
+        type: integer
+        id: true
+        generator:
+          strategy: AUTO
+    lifecycleCallbacks: {  }

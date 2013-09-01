@@ -4,12 +4,7 @@ Explotic\TiersBundle\Entity\Formateur:
     repositoryClass: Explotic\TiersBundle\Entity\FormateurRepository
     oneToOne:
       calendrier:
-        targetEntity: Explotic\PlanningBundle\Entity\Calendrier
-    oneToMany:
-      comptes:
-        targetEntity: Explotic\AdminBundle\Entity\User
-        mappedBy: formateur
-        nullable: true      
+        targetEntity: Explotic\PlanningBundle\Entity\Calendrier     
     manyToOne:
       Organisme:
         targetEntity: Organisme
@@ -25,16 +20,4 @@ Explotic\TiersBundle\Entity\Formateur:
           inverseJoinColumns:
             session_id:
               referencedColumnName: id     
-    fields:
-        id:
-            type: integer
-            id: true
-            generator:
-                strategy: AUTO
-        nom:
-            type: string
-            length: 255
-        prenom:
-            type: string
-            length: 255
     lifecycleCallbacks: {  }

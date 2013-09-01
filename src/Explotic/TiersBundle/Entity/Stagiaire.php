@@ -7,37 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Explotic\TiersBundle\Entity\Stagiaire
  */
-class Stagiaire
+class Stagiaire extends \Explotic\AdminBundle\Entity\User
 {
-    /**
-     * @var integer $id
-     */
-    private $id;
-
-    /**
-     * @var string $nom
-     */
-    private $nom;
-
-    /**
-     * @var string $prenom
-     */
-    private $prenom;
-
-    /**
-     * @var \DateTime $dateNaissance
-     */
-    private $dateNaissance;
-
     /**
      * @var boolean $marchePiedInfo
      */
     private $marchePiedInfo;
 
-    /**
-     * @var string $telephone
-     */
-    private $telephone;
 
     /**
      * @var string $opca
@@ -78,88 +54,9 @@ class Stagiaire
         $this->sessions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->postes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->programmes = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->comptes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return Stagiaire
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
     
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return string 
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * Set prenom
-     *
-     * @param string $prenom
-     * @return Stagiaire
-     */
-    public function setPrenom($prenom)
-    {
-        $this->prenom = $prenom;
-    
-        return $this;
-    }
-
-    /**
-     * Get prenom
-     *
-     * @return string 
-     */
-    public function getPrenom()
-    {
-        return $this->prenom;
-    }
-
-    /**
-     * Set dateNaissance
-     *
-     * @param \DateTime $dateNaissance
-     * @return Stagiaire
-     */
-    public function setDateNaissance($dateNaissance)
-    {
-        $this->dateNaissance = $dateNaissance;
-    
-        return $this;
-    }
-
-    /**
-     * Get dateNaissance
-     *
-     * @return \DateTime 
-     */
-    public function getDateNaissance()
-    {
-        return $this->dateNaissance;
-    }
-
     /**
      * Set marchePiedInfo
      *
@@ -183,29 +80,7 @@ class Stagiaire
         return $this->marchePiedInfo;
     }
 
-    /**
-     * Set telephone
-     *
-     * @param string $telephone
-     * @return Stagiaire
-     */
-    public function setTelephone($telephone)
-    {
-        $this->telephone = $telephone;
     
-        return $this;
-    }
-
-    /**
-     * Get telephone
-     *
-     * @return string 
-     */
-    public function getTelephone()
-    {
-        return $this->telephone;
-    }
-
     /**
      * Set opca
      *
@@ -362,19 +237,6 @@ class Stagiaire
     public function getPostes()
     {
         return $this->postes;
-    }
-
-    /*
-     *  __toString
-     * 
-     * Affichage sous forme de string de la classe
-     * 
-     * @return string
-     */
-    
-    public function __toString()
-    {
-        return $this->prenom.' '.$this->nom;
     }
     
     /**
@@ -611,45 +473,7 @@ class Stagiaire
     {
         return $this->recruteur;
     }
-    
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $comptes;
 
-
-    /**
-     * Add comptes
-     *
-     * @param \Explotic\AdminBundle\Entity\User $comptes
-     * @return Stagiaire
-     */
-    public function addCompte(\Explotic\AdminBundle\Entity\User $comptes)
-    {
-        $this->comptes[] = $comptes;
-    
-        return $this;
-    }
-
-    /**
-     * Remove comptes
-     *
-     * @param \Explotic\AdminBundle\Entity\User $comptes
-     */
-    public function removeCompte(\Explotic\AdminBundle\Entity\User $comptes)
-    {
-        $this->comptes->removeElement($comptes);
-    }
-
-    /**
-     * Get comptes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getComptes()
-    {
-        return $this->comptes;
-    }
     
       /*
      * get MyMarkers
@@ -689,6 +513,6 @@ class Stagiaire
         }        
         
         return $markers;
-        
     }
+        
 }

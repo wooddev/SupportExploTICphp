@@ -22,21 +22,12 @@ Explotic\TiersBundle\Entity\Entreprise:
         targetEntity: Explotic\TiersBundle\Entity\Recruteur
         mappedBy: employeur
         nullable: true
-      comptes:
-        targetEntity: Explotic\AdminBundle\Entity\User
-        mappedBy: entreprise
-        nullable: true
     manyToMany:
       recruteurs:
         targetEntity: Recruteur
         mappedBy: entreprises
         nullable: true
-    fields:
-        id:
-            type: integer
-            id: true
-            generator:
-                strategy: AUTO
+    fields:        
         raisonSociale:
             type: string
             length: 255            
@@ -51,19 +42,11 @@ Explotic\TiersBundle\Entity\Entreprise:
         cnil:
             type: string
             length: 255
-            nullable: true
-        telephone:
-            type: string
-            length: 255
-            nullable: true
+            nullable: true       
         versionExplotic:
             type: string
             length : 255 
-            nullable : true
-        email:
-          type: string
-          length: 255
-          nullable: true
+            nullable : true        
         commentaires:
           type: text
           nullable: true

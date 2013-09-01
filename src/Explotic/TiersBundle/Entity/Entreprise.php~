@@ -7,22 +7,15 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Explotic\TiersBundle\Entity\Entreprise
  */
-class Entreprise
+class Entreprise extends \Explotic\AdminBundle\Entity\User
 {
-    /**
-     * @var integer $id
-     */
-    private $id;
-
+    
     /**
      * @var string $raisonSociale
      */
     private $raisonSociale;
 
-    /**
-     * @var string $telephone
-     */
-    private $telephone;
+    
 
     /**
      * @var Explotic\TiersBundle\Entity\Bureau
@@ -34,17 +27,7 @@ class Entreprise
      */
     private $creditTemps;
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
+    
     /**
      * Set raisonSociale
      *
@@ -68,28 +51,7 @@ class Entreprise
         return $this->raisonSociale;
     }
 
-    /**
-     * Set telephone
-     *
-     * @param string $telephone
-     * @return Entreprise
-     */
-    public function setTelephone($telephone)
-    {
-        $this->telephone = $telephone;
     
-        return $this;
-    }
-
-    /**
-     * Get telephone
-     *
-     * @return string 
-     */
-    public function getTelephone()
-    {
-        return $this->telephone;
-    }
 
     /**
      * Set bureau
@@ -188,7 +150,6 @@ class Entreprise
     {
         $this->stagiaires = new \Doctrine\Common\Collections\ArrayCollection();
         $this->machines = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->comptes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -486,72 +447,7 @@ class Entreprise
         return $this->recruteurs;
     }
 
-    /**
-     * @var string
-     */
-    private $email;
-
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return Entreprise
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
     
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $comptes;
-
-
-    /**
-     * Add comptes
-     *
-     * @param \Explotic\AdminBundle\Entity\User $comptes
-     * @return Entreprise
-     */
-    public function addCompte(\Explotic\AdminBundle\Entity\User $comptes)
-    {
-        $this->comptes[] = $comptes;
-    
-        return $this;
-    }
-
-    /**
-     * Remove comptes
-     *
-     * @param \Explotic\AdminBundle\Entity\User $comptes
-     */
-    public function removeCompte(\Explotic\AdminBundle\Entity\User $comptes)
-    {
-        $this->comptes->removeElement($comptes);
-    }
-
-    /**
-     * Get comptes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getComptes()
-    {
-        return $this->comptes;
-    }
     
     /*
      * get MyMarkers

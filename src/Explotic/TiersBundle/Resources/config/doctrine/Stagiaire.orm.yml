@@ -9,11 +9,7 @@ Explotic\TiersBundle\Entity\Stagiaire:
       creditTemps:
         targetEntity: Explotic\PlanningBundle\Entity\CreditTemps
         cascade: ["persist"]
-    oneToMany:
-      comptes:
-        targetEntity: Explotic\AdminBundle\Entity\User
-        mappedBy: stagiaire
-        nullable: true
+    oneToMany:      
       postes:
         targetEntity: Explotic\TiersBundle\Entity\Poste
         mappedBy: stagiaire 
@@ -49,27 +45,9 @@ Explotic\TiersBundle\Entity\Stagiaire:
           inverseJoinColumns:
             session_id:
               referencedColumnName: id             
-    fields:
-        id:
-            type: integer
-            id: true
-            generator:
-                strategy: AUTO
-        nom:
-            type: string
-            length: 255
-        prenom:
-            type: string
-            length: 255
-        dateNaissance:
-            type: datetime
-            nullable: true
+    fields:        
         marchePiedInfo:
-            type: boolean
-        telephone:
-            type: string
-            length: 255
-            nullable: true
+            type: boolean        
         gerant:
           type: boolean
           nullable: true
