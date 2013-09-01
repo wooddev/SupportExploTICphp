@@ -85,9 +85,9 @@ class Rdv
      */
     
         
-    public function init($creneauRdv, $typeCamion){
-        $this->setCreneauRdv($creneauRdv);                
-        $this->setStatutRdv('provisoire');      
+    public function init($creneauRdv, $statutRdv, $options=null){
+        $this->setCreneauRdv($creneauRdv);     
+        $this->setStatutRdv($statutRdv);
     }
    
     

@@ -148,11 +148,12 @@ explotic_agenda:
         session:
             status_options: ['Prévue', 'Fixée', 'Réalisée', 'Annulée']
             default_status: 'Prévue'
-            booking_class: Explotic\PlanningBundle\Entity\MyBooking
+            booking_class: Explotic\PlanningBundle\Entity\MyBooking    
         tiers : 
             status_options: ['Disponible','Indisponible']
             default_status: 'Disponible'
-            booking_class: Explotic\PlanningBundle\Entity\MyBooking
+            booking_class: Explotic\PlanningBundle\Entity\MyBooking  
+
 
 
         

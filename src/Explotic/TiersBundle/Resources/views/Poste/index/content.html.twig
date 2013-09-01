@@ -1,6 +1,9 @@
-<h1>Postes de travail :</h1>
-
-<table class="records_list">
+{%extends "ExploticMainBundle:Templates:text-content_noher.html.twig"%}
+{%block text_title%}
+<h3>Postes de travail :</h3>
+{%endblock%}
+{%block text_body%}
+<table class="table">
     <thead>
         <tr>
             
@@ -23,17 +26,16 @@
             <td>{{ entity.nomChantier }}</td>
             <td>{{ entity.localisation }}</td>
             <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('poste_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('poste_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+
+                        <a class="btn btn-primary" href="{{ path('poste_show', { 'id': entity.id }) }}">show</a>
+                        {%if is_granted('ROLE_ADMIN')%}
+                        <a class="btn btn-warning" href="{{ path('poste_edit', { 'id': entity.id }) }}">edit</a>
+                        {%endif%}
+
             </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
 
+{%endblock%}

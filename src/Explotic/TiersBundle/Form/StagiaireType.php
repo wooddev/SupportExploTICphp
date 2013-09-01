@@ -30,9 +30,9 @@ class StagiaireType extends AbstractType
             ->add('machine',null,array(
                 'required' => false,
             ))
-            ->add('calendrier',null,array(
-                'required' => false,
-                ))
+//            ->add('calendrier',null,array(
+//                'required' => false,
+//                ))
             //->add('machine', new MachineType());
         ;
     }

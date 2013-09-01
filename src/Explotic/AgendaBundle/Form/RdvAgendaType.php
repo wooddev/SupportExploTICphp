@@ -10,31 +10,41 @@ use Doctrine\ORM\EntityRepository;
 class RdvAgendaType extends AbstractType
 {
     
-    private $agendas;
+    private $agendas,
+            $dateDebut,
+            $periode;
     
     public function setAgendas($agendas) {
         $this->agendas = $agendas;
     }
     
+    public function init($agendas, $dateDebut,$periode){
+        $this->agendas = $agendas;
+        $this->dateDebut = $dateDebut;
+        $this->periode = $periode;        
+    }
+    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder            
-                                          
-//                ->add('etatReservation',"entity",array(
-//                    'class'=>'Transfer\ReservationBundle\Entity\EtatReservation',
-//                    'read_only'=> true,
-//                    'disabled'=>true,
-//                ))
-//                ->add('statut',"entity",array(
-//                    'class'=>'Transfer\ReservationBundle\Entity\StatutCreneau',
-//                    'read_only'=> true,
-//                    'disabled'=>true,
-//                ))
-                ->add('creneauxModeles','entity',array(
+        $dateDebut = $this->dateDebut;
+        $dateFin = clone $dateDebut;
+        $dateFin->add($this->periode);
+        $builder                          
+                ->add('creneauxRdv','entity',array(
                     'class'=> 'Transfer\ReservationBundle\Entity\CreneauModele',
                     'expanded'=> true,
                     'multiple'=> true,
-                    'label'=>'Créneaux disponibles'
+                    'label'=>'Créneaux disponibles',
+                    'query_builder'=> function(\Explotic\AgendaBundle\Entity\CreneauModeleRepository $er) use ($dateDebut,$dateFin)
+                    {
+                        return $er->createQueryBuilder('cm')
+                                ->andwhere('cm.dateDebut = :dateDebut')
+                                ->andwhere('cm.dateFin = :dateFin')
+                                ->setParameters(array(
+                                    'dateDebut'=>$dateDebut,
+                                    'dateFin'=>$dateFin,
+                                ));
+                    }
                     ))
 
         ;

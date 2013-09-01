@@ -23,7 +23,7 @@ ul.pureCssMenu ul {
 	margin:0px;
 	list-style:none;
 	padding:0;
-	background-color:#545454;
+	background-color:#c4c4c4;
 	background-repeat:repeat;
 	border-color:#cccccc #111111 #111111 #cccccc;
 	border-width:0px;
@@ -51,7 +51,7 @@ ul.pureCssMenu li.sep a:hover {
 	display:block;
         cursor: pointer;
 	vertical-align:middle;
-	background-color:#545454;
+	background-color:#c4c4c4;
 	border-width:0;
 	border-color: #000000;
 	border-style:solid;
@@ -59,8 +59,9 @@ ul.pureCssMenu li.sep a:hover {
 	text-decoration:none;
 	padding:2px 5px 2px 10px;
 	_padding-left:0;
-	font:bold 13px Arial,sans serif;
-	color: #cccccc;
+        font-family: 'Open Sans',"Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 13px;
+	color: #6f6f6f;
 	text-decoration:none;
 	cursor:default; 
 }
@@ -101,7 +102,7 @@ ul.pureCssMenu li:hover{
         
 }
 ul.pureCssMenu li:hover>a{
-    cursor; hover;
+    cursor;;;; hover;;;;
 }
 ul.pureCssMenu li a:hover{
 	position:relative;
@@ -166,9 +167,12 @@ ul.pureCssMenu ul{
         border-width:0;
         padding:0;
         margin:0;
+            box-shadow: 1px 1px 4px #555;
+     -moz-box-shadow: 1px 1px 4px #aaa; 
+     -webkit-box-shadow: 1px 1px 4px #aaa; 
 }
 ul.pureCssMenu li a{
-        font:bold 13px Arial,sans serif;
+/*        font:bold 13px Arial,sans serif;*/
         display:block;
         vertical-align:middle;
         border-style:solid;
@@ -182,7 +186,7 @@ ul.pureCssMenu li ul li{
     background: #cccccc;
     min-width:160px;
     border-width : 0 1px 1px 1px;
-    border-style: solid;
+    border-style: none;
     border-color : #545454;
 }
 

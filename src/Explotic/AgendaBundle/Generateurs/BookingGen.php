@@ -81,7 +81,7 @@ class BookingGen {
     
     public function book(){
         foreach($this->slots as $slot){
-            $this->bookingEngine->book($slot, $this->bookingType,$this->getOptions());
+            $this->bookingEngine->tryBooking($slot, $this->bookingType,$this->getOptions());
         }        
     }   
 }

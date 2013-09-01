@@ -1,20 +1,49 @@
-<div class="profil-content">
-    <h1>Informations générales</h1>
-     {%include 'ExploticTiersBundle:Stagiaire:show/content.html.twig' with {'entity':entity} %}        
+<div class='text-left'>
+<div class="row-fluid">
+    <div class="span4">
+        <div class="top-bar">       
+            <h3>Informations générales</h3>
+        </div>
+        <div class="well">         
+        {%include 'ExploticTiersBundle:Stagiaire:show/content.html.twig' with {'entity':entity} %}     
+        </div>
+    </div>
+
+    <div class="span8">
+        <div class="top-bar">
+            <h3>Informations sur l'entreprise</h3>
+        </div>
+        <div class="well">         
+        {%include 'ExploticTiersBundle:Entreprise:show/content.html.twig' with {'entreprise':entity.entreprise} %}
+        </div>
+    </div>
 </div>
 
-<div class="profil-content">
-    <h1>Informations sur l'entreprise</h1>
-    {%include 'ExploticTiersBundle:Entreprise:show/content.html.twig' with {'entreprise':entity.entreprise} %}
-</div>
-<br class="spacer" style="float: top">
 
-<div class="profil-content">
+<div class="row-fluid">    
+    <div class="span6">
+              
     {%if entity.programmes is defined %}
         {%if entity.programmes|length >0 %}
             {%include 'ExploticFormationBundle:Programme:index/content.html.twig' with {'entities':entity.programmes,  'depuis':'stagiaire'} %}
         {%endif%}
     {%endif%}
+    </div>
+    <div class="span6">
+        {%if entity.postes is defined %}
+            {%if entity.postes|length >0 %}
+                {%include 'ExploticTiersBundle:Poste:index/content.html.twig' with {'entities':entity.postes, 'depuis':'stagiaire'} %}
+            {%endif%}
+        {%endif%}
+    </div>
+</div>
+
+<div class="row-fluid">    
+    <div class="span12">
+    {%if entity.machine.reference is defined %}
+            {%include 'ExploticTiersBundle:Machine:show/content.html.twig' with {'entity':entity.machine, 'depuis':'stagiaire'} %}
+    {%endif%}
+    </div>
 </div>
 <br class="spacer" style="float: top">
 
@@ -23,18 +52,4 @@
             {%include 'ExploticAgendaBundle:Agenda:week.html.twig' with {'entities':agenda} %}
     {%endif%}
 </div>
-<br class="spacer" style="float: top">
-<div class="profil-content">
-    {%if entity.postes is defined %}
-        {%if entity.postes|length >0 %}
-            {%include 'ExploticTiersBundle:Poste:index/content.html.twig' with {'entities':entity.postes, 'depuis':'stagiaire'} %}
-        {%endif%}
-    {%endif%}
 </div>
-<br class="spacer" style="float: top">
-<div class="profil-content">
-    {%if entity.machine.reference is defined %}
-            {%include 'ExploticTiersBundle:Machine:show/content.html.twig' with {'entity':entity.machine, 'depuis':'stagiaire'} %}
-    {%endif%}
-</div>
-

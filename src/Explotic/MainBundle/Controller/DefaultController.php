@@ -26,14 +26,14 @@ class DefaultController extends Controller
         }
         
         
-        // Génération de l'agenda pour la semaine en cours
-
-        if (!(null===$user->getStagiaire())){
-            if (!(null===$user->getStagiaire()->getCalendrier())){        
-            $CalendrierStg =  $user->getStagiaire()->getCalendrier();
-            $agendaStg = $this->container->get('explotic_planning.agenda_generator')->makeAgenda(array($CalendrierStg), time(), 4);
-            }
-        }    
+//        // Génération de l'agenda pour la semaine en cours
+//
+//        if (!(null===$user->getStagiaire())){
+//            if (!(null===$user->getStagiaire()->getCalendrier())){        
+//            $CalendrierStg =  $user->getStagiaire()->getCalendrier();
+//            $agendaStg = $this->container->get('explotic_planning.agenda_generator')->makeAgenda(array($CalendrierStg), time(), 4);
+//            }
+//        }    
 
         // Conception de la carte
         
@@ -66,7 +66,7 @@ class DefaultController extends Controller
         
         return $this->render('ExploticMainBundle:Default:monProfil.html.twig', array(
             'user' => $user,
-            'agenda'=>$agendaStg,
+//            'agenda'=>$agendaStg,
             'map' => $myUserMap->getMap(),
         ));        
     }

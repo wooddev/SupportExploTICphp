@@ -22,113 +22,63 @@ $(function(){
 });
 </script>
 
-<div style="float:top">
-<h1> Nom d'utilisateur : {{user.username}} </h1>
-</div>
-<div class="profil">
-    <div class="profil-content">
-        <h3> Informations du compte</h3>
-        <div>    
-            <p> Adresse email : {{user.email}} </p>             
+<h3>Profil de l'utilisateur</h3>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="top-bar"> 
+            <h3>Informations du compte</h3>
+        </div>
+        <div class="well">
+            <p> Nom de connexion : {{user.username}}</p>
+            <p> Adresse email : {{user.email}} </p> 
         </div>
     </div>
-    
-        {% if is_granted('ROLE_GERANT') %}
-                {%if user.entreprise.id is defined %}
-        {#
-        <script>
-        $(function(){
-            $("#gerant").accordion({
-                collapsible : true,
-                heightStyle: "content"
-                });
-        });
-        </script>
-#}
-    <div id="gerant" class="profil-content">
-        <h3> Fiche Gérant </h3>
-        <div>
+{% if is_granted('ROLE_GERANT') %}
+        {%if user.entreprise.id is defined %}
+    <div class="span6">
+        <div class="top-bar"> 
+            <h3>Entreprise</h3>
+        </div>
+        <div class="well text-left">
             {%include 'ExploticTiersBundle:Entreprise:show/content.html.twig' with {'entreprise':user.entreprise} %}
-        </div>
-    </div>
-                {%endif%}
-        {%endif%}
-        {% if is_granted('ROLE_STAGIAIRE') %}
-                {%if user.stagiaire.id is defined %}
-        {#
-    <script>
-    $(function(){
-        $("#stagiaire").accordion({
-            collapsible : true,
-            heightStyle: "content"
-            });
-    });
-    </script> #}
-    <div id="stagiaire" class="profil-title">
-        <h3 > Fiche Stagiaire </h3>  </div>
-        <div>                
-                        {%include 'ExploticTiersBundle:Stagiaire:show/content_aggreg.html.twig' with {'entity':user.stagiaire} %}
-        </div>  
-  
-                {%endif%}
 
+        </div>
+    </div>
+    {%endif%}
+{%endif%}
+</div>
+{% if is_granted('ROLE_STAGIAIRE') %}
+    {%if user.stagiaire.id is defined %}
+        <h3 > Fiche Stagiaire </h3>                       
+        {%include 'ExploticTiersBundle:Stagiaire:show/content_aggreg.html.twig' with {'entity':user.stagiaire} %}
         {%endif%}
-        {% if is_granted('ROLE_FORMATEUR') %}
-                {%if user.formateur.id is defined %}    
-        {#
-    <script>
-    $(function(){
-        $("#formateur").accordion({
-            collapsible : true,
-            heightStyle: "content"
-            });
-    });
-    </script>
-#}
-    <div id="formateur" class="profil-content">
-        <h3> Fiche Formateur </h3>
-        <div>
+{%endif%}
+{% if is_granted('ROLE_FORMATEUR') %}
+        {%if user.formateur.id is defined %}    
+        <h3> Fiche Formateur </h3>        
             {%include 'ExploticTiersBundle:Formateur:show/content.html.twig' with {'entity':user.formateur} %}
-        </div>
-    </div>
-                {%endif%}
         {%endif%}
-        {% if is_granted('ROLE_RECRUTEUR') %}
-                {%if user.recruteur.id is defined %}
-        {#
-    <script>
-    $(function(){
-        $("#recruteur").accordion({
-            collapsible : true,
-            heightStyle: "content"
-            });
-    });
-    </script>
-#}
-    <div id="recruteur" class="profil-content">
+{%endif%}
+{% if is_granted('ROLE_RECRUTEUR') %}
+    {%if user.recruteur.id is defined %}
         <h3> Fiche Recruteur </h3>
-        <div>
-            {%include 'ExploticTiersBundle:Recruteur:show/content.html.twig' with {'entity':user.recruteur} %}
-        </div>
-    </div>
-                {%endif%}
-        {%endif%}
-    <div class="profil-title">
-        <h3> Carte </h3></div>
-        <div class="profil-content" style="width:96%">     
+        {%include 'ExploticTiersBundle:Recruteur:show/content.html.twig' with {'entity':user.recruteur} %}
+    {%endif%}
+{%endif%}
+<h3>Informations géographiques</h3>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="top-bar"></div>
+        <div class="well">            
             <div id="myMap">   
             </div>
             {{ google_map_container(map) }}
-            {{google_map_js(map) }}
-        </div>
-    
+            {{google_map_js(map) }}</div>
+        
+    </div>
 </div>
 
-
-
-    
-    
-
+   
 
 {% endblock%}
 

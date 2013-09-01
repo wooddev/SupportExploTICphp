@@ -208,4 +208,60 @@ class Module
     {
         return $this->nom;
     }
+    /**
+     * @var string
+     */
+    private $description;
+
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Module
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    /**
+     * @var string
+     */
+    private $tarifplein;
+
+
+    /**
+     * Set tarifplein
+     *
+     * @param string $tarifplein
+     * @return Module
+     */
+    public function setTarifplein($tarifplein)
+    {
+        $this->tarifplein = $tarifplein;
+    
+        return $this;
+    }
+
+    /**
+     * Get tarifplein
+     *
+     * @return string 
+     */
+    public function getTarifplein()
+    {
+        return $this->tarifplein;
+    }
 }

@@ -2,43 +2,42 @@
 {%extends 'ExploticFormationBundle::layout.html.twig'%}
 
 {%block body%}
-<h1>Module list</h1>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="top-bar">
+            <h3>Modules de formation au système ExploTIC</h3>
+        </div>
+        <div class="well no-padding">
+            <div class="table-striped table-condensed">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nom</th>
+                            <th>Tarif avec prise en charge Vivea/FAFSEA</th>
+                            <th>Tarif sans prise en charge, hors dispositif</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td><a href="{{ path('module_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                            <td>{{ entity.nom }}</td>
+                            <td>{{ entity.tarif }} € HT</td>
+                            <td>{{ entity.tarifplein }}€ HT</td>
+                            <td>
+                                        <a class="btn btn-primary" type="button" href="{{ path('module_show', { 'id': entity.id }) }}">Consulter</a> 
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nom</th>
-            <th>Tarif</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('module_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.nom }}</td>
-            <td>{{ entity.tarif }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('module_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('module_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+            </div>
+            
+        </div>
+    </div>
+</div>
 
-<ul>
-    <li>
-        <a href="{{ path('module_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
 {%endblock%}

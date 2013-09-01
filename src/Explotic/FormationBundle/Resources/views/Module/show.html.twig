@@ -1,37 +1,24 @@
-<h1>Module</h1>
+{%extends 'ExploticMainBundle:Templates:text-content.html.twig'%}
 
-<table class="record_properties">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Nom</th>
-            <td>{{ entity.nom }}</td>
-        </tr>
-        <tr>
-            <th>Tarif</th>
-            <td>{{ entity.tarif }}</td>
-        </tr>
-    </tbody>
-</table>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('module') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('module_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('module_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+    {%block text_title%}
+    <h3>{{ entity.nom }}</h3>
+
+    {%endblock%}
+
+    {%block text_body%}
+    <div>
+        {{entity.description | raw}}
+            
+        <p><strong>Tarif avec prise en charge FAFSEA/VIVEA : </strong>{{entity.tarif}} € HT
+        </p>
+        <p> <strong> Tarif hors dispositif de prise en charge :</strong> {{entity.tarifplein}} € HT
+        </p>
+        <a class="btn btn-primary" href="{{ path('module') }}">
+                Retour à la liste
+            </a>
+            
+    </div>
+
+    {%endblock%}
+

@@ -1,5 +1,9 @@
-<h1> Machine du stagiaire </h1>
-<table class="records_list">
+{%extends "ExploticMainBundle:Templates:text-content_noher.html.twig"%}
+{%block text_title%}
+<h3> Machine du stagiaire </h3>
+{%endblock%}
+{%block text_body%}
+<table class="table table-condensed">
     <thead>
         <tr>
             <th>N°</th>
@@ -28,17 +32,8 @@
         </tr>
         <tr>
             <th>Commentaires :</th>
-            <td colspan="5">{{ entity.commentaire }}</td>                
-            <td>        
-                <a href="{{ path('machine_edit', { 'id': entity.id }) }}">
-                    Editer
-                </a>
-            </td>
-            <td>                
-                <a href="{{ path('machine_delete', { 'id': entity.id }) }}">
-                    Supprimer
-                </a>
-            
-            </td>            
+            <td colspan='6'>{{ entity.commentaire }}</td>                
+              
     </tbody>
 </table>
+{%endblock%}

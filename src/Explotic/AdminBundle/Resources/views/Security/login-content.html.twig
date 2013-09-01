@@ -4,31 +4,37 @@
 {% if error %}
     <div>{{ error|trans }}</div>
 {% endif %}
-<div style="float:left; width:420px;"> 
-    <div style="float:left; display:block; width:420px;">
-        <form action="{{ path("fos_user_security_check") }}" method="post">
-       
-            <div id="fos_user_registration_form">
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-
-                <label for="username">{{ 'security.login.username'|trans }}</label>
-                <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
-
-                <label for="password">{{ 'security.login.password'|trans }}</label>
-                <input type="password" id="password" name="_password" required="required" />
-
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-                <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-                <br>
-                <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />    
+        <form class="form-signin form-horizontal" style="max-width:310px;" action="{{ path("fos_user_security_check") }}" method="post">
+            <div class="top-bar">
+            <h3><i class="icon-exchange"></i> Connexion</h3>
             </div>
-        </form>  
-        <div style="margin : 6px 0 0 20px; width:210px;float:left; display:block">
-            <p> Je n'ai pas encore de compte, je souhaite en créer un. </p>
-            <a style="float:left;font-size:12px; font-family:arial;" class="button" href="{{path('fos_user_registration_register')}}" > Créer un compte </a>
-        </div>
-    </div>
-    <div style="margin-top: 15px; float:left; display:block;">
-    <a style="float:left;"href="{{path('fos_user_resetting_request')}}">Mot de passe oublié</a>
-    </div>
-</div>
+                
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            
+            <div class="well no-padding">
+                
+                <div class="control-group">                    
+                    <label class="control-label" for="username"><i class="icon-user"></i></label>
+                    <div class="controls">
+                         <input type="text" id="username" name="_username" placeholder="{{ 'security.login.username'|trans }}" value="{{ last_username }}" required="required" />
+                    </div>
+                </div>
+                    
+                <div class="control-group">
+                    <label class="control-label" for="password"><i class="icon-key"></i></label>
+                    <div class="controls">
+                        <input type="password" id="password" placeholder="{{ 'security.login.password'|trans }}" name="_password" required="required" />
+                        
+                        <label class="checkbox" for="remember_me">
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />{{ 'security.login.remember_me'|trans }}
+                        </label>
+                    </div>
+                </div>
+             
+               
+                <div class="padding">
+                    <input class="btn btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+                    <a class="btn" href="{{path('fos_user_resetting_request')}}">Mot de passe oublié</a>
+                </div>
+            </div>            
+        </form>          

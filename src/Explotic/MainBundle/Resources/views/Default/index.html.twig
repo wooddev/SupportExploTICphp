@@ -1,13 +1,51 @@
-{%extends 'ExploticMainBundle::layout.html.twig'%}
+{%extends '::explotic.html.twig'%}
 
+{%block body%}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="top-bar"> <h3>Accueil</h3>
+        </div>
+        <div class="well">    
+            <p> Ce site met à votre disposition les outils permettant de gérer vos formations Explotic et d'accéder au fond documentaire du projet</p>
+            <p> Vous pourrez : 
+                <ul>    
+                    <li>
+                        Suivre le déroulement de votre programme de formation
+                    </li>
+                    <li>
+                        Contrôler la prise en compte de vos attentes
+                    </li>
+                    <li>
+                        Accèder au document de support à l'utilisation du système ExploTIC
+                    </li>
+                </ul>
+            </p>
+            <p> Connectez-vous pour utiliser la plateforme de support au déploiement d'ExploTIC </p>       
+        </div>
+    </div>
+</div>
 
-{%block body %}
-{% block index_title %}
-<h1>Accueil</h1>
-{% endblock %}
-
-<div>
-<p> Connectez-vous pour utiliser la plateforme de support au déploiement d'ExploTIC </p>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="top-bar">
+            <h3>Présentation d'ExploTIC</h3>
+        </div>
+            <div class="well">
+                <h4> EXPLOTIC : les Technologies de l'Information et de la Communication au service de l'exploitation forestière </h4> 
+                <p>
+                Le système ExploTIC, soutenu par les institutions publiques et les entreprises d’Aquitaine, met à disposition les outils et les méthodes permettant la fiabilisation, le transfert à distance et l’utilisation des données de production et de temps d’activité générées par les TIC embarquées dans les machines de bûcheronnage et les porteurs, quelle que soit la marque.
+                </p>
+                <p>
+                Les rapports de production réguliers, qui permettent de suivre l’avancement des chantiers, sont une information clé pour le donneur d’ordres qui souhaite limiter les stocks, tout en recherchant en permanence la satisfaction de ses clients. Pour l’entrepreneur de travaux forestiers (ETF), ces données de production peuvent être couplées aux temps d’activité qu’il est le seul à pouvoir consulter. Dès lors, il acquiert une visibilité quotidienne sur ses activités (taux d’utilisation des matériels, rentabilité des chantiers, etc.) permettant de documenter et d’ajuster si besoin ses décisions.
+                </p>
+                <p>
+                Ainsi, ETF et donneurs d’ordres réduisent les délais habituels de retour de ces données ainsi que la charge de travail associée notamment à des routines de collecte de données quantitatives  fastidieuses : le temps gagné par les opérateurs et les décideurs leur permet de se consacrer davantage à améliorer le suivi qualité des chantiers réalisés.
+                </p>
+                <p>La mise en oeuvre depuis 2012 d’un dispositif de formation sur mesure et d’un service support centralisé doit conduire à un déploiement du système sur l’ensemble du massif landais (110 machines d’ici 2014). Par ailleurs, cette réussite suscite de l’intérêt : les professionnels du Massif Central veulent également utiliser ce système et même poursuivre son développement par des innovations permettant de tirer encore mieux profit de ces informations clés.
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

@@ -6,4 +6,5 @@ Explotic\PlanningBundle\Entity\MyBooking:
     calendrier:
         targetEntity: Explotic\PlanningBundle\Entity\Calendrier
         inversedBy: bookings
+        cascade: ["persist"]
   lifecycleCallbacks: {  }

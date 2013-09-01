@@ -40,7 +40,7 @@ security:
             remember_me:
               key: %secret%
             logout: true
-            anonymous: false
+            anonymous: true
             
     access_control:
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}

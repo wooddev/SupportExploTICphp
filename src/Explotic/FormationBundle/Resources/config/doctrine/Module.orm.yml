@@ -27,4 +27,9 @@ Explotic\FormationBundle\Entity\Module:
         tarif:
             type: string
             length: 255
+        tarifplein:
+            type: string
+            length: 255
+        description:
+            type: text          
     lifecycleCallbacks: {  }

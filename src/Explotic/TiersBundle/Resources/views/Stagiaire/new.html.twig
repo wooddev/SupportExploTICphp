@@ -1,20 +1,25 @@
-{%extends "ExploticTiersBundle::layout.html.twig" %}
+{%extends "ExploticMainBundle:Templates:text-content.html.twig" %}
 
-{% block body %} 
-<h1>Stagiaire creation</h1>
-
+{% block text_title %} 
+<h3>Recrutement</h3>
+{%endblock%}
+{% block text_body %} 
 <form action="{{ path('stagiaire_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
+  
+        <div class="row-fluid">
+            <div class="span12">
+                {{ form_widget(form) }}
+            </div>
+        </div>       
+        <div class="row-fluid">
+            <div class="span4">
+                <button class="btn" type="submit">Recruter</button>
+            </div>
+        </div>       
 </form>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('stagiaire') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+<a class="btn btn-primary" href="{{ path('stagiaire') }}">
+    Retour à la liste des stagiaires
+</a>
+ 
 {% endblock%}

@@ -1,17 +1,17 @@
 
 
 <div style="float:left">
-    <h4>{{ entity.prenom }} <br> {{ entity.nom }}</h4>
-<table class="record_properties">
+    <h5>{{ entity.prenom }} {{ entity.nom }}</h5>
+<table class="table table-condensed">
     <tbody>
         <tr>
-            <td colspan="2"> 
+            <td colspan="2" > <strong>
 {%if entity.gerant== true %}
                     Gérant de l'entreprise {{entity.entreprise.raisonsociale}}
 {% else %}
                     Employé de l'entreprise {{entity.entreprise.raisonsociale}}
 {% endif %}
-            </td>
+           </strong> </td>
         </tr>
         <tr>
             <th>Datenaissance</th>

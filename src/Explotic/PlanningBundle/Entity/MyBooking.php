@@ -38,4 +38,9 @@ class MyBooking extends \Explotic\AgendaBundle\Entity\Rdv
     {
         return $this->calendrier;
     }
+    
+    public function init($creneauRdv,$statutRdv,$options=null){
+        parent::init($creneauRdv,$statutRdv);
+        $this->setCalendrier($options['calendrier']);
+    }
 }
