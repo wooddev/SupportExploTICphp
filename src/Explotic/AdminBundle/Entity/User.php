@@ -2,7 +2,7 @@
 
 namespace Explotic\AdminBundle\Entity;
 
-use FOS\UserBundle\Entity\User as BaseUser;
+use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,4 +40,5 @@ class User extends BaseUser
     {
         return $this->id;
     }
+    
 }

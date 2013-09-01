@@ -53,10 +53,18 @@ doctrine:
         charset:  UTF8
         mapping_types:
           enum: string
-
+        types: 
+          json: Sonata\Doctrine\Types\JsonType
+          
     orm:
         auto_generate_proxy_classes: %kernel.debug%
-        auto_mapping: true
+        entity_managers:
+           default:
+               auto_mapping: true
+               mappings:
+                   FOSUserBundle: ~
+                   SonataUserBundle: ~
+                   ApplicationSonataUserBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -65,7 +73,32 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
-
+    
+#Sonata Admin Configuration
+sonata_admin:
+    title:     Explotic/Administration
+    templates:
+        ## default global templates
+        layout:  SonataAdminBundle::standard_layout.html.twig
+        ajax:    SonataAdminBundle::ajax_layout.html.twig
+ 
+        ## default actions templates, should extend a global templates
+        list:    SonataAdminBundle:CRUD:list.html.twig
+        show:    SonataAdminBundle:CRUD:show.html.twig
+        edit:    SonataAdminBundle:CRUD:edit.html.twig
+        history: SonataAdminBundle:CRUD:history.html.twig
+        preview: SonataAdminBundle:CRUD:preview.html.twig
+        delete:  SonataAdminBundle:CRUD:delete.html.twig
+ 
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+ 
+        sonata.block.service.text:
+        sonata.block.service.action:
+        sonata.block.service.rss:
 # FOSUser Configuration
 fos_user:
     db_driver: orm
@@ -75,9 +108,30 @@ fos_user:
       form:
         type: explotic_user_registration
 
-#IvoryGoogleMap Bundle Configuration
+sonata_user:
+    security_acl:     false
+    class:
+        user:         Explotic\AdminBundle\Entity\User
+    admin:                  # Admin Classes
+        user:
+            class:          Sonata\UserBundle\Admin\Entity\UserAdmin
+            controller:     SonataAdminBundle:CRUD
+            translation:    SonataUserBundle
+ 
+        group:
+            class:          Sonata\UserBundle\Admin\Entity\GroupAdmin
+            controller:     SonataAdminBundle:CRUD
+            translation:    SonataUserBundle
+    profile:  # Profile Form (firstname, lastname, etc ...)
+        form:
+            type:               sonata_user_profile
+            handler:            sonata.user.profile.form.handler.default
+            name:               sonata_user_profile_form
+            validation_groups:  [Profile]
 
-# app/config/config.yml
+
+
+#IvoryGoogleMap Bundle Configuration
 
 ivory_google_map:
     map:

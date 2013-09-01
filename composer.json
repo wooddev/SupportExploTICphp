@@ -27,6 +27,7 @@
         "sonata-project/easy-extends-bundle" : "dev-master",
         "sonata-project/doctrine-orm-admin-bundle": "dev-master",
         "sonata-project/user-bundle": "2.2.*@dev",      
+        "sonata-project/media-bundle" : "dev-master",
         "willdurand/geocoder":"*",
         "kriswallsmith/buzz":"*",
         "egeloen/google-map-bundle": "*",        
