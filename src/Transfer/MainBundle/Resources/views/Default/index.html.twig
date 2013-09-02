@@ -1,6 +1,27 @@
 {%extends "::base.html.twig"%}
 
 {% block body%}
-<p> Bienvenue sur votre application de prise de rendez-vous </p>
+<div class='top-bar'>
+    <h4>Accueil</h4>
+</div>
+{% if is_granted('ROLE_TRANSPORTEUR')%}
+
+<div class='well'>
+    <p> Bienvenue sur votre espace de prise de rendez-vous </p>
+    <p> Cette application vous permet de rechercher des créneaux de livraison disponibles et de consulter votre planning</p>
+    <p> Les réservation pour la semaine suivante sont ouvertes à partir du vendredi midi</p>
+</div>
+{%elseif is_granted('ROLE_DAB')%}
+<div class='well'>
+    <p> Bienvenue sur l'espace de gestion de l'application TransFER </p>
+    <p> <<<< Vous pouvez accéder à vos services à l'aide du menu situé à gauche l'écran <<<< </p>
+</div>
+{%elseif is_granted('ROLE_RECEP')%}
+<div class='well'>
+    <p> Bienvenue sur votre espace de gestion des livraisons </p>
+    <p> <<<< Vous pouvez accéder à vos services à l'aide du menu situé à gauche l'écran <<<< </p>
+</div>
+{%endif%}
+
 
 {% endblock %}
