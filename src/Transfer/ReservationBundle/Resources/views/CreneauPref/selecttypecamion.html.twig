@@ -13,20 +13,25 @@
 <div id='form_generator' class='div-plain'>
 
 </div>
-
+<div id='modal-loader'class='modal hide fade' >
+    <div class='modal-body text-center'><strong>Chargement en cours</strong></div>
+</div>
+<div
 {# Script AJAX pour l'actualisation de la page#}
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+{%endblock%}
+{% block script %}
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script src="{{asset('bundles/transfermain/bootstrap/js/bootstrap.js')}}"></script>    
 <script type='text/javascript'>
-$(document).ready(function() {
+$('#modal-loader').modal('show');
+$(document).ready(function() {  
     $.ajax({
         type: "POST",
         data: $('form').serialize(),
         url: "{{ path('creneauprefgen_generate_ajax')}}",
-        success: function(retour){
-            $('#form_generator').html(retour);  
-
+        success: function(retour){           
+            $('#modal-loader').modal('hide');
+            $('#form_generator').html(retour);
 
         },
         error: function(){
@@ -36,19 +41,23 @@ $(document).ready(function() {
     });
 
     
-    $('#selector').change(function(){   
+    $('#selector').change(function(){  
+        
+        $('#modal-loader').modal('show');
         $.ajax({
             type: "POST",
             data: $('form').serialize(),
             url: "{{ path('creneauprefgen_generate_ajax')}}",
             success: function(retour){
-                $('#form_generator').html(retour);  
+                $('#form_generator').html(retour);
+                $('#modal-loader').modal('hide');
                  
                   
             },
             error: function(){
                  $('#form_generator').html('Impossible de charger le formulaire de gestion des créneaux pré-attribués');
-                
+                 $('#modal-loader').modal('hide');
+
                 }
         });
 

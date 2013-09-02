@@ -140,10 +140,10 @@
              </div>
          {%endfor%}
          </div>
-         
-         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-         <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+        {%endblock%}
+        {% block script %}
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="{{asset('bundles/transfermain/bootstrap/js/bootstrap.js')}}"></script>   
          <script type="text/javascript">
 
          $('#myTab a').click(function (e){
@@ -153,9 +153,5 @@
          $(function(){
              $('#myTab a:first').tab('show');
          });
-
-         agenda[0]
-         </script>
-    
-
-{%endblock%}
+         </script>   
+        {%endblock%}

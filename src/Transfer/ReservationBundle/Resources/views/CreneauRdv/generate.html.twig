@@ -1,6 +1,6 @@
 {%extends "::base.html.twig"%}
 {%block body%}
-<h1>CreneauRdv Generateur</h1>
+<h1>Intialisation d'un planning hebdomadaire</h1>
 
 
 <p> Par défaut ce générateur est fait avec les paramètres suivants </p>
@@ -10,7 +10,7 @@
 <form action="{{ path('creneaurdvgen_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <p>
-        <button type="submit">Générateur</button>
+        <button class='btn btn-success' type="submit">Générateur</button>
     </p>
 </form>
 {%endblock%}

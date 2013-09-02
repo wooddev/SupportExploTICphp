@@ -13,11 +13,13 @@ class CreneauRdvRechercheListeType extends AbstractType
         $builder            
             ->add('DateHeureDebut','date',array(
                 'label'=> 'Date de début',
-                'format'=> 'dd-MM-yyyy',                
+                'format'=> 'dd-MM-yyyy',
+                'widget'=>'single_text',
             ))
             ->add('DateHeureFin','date',array(
                 'label'=> 'Date de fin',
                 'format'=> 'dd-MM-yyyy',
+                'widget'=>'single_text',
             ))
             ->add('heureDebut','time',array(
                 'label'=> '1ère heure de la plage de créneaux (heure de début de créneau)',

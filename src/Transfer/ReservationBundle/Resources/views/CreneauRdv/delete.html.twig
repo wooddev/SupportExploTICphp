@@ -1,11 +1,28 @@
 {%extends "::base.html.twig"%}
 {%block body %}
-<h1>Suppression de Creneaux Rdv</h1>
-
+<h1>Suppression de créneaux </h1>
+<div class='alert alert-info'>
+    <button type='button' class='close' data-dismiss='alert'>x</button>
+    Permet de supprimer les créneaux des plannings existants en fonction des dates et des heures spécifiés
+    
+</div>
 <form action="{{ path('creneaurdv_supprimer_liste') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <p>
         <button type="submit">Supprimer</button>
     </p>
 </form>
+{%endblock%}
+{%block script%}      
+<link href="{{asset('bundles/transfermain/datepicker/css/datepicker.css')}}" rel="stylesheet" type="text/css" />        
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>  
+<script src="{{asset('bundles/transfermain/bootstrap/js/bootstrap.js')}}"></script>  
+<script src="{{asset('bundles/transfermain/datepicker/js/bootstrap-datepicker.js')}}"></script>  
+<script>
+$(function(){
+    $('#transfer_reservationbundle_creneaurdvtype_DateHeureDebut').datepicker();
+    $('#transfer_reservationbundle_creneaurdvtype_DateHeureFin').datepicker();
+});
+    
+</script>
 {%endblock%}
