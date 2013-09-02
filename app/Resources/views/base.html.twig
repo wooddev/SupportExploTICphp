@@ -5,11 +5,55 @@
         <title>Transfer Démo</title>
         <link href="{{asset('bundles/transfermain/bootstrap/css/bootstrap.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('bundles/transfermain/bootstrap/css/bootstrap-responsive.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('bundles/transfermain/css/style.css')}}" rel="stylesheet" type="text/css" />        
+        <link href="{{asset('bundles/transfermain/css/style.css')}}" rel="stylesheet" type="text/css" />     
+        <style type='text/css'>
+                html,body{
+                    height: 100%;
+                }
+                body {padding-top:70px;}
+                .navbar-inner {
+                    background-color: #bde0bd;
+                    background-image: none;
+                }    
+        </style>
     </head>
-    <body>        
-        <div class="container-fluid">
+    <body>    
+        {%block header%}
+        <div class='row-fluid'>
+                    <div class='span12 navbar navbar-fixed-top'>                            
+                        <div class='navbar-inner'>                            
+                            <div class='brand'>
+                            <div class='icon-transfer'></div>
+                            Transport vers FIBRE EXCELLENCE TARASCON
+                            </div>
+                            <ul class='nav pull-right'>
+                                <li class="dropdown">
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                        <a href="#" class="dropdown-toggle" data-toggle='dropdown'>
+                                            <i class="icon-user"></i>
+                                            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} 
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                            <a href="{{ path('fos_user_security_logout') }}">
+                                                <i class="icon-off"></i>{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                                            </a>
+                                            </li>
+                                        </ul>
+                                    {% else %}
+                                         <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+
+                                    {% endif %}    
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+        </div>
+        {%endblock%}
+    <div id="wrap">
+        <div id="main" class="container-fluid">               
             <div class="row-fluid">
+                {%block menu %}
                 <div class="span3">       
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         <div class="well well-small sidebar-nav">
@@ -79,39 +123,48 @@
                             </ul>  
                         </div>
                     {%endif%}
-                </div>          
-                <div class="span9">
-                    <div>
-                                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                                        <a href="{{ path('fos_user_security_logout') }}">
-                                            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                                        </a>
-                                    {% else %}                                        
-                                        
-                                    {% endif %}                                        
+                </div>                      
+                {%endblock%}                
+                <div class="{%block body_span%}span9 {%endblock%}">                    
+                    <div class='row-fluid'>
+                        <div class='span12'>
+                            {#GESTION DES ALERTES DU SITE#}
+                            {%for flashMessage in app.session.flashbag.get('alert')%}
+                            <div class="alert">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Info :</strong>
+                                {{flashMessage}}
+                            </div>
+                            {#FIN GESTION ALERTES DU SITE#}
+                            {%endfor%}
+                                
+                            {%block body %}
+                                
+                            {% endblock %}                            
                         </div>
-                {%for flashMessage in app.session.flashbag.get('alert')%}
-                <div class="alert">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Info :</strong>
-                    {{flashMessage}}
-                </div>        
-                {%endfor%}
-                {%block body %}
-
-
-                {% endblock %}
+                    </div>
+                
               <!--Body content-->
                 </div>
             </div>
-        </div>    
+        </div>
+    </div>
+        {%block footer%}
+            <footer class='footer'>
+                <div class="container">
+                    <div class='text-center'>
+                        <p>Outil de prise de rendez-vous : Usine FIBRE EXCELLENCE TARASCON</p>
+			<p>Pour tout renseignement : <a href="#">info@fibre-excellence.com</a> - Réalisation : <a href="FLC_Presentation.html">Forêt Logistique Conseil</a></p>
+		
+                    </div>
+                </div>                
+            </footer>            
+        {%endblock%}
         
        
 {% block script %}
             <script src="http://code.jquery.com/jquery.js"></script>
-            <script src="{{asset('bundles/transfermain/bootstrap/js/bootstrap.min.js')}}"></script>
-            
+            <script src="{{asset('bundles/transfermain/bootstrap/js/bootstrap.min.js')}}"></script>            
 
 {%endblock%}
     </body>

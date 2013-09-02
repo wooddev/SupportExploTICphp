@@ -1,26 +1,39 @@
 {%extends "::base.html.twig"%}
+
+{%block menu%}{%endblock%}
+{%block body_span%}span12{%endblock%}
 {%block body %}
-<div>
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                <a href="{{ path('fos_user_security_logout') }}">
-                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                </a>
-            {% else %}
-                <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-            {% endif %}
+<div class='row-fluid' style='margin-top:50px'>
+    <div class="span2">
+    </div>
+    <div class="span8">
+        <div class='top-bar text-center'>
+            <p><h3>Rendez-vous / Livraisons</h3></p>
+            <p>Accès à votre compte de prise de rendez-vous</p>
         </div>
-
-        {% for type, messages in app.session.flashbag.all() %}
-            {% for message in messages %}
-                <div class="flash-{{ type }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endfor %}
-
-        <div>
-            {% block fos_user_content %}
-            {% endblock fos_user_content %}
+        <div class='well'>
+            <div class='row-fluid'>
+                <fieldset class='center login'>
+                    {% for type, messages in app.session.flashbag.all() %}
+                        {% for message in messages %}
+                            <div class="flash-{{ type }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                        
+                    <legend>Identification</legend>
+                    <div >
+                        {% block fos_user_content %}
+                        {% endblock fos_user_content %}
+                    </div>
+                </fieldset>  
+            </div>                
         </div>
+    </div>
+    <div class="span2">
+    </div>
+</div>
+
+    
 {%endblock%}

@@ -1,0 +1,38 @@
+        {%block header%}
+        <header>
+            <img src="img/logo.gif" alt="Logo de FIBRE EXCELLENCE TARASCON" id="logo" />
+			<div id="titre_principal">
+			    <h1>Transport vers FIBRE EXCELLENCE TARASCON</h1>
+			</div>
+            
+        </header>
+        {%endblock%}
+		
+		 
+		<form method="post" action="traitement.php">
+		   <h2>Rendez-vous livraisons</h2>
+		   <h3>Accès à votre compte de prise de rendez-vous</h3>
+		   <fieldset>
+           <legend>Identification</legend> <!-- Titre du fieldset -->
+		   <table>
+			   <tr>
+				   <td>Code utilisateur :</td>
+				   <td><input type="text" name="pseudo" id="pseudo" /></td>
+			   </tr>
+			   <tr>
+				   <td>Mot de passe :</td>
+				   <td><input type="password" name="pass" id="pass" /></br></td>
+			   </tr>
+			</table>
+		   
+		                 
+			   <input type="submit" value="Valider" class="BTN_Valider" />
+		   </p>
+		   </fieldset>
+		</form>
+		{%block footer%}
+		<footer>
+		    <p>Outil de prise de rendez-vous : Usine FIBRE EXCELLENCE TARASCON</p>
+			<p>Pour tout renseignement : <a href="#">info@fibre-excellence.com</a> - Réalisation : <a href="FLC_Presentation.html">Forêt Logistique Conseil</a></p>
+		</footer>
+                {%endblock%}
