@@ -1,0 +1,30 @@
+mybooking:
+    pattern:  /
+    defaults: { _controller: "ExploticPlanningBundle:MyBooking:index" }
+
+mybooking_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ExploticPlanningBundle:MyBooking:show" }
+
+#mybooking_new:
+#    pattern:  /new
+#    defaults: { _controller: "ExploticPlanningBundle:MyBooking:new" }
+#
+#mybooking_create:
+#    pattern:  /create
+#    defaults: { _controller: "ExploticPlanningBundle:MyBooking:create" }
+#    requirements: { _method: post }
+#
+#mybooking_edit:
+#    pattern:  /{id}/edit
+#    defaults: { _controller: "ExploticPlanningBundle:MyBooking:edit" }
+#
+#mybooking_update:
+#    pattern:  /{id}/update
+#    defaults: { _controller: "ExploticPlanningBundle:MyBooking:update" }
+#    requirements: { _method: post }
+#
+#mybooking_delete:
+#    pattern:  /{id}/delete
+#    defaults: { _controller: "ExploticPlanningBundle:MyBooking:delete" }
+#    requirements: { _method: post }

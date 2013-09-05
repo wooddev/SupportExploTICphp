@@ -1,4 +1,4 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends "ExploticAdminBundle::layout.html.twig" %}
 
 {% block body %}
 {%include 'ExploticAdminBundle:Security:login-content.html.twig' with {'csrf_token':csrf_token, 'error':error, 'last_username':last_username}%}

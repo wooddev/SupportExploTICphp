@@ -110,4 +110,32 @@ class Rdv
         return $this->creneauRdv->getDateHeureDebut();
     }    
     
+    /**
+     * @var \Explotic\AgendaBundle\Entity\Agenda
+     */
+    private $agenda;
+
+
+    /**
+     * Set agenda
+     *
+     * @param \Explotic\AgendaBundle\Entity\Agenda $agenda
+     * @return Rdv
+     */
+    public function setAgenda(\Explotic\AgendaBundle\Entity\Agenda $agenda = null)
+    {
+        $this->agenda = $agenda;
+    
+        return $this;
+    }
+
+    /**
+     * Get agenda
+     *
+     * @return \Explotic\AgendaBundle\Entity\Agenda 
+     */
+    public function getAgenda()
+    {
+        return $this->agenda;
+    }
 }

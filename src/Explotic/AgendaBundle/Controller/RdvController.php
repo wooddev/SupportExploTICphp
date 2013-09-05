@@ -185,82 +185,70 @@ class RdvController extends Controller
         ;
     }
     
-    /**
-     * 
-     * @param type $type
-     * @param type $id
-     * @return type
-     *## VALEURS ACCEPTEES POUR OPTIONS ##
-     * - type : stagiaire, bureau, poste, salle, formateur, session
-     * - id (de l'entité associée au calendrier)
-     */
-    
-    public function newListAction($type,$id){
+    public function setSelectedRdvAction(){
+        $rdvSelector = new \Explotic\AgendaBundle\Model\RdvSelector();
+        $formType = new \Explotic\AgendaBundle\Form\RdvSelectorType();
+        $form = $this->createForm($formType, $rdvSelector);
         
-
-        
-        $dateDebut = new \DateTime();
-        $dateFin = new \DateTime();
-        $interval= new \DateInterval('P1M');
-        $dateFin->add($interval);
-        
-        //$user = $this->get('security.context')->getToken()->getUser();
-        
-        //###################################################
-        //###################################################
-        //###################################################
-        //######FAILLE DE SECURITE ICI ###################### 
-        //###################################################
-        //==>>>>>>>>> VERIFIER DROITS ACCES Du USER A TIERS<<<<
-        //>>>>>>>>>>>>EN COURS DE RESA <<<<<<<<<<<<<<<<<<<<<<<<
-        //###################################################
-        //###################################################
-        
-        $rdvSelector = $this->container->get('explotic_agenda.rdv_selector')
-                                ->generateSelector($dateDebut,4,array('type'=>$type,'id'=>$id));
+        return $this->render('ExploticAgendaBundle:Rdv:new/selector.html.twig', array(
+            'entity' => $rdvSelector,
+            'form'   => $form->createView(),
+        ));
         
         
-        return $this->render('ExploticAgendaBundle:Rdv:newList.html.twig', array(
-            'rdvSelector'=>$rdvSelector,
-            'type'=>$type,
-            'id'=>$id,
-            'agenda'=> $rdvSelector->getAgenda(),
-        ));        
+        
     }
-    /**
-     * 
-     * @param type $id
-     * @param type $type
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return type
-     *  ## VALEURS ACCEPTEES POUR OPTIONS ##
-     * - type : stagiaire, bureau, poste, salle, formateur, session
-     * - id (de l'entité associée au calendrier)
-     */
-    public function createListAction($id, $type,  Request $request){
+    
+    public function newSelectedRdvAction(Request $request/*$agendaId,$bookingType,  \DateTime $dateDebut, $period */){
         
-        $em = $this->getDoctrine()->getManager();
-        $creneauxRdvsIds = $request->request->get('creneauRdv');
-        $statut = $request->request->get('statutRdv');
+        $rdvSelector = new \Explotic\AgendaBundle\Model\RdvSelector();
+        $form = $this->createForm(new \Explotic\AgendaBundle\Form\RdvSelectorType(), $rdvSelector);
         
-        foreach($creneauxRdvsIds as $idCreneau){
-            $rdv = new Rdv();
-            if($type == 'Session'){
-                $typeRdv = $em->getRepository("ExploticAgendaBundle:TypeRdv")->find(2);               
-                $entity = $em->getRepository("ExploticPlanningBundle:".$type)->find($id); 
-            }else{
-                $typeRdv = $em->getRepository("ExploticAgendaBundle:TypeRdv")->find(1);
-                $entity = $em->getRepository("ExploticTiersBundle:".$type)->find($id);  
-            }
+        $form->bind($request);
 
-            $rdv->setCalendrier($entity->getCalendrier());
-            $rdv->setType($typeRdv);
-            $rdv->setCreneauRdv($em->getRepository("ExploticAgendaBundle:CreneauRdv")->find($idCreneau));
-            $rdv->setStatutRdv($statut);
-            $em->persist($rdv);          
-        }
-        $em->flush(); 
+        if ($form->isValid()) {
         
-        return $this->redirect($this->generateUrl('rdv'));
+            $em = $this->getDoctrine()->getEntityManager();
+
+            $agenda = $em->getRepository('ExploticAgendaBundle:Agenda')->find($agendaId);
+
+            $dateFin = clone $dateDebut;
+            $dateFin->add(new \DateInterval($period));
+
+            $slots = $em->getRepository('ExploticAgendaBundle:CreneauRdv')->findByPeriod($dateDebut,$dateFin);
+
+            //On utilise la classe bookinggen pour concevoir le formulaire de création des créneaux prefs
+            $generateur = $this->get('agenda_explotic.booking.generator');    
+            $generateur->init($slots,$bookingType);
+
+            $formType = new CreneauPrefGenType();
+            //Construction de l'agenda servant de support d'affichage des créneaux modèles dans le formulaire
+            $agendasView= $this->buildAgendas($em,$slots,$agenda,$dateDebut);
+            $formType->init($agendasView,$dateDebut,$period);
+            $form = $this->createForm($formType, $generateur);     
+
+            return $this->render('ExploticAgendaBundle:Rdv:new/selected.html.twig', array(
+                'generateur' => $generateur,
+                'agendas' => $agendasView,
+                'form'   => $form->createView(),
+            ));
+        }
+        return $this->redirect($this->generateUrl('profil'));
+    }
+    
+    public function buildAgendas($slots,$agenda,$dateDebut){
+        // récupérer ici la liste des rdv pour le transporteur associé à l'utilisateur en cours
+        // Affichage dans un agenda avec typage associé aux événements? (au moins pour Réservé/confirmé/annulé)
+               
+        $agendasView = new \Doctrine\Common\Collections\ArrayCollection();           
+        
+        if($slots){
+            $agendasView->add( new \Explotic\AgendaBundle\Model\Agenda());
+            $agendasView->last()->init($dateDebut->format('o'),$dateDebut->format('W'),null,1);
+            $agendasView->last()->generateAgenda($slots,$agenda->getRdvs(), 420 ,1140);            
+        }
+        else{ return new \Symfony\Component\HttpFoundation\Response('<p> Planning non défini </p>');}
+         
+        return $agendasView;
     }
 }

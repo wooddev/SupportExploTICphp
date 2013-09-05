@@ -1,0 +1,13 @@
+{%extends '::explotic.html.twig'%}
+{%block body%}
+<h1>Recherche d'un agenda</h1>
+
+<form action="{{ path('rdv_new_selected') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Récupérer l'agenda</button>
+    </p>
+</form>
+
+
+{%endblock%}

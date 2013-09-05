@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "8717c9741b3ff58da23a5a8f3924f5cb",
+    "hash": "3ce07d1971d7c4d5424f9a5471c8403d",
     "packages": [
         {
             "name": "braincrafted/bootstrap-bundle",
@@ -52,7 +52,7 @@
             "authors": [
                 {
                     "name": "Florian Eckerstorfer",
-                    "email": "florian@eckerstorfer.co",
+                    "email": "florian@theroadtojoy.at",
                     "homepage": "http://florianeckerstorfer.com",
                     "role": "Developer"
                 }
@@ -117,7 +117,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -789,7 +789,7 @@
                     "email": "stof@notk.org"
                 },
                 {
-                    "name": "KnpLabs",
+                    "name": "Knplabs",
                     "homepage": "http://knplabs.com"
                 },
                 {
@@ -1221,12 +1221,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "9d7591a8f8720643184a7d9be9cc26fae8cdb019"
+                "reference": "9643ff5402ae97d99fdf402f06902de1c126fc64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/9d7591a8f8720643184a7d9be9cc26fae8cdb019",
-                "reference": "9d7591a8f8720643184a7d9be9cc26fae8cdb019",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/9643ff5402ae97d99fdf402f06902de1c126fc64",
+                "reference": "9643ff5402ae97d99fdf402f06902de1c126fc64",
                 "shasum": ""
             },
             "require": {
@@ -1236,6 +1236,7 @@
                 "sonata-project/block-bundle": "~2.2,>=2.2.1",
                 "sonata-project/exporter": "1.*",
                 "sonata-project/jquery-bundle": "1.8.*",
+                "symfony/class-loader": "~2.2",
                 "symfony/config": "~2.2",
                 "symfony/console": "~2.2",
                 "symfony/form": "~2.2",
@@ -1288,7 +1289,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2013-08-23 14:40:19"
+            "time": "2013-09-02 21:11:41"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -1472,12 +1473,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataDoctrineORMAdminBundle.git",
-                "reference": "325113ef2408c2710c2303128a9acc173b9daa2f"
+                "reference": "830a9313f7cf71fc10b4f154a159a74971474567"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/325113ef2408c2710c2303128a9acc173b9daa2f",
-                "reference": "325113ef2408c2710c2303128a9acc173b9daa2f",
+                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/830a9313f7cf71fc10b4f154a159a74971474567",
+                "reference": "830a9313f7cf71fc10b4f154a159a74971474567",
                 "shasum": ""
             },
             "require": {
@@ -1520,7 +1521,7 @@
                 "generator",
                 "sonata"
             ],
-            "time": "2013-08-23 13:01:37"
+            "time": "2013-09-02 09:35:09"
         },
         {
             "name": "sonata-project/easy-extends-bundle",
@@ -1790,12 +1791,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataMediaBundle.git",
-                "reference": "bcbfa2c9d2025c037b92bd417130dcc6acfcce15"
+                "reference": "ba12f57047bb6b7952674d0edf40a7ea6d067feb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataMediaBundle/zipball/bcbfa2c9d2025c037b92bd417130dcc6acfcce15",
-                "reference": "bcbfa2c9d2025c037b92bd417130dcc6acfcce15",
+                "url": "https://api.github.com/repos/sonata-project/SonataMediaBundle/zipball/ba12f57047bb6b7952674d0edf40a7ea6d067feb",
+                "reference": "ba12f57047bb6b7952674d0edf40a7ea6d067feb",
                 "shasum": ""
             },
             "require": {
@@ -1857,7 +1858,7 @@
                 "vimeo",
                 "youtube"
             ],
-            "time": "2013-08-22 13:39:45"
+            "time": "2013-09-02 16:24:56"
         },
         {
             "name": "sonata-project/notification-bundle",
@@ -1933,12 +1934,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataUserBundle.git",
-                "reference": "80e3fd243543c394b1c965de573531189b16628d"
+                "reference": "ea7fbb7e39a3db2adf30a5615bb9d069f5c17ae4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/80e3fd243543c394b1c965de573531189b16628d",
-                "reference": "80e3fd243543c394b1c965de573531189b16628d",
+                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/ea7fbb7e39a3db2adf30a5615bb9d069f5c17ae4",
+                "reference": "ea7fbb7e39a3db2adf30a5615bb9d069f5c17ae4",
                 "shasum": ""
             },
             "require": {
@@ -1990,7 +1991,7 @@
                 "sonata",
                 "user"
             ],
-            "time": "2013-08-23 14:13:06"
+            "time": "2013-09-02 08:29:35"
         },
         {
             "name": "swiftmailer/swiftmailer",

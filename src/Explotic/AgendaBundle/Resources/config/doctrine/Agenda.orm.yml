@@ -1,0 +1,16 @@
+Explotic\AgendaBundle\Entity\Agenda:
+    type: entity
+    table: null
+    repositoryClass: Explotic\AgendaBundle\Entity\AgendaRepository
+    oneToMany:
+        rdvs:
+          targetEntity: Rdv
+          mappedBy: agenda
+          nullable: true
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }

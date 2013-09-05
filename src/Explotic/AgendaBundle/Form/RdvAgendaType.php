@@ -28,9 +28,9 @@ class RdvAgendaType extends AbstractType
     {
         $dateDebut = $this->dateDebut;
         $dateFin = clone $dateDebut;
-        $dateFin->add($this->periode);
+        $dateFin->add(new \DateInterval($this->periode));
         $builder                          
-                ->add('creneauxRdv','entity',array(
+                ->add('slots','entity',array(
                     'class'=> 'Transfer\ReservationBundle\Entity\CreneauModele',
                     'expanded'=> true,
                     'multiple'=> true,

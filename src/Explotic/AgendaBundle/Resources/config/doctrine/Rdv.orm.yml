@@ -5,7 +5,10 @@ Explotic\AgendaBundle\Entity\Rdv:
     manyToOne:
       creneauRdv:
         targetEntity: CreneauRdv
-        inversedBy: Rdvs      
+        inversedBy: rdvs
+      agenda:
+        targetEntity: Agenda
+        inversedBy: rdvs
     fields:
         id:
             type: integer

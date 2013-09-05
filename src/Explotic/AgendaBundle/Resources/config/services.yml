@@ -21,3 +21,9 @@ services:
     explotic_agenda.rdv_selector:
         class: %explotic_agenda.rdv_selector.class%
         arguments: ["@explotic_agenda.repository.type_rdv","@explotic_agenda.repository.creneau_rdv","@explotic_planning.repository.calendrier", "@explotic_planning.agenda_generator"]
+    explotic_agenda.booking.generator:
+        class: Explotic\AgendaBundle\Generateurs\BookingGen
+        arguments: ["@explotic_agenda.booking.engine"]
+    explotic_agenda.booking.engine:
+        class: Explotic\AgendaBundle\Services\BookingEngines
+        arguments: ['@doctrine.orm.entity_manager']
