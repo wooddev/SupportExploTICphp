@@ -69,4 +69,10 @@ class Agenda
     {
         return $this->rdvs;
     }
+    
+    public function __toString() {
+        return (string)$this->id;
+    }
+    
+    
 }

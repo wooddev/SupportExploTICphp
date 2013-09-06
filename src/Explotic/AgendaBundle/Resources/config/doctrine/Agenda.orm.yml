@@ -13,4 +13,9 @@ Explotic\AgendaBundle\Entity\Agenda:
             id: true
             generator:
                 strategy: AUTO
+    inheritanceType: SINGLE_TABLE
+    discriminatorColumn:
+      name: custom_rdv
+      type: string
+      length: 255
     lifecycleCallbacks: {  }

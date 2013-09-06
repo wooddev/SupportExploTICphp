@@ -17,13 +17,22 @@ class BookingGen {
             //type de réservation
             $bookingType;
 
-    public function __construct(\Transfer\ReservationBundle\Services\MoteurReservation $moteurReservation){
+    public function __construct(\Explotic\AgendaBundle\Services\BookingEngine $moteurReservation){
         $this->slots = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bookings = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bookingEngine = $moteurReservation;        
         return $this;
     }    
 
+    public function getBookingEngine() {
+        return $this->bookingEngine;
+    }
+
+    public function setBookingEngine($bookingEngine) {
+        $this->bookingEngine = $bookingEngine;
+    }
+
+        
     public function getSlots() {
         if (!$this->slots) {
             throw new Exception('Aucun créneau associé');

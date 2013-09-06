@@ -31,15 +31,15 @@ class RdvAgendaType extends AbstractType
         $dateFin->add(new \DateInterval($this->periode));
         $builder                          
                 ->add('slots','entity',array(
-                    'class'=> 'Transfer\ReservationBundle\Entity\CreneauModele',
+                    'class'=> 'Explotic\AgendaBundle\Entity\CreneauRdv',
                     'expanded'=> true,
                     'multiple'=> true,
                     'label'=>'Créneaux disponibles',
-                    'query_builder'=> function(\Explotic\AgendaBundle\Entity\CreneauModeleRepository $er) use ($dateDebut,$dateFin)
+                    'query_builder'=> function(\Explotic\AgendaBundle\Entity\CreneauRdvRepository $er) use ($dateDebut,$dateFin)
                     {
                         return $er->createQueryBuilder('cm')
-                                ->andwhere('cm.dateDebut = :dateDebut')
-                                ->andwhere('cm.dateFin = :dateFin')
+                                ->andwhere('cm.dateHeureDebut >= :dateDebut')
+                                ->andwhere('cm.dateHeureFin <= :dateFin')
                                 ->setParameters(array(
                                     'dateDebut'=>$dateDebut,
                                     'dateFin'=>$dateFin,
@@ -53,7 +53,7 @@ class RdvAgendaType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Explotic\AgendaBundle\Entity\Rdv'
+            'data_class' => 'Explotic\AgendaBundle\Generateurs\BookingGen'
         ));
     }
     
@@ -65,6 +65,6 @@ class RdvAgendaType extends AbstractType
 
     public function getName()
     {
-        return 'transfer_reservationbundle_creneauprefgentype';
+        return 'explotic_agendabundle_rdvagendatype';
     }
 }

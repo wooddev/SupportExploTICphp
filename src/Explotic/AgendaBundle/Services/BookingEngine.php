@@ -16,18 +16,21 @@ class BookingEngine {
     
     public function __construct(EntityManager $em/*, array $bookingTypes*/) {
         $this->em = $em;
-        $this->bookingTypes = array(
+        $array= array(
                 'session' => array(
-                    'status_options'=>array('Prévue','Fixée','Réalisée','Annulée'),
-                    'default_status'=>array('Prévue'),
-                    'booking_class'=>'Explotic\PlanningBundle\Entity\MyBooking',
+                    'status_options'=>['Prévue','Fixée','Réalisée','Annulée'],
+                    'default_status'=>['Prévue'],
+                    'booking_class'=>['Explotic\PlanningBundle\Entity\MyBooking'],
                     ),
                 'tiers' => array(
-                    'status_options'=>array('Disponible','Indisponible'),
-                    'default_status'=>array('Disponible'),
-                    'booking_class'=>'Explotic\PlanningBundle\Entity\MyBooking',
+                    'status_options'=>['Disponible','Indisponible'],
+                    'default_status'=>['Disponible'],
+                    'booking_class'=>['Explotic\PlanningBundle\Entity\MyBooking'],
                     ),
                 );
+        
+        $this->bookingTypes = $array;
+        return $this;
     }    
     
         

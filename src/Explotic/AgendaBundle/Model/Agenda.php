@@ -104,9 +104,9 @@ class Agenda {
     public function generateAgenda($creneauxStructures, $creneauxAffiches,$minDebut = null ,$minFin = null,$jn = 5){
         
         $semaineDebut =(int) $this->dateDebut->format('W');
-        $anneeDebut = (int)$this->dateDebut->format('Y');
+        $anneeDebut = (int)$this->dateDebut->format('o');
         $semaineFin = (int)$this->dateFin->format('W');
-        $anneeFin = (int)$this->dateFin->format('Y');
+        $anneeFin = (int)$this->dateFin->format('o');
         
         if($anneeDebut == $anneeFin){
              //On créé un agenda pour l'année
@@ -153,7 +153,7 @@ class Agenda {
                                     ->getAgendasDay()->last()
                                         ->setMinuteFin($minFin);
             $criteria = Criteria::create()
-                    ->Where(Criteria::expr()
+                    ->andWhere(Criteria::expr()
                                 ->eq("jour",$j))
                     ->andWhere(Criteria::expr()
                                 ->eq("annee",$a))

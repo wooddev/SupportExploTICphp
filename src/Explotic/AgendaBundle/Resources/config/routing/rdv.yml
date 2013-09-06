@@ -35,6 +35,10 @@ rdv_set_selector:
     
 rdv_new_selected:
     pattern:  /new_selected
-    defaults: { _controller: "ExploticAgendaBundle:Rdv:createList" }
+    defaults: { _controller: "ExploticAgendaBundle:Rdv:newSelectedRdv" }
     requirements: { _method: post }
 
+rdv_create_selected:
+    pattern:  /create_selected
+    defaults: { _controller: "ExploticAgendaBundle:Rdv:createSelectedRdv" }
+    requirements: { _method: post }  

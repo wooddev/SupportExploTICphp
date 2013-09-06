@@ -1,19 +1,6 @@
 Explotic\PlanningBundle\Entity\Calendrier:
     type: entity
     table: calendrier
-    repositoryClass: Explotic\PlanningBundle\Entity\CalendrierRepository
-    oneToMany:
-      bookings:
-        targetEntity: Explotic\AgendaBundle\Entity\Rdv
-        mappedBy: calendrier
-    fields:
-        id:
-            type: integer
-            id: true
-            generator:
-                strategy: AUTO
-        nom:
-          type: string
-          length: 255          
+    repositoryClass: Explotic\PlanningBundle\Entity\CalendrierRepository        
     lifecycleCallbacks: {  }
 

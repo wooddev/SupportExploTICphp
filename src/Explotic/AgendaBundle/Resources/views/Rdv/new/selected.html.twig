@@ -1,25 +1,15 @@
 {%extends '::explotic.html.twig'%}
 {%block body%}
-{% form_theme form 'TransferReservationBundle:Form:fields.html.twig' %}
+{% form_theme form 'ExploticAgendaBundle:Form:fields.html.twig' %}
 
 <br>
 
-<form class='div-plain' action="{{ path('creneauprefgen_create') }}" method="post" {{ form_enctype(form) }}>
+<form class='div-plain' action="{{ path('rdv_create_selected') }}" method="post" {{ form_enctype(form) }}>
      {{ form_widget(form) }}
     <p>
         <button class="btn btn-large" type="submit">Attribuer ces créneaux</button>
     </p>
 </form>
     
-<script type="text/javascript">
 
-         $('#myTab a').click(function (e){
-             e.preventDefault();
-             $(this).tab('show');
-         });
-         $(function(){
-             $('#myTab a:first').tab('show');
-         });
-
-</script>
 {%endblock%}

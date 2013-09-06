@@ -25,5 +25,5 @@ services:
         class: Explotic\AgendaBundle\Generateurs\BookingGen
         arguments: ["@explotic_agenda.booking.engine"]
     explotic_agenda.booking.engine:
-        class: Explotic\AgendaBundle\Services\BookingEngines
+        class: Explotic\AgendaBundle\Services\BookingEngine
         arguments: ['@doctrine.orm.entity_manager']

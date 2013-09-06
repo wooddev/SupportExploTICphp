@@ -4,6 +4,3 @@ explotic_planning_credittemps:
 explotic_planning_session:
     resource: "@ExploticPlanningBundle/Resources/config/routing/session.yml"
     prefix:   /session
-explotic_planning_mybooking:
-        resource: "@ExploticPlanningBundle/Resources/config/routing/mybooking.yml"
-        prefix:   /booking

@@ -27,7 +27,7 @@ class RdvSelector {
        return $this->bookingType;
    }
 
-   public function setBookingType(string $bookingType) {
+   public function setBookingType($bookingType) {
        $this->bookingType = $bookingType;
    }
 
@@ -43,7 +43,7 @@ class RdvSelector {
        return $this->period;
    }
 
-   public function setPeriod(string $period) {
+   public function setPeriod($period) {
        $this->period = $period;
    }
 
