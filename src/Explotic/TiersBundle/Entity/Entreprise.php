@@ -332,44 +332,7 @@ class Entreprise extends \Explotic\AdminBundle\Entity\User
     {
         return $this->machines;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $employerecruteur;
-
-
-    /**
-     * Add employerecruteur
-     *
-     * @param \Explotic\TiersBundle\Entity\Recruteur $employerecruteur
-     * @return Entreprise
-     */
-    public function addEmployerecruteur(\Explotic\TiersBundle\Entity\Recruteur $employerecruteur)
-    {
-        $this->employerecruteur[] = $employerecruteur;
     
-        return $this;
-    }
-
-    /**
-     * Remove employerecruteur
-     *
-     * @param \Explotic\TiersBundle\Entity\Recruteur $employerecruteur
-     */
-    public function removeEmployerecruteur(\Explotic\TiersBundle\Entity\Recruteur $employerecruteur)
-    {
-        $this->employerecruteur->removeElement($employerecruteur);
-    }
-
-    /**
-     * Get employerecruteur
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getEmployerecruteur()
-    {
-        return $this->employerecruteur;
-    }
     /**
      * @var \Doctrine\Common\Collections\Collection
      */

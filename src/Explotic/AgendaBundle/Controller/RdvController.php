@@ -165,11 +165,11 @@ class RdvController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('ExploticAgendaBundle:Rdv')->find($id);
-
+            
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Rdv entity.');
             }
-
+            
             $em->remove($entity);
             $em->flush();
         }
@@ -187,8 +187,8 @@ class RdvController extends Controller
     
     public function setSelectedRdvAction(){
         $rdvSelector = new \Explotic\AgendaBundle\Model\RdvSelector();
-        $rdvSelector->setDateDebut(new \DateTime('now'));
-        $rdvSelector->setPeriod('P6D');
+        $rdvSelector->setDateDebut(new \DateTime('last monday'));
+        $rdvSelector->setPeriod('1');
         $rdvSelector->setBookingType('tiers');
         $formType = new \Explotic\AgendaBundle\Form\RdvSelectorType();
         $form = $this->createForm($formType, $rdvSelector);
@@ -196,13 +196,47 @@ class RdvController extends Controller
         return $this->render('ExploticAgendaBundle:Rdv:new/selector.html.twig', array(
             'entity' => $rdvSelector,
             'form'   => $form->createView(),
-        ));
-        
-        
-        
+        ));        
     }
-    
-    public function newSelectedRdvAction(Request $request/*$agendaId,$bookingType,  \DateTime $dateDebut, $period */){
+    public function newSelectedParamAction($rdvSelector){
+        $em = $this->getDoctrine()->getManager();
+
+            $agenda =$em->getRepository('ExploticAgendaBundle:Agenda')->find($rdvSelector->getAgenda()->getId());
+
+            $dateFin = clone $rdvSelector->getDateDebut();
+            $dateFin->add(new \DateInterval('P'.$rdvSelector->getPeriod().'W'));
+
+            $slotsArray = $em->getRepository('ExploticAgendaBundle:CreneauRdv')->findByPeriod($rdvSelector->getDateDebut(),$dateFin);
+            
+            if(empty($slotsArray)){
+                throw new \Symfony\Component\Translation\Exception\NotFoundResourceException('Aucun créneau n\'existe sur la période demandée');
+            }
+            
+            $slots = new \Doctrine\Common\Collections\ArrayCollection($slotsArray);
+            //On utilise la classe bookinggen pour concevoir le formulaire de création des créneaux prefs
+            $generateur = $this->get('explotic_agenda.booking.generator');   
+            $generateur->init(null,$agenda,$rdvSelector->getBookingType());
+
+            $formType = new \Explotic\AgendaBundle\Form\RdvAgendaType();
+            //Construction de l'agenda servant de support d'affichage des créneaux modèles dans le formulaire
+            $weeks = floor($rdvSelector->getDateDebut()->diff($dateFin,true)->days/7);
+            
+            $agendasView= $this->buildAgendas($slots,$agenda,$rdvSelector->getDateDebut(),$dateFin,$weeks);
+            
+            $formType->init($agendasView,$rdvSelector->getDateDebut(),$rdvSelector->getPeriod(),
+                    $this->container->getParameter('explotic_agenda.booking_types')[$rdvSelector->getBookingType()]['status_options']);
+            
+            $form = $this->createForm($formType, $generateur);                   
+  
+            $this->get('session')->set('rdvSelector',$rdvSelector);
+            
+            return $this->render('ExploticAgendaBundle:Rdv:new/selected.html.twig', array(
+                'generateur' => $generateur,
+                'agendas' => $agendasView,
+                'form'   => $form->createView(),
+            ));
+    }
+    public function newSelectedAction(Request $request){
         
         $rdvSelector = new \Explotic\AgendaBundle\Model\RdvSelector();
         $form = $this->createForm(new \Explotic\AgendaBundle\Form\RdvSelectorType(), $rdvSelector);
@@ -211,30 +245,37 @@ class RdvController extends Controller
 
         if ($form->isValid()) {
         
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
 
             $agenda = $rdvSelector->getAgenda();
 
             $dateFin = clone $rdvSelector->getDateDebut();
-            $dateFin->add(new \DateInterval($rdvSelector->getPeriod()));
+            $dateFin->add(new \DateInterval('P'.$rdvSelector->getPeriod().'W'));
 
-            $slots = $em->getRepository('ExploticAgendaBundle:CreneauRdv')->findByPeriod($rdvSelector->getDateDebut(),$dateFin);
+            $slotsArray = $em->getRepository('ExploticAgendaBundle:CreneauRdv')->findByPeriod($rdvSelector->getDateDebut(),$dateFin);
             
-            if(empty($slots)){
+            if(empty($slotsArray)){
                 throw new \Symfony\Component\Translation\Exception\NotFoundResourceException('Aucun créneau n\'existe sur la période demandée');
             }
-            $slots = new \Doctrine\Common\Collections\ArrayCollection($slots);
+            
+            $slots = new \Doctrine\Common\Collections\ArrayCollection($slotsArray);
             //On utilise la classe bookinggen pour concevoir le formulaire de création des créneaux prefs
             $generateur = $this->get('explotic_agenda.booking.generator');   
-//            $generateur->setBookingEngine($this->get('explotic_agenda.booking.engine'));
-            $generateur->init($slots,$rdvSelector->getBookingType());
+            $generateur->init(null,$agenda,$rdvSelector->getBookingType());
 
             $formType = new \Explotic\AgendaBundle\Form\RdvAgendaType();
             //Construction de l'agenda servant de support d'affichage des créneaux modèles dans le formulaire
-            $agendasView= $this->buildAgendas($slots,$agenda,$rdvSelector->getDateDebut());
-            $formType->init($agendasView,$rdvSelector->getDateDebut(),$rdvSelector->getPeriod());
-            $form = $this->createForm($formType, $generateur);     
-
+            $weeks = floor($rdvSelector->getDateDebut()->diff($dateFin,true)->days/7);
+            
+            $agendasView= $this->buildAgendas($slots,$agenda,$rdvSelector->getDateDebut(),$dateFin,$weeks);
+            
+            $formType->init($agendasView,$rdvSelector->getDateDebut(),$rdvSelector->getPeriod(),
+                    $this->container->getParameter('explotic_agenda.booking_types')[$rdvSelector->getBookingType()]['status_options']);
+            
+            $form = $this->createForm($formType, $generateur);                   
+  
+            $this->get('session')->set('rdvSelector',$rdvSelector);
+            
             return $this->render('ExploticAgendaBundle:Rdv:new/selected.html.twig', array(
                 'generateur' => $generateur,
                 'agendas' => $agendasView,
@@ -244,7 +285,7 @@ class RdvController extends Controller
         return $this->redirect($this->generateUrl('profil'));
     }
     
-    public function buildAgendas($slots,$agenda,$dateDebut){
+    public function buildAgendas($slots,$agenda, \DateTime $dateDebut,  \DateTime $dateFin,$weeks){
         // récupérer ici la liste des rdv pour le transporteur associé à l'utilisateur en cours
         // Affichage dans un agenda avec typage associé aux événements? (au moins pour Réservé/confirmé/annulé)
                
@@ -252,7 +293,8 @@ class RdvController extends Controller
         
         if($slots){
             $agendasView->add( new \Explotic\AgendaBundle\Model\Agenda());
-            $agendasView->last()->init($dateDebut->format('W'),$dateDebut->format('o'),null,1);
+            
+            $agendasView->last()->init($dateDebut->format('W'),$dateDebut->format('o'),null,$weeks); //null >> poste
             $agendasView->last()->generateAgenda($slots,$agenda->getRdvs(), 420 ,1140);            
         }
         else{ return new \Symfony\Component\HttpFoundation\Response('<p> Planning non défini </p>');}
@@ -260,7 +302,25 @@ class RdvController extends Controller
         return $agendasView;
     }
     
-    public function createSelectedRdvAction(Request $Request){
+    public function createSelectedRdvAction(Request $request){
+      
+        $generateur = $this->get('explotic_agenda.booking.generator');
+        $rdvSelector = $this->get('session')->get('rdvSelector');
         
+        $formType = new \Explotic\AgendaBundle\Form\RdvAgendaType();      
+        
+        $formType->init(null,$rdvSelector->getDateDebut(),$rdvSelector->getPeriod(),
+                $this->container->getParameter('explotic_agenda.booking_types')[$rdvSelector->getBookingType()]['status_options']);
+        
+        $form = $this->createForm($formType, $generateur);     
+        $form->bind($request);
+        
+        if ($form->isValid()){           
+            $generateur->book();             
+        }           
+
+        return $this->forward('ExploticAgendaBundle:Rdv:newSelectedParam',array(
+                    'rdvSelector'=> $rdvSelector,
+                ));   
     }
 }

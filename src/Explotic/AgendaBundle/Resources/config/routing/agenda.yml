@@ -1,0 +1,10 @@
+agenda_extract:
+    pattern:  /
+    defaults: { _controller: "ExploticAgendaBundle:Agenda:extract" }
+
+agenda_show:
+    pattern:  /show
+    defaults: { _controller: "ExploticAgendaBundle:Agenda:show" }
+    requirements: { _method: post }
+
+

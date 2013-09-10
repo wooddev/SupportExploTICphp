@@ -1,0 +1,13 @@
+{%extends "::explotic.html.twig"%}
+{%block topbar%}
+<h3>Affichage d'un agenda</h3>
+{%endblock%}
+{%block well%}
+<form action="{{ path('agenda_show') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Afficher</button>
+    </p>
+</form>
+
+{%endblock%}

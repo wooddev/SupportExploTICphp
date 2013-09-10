@@ -1,5 +1,5 @@
 parameters:
-    #explotic_agenda.booking_types: Défini dans config.yml 
+    #explotic_agenda.booking_types: défini dans config.yml
     explotic_agenda.rdv_selector.class: Explotic\AgendaBundle\Model\RdvSelector
 
 services:
@@ -26,4 +26,4 @@ services:
         arguments: ["@explotic_agenda.booking.engine"]
     explotic_agenda.booking.engine:
         class: Explotic\AgendaBundle\Services\BookingEngine
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine.orm.entity_manager','%explotic_agenda.booking_types%']

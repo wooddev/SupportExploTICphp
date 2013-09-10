@@ -3,7 +3,7 @@
 namespace Explotic\AgendaBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-
+use Explotic\AgendaBundle\Entity\Rdv;
 /**
  * RdvRepository
  *
@@ -29,6 +29,23 @@ class RdvRepository extends EntityRepository
             'idCal'=> $idCalendrier
         ));
         return $query->getResult();
+    }
+    
+    public function findExists(Rdv $booking){
+        $query = $this->getEntityManager()->createQuery('
+            SELECT r
+            FROM ExploticAgendaBundle:Rdv r
+            JOIN r.creneauRdv cr
+            JOIN r.agenda a           
+            WHERE a.id = :agendaId
+            AND cr.id = :creneauId
+            ');
+        $query->setParameters(array(
+            'agendaId'=>$booking->getAgenda()->getId(),
+            'creneauId'=>$booking->getCreneauRdv()->getId(),
+        ));
+        return $query->getResult();
+
     }
 
 }

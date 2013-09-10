@@ -21,9 +21,12 @@ class StagiaireController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('ExploticTiersBundle:Stagiaire')->findAll();
-
+        if($this->get('security.context')->isGranted('ROLE_ADMIN')){
+            $entities = $em->getRepository('ExploticTiersBundle:Stagiaire')->findAll();
+        }else{
+            $entities = $em->getRepository('ExploticTiersBundle:Stagiaire')->findAuthorized($this->get('security.context')->getToken()->getUser());
+        }
+        
         return $this->render('ExploticTiersBundle:Stagiaire:index.html.twig', array(
             'entities' => $entities,
         ));
@@ -38,7 +41,7 @@ class StagiaireController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);
-
+        $this->get('explotic_admin.user.acess_control')->ControlAccessToUser($entity);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Stagiaire entity.');
         }       
@@ -56,48 +59,14 @@ class StagiaireController extends Controller
                       );           
         } else{
             $jours = null;
-        }
-        
-                    
-        
-        $deleteForm = $this->createDeleteForm($id);
+        }      
 
         return $this->render('ExploticTiersBundle:Stagiaire:show.html.twig', array(
             'entity'      => $entity,
             'agenda' => $agenda->generate($jours),
             'entreprise' => $entity->getEntreprise(),
-            'delete_form' => $deleteForm->createView(),
             ));
     }
-    /**
-     * Finds and displays a Stagiaire entity.
-     *
-     */
-//    public function showUserAction()
-//    {   
-//        $this->container->get('security.context')->getToken()->getUser();
-//        
-//        if(! is_object($user)){
-//            throw new AccessDeniedException('Veuillez vous connecter');
-//        }
-//               
-//        
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $entity = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);
-//
-//        if (!$entity) {
-//            throw $this->createNotFoundException('Unable to find Stagiaire entity.');
-//        }
-//
-//        $deleteForm = $this->createDeleteForm($id);
-//
-//        return $this->render('ExploticTiersBundle:Stagiaire:show.html.twig', array(
-//            'entity'      => $entity,
-//            'entreprise' => $entity->getEntreprise(),
-//            'delete_form' => $deleteForm->createView(),
-//            ));
-//    }
 
     /**
      * Displays a form to create a new Stagiaire entity.
@@ -147,18 +116,18 @@ class StagiaireController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);
-
+        $this->get('explotic_admin.user.acess_control')->ControlAccessToUser($entity);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Stagiaire entity.');
         }
 
         $editForm = $this->createForm(new StagiaireType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
+        
 
         return $this->render('ExploticTiersBundle:Stagiaire:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            
         ));
     }
 
@@ -171,14 +140,15 @@ class StagiaireController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);
-
+        $this->get('explotic_admin.user.acess_control')->ControlAccessToUser($entity);
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Stagiaire entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        
         $editForm = $this->createForm(new StagiaireType(), $entity);
-        $editForm->bind($request);
+        $editForm->bind($request);        
 
         if ($editForm->isValid()) {
             $em->persist($entity);
@@ -190,47 +160,15 @@ class StagiaireController extends Controller
         return $this->render('ExploticTiersBundle:Stagiaire:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            
         ));
-    }
-
-    /**
-     * Deletes a Stagiaire entity.
-     *
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Stagiaire entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('stagiaire'));
-    }
-
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
-    }
+    }   
     
     public function programmationAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $stagiaire = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);      
-        
+        $this->get('explotic_admin.user.acess_control')->ControlAccessToUser($stagiaire);
         if (!$stagiaire) {
             throw $this->createNotFoundException('Unable to find Stagiaire entity.');
         }
@@ -249,8 +187,11 @@ class StagiaireController extends Controller
                         
     public function voirPostesAction(Request $request, $id)
     {
+        
         $em = $this->getDoctrine()->getManager();
-        $stagiaire = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);      
+        $stagiaire = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);   
+        
+        $this->get('explotic_admin.user.acess_control')->ControlAccessToUser($stagiaire);
         
         if (!$stagiaire) {
             throw $this->createNotFoundException('Unable to find Stagiaire entity.');
@@ -267,5 +208,27 @@ class StagiaireController extends Controller
             'stagiaire' => $stagiaire,
         ));                    
     }
+    
+    public function editAgendaForm(Stagiaire $stagiaire){
+        $agenda = $stagiaire->getCalendrier();
+        
+        $rdvSelector = new \Explotic\AgendaBundle\Model\RdvSelector();
+        $rdvSelector->setDateDebut(new \DateTime('last monday'));
+        $rdvSelector->setPeriod('1');
+        $rdvSelector->setBookingType('tiers');
+        $rdvSelector->setAgenda($agenda);
+        $formType = new \Explotic\AgendaBundle\Form\RdvSelectorType();
+        return $this->createForm($formType, $rdvSelector); 
+    }
+    
+    public function showAgendaForm(Stagiaire $stagiaire){
+        $entity = new \Explotic\AgendaBundle\Model\AgendaExtractor();
+        $now= new \DateTime();
+        $entity->setYear((int)$now->format('o'));
+        $entity->setWeek((int)$now->format('W'));
+        $entity->setDuree= 4;               
+        return $this->createForm(new AgendaExtractType(), $entity);
+    }
+    
 
 }

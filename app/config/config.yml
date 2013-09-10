@@ -224,13 +224,19 @@ ivory_google_map:
 explotic_agenda: 
     booking_types:
         session:
-            status_options: ['Prévue', 'Fixée', 'Réalisée', 'Annulée']
-            default_status: 'Prévue'
-            booking_class: Explotic\PlanningBundle\Entity\MyBooking    
+            status_options:
+                prevue: 'Prévue'
+                fixee: 'Fixée'
+                realisee: 'Réalisée'
+                annulee: 'Annulée'                
+            default_status: 'prevue'
+            booking_class: Explotic\AgendaBundle\Entity\Rdv    
         tiers : 
-            status_options: ['Disponible','Indisponible']
-            default_status: 'Disponible'
-            booking_class: Explotic\PlanningBundle\Entity\MyBooking  
+            status_options: 
+              disponible: 'Disponible'
+              indisponible: 'Indisponible'
+            default_status: 'disponible'
+            booking_class: Explotic\AgendaBundle\Entity\Rdv  
 
 
 

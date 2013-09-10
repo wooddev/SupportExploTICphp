@@ -21,9 +21,18 @@ class Agenda {
     private $dateFin;
     private $week;
     private $year;
+    private $duree;
     private $creneauxAgenda;
     private $poste;
     
+    public function getDuree() {
+        return $this->duree;
+    }
+
+    public function setDuree($duree) {
+        $this->duree = $duree;
+    }
+        
     public function getWeek() {
         return $this->week;
     }
@@ -82,6 +91,7 @@ class Agenda {
         
         $this->week = (int) $week;
         $this->year = (int) $year;
+        $this->duree= (int) $duree;
         $this->poste = $poste;
         
         $this->dateDebut = new \DateTime($this->year.'W'.$this->week."1");
@@ -91,6 +101,7 @@ class Agenda {
         $this->dateFin->add($interval);
 
     }             
+            
     
     /**
      * 

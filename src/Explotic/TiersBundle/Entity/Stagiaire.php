@@ -54,6 +54,7 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
         $this->sessions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->postes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->programmes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->calendrier = new \Explotic\PlanningBundle\Entity\Calendrier();
     }
     
     

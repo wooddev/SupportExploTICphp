@@ -19,7 +19,9 @@ class RdvSelectorType extends AbstractType
             ))                
             ->add('bookingType','text')
             ->add('dateDebut','date')
-            ->add('period','text')
+            ->add('period','integer',array(
+                'label'=>'Nombre de semaines à afficher'
+            ))
         ;
     }
 

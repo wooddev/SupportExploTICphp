@@ -1,15 +1,28 @@
 {%extends '::explotic.html.twig'%}
 {%block body%}
 {% form_theme form 'ExploticAgendaBundle:Form:fields.html.twig' %}
-
-<br>
-
-<form class='div-plain' action="{{ path('rdv_create_selected') }}" method="post" {{ form_enctype(form) }}>
-     {{ form_widget(form) }}
-    <p>
-        <button class="btn btn-large" type="submit">Attribuer ces créneaux</button>
-    </p>
+    <form class='div-plain' action="{{ path('rdv_create_selected') }}" method="post" {{ form_enctype(form) }}>
+        <div class='top-bar'>
+        <h3>{{form_label(form.slots)}}</h3>        
+        </div>
+        <div class='well'> 
+            <p>
+                Agenda : {{generateur.agenda.id}}
+            </p>   
+            <p>
+                {{form_row(form.bookingSelectedOption)}}
+            </p>   
+            
+         {{ form_widget(form.slots) }}        
+        <div class='invisible'> 
+            {{form_rest(form)}}
+        </div>            
+        <p>
+            <button class="btn btn-large" type="submit">Attribuer ces créneaux</button>
+        </p>
+        </div>
 </form>
+
     
 
 {%endblock%}

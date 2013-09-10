@@ -85,9 +85,10 @@ class Rdv
      */
     
         
-    public function init($creneauRdv, $statutRdv, $options=null){
+    public function init($creneauRdv, $statutRdv, $agenda,$options=null){
         $this->setCreneauRdv($creneauRdv);     
         $this->setStatutRdv($statutRdv);
+        $this->setAgenda($agenda);
     }
    
     

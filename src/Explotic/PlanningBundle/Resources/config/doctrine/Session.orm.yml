@@ -5,6 +5,7 @@ Explotic\PlanningBundle\Entity\Session:
     oneToOne:
       calendrier:
         targetEntity: Calendrier
+        cascade: ['persist']
     manyToOne:
       salle:
         targetEntity: Explotic\TiersBundle\Entity\Salle

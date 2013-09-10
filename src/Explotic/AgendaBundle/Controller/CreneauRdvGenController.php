@@ -37,7 +37,7 @@ class CreneauRdvGenController extends Controller
      */
     public function createAction(Request $request)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
        
         
         $generateur = new CreneauRdvGen();
@@ -66,7 +66,7 @@ class CreneauRdvGenController extends Controller
 //        return $this->render('ExploticAgendaBundle:CreneauRdv:index.html.twig', array(
 //            'entities'      => $generateur->getCreneauxRdvs()
 //        ));
-          return $this->redirect($this->generateUrl('creneauRdv'));
+          return $this->redirect($this->generateUrl('creneaurdv'));
 
     }
     

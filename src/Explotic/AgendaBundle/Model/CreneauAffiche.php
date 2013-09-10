@@ -120,10 +120,10 @@ class CreneauAffiche {
     /**
      * Set type
      *
-     * @param \Explotic\AgendaBundle\Entity\TypeRdv $type
+     * @param $type
      * @return Rdv
      */
-    public function setType(\Explotic\AgendaBundle\Entity\TypeRdv $type = null)
+    public function setType( $type = null)
     {
         $this->type = $type;
     

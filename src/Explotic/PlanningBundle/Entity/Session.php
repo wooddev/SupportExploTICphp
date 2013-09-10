@@ -57,6 +57,8 @@ class Session
     {
         $this->stagiaires = new \Doctrine\Common\Collections\ArrayCollection();
         $this->formateurs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->calendrier = new \Explotic\PlanningBundle\Entity\Calendrier();
+
     }
     
     /**

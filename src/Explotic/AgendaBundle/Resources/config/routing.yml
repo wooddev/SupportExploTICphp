@@ -21,3 +21,11 @@ explotic_agenda_creneaurdv:
 explotic_agenda_rdv:
         resource: "@ExploticAgendaBundle/Resources/config/routing/rdv.yml"
         prefix:   /rdv
+
+explotic_agenda_agenda:
+        resource: "@ExploticAgendaBundle/Resources/config/routing/agenda.yml"
+        prefix:   /agenda
+        
+explotic_clean_all:
+      pattern:  /clean
+      defaults: { _controller: "ExploticAgendaBundle:default:cleanAgenda" }

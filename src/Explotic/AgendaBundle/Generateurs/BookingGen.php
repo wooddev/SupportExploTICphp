@@ -8,23 +8,41 @@ namespace Explotic\AgendaBundle\Generateurs;
  */
 class BookingGen {    
     protected $bookingEngine,
-            //Créneaux Modèles disponibles
+            $agenda,
+            //Créneaux  disponibles
             $slots,
-            // Créneaux prefs générés
+            // rdvs générés
             $bookings,
             //Options de réservation
             $options,
             //type de réservation
-            $bookingType;
+            $bookingType,
+            //Option de réservation choisie (statut de la résa)
+            $bookingSelectedOption;
 
     public function __construct(\Explotic\AgendaBundle\Services\BookingEngine $moteurReservation){
         $this->slots = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bookings = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bookingEngine = $moteurReservation;        
         return $this;
-    }    
+    }  
+    public function getBookingSelectedOption() {
+        return $this->bookingSelectedOption;
+    }
 
-    public function getBookingEngine() {
+    public function setBookingSelectedOption($bookingSelectedOption) {
+        $this->bookingSelectedOption = $bookingSelectedOption;
+    }
+
+        public function getAgenda() {
+        return $this->agenda;
+    }
+
+    public function setAgenda(\Explotic\AgendaBundle\Entity\Agenda $agenda) {
+        $this->agenda = $agenda;
+    }
+
+        public function getBookingEngine() {
         return $this->bookingEngine;
     }
 
@@ -34,19 +52,15 @@ class BookingGen {
 
         
     public function getSlots() {
-        if (!$this->slots) {
-            throw new Exception('Aucun créneau associé');
-        }
-        else return $this->slots;
+         return $this->slots;
     } 
-
-    public function setSlots($collection){
-        $this->slot = $collection;
+    
+    public function addSlot(\Explotic\AgendaBundle\Entity\CreneauRdv $slot){
+        $this->slots->Add($slot);
         return $this;
     }
-    
-    public function addSlot($slot){
-        $this->slots->Add($slot);
+    public function removeSlot(\Explotic\AgendaBundle\Entity\CreneauRdv $slot){
+        $this->slots->removeElement($slot);
         return $this;
     }
     
@@ -56,7 +70,13 @@ class BookingGen {
         }
         else return $this->bookings;
     }        
-    
+    public function addBooking(\Explotic\AgendaBundle\Entity\Rdv $booking){
+        $this->bookings->add($booking);
+        return $this;
+    }
+    public function removeBooking(\Explotic\AgendaBundle\Entity\Rdv $booking){
+        $this->bookings->removeElement($booking);
+    }
     public function getOptions() {
         return $this->options;
     }
@@ -81,16 +101,17 @@ class BookingGen {
      * Permet d'initialiser la classe en dehors du constructeur     * 
      */
    
-    public function init($slots,$bookingType)
+    public function init($slots,$agenda,$bookingType)
     {
         $this->slots = $slots;
+        $this->agenda = $agenda;
         $this->bookingType = $bookingType;
         $this->options= array();
     }
     
     public function book(){
         foreach($this->slots as $slot){
-            $this->bookingEngine->tryBooking($slot, $this->bookingType,$this->getOptions());
+            $this->bookingEngine->tryBooking($slot, $this->bookingType,$this->agenda,$this->bookingSelectedOption,$this->getOptions());
         }        
     }   
 }

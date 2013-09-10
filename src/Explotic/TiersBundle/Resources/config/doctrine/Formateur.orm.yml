@@ -4,7 +4,8 @@ Explotic\TiersBundle\Entity\Formateur:
     repositoryClass: Explotic\TiersBundle\Entity\FormateurRepository
     oneToOne:
       calendrier:
-        targetEntity: Explotic\PlanningBundle\Entity\Calendrier     
+        targetEntity: Explotic\PlanningBundle\Entity\Calendrier
+        cascade: ['persist']
     manyToOne:
       Organisme:
         targetEntity: Organisme

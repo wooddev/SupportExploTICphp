@@ -35,7 +35,7 @@ class CreneauModeleGenController extends Controller
      */
     public function createAction(Request $request)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $generateur = new CreneauModeleGen();
         $form = $this->createForm(new CreneauModeleGenType(), $generateur);

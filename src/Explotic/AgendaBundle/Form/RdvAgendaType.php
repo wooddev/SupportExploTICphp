@@ -12,29 +12,38 @@ class RdvAgendaType extends AbstractType
     
     private $agendas,
             $dateDebut,
-            $periode;
+            $periode,
+            $statusOptions;
     
     public function setAgendas($agendas) {
         $this->agendas = $agendas;
     }
     
-    public function init($agendas, $dateDebut,$periode){
+    public function init($agendas, $dateDebut,$periode,$statusOptions){
         $this->agendas = $agendas;
         $this->dateDebut = $dateDebut;
-        $this->periode = $periode;        
+        $this->periode = $periode;      
+        $this->statusOptions= $statusOptions;
     }
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $dateDebut = $this->dateDebut;
-        $dateFin = clone $dateDebut;
-        $dateFin->add(new \DateInterval($this->periode));
-        $builder                          
-                ->add('slots','entity',array(
+        
+        $builder->add('bookingSelectedOption','choice',array(
+            'choices'=>$this->statusOptions,
+            'label'=>'Statut des créneaux sélectionnés'
+        ));        
+                
+        if(!(null=== $this->dateDebut)){
+            $dateDebut = $this->dateDebut;
+            $dateFin = clone $dateDebut;
+            $dateFin->add(new \DateInterval('P'.$this->periode.'W'));
+            $builder->add('slots','entity',array(
                     'class'=> 'Explotic\AgendaBundle\Entity\CreneauRdv',
                     'expanded'=> true,
                     'multiple'=> true,
-                    'label'=>'Créneaux disponibles',
+                    'attr'=>array('checked'=>false),
+                    'label'=>'Choix des créneaux',
                     'query_builder'=> function(\Explotic\AgendaBundle\Entity\CreneauRdvRepository $er) use ($dateDebut,$dateFin)
                     {
                         return $er->createQueryBuilder('cm')
@@ -45,9 +54,26 @@ class RdvAgendaType extends AbstractType
                                     'dateFin'=>$dateFin,
                                 ));
                     }
-                    ))
-
-        ;
+                    ));
+        }else{
+            $builder->add('slots','entity',array(
+                    'class'=> 'Explotic\AgendaBundle\Entity\CreneauRdv',
+                    'expanded'=> true,
+                    'multiple'=> true,
+                    'label'=>'Choix des créneaux',
+                    ));
+        }
+                
+        $builder
+                ->add('bookingType','text',array(
+                    'read_only'=>true,
+                    'attr'=>array('class'=>'invisible'),
+                ))
+                ->add('agenda','entity',array(
+                    'class'=>'ExploticAgendaBundle:Agenda',
+                    'read_only'=>true,
+                    'attr'=>array('class'=>'invisible'),
+                ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
