@@ -36,5 +36,5 @@ class GalleryHasMedia extends BaseGalleryHasMedia
     public function getId()
     {
         return $this->id;
-    }
+    }   
 }

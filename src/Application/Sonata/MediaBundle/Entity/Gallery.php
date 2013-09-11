@@ -37,4 +37,80 @@ class Gallery extends BaseGallery
     {
         return $this->id;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $children;
+
+    /**
+     * @var \Application\Sonata\MediaBundle\Entity\Gallery
+     */
+    private $parent;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        
+    }
+    
+    /**
+     * Add children
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Gallery $children
+     * @return Gallery
+     */
+    public function addChildren(\Application\Sonata\MediaBundle\Entity\Gallery $children)
+    {
+        $this->children[] = $children;
+    
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Gallery $children
+     */
+    public function removeChildren(\Application\Sonata\MediaBundle\Entity\Gallery $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Gallery $parent
+     * @return Gallery
+     */
+    public function setParent(\Application\Sonata\MediaBundle\Entity\Gallery $parent = null)
+    {
+        $this->parent = $parent;
+    
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Gallery 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    
 }
