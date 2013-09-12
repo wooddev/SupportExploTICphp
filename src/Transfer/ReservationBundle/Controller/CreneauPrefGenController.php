@@ -43,8 +43,9 @@ class CreneauPrefGenController extends Controller
     
     
     /**
-     * Displays a form to generate CreneauRdv.
-     *
+     * Formulaire de sélection des créneaux modèles à réserver en créneaux prefs
+     * @param type $typeCamionId
+     * @return type
      */
     public function generateAction($typeCamionId)
     {           
