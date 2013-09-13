@@ -2,19 +2,18 @@
 
 namespace Explotic\AdminBundle\Entity;
 
-use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Sonata\UserBundle\Entity\BaseGroup;
 
 /**
- * User
+ * Group
  */
-class User extends BaseUser
-{    
+class Group extends BaseGroup
+{
     /**
      * @var integer
      */
     protected $id;
-
 
     /**
      * Get id
@@ -25,5 +24,4 @@ class User extends BaseUser
     {
         return $this->id;
     }
-
 }

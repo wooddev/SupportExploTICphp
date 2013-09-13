@@ -10,7 +10,7 @@ Explotic\AdminBundle\Entity\User:
     discriminatorMap:
       stagiaire:       Explotic\TiersBundle\Entity\Stagiaire
       recruteur:       Explotic\TiersBundle\Entity\Recruteur
-      entreprise:      Explotic\TiersBundle\Entity\Entreprise
+      gerant:          Explotic\TiersBundle\Entity\Gerant
       formateur:       Explotic\TiersBundle\Entity\Formateur
       user:            Explotic\AdminBundle\Entity\User    
     fields:

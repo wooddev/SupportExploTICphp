@@ -5,7 +5,9 @@ namespace Explotic\MainBundle\Controller;
 use Ivory\GoogleMap\Overlays\Animation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ivory\GoogleMap\Controls\ControlPosition;
-
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\NullOutput;
 
 class DefaultController extends Controller
 {
@@ -14,7 +16,21 @@ class DefaultController extends Controller
         $mediaManager= $this->get('sonata.media.manager.media');
 //        $mediaManager= new \Sonata\MediaBundle\Entity\MediaManager();
         $media=$mediaManager->findOneBy(array('name'=>'1470E'));      
-
+        
+//A VIRER : ///////////////////////////////////////////////
+//        $kernel = $this->container->get('kernel');
+//        $app = new Application($kernel);
+//
+//        $command = 'sonata:admin:generate-object-acl';        
+//        $arguments=array();
+//        $args = array_merge(array('command' => $command), $arguments);
+//
+//        $input = new ArrayInput($args);
+//        $output = new NullOutput();        
+//        
+//        $app->doRun($input,$output);
+//////////////////////////////////////////////////////////////:
+        
         return $this->render('ExploticMainBundle:Default:index.html.twig',array(
             'media'=>$media,
             ));

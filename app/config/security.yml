@@ -1,3 +1,6 @@
+parameters:
+    security.acl.permission.map.class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap
+
 security:
     encoders:
         FOS\UserBundle\Model\UserInterface : sha512        
@@ -35,8 +38,11 @@ security:
                 use_forward:    false
                 check_path:     /admin/login_check
                 failure_path:   null
+            remember_me:
+                key: %secret%
             logout:
                 path:           /admin/logout
+                target:         /admin/dashboard
             anonymous:    true
         # -> end custom configuration
         
@@ -52,9 +58,14 @@ security:
                 failure_path: null
             remember_me:
               key: %secret%
-            logout: true
+            logout: 
+              path: /logout
+              target: /
+              invalidate_session: false
             anonymous: true
-            
+    
+    acl:
+        connection: default
     access_control:
         # URL of FOSUserBundle which need to be available to anonymous users
         - { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }

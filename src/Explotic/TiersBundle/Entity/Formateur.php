@@ -76,6 +76,7 @@ class Formateur extends \Explotic\AdminBundle\Entity\User
      */
     public function __construct()
     {
+        parent::__construct();
         $this->sessions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->calendrier = new \Explotic\PlanningBundle\Entity\Calendrier();
 

@@ -2,6 +2,36 @@ parameters:
 #    explotic_tiers.example.class: Explotic\TiersBundle\Example
 
 services:
-#    explotic_tiers.example:
-#        class: %explotic_tiers.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    explotic_tiers.admin.profil:
+        abstract: true   
+        calls:
+            - [ setUserManager, [ '@fos_user.user_manager' ] ]
+#            - [ setSecurityContext, [ '@security.context' ] ]
+    explotic_tiers.admin.gerant:
+        class: Explotic\TiersBundle\Admin\GerantAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Profils des gérants }
+        arguments: [null, Explotic\TiersBundle\Entity\Gerant, null]        
+        parent: explotic_tiers.admin.profil
+    explotic_tiers.admin.stagiaire:
+        class: Explotic\TiersBundle\Admin\StagiaireAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Profils de stagiaires }
+        arguments: [null, Explotic\TiersBundle\Entity\Stagiaire, null]        
+        parent: explotic_tiers.admin.profil
+    explotic_tiers.admin.recruteur:
+        class: Explotic\TiersBundle\Admin\RecruteurAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Profils de recruteurs }
+        arguments: [null, Explotic\TiersBundle\Entity\Recruteur, null]        
+        parent: explotic_tiers.admin.profil
+    explotic_tiers.admin.machine:
+        class: Explotic\TiersBundle\Admin\MachineAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Liste des machines }
+        arguments: [null, Explotic\TiersBundle\Entity\Machine, null]
+    explotic_tiers.admin.entreprise:
+        class: Explotic\TiersBundle\Admin\EntrepriseAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Liste des entreprises }
+        arguments: [null, Explotic\TiersBundle\Entity\Entreprise, null]

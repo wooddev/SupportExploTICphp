@@ -1,0 +1,11 @@
+Explotic\AdminBundle\Entity\Group:
+    type: entity
+    table: fos_group
+    repositoryClass: Explotic\AdminBundle\Entity\GroupRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO      
+    lifecycleCallbacks: {  }

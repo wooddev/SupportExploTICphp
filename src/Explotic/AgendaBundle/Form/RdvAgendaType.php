@@ -46,9 +46,10 @@ class RdvAgendaType extends AbstractType
                     'label'=>'Choix des créneaux',
                     'query_builder'=> function(\Explotic\AgendaBundle\Entity\CreneauRdvRepository $er) use ($dateDebut,$dateFin)
                     {
-                        return $er->createQueryBuilder('cm')
-                                ->andwhere('cm.dateHeureDebut >= :dateDebut')
-                                ->andwhere('cm.dateHeureFin <= :dateFin')
+                        return $er->createQueryBuilder('c')
+                                ->from('ExploticAgendaBundle:CreneauRdv','c')
+                                ->andWhere('c.dateHeureDebut >= :dateDebut')
+                                ->andWhere('c.dateHeureFin <= :dateFin')
                                 ->setParameters(array(
                                     'dateDebut'=>$dateDebut,
                                     'dateFin'=>$dateFin,

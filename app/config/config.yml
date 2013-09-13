@@ -75,6 +75,20 @@ swiftmailer:
     password:  %mailer_password%
     spool:     { type: memory }
     
+# FOSUser Configuration
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Explotic\AdminBundle\Entity\User
+    group:
+        group_class:  Explotic\AdminBundle\Entity\Group
+    profile:  # Authentication Form
+        form:
+            type:               fos_user_profile
+            handler:            fos_user.profile.form.handler.default
+            name:               fos_user_profile_form
+            #validation_groups:  [Authentication] # Please note : this is not the default value
+    
 #Sonata Admin Configuration
 sonata_admin:
     title:     Explotic/Administration
@@ -90,7 +104,22 @@ sonata_admin:
         history: SonataAdminBundle:CRUD:history.html.twig
         preview: SonataAdminBundle:CRUD:preview.html.twig
         delete:  SonataAdminBundle:CRUD:delete.html.twig
- 
+    security:
+        handler: sonata.admin.security.handler.acl
+        # acl security information
+        information:
+            OWNER:    [OWNER]
+            CREATOR:  [CREATE]
+            GUEST:    [VIEW, LIST]
+            STAFF:    [EDIT, LIST, CREATE]
+            EDITOR:   [OPERATOR, EXPORT]
+            ADMIN:    [MASTER]
+        # permissions not related to an object instance and also to be available when objects do not exist
+        # the DELETE admin permission means the user is allowed to batch delete objects
+        admin_permissions: [CREATE, LIST, DELETE, UNDELETE, EXPORT, OPERATOR, MASTER]
+        # permission related to the objects
+        object_permissions: [VIEW, EDIT, DELETE, UNDELETE, OPERATOR, MASTER, OWNER]
+        
 sonata_block:
     default_contexts: [cms]
     blocks:
@@ -100,19 +129,12 @@ sonata_block:
         sonata.block.service.text:
         sonata.block.service.action:
         sonata.block.service.rss:
-# FOSUser Configuration
-fos_user:
-    db_driver: orm
-    firewall_name: main
-    user_class: Explotic\AdminBundle\Entity\User
-    registration:
-      form:
-        type: explotic_user_registration
 
 sonata_user:
-    security_acl:     false
+    security_acl:     true
     class:
         user:         Explotic\AdminBundle\Entity\User
+        group:        Explotic\AdminBundle\Entity\Group
     admin:                  # Admin Classes
         user:
             class:          Sonata\UserBundle\Admin\Entity\UserAdmin

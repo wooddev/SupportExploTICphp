@@ -7,16 +7,39 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Explotic\TiersBundle\Entity\Entreprise
  */
-class Entreprise extends \Explotic\AdminBundle\Entity\User
-{
+class Entreprise
+{    
+    private $id;
     
+    public function getId() {
+        return $this->id;
+    }
+    
+    private $gerant;
     /**
+     * 
+     * @return \Explotic\TiersBundle\Entity\Geran
+     */
+    public function getGerant() {
+        return $this->gerant;
+    }
+    /**
+     * 
+     * @param \Explotic\TiersBundle\Entity\Gerant $gerant
+     */
+    public function setGerant(Gerant $gerant) {
+        $this->gerant = $gerant;
+    }
+
+            
+
+        /**
      * @var string $raisonSociale
      */
     private $raisonSociale;
 
     
-
+   
     /**
      * @var Explotic\TiersBundle\Entity\Bureau
      */
@@ -100,13 +123,18 @@ class Entreprise extends \Explotic\AdminBundle\Entity\User
     }
     
     public function __toString() {
-//        $rs=$this->getRaisonSociale();
-        $ans=$this->getRaisonSociale().' '.$this->getBureau()->getLocalisation()->getCommune();
-//        return $rs.' ('.$ville.')';
-//        if (!$this->raisonSociale){
-//            $ans = 'Rs vide pour id='.$this->getId();
-//        }else{$ans = $this->getRaisonSociale();} 
-        return $ans;
+
+        if(!$this->id){
+            return 'Nouvelle entrée';
+        }
+        if (!$this->raisonSociale){
+            return parent::__toString();
+        }
+        if(!is_object($this->getBureau())){
+            return $this->getRaisonSociale();        
+        } 
+        return $this->getRaisonSociale().' '.$this->getBureau()->getLocalisation()->getCommune();
+
     }
     /**
      * @var string
@@ -459,4 +487,60 @@ class Entreprise extends \Explotic\AdminBundle\Entity\User
         
     }
     
+    /**
+     * @var string
+     */
+    private $telephone;
+
+    /**
+     * @var string
+     */
+    private $email;
+
+
+    /**
+     * Set telephone
+     *
+     * @param string $telephone
+     * @return Entreprise
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+    
+        return $this;
+    }
+
+    /**
+     * Get telephone
+     *
+     * @return string 
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Entreprise
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
 }

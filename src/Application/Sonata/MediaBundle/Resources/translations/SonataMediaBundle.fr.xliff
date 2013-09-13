@@ -299,13 +299,16 @@
             </trans-unit>            
             <trans-unit id="gallery.form.label_parent">
                 <source>form.label_parent</source>
-                <target>Gallerie racine</target>
+                <target>Galerie racine</target>
             </trans-unit>
             <trans-unit id="gallery.list.label_parent">
                 <source>list.label_parent</source>
-                <target>Gallerie racine</target>
+                <target>Galerie racine</target>
             </trans-unit>
-            
+            <trans-unit id="gallery.filter.label_parent">
+                <source>filter.label_parent</source>
+                <target>Galerie racine</target>
+            </trans-unit>            
         </body>
     </file>
 </xliff>

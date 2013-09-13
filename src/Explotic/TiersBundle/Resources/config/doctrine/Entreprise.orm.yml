@@ -3,6 +3,9 @@ Explotic\TiersBundle\Entity\Entreprise:
     table: entreprise
     repositoryClass: Explotic\TiersBundle\Entity\EntrepriseRepository
     oneToOne:
+      gerant:
+        targetEntity: Explotic\TiersBundle\Entity\Gerant
+        inversedBy: entreprise
       bureau:
         targetEntity: Explotic\TiersBundle\Entity\Bureau
         joinColumn:
@@ -27,10 +30,23 @@ Explotic\TiersBundle\Entity\Entreprise:
         targetEntity: Recruteur
         mappedBy: entreprises
         nullable: true
-    fields:        
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
         raisonSociale:
             type: string
             length: 255            
+        telephone:
+            type: string
+            length: 255
+            nullable: true
+        email:
+            type: string
+            length: 255
+            nullable: true            
         siret:
             type: string
             length: 255

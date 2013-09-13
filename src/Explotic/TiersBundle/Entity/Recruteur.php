@@ -20,6 +20,7 @@ class Recruteur extends \Explotic\AdminBundle\Entity\User
      */
     public function __construct()
     {
+        parent::__construct();
         $this->stagiaires = new \Doctrine\Common\Collections\ArrayCollection();
         $this->entreprises = new \Doctrine\Common\Collections\ArrayCollection();
     }
