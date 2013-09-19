@@ -14,5 +14,6 @@ file that was distributed with this source code.
 {% block javascripts%}
 {{parent()}}
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4hT13IYCchS-xzh54W5_fUZv8kad8GOo&sensor=false"></script>
+<script type="text/javascript" src="{{asset('bundles/exploticmain/js/jquery.ui.addresspicker.js')}}"></script>
 <script type="text/javascript" src="{{asset('bundles/exploticmain/js/gmap3.min.js')}}"></script>
 {%endblock%}

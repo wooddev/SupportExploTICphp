@@ -89,7 +89,7 @@ class EntrepriseAdmin extends Admin
                 ->add('gerant','sonata_type_model',array(
                                 'required'=>false,)
                         )   
-//                ->add('bureau','gmaps_address_picker')
+                ->add('bureau','gmaps_address_picker')
             ->end()
             ;
         
