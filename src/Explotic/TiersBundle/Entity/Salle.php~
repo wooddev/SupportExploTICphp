@@ -1,0 +1,47 @@
+<?php
+
+namespace Explotic\TiersBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Explotic\TiersBundle\Entity\Salle
+ */
+class Salle extends SiteIntervention
+{
+    public function __toString() {
+        if(!(null===$this->getLocalisation())){
+            return $this->getLocalisation()->__toString();
+        }
+        return 'Salle en cours de création';
+    }
+
+    /**
+     * @var string
+     */
+    private $adresseRue;
+
+
+    /**
+     * Set adresseRue
+     *
+     * @param string $adresseRue
+     * @return Salle
+     */
+    public function setAdresseRue($adresseRue)
+    {
+        $this->adresseRue = $adresseRue;
+    
+        return $this;
+    }
+
+    /**
+     * Get adresseRue
+     *
+     * @return string 
+     */
+    public function getAdresseRue()
+    {
+        return $this->adresseRue;
+    }
+}
