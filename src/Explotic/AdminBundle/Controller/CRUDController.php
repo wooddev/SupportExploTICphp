@@ -15,15 +15,13 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sonata\AdminBundle\Exception\ModelManagerException;
 use Symfony\Component\HttpFoundation\Request;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Admin\BaseFieldDescription;
 use Sonata\AdminBundle\Util\AdminObjectAclData;
 
-class CRUDController extends Controller
+class CRUDController extends \Sonata\AdminBundle\Controller\CRUDController
 {
     /**
      * The related Admin class
@@ -32,157 +30,9 @@ class CRUDController extends Controller
      */
     protected $admin;
 
-    /**
-     * @param mixed   $data
-     * @param integer $status
-     * @param array   $headers
-     *
-     * @return Response with json encoded data
-     */
-    public function renderJson($data, $status = 200, $headers = array())
-    {
-        // fake content-type so browser does not show the download popup when this
-        // response is rendered through an iframe (used by the jquery.form.js plugin)
-        //  => don't know yet if it is the best solution
-        if ($this->get('request')->get('_xml_http_request')
-            && strpos($this->get('request')->headers->get('Content-Type'), 'multipart/form-data') === 0) {
-            $headers['Content-Type'] = 'text/plain';
-        } else {
-            $headers['Content-Type'] = 'application/json';
-        }
 
-        return new Response(json_encode($data), $status, $headers);
-    }
 
-    /**
-     *
-     * @return boolean true if the request is done by an ajax like query
-     */
-    public function isXmlHttpRequest()
-    {
-        return $this->get('request')->isXmlHttpRequest() || $this->get('request')->get('_xml_http_request');
-    }
 
-    /**
-     * Returns the correct RESTful verb, given either by the request itself or
-     * via the "_method" parameter.
-     *
-     * @return string HTTP method, either
-     */
-    protected function getRestMethod()
-    {
-        $request = $this->getRequest();
-        if (Request::getHttpMethodParameterOverride() || !$request->request->has('_method')) {
-            return $request->getMethod();
-        }
-
-        return $request->request->get('_method');
-    }
-
-    /**
-     * Sets the Container associated with this Controller.
-     *
-     * @param ContainerInterface $container A ContainerInterface instance
-     */
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->container = $container;
-
-        $this->configure();
-    }
-
-    /**
-     * Contextualize the admin class depends on the current request
-     *
-     * @throws \RuntimeException
-     * @return void
-     */
-    public function configure()
-    {
-        $adminCode = $this->container->get('request')->get('_sonata_admin');
-
-        if (!$adminCode) {
-            throw new \RuntimeException(sprintf('There is no `_sonata_admin` defined for the controller `%s` and the current route `%s`', get_class($this), $this->container->get('request')->get('_route')));
-        }
-
-        $this->admin = $this->container->get('sonata.admin.pool')->getAdminByAdminCode($adminCode);
-
-        if (!$this->admin) {
-            throw new \RuntimeException(sprintf('Unable to find the admin class related to the current controller (%s)', get_class($this)));
-        }
-
-        $rootAdmin = $this->admin;
-
-        if ($this->admin->isChild()) {
-            $this->admin->setCurrentChild(true);
-            $rootAdmin = $rootAdmin->getParent();
-        }
-
-        $request = $this->container->get('request');
-
-        $rootAdmin->setRequest($request);
-
-        if ($request->get('uniqid')) {
-            $this->admin->setUniqid($request->get('uniqid'));
-        }
-    }
-
-    /**
-     * return the base template name
-     *
-     * @return string the template name
-     */
-    public function getBaseTemplate()
-    {
-        if ($this->isXmlHttpRequest()) {
-            return $this->admin->getTemplate('ajax');
-        }
-
-        return $this->admin->getTemplate('layout');
-    }
-
-    /**
-     * @param string   $view
-     * @param array    $parameters
-     * @param Response $response
-     *
-     * @return Response
-     */
-    public function render($view, array $parameters = array(), Response $response = null)
-    {
-        $parameters['admin']         = isset($parameters['admin']) ? $parameters['admin'] : $this->admin;
-        $parameters['base_template'] = isset($parameters['base_template']) ? $parameters['base_template'] : $this->getBaseTemplate();
-        $parameters['admin_pool']    = $this->get('sonata.admin.pool');
-
-        return parent::render($view, $parameters, $response);
-    }
-
-    /**
-     * return the Response object associated to the list action
-     *
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     *
-     * @return Response
-     */
-    public function listAction()
-    {
-        if (false === $this->admin->isGranted('LIST')) {
-            throw new AccessDeniedException();
-        }
-
-        
-        $datagrid = $this->admin->getDatagrid();
-        $formView = $datagrid->getForm()->createView();
-
-        // set the theme for the current Admin Form
-        $this->get('twig')->getExtension('form')->renderer->setTheme($formView, $this->admin->getFilterTheme());
-
-        return $this->render($this->admin->getTemplate('list'), array(
-            'action'   => 'list',
-            'form'     => $formView,
-            'datagrid' => $datagrid
-        ));
-    }
 
     /**
      * execute a batch delete
@@ -282,7 +132,8 @@ class CRUDController extends Controller
             throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
         }
 
-        if (false === $this->admin->isGranted('EDIT', $object)) {
+        if (false === $this->admin->isGranted('OWNER', $object) 
+                OR false == $this->admin->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
 
@@ -347,6 +198,11 @@ class CRUDController extends Controller
     public function redirectTo($object)
     {
         $url = false;
+        
+        if (false === $this->admin->isGranted('OWNER', $object) 
+                OR false == $this->admin->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
 
         if ($this->get('request')->get('btn_update_and_list')) {
             $url = $this->admin->generateUrl('list');
@@ -593,7 +449,9 @@ class CRUDController extends Controller
             throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
         }
 
-        if (false === $this->admin->isGranted('VIEW', $object)) {
+
+        if (false === $this->admin->isGranted('OWNER', $object) 
+                OR false == $this->admin->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
 
@@ -626,7 +484,11 @@ class CRUDController extends Controller
         if (!$object) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
         }
-
+        
+        if (false === $this->admin->isGranted('OWNER', $object) 
+                OR false == $this->admin->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
         $manager = $this->get('sonata.admin.audit.manager');
 
         if (!$manager->hasReader($this->admin->getClass())) {
@@ -681,7 +543,12 @@ class CRUDController extends Controller
         if (!$object) {
             throw new NotFoundHttpException(sprintf('unable to find the targeted object `%s` from the revision `%s` with classname : `%s`', $id, $revision, $this->admin->getClass()));
         }
-
+        
+        if (false === $this->admin->isGranted('OWNER', $object) 
+                OR false == $this->admin->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        
         $this->admin->setSubject($object);
 
         return $this->render($this->admin->getTemplate('show'), array(
@@ -816,4 +683,6 @@ class CRUDController extends Controller
              ->getFlashBag()
              ->add($type, $message);
     }
+    
+
 }

@@ -7,8 +7,9 @@ Explotic\TiersBundle\Entity\Formateur:
         targetEntity: Explotic\PlanningBundle\Entity\Calendrier
         cascade: ['persist']
     manyToOne:
-      Organisme:
+      organisme:
         targetEntity: Organisme
+        inversedBy: formateur
     manyToMany:
       sessions:
         targetEntity: Explotic\PlanningBundle\Entity\Session

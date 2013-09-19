@@ -1,5 +1,5 @@
 <?php
-namespace Explotic\TiersBundle\Admin;
+namespace Explotic\FormationBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -13,7 +13,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
  */
 
 
-class MachineAdmin extends Admin{
+class ProgrammeAdmin extends Admin{
     
     
     /**

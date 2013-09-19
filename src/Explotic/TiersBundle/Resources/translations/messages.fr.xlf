@@ -5,6 +5,18 @@
             <trans-unit id="1">
                 <source>Symfony2 is great</source>
                 <target>J'aime Symfony2</target>
+            </trans-unit>            
+            <trans-unit id="pointgps">
+                <source>PointGPS</source>
+                <target>Position</target>
+            </trans-unit>
+            <trans-unit id="cp">
+                <source>Cp</source>
+                <target>Code Postal</target>
+            </trans-unit>
+            <trans-unit id="nom_chantier">
+                <source>Nom Chantier</source>
+                <target>Nom du chantier</target>
             </trans-unit>
         </body>
     </file>

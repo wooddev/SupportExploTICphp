@@ -17,16 +17,16 @@ class GMapsAddressPickerType extends AbstractType
                ->add('address', null, array(
                     'required'      => true,
                 ))              
-                ->add('city', null, array(
+                ->add('city', 'hidden', array(
                     'required'      => false,
                 ))
-                ->add('postalCode', null, array(
+                ->add('postalCode', 'hidden', array(
                     'required'      => false,
                 ))
-                ->add('lat', null, array(
+                ->add('lat', 'hidden', array(
                     'required'      => false
                 ))
-                ->add('lon', null, array(
+                ->add('lon', 'hidden', array(
                     'required'      => false                                  
             ));
         $builder->addModelTransformer($transformer);

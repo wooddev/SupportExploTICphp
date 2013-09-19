@@ -60,6 +60,14 @@ class ProfilAdmin extends UserAdmin{
                 ->add('impersonating', 'string', array('template' => 'SonataUserBundle:Admin:Field/impersonating.html.twig'))
             ;
         }
+        
+        $listMapper
+                ->add('_action', 'actions', array(
+                    'actions' => array(
+                    'view' => array(),
+                    'edit' => array(),
+                    )
+                ));
     }
 
     /**
@@ -127,12 +135,12 @@ class ProfilAdmin extends UserAdmin{
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General')
+            ->with('Compte de connexion')
                 ->add('username')
                 ->add('email')
                 ->add('plainPassword', 'text', array('required' => false))
             ->end();
-        if(static::$groups_disp){
+        if($this->isGranted('ROLE_ADMIN')){
             $formMapper            
                 ->with('Groups')
                     ->add('groups', 'sonata_type_model', array('required' => false, 'expanded' => true, 'multiple' => true))
@@ -144,7 +152,7 @@ class ProfilAdmin extends UserAdmin{
                 ->add('firstname', null, array('required' => false))
                 ->add('lastname', null, array('required' => false))
 //                ->add('website', 'url', array('required' => false))
-                ->add('biography', 'text', array('required' => false))
+//                ->add('biography', 'text', array('required' => false))
 //                ->add('gender', 'choice', array(
 //                    'choices' => array(
 //                        UserInterface::GENDER_UNKNOWN => 'gender_unknown',

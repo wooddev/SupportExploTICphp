@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class MachineRepository extends EntityRepository
 {
+    public function choiceLimiter($entrepriseId){
+        return createQueryBuilder('m')
+                    ->from('ExploticTiersBundle:Machine','m')                                      
+                    ->leftJoin('m.entreprise','ent')
+                    ->andWhere('ent.id = :id')
+                    ->setParameter('id',$entrepriseId)
+                    ;
+    }
+    
 }

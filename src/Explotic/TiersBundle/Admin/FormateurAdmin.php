@@ -6,13 +6,13 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 /**
- * Description of ProfilAdmin
+ * Description of RecruteurAdmin
  *
  * @author adarr
  */
 
 
-class GerantAdmin extends ProfilAdmin
+class FormateurAdmin extends ProfilAdmin
 {
     
     
@@ -23,7 +23,9 @@ class GerantAdmin extends ProfilAdmin
     {
         parent::configureListFields($listMapper);
         $listMapper
-                ->add('entreprise')
+                ->add('entreprises')
+                ->add('stagiaires')
+                ->add('employeur')
             ;
     }
 
@@ -33,8 +35,10 @@ class GerantAdmin extends ProfilAdmin
     protected function configureDatagridFilters(DatagridMapper $filterMapper)
     {
         parent::configureDatagridFilters($filterMapper);
-        $filterMapper
-                ->add('entreprise')
+        $filterMapper                
+                ->add('entreprises')                
+                ->add('stagiaires')
+                ->add('employeur')
            ;
         
     }
@@ -46,7 +50,10 @@ class GerantAdmin extends ProfilAdmin
     {
         parent::configureShowField($showMapper);
         $showMapper
-                ->add('entreprise');
+                ->with('ExploTIC')
+                    ->add('entreprises')
+                ->end()
+                ;
     }
 
     /**
@@ -55,11 +62,11 @@ class GerantAdmin extends ProfilAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         parent::configureFormFields($formMapper);
-        $formMapper
-                ->with('Profile')
-                    ->add('commentaires','textarea')
+        $formMapper   
+                ->with('ExploTIC')
+                    ->add('employeur','sonata_type_model_list')   
                 ->end()
-                ;
+            ;
 
     }
     

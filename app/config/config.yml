@@ -94,13 +94,13 @@ sonata_admin:
     title:     Explotic/Administration
     templates:
         ## default global templates
-        layout:  SonataAdminBundle::standard_layout.html.twig
-        ajax:    SonataAdminBundle::ajax_layout.html.twig
+        layout:  ExploticAdminBundle::standard_layout.html.twig
+        ajax:    ExploticAdminBundle::ajax_layout.html.twig
  
         ## default actions templates, should extend a global templates
-        list:    SonataAdminBundle:CRUD:list.html.twig
+        list:    ExploticAdminBundle:Admin:list.html.twig
         show:    SonataAdminBundle:CRUD:show.html.twig
-        edit:    SonataAdminBundle:CRUD:edit.html.twig
+        edit:    ExploticAdminBundle:Admin:edit.html.twig
         history: SonataAdminBundle:CRUD:history.html.twig
         preview: SonataAdminBundle:CRUD:preview.html.twig
         delete:  SonataAdminBundle:CRUD:delete.html.twig
@@ -138,12 +138,11 @@ sonata_user:
     admin:                  # Admin Classes
         user:
             class:          Sonata\UserBundle\Admin\Entity\UserAdmin
-            controller:     SonataAdminBundle:CRUD
-            translation:    SonataUserBundle
- 
+            controller:     ExploticAdminBundle:CRUD
+            translation:    SonataUserBundle        
         group:
             class:          Sonata\UserBundle\Admin\Entity\GroupAdmin
-            controller:     SonataAdminBundle:CRUD
+            controller:     ExploticAdminBundle:CRUD
             translation:    SonataUserBundle
     profile:  # Profile Form (firstname, lastname, etc ...)
         form:
