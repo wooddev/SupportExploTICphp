@@ -17,7 +17,7 @@ class SiteIntervention
     /**
      * @var Explotic\TiersBundle\Entity\Localisation
      */
-    private $localisation;
+    protected $localisation;
 
 
     /**
@@ -98,7 +98,7 @@ class SiteIntervention
     /**
      * @var Explotic\PlanningBundle\Entity\Calendrier
      */
-    private $calendrier;
+    protected $calendrier;
 
 
     /**
@@ -122,5 +122,33 @@ class SiteIntervention
     public function getCalendrier()
     {
         return $this->calendrier;
+    }
+    /**
+     * @var string
+     */
+    private $commentaires;
+
+
+    /**
+     * Set commentaires
+     *
+     * @param string $commentaires
+     * @return SiteIntervention
+     */
+    public function setCommentaires($commentaires)
+    {
+        $this->commentaires = $commentaires;
+    
+        return $this;
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return string 
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
     }
 }

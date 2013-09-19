@@ -22,9 +22,6 @@ class StagiaireAdmin extends \Explotic\TiersBundle\Admin\ProfilAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         parent::configureListFields($listMapper);
-
-
-
         
     }
 
@@ -34,7 +31,6 @@ class StagiaireAdmin extends \Explotic\TiersBundle\Admin\ProfilAdmin
     protected function configureDatagridFilters(DatagridMapper $filterMapper)
     {
         parent::configureDatagridFilters($filterMapper);
-
     }
 
     /**
@@ -54,74 +50,43 @@ class StagiaireAdmin extends \Explotic\TiersBundle\Admin\ProfilAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     { 
-        $currentStagiaireId = $this->getRoot()->getSubject()->getId();
+//        if(!(null===$this->getRoot()->getSubject()->getEntreprise())){
+//            $currentEntrepriseId = $this->getRoot()->getSubject()->getEntreprise()->getId();
+//        }
+
+//        $currentStagiaireId = $this->getSecurityContext()->getToken()->getUser()->getId();
 //        $user = $this->currentUser;
         parent::configureFormFields($formMapper);
         $formMapper
-            ->with('ExploTIC')
-                ->add('marchePiedInfo','checkbox',array('required'=>false))
-                ->add('gerant','checkbox',array('required'=>false))                
-                ->add('forfaitTelephone','text')
-                ->add('niveauInfo','choice', array(
-                    'choices'=>array('faible'=>'Faible','moyen'=>'Moyen','bon'=>'Bon','NC'=>'NC')
-                ))
+
+            ->with('Emploi')
+                ->add('entreprise','sonata_type_model_list')
+                ->add('gerant','checkbox',array('required'=>false))    
                 ->add('typeEmploi','text')
+            ->end()
+            ->with('Formation')
                 ->add('opca','choice', array(
                     'choices'=>array('VIVEA'=>'VIVEA','FAFSEA'=>'FAFSEA','OPCA3+'=>'OPCA3','Autre'=>'Autre')
                 ))
-                ->add('commentaire','textarea')
-                
-//                ->add('entreprise','sonata_type_admin')
-//                ->add('machine','sonata_type_model',array(
-//                    'query'=>function(\Explotic\TiersBundle\Entity\MachineRepository $er) use ($currentStagiaireId)
-//                            {
-//                                return $er->createQueryBuilder('m')
-//                                        ->from('ExploticTiersBundle:Machine','m')
-//                                        ->leftJoin('m.stagiaires','st')
-//                                        ->leftJOin('st.entreprise','entst')                                        
-//                                        ->leftJoin('m.entreprise','entm')
-//                                        ->andWhere('entst.id = entm.id')
-//                                        ->andWhere('entst.id = :id')
-//                                        ->setParameter('id',$currentStagiaireId)
-//                                    ;
-//                            }
-//                ))
-//                ->add('recruteur','sonata_type_model')
-//                ->add('postes','sonata_type_model_list',array(
-//                    'class'=>'Explotic\TiersBundle\Entity\Poste',
-//                    'query'=>function(\Explotic\TiersBundle\Entity\PosteRepository $er) use ($currentStagiaireId)
-//                            {
-//                                return $er->createQueryBuilder('p')
-//                                        ->from('ExploticTiersBundle:Poste','p')
-//                                        ->leftJoin('p.stagiaire','st')
-//                                        ->andWhere('st.id = :id')
-//                                        ->setParameter('id',$currentStagiaireId)
-//                                        ;
-//                            }                    
-//                    ))
-//                ->add('programmes','sonata_type_model_list',array(
-//                    'class'=>'Explotic\TiersBundle\Entity\Programme',
-//                    'query'=>function(\Explotic\TiersBundle\Entity\ProgrammeRepository $er) use ($currentStagiaireId)
-//                            {
-//                                return $er->createQueryBuilder('p')
-//                                        ->from('ExploticFormationBundle:Programmes','p')
-//                                        ->leftJoin('p.stagiaire','st')
-//                                        ->andWhere('st.id = :id')
-//                                        ->setParameter('id',$currentStagiaireId)
-//                                        ;
-//                            }                    
-//                    ))
+                ->add('niveauInfo','choice', array(
+                    'choices'=>array('faible'=>'Faible','moyen'=>'Moyen','bon'=>'Bon','NC'=>'NC')
+                ))                
+                ->add('marchePiedInfo','checkbox',array('required'=>false))
             ->end()
-            ;
-        
-        $formMapper
-                ->add('entreprise','sonata_type_model_list')
+            ->with('Déploiement')
+                ->add('postes','sonata_type_collection',array("required"=>false),array())
+//                ->add('programmes','sonata_type_collection')
+//       
                 ->add('machine','sonata_type_model_list', array(
-                                'required'=>false,))                
-            ;
+                                'required'=>false,)) 
+                ->add('forfaitTelephone','text',array('required'=>false))
+                ->add('commentaire','textarea',array('required'=>false))
+            ->end()                   
+        ;
                         
         
     }
+    
 }
 
 ?>

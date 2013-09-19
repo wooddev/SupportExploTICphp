@@ -1,30 +1,30 @@
 <?php
 namespace Explotic\TiersBundle\Admin;
 
+use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+
 /**
- * Description of ProfilAdmin
+ * Description of EntrepriseAdmin
  *
- * @author adarr
+ * @author Adrien Arraiolos
  */
-
-
-class GerantAdmin extends ProfilAdmin
+class OrganismeAdmin extends Admin
 {
-    
-    
-    /**
+        /**
      * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
-        parent::configureListFields($listMapper);
         $listMapper
-                ->add('entreprise')
-            ;
+            ->addIdentifier('raisonSociale')
+            ->add('formateur')
+        ;
+
+        
     }
 
     /**
@@ -32,10 +32,10 @@ class GerantAdmin extends ProfilAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $filterMapper)
     {
-        parent::configureDatagridFilters($filterMapper);
         $filterMapper
-                ->add('entreprise')
-           ;
+            ->add('raisonSociale')           
+            ->add('formateur')
+            ;
         
     }
 
@@ -43,26 +43,29 @@ class GerantAdmin extends ProfilAdmin
      * {@inheritdoc}
      */
     protected function configureShowFields(ShowMapper $showMapper)
-    {
-        parent::configureShowField($showMapper);
+    {   
         $showMapper
-                ->add('entreprise');
+            ->with('ExploTIC')
+                ->add('raisonSociale')
+                ->add('formateur')
+            ->end()
+        ;
     }
 
     /**
      * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
-    {
-        parent::configureFormFields($formMapper);
+    {   
         $formMapper
-                ->with('Profile')
-                    ->add('commentaires','textarea')
-                ->end()
-                ;
-
+            ->with('ExploTIC')
+                ->add('raisonSociale','text')  
+                ->add('salles','sonata_type_collection')
+            ->end()
+            ;
+        
     }
-    
+
 }
 
 ?>

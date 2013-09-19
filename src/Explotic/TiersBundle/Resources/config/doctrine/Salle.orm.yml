@@ -2,4 +2,12 @@ Explotic\TiersBundle\Entity\Salle:
     type: entity
     table: null
     repositoryClass: Explotic\TiersBundle\Entity\SalleRepository     
+    manyToOne:
+      organisme:
+        targetEntity: Organisme
+        inversedBy: salles
+    fields:        
+        adresseRue:
+            type: string
+            length: 255
     lifecycleCallbacks: {  }

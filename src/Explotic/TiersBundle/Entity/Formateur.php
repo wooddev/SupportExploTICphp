@@ -16,12 +16,6 @@ class Formateur extends \Explotic\AdminBundle\Entity\User
     private $calendrier;
 
     /**
-     * @var Explotic\TiersBundle\Entity\Organisme
-     */
-    private $Organisme;
-
-
-    /**
      * Set calendrier
      *
      * @param Explotic\PlanningBundle\Entity\Calendrier $calendrier
@@ -44,28 +38,7 @@ class Formateur extends \Explotic\AdminBundle\Entity\User
         return $this->calendrier;
     }
 
-    /**
-     * Set Organisme
-     *
-     * @param Explotic\TiersBundle\Entity\Organisme $organisme
-     * @return Formateur
-     */
-    public function setOrganisme(\Explotic\TiersBundle\Entity\Organisme $organisme = null)
-    {
-        $this->Organisme = $organisme;
-    
-        return $this;
-    }
 
-    /**
-     * Get Organisme
-     *
-     * @return Explotic\TiersBundle\Entity\Organisme 
-     */
-    public function getOrganisme()
-    {
-        return $this->Organisme;
-    }
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
@@ -123,4 +96,33 @@ class Formateur extends \Explotic\AdminBundle\Entity\User
      * @var \Doctrine\Common\Collections\Collection
      */
    
+    /**
+     * @var \Explotic\TiersBundle\Entity\Organisme
+     */
+    private $organisme;
+
+
+
+    /**
+     * Set organisme
+     *
+     * @param \Explotic\TiersBundle\Entity\Organisme $organisme
+     * @return Formateur
+     */
+    public function setOrganisme(\Explotic\TiersBundle\Entity\Organisme $organisme = null)
+    {
+        $this->organisme = $organisme;
+    
+        return $this;
+    }
+
+    /**
+     * Get organisme
+     *
+     * @return \Explotic\TiersBundle\Entity\Organisme 
+     */
+    public function getOrganisme()
+    {
+        return $this->organisme;
+    }
 }

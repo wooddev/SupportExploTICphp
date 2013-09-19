@@ -1,0 +1,15 @@
+
+
+{%extends 'SonataAdminBundle:CRUD:list.html.twig'%}
+
+{% block table_body %}
+    <tbody>
+        {% for object in admin.datagrid.results %}
+            {%if admin.isGranted('OWNER',object) or is_granted('ROLE_ADMIN')%}
+            <tr>
+                {% include admin.getTemplate('inner_list_row') %}
+            </tr>
+            {%endif%}
+        {% endfor %}
+    </tbody>
+{% endblock %}{# empty Twig template #}
