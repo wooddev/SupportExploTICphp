@@ -12,7 +12,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
  *
  * @author Adrien Arraiolos
  */
-class EntrepriseAdmin extends MyAdmin
+class EntrepriseAdmin extends Admin
 {
         /**
      * {@inheritdoc}
@@ -20,12 +20,12 @@ class EntrepriseAdmin extends MyAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('raisonSociale')
+            ->addIdentifier('raisonSociale')
             ->add('versionExplotic')
-            ->add('commentaires')
+//            ->add('commentaires')
             ->add('stagiaires')
-            ->add('machines')
-            ->add('employesrecruteurs')
+//            ->add('machines')
+//            ->add('employesrecruteurs')
             ->add('recruteurs')
         ;
 
@@ -41,8 +41,8 @@ class EntrepriseAdmin extends MyAdmin
             ->add('raisonSociale')           
             ->add('versionExplotic')
             ->add('stagiaires')
-            ->add('machines')
-            ->add('employesrecruteurs')
+//            ->add('machines')
+//            ->add('employesrecruteurs')
             ->add('recruteurs')
             ;
         
@@ -65,6 +65,9 @@ class EntrepriseAdmin extends MyAdmin
                 ->add('machines')
                 ->add('employesrecruteurs')
                 ->add('recruteurs')
+//                ->add('bureau','string',array(
+//                    'template'=>'ExploticAdminBundle:Admin:show_bureau.html.twig'
+//                ))
             ->end()
         ;
     }
@@ -85,30 +88,14 @@ class EntrepriseAdmin extends MyAdmin
                                 'required'=>false,))
                 ->add('gerant','sonata_type_model',array(
                                 'required'=>false,)
-                        )
-                ->add('stagiaires', 'sonata_type_collection', array(
-                                'required'=>false,
-                                'cascade_validation' => true,
-                            ), array(
-                                'edit'              => 'standard',
-                                'inline'            => 'standard',
-                                'sortable'          => 'position',
-                                'admin_code'        => 'explotic_tiers.admin.stagiaire'
-                            )
-                        )
-//                ->add('machines','sonata_type_model_list',array(
-//                    'class'=>'Explotic\TiersBundle\Entity\Machine'
-//                ))
-//                ->add('employesrecruteurs','sonata_type_model_list',array(
-//                    'class'=>'Explotic\TiersBundle\Entity\Recruteur'
-//                ))
-//                ->add('recruteurs','sonata_type_model_list',array(
-//                    'class'=>'Explotic\TiersBundle\Entity\Recruteur'
-//                ))
+                        )   
+//                ->add('bureau','gmaps_address_picker')
             ->end()
             ;
         
     }
+    
+   
 
 }
 

@@ -68,6 +68,9 @@ class Poste extends SiteIntervention
     }
     
     public function __toString() {
-        return $this->getNomChantier().' '.$this->getStagiaire()->getNom().' '.$this->getStagiaire()->getEntreprise()->getRaisonSociale();
+        if(!(null===$this->getNomChantier())&&!(null===$this->getStagiaire())){
+            return $this->getNomChantier().' '.$this->getStagiaire()->getNom().' '.$this->getStagiaire()->getEntreprise()->getRaisonSociale();
+        }
+        return 'Chantier en cours de création';
     }
 }

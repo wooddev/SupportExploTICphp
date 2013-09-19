@@ -52,4 +52,87 @@ class Organisme
     {
         return $this->raisonSociale;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $formateur;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->formateur = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add formateur
+     *
+     * @param \Explotic\TiersBundle\Entity\Formateur $formateur
+     * @return Organisme
+     */
+    public function addFormateur(\Explotic\TiersBundle\Entity\Formateur $formateur)
+    {
+        $this->formateur[] = $formateur;
+    
+        return $this;
+    }
+
+    /**
+     * Remove formateur
+     *
+     * @param \Explotic\TiersBundle\Entity\Formateur $formateur
+     */
+    public function removeFormateur(\Explotic\TiersBundle\Entity\Formateur $formateur)
+    {
+        $this->formateur->removeElement($formateur);
+    }
+
+    /**
+     * Get formateur
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFormateur()
+    {
+        return $this->formateur;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $salles;
+
+
+    /**
+     * Add salles
+     *
+     * @param \Explotic\TiersBundle\Entity\Salle $salles
+     * @return Organisme
+     */
+    public function addSalle(\Explotic\TiersBundle\Entity\Salle $salles)
+    {
+        $this->salles[] = $salles;
+    
+        return $this;
+    }
+
+    /**
+     * Remove salles
+     *
+     * @param \Explotic\TiersBundle\Entity\Salle $salles
+     */
+    public function removeSalle(\Explotic\TiersBundle\Entity\Salle $salles)
+    {
+        $this->salles->removeElement($salles);
+    }
+
+    /**
+     * Get salles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSalles()
+    {
+        return $this->salles;
+    }
 }

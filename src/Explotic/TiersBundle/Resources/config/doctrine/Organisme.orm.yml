@@ -2,6 +2,13 @@ Explotic\TiersBundle\Entity\Organisme:
     type: entity
     table: organisme
     repositoryClass: Explotic\TiersBundle\Entity\OrganismeRepository
+    oneToMany:
+      formateur:
+        targetEntity: Formateur
+        mappedBy: organisme
+      salles:
+        targetEntity: Salle
+        mappedBy: organisme
     fields:
         id:
             type: integer

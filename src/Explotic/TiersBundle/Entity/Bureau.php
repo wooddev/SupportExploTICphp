@@ -36,5 +36,16 @@ class Bureau extends SiteIntervention
     {
         return $this->adresseRue;
     }
+    
+    public function __toString() {
+        if(!(null===$this->adresseRue)&& !(null===$this->getLocalisation())){
+            return $this->adresseRue.', '.$this->getLocalisation()->getCp().', '.$this->getLocalisation()->getCommune();
+        }
+        return 'Bureau en cours de création';
+    }
+    
+    public function getGps(){
+        return 'lat: '.$this->getLocalisation()->getGeometry()->getLat().' - lon: '.$this->getLocalisation()->getGeometry()->getLon();
+    }
 
 }

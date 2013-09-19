@@ -4,47 +4,52 @@
 {% block gmaps_picker_widget %}</pre>
 <div id="gmaps_picker_widget">
 <div id="input">{{ block('form_widget') }}</div>
-<div id="map_canvas" style="width:800px; height:400px"></div>
+<div id="map_canvas"></div>
 </div>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4hT13IYCchS-xzh54W5_fUZv8kad8GOo&sensor=false"></script>
-<script type="text/javascript" src="{{asset('bundles/sonatajquery/jquery-1.8.0.js')}}"></script>
+
 <script type="text/javascript">
-var map;
-function initialize() {
-    var myLatLng = new google.maps.LatLng(44.32,-0.648);
-    var mapOptions = {
-        zoom : 7,
-        center : myLatLng,        
-        mapTypeId : google.maps.MapTypeId.ROADMAP
-        }
-    map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
 
-    google.maps.event.addListener(map, 'click', function(event) {
-      placeMarker(event.latLng);
+$(function(){
+    $('#map_canvas').width("400px").height("400px").gmap3({
+            map:{
+                options:{
+                    center:[44.32, -0.648],
+                    zoom:7,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    mapTypeControl: true,
+                    mapTypeControlOptions: {
+                    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+                    },
+                    navigationControl: true,
+                    scrollwheel: true,
+                    streetViewControl: true
+                },
+                
+                events:{                    
+                    click:function(map, event){
+                                    $(this).gmap3(
+                                        {clear:{last:true}});    
+                                    $(this).gmap3(
+                                        { marker:{
+                                            latLng: event.latLng
+                                          }
+                                        }
+
+                                      );
+                                    // Fonction Jquery qui va remplir les balises lat et lon du formulaire !!!!!
+                                    $('#{{form.lat.vars.id}}').val(event.latLng.lat());
+                                    $('#{{form.lon.vars.id}}').val(event.latLng.lng());
+                                    }
+                    
+                }
+            },
+            marker:{
+            {%if form.lat.vars.value is defined and form.lon.vars.value is defined%}
+               latLng: [{{form.lat.vars.value}}, {{form.lon.vars.value}}]
+            {%endif%}
+            }
     });
-}
-
-var marker;
-function placeMarker(location) {
-    if(marker) {//vérif si le marker existe
-        marker.setPosition(location); // on change sa position
-    }
-    else{
-        marker = new google.maps.Marker({
-            position : location,
-            map : map
-        });
-    
-    map.setCenter(location);    
-    }
-    // Fonction Jquery qui va remplir les balises lat et lon du formulaire !!!!!
-    $('#{{form.lat.vars.id}}').val(location.lat());
-    $('#{{form.lon.vars.id}}').val(location.lng());
-}
-
-
-google.maps.event.addDomListener(window,'load',initialize);
-
+});
 </script>
 
 {% endblock %}
@@ -64,14 +69,14 @@ google.maps.event.addDomListener(window,'load',initialize);
 
 <script type="text/javascript">
 $(function() {
-            var addresspickerMap = $("#{{ form.address.get("id") }}").addresspicker({
+            var addresspickerMap = $("#{{ form.address.vars.id }}").addresspicker({
                 regionBias: "fr",
                 elements: {
                     map: "#{{ id }}_map",
-                    locality: '#{{ form.city.get("id") }}',
-                    postal_code: '#{{form.postalCode.get("id") }}',                                    
-                    lat:      "#{{ form.lat.get("id") }}",
-                    lng:      "#{{ form.lon.get("id") }}"
+                    locality: '#{{ form.city.vars.id }}',
+                    postal_code: '#{{form.postalCode.vars.id }}',                                    
+                    lat:      "#{{ form.lat.vars.id }}",
+                    lng:      "#{{ form.lon.vars.id }}"
                 }
             });
             var gmarker = addresspickerMap.addresspicker("marker");

@@ -18,6 +18,9 @@ Explotic\TiersBundle\Entity\SiteIntervention:
             id: true
             generator:
                 strategy: AUTO
+        commentaires:
+            type: text
+            nullable: true
     inheritanceType: SINGLE_TABLE
     discriminatorColumn:
       name: typeEnfant

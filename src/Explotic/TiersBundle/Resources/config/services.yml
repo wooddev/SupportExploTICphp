@@ -6,32 +6,74 @@ services:
         abstract: true   
         calls:
             - [ setUserManager, [ '@fos_user.user_manager' ] ]
+            - [ setTranslationDomain, [SonataUserBundle] ]
 #            - [ setSecurityContext, [ '@security.context' ] ]
+    explotic_tiers.admin.site_intervention:
+        abstract: true   
+#############################################################################################
     explotic_tiers.admin.gerant:
         class: Explotic\TiersBundle\Admin\GerantAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Profils des gérants }
+            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Profils des gérants, label_catalogue: SonataUserBundle, label_translator_strategy: sonata.admin.label.strategy.underscore }
         arguments: [null, Explotic\TiersBundle\Entity\Gerant, null]        
         parent: explotic_tiers.admin.profil
     explotic_tiers.admin.stagiaire:
         class: Explotic\TiersBundle\Admin\StagiaireAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Profils de stagiaires }
+            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Profils de stagiaires, label_catalogue: SonataUserBundle, label_translator_strategy: sonata.admin.label.strategy.underscore }
         arguments: [null, Explotic\TiersBundle\Entity\Stagiaire, null]        
         parent: explotic_tiers.admin.profil
     explotic_tiers.admin.recruteur:
         class: Explotic\TiersBundle\Admin\RecruteurAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Profils de recruteurs }
+            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Profils de recruteurs ,label_catalogue: SonataUserBundle, label_translator_strategy: sonata.admin.label.strategy.underscore }
         arguments: [null, Explotic\TiersBundle\Entity\Recruteur, null]        
         parent: explotic_tiers.admin.profil
+#############################################################################################    
     explotic_tiers.admin.machine:
         class: Explotic\TiersBundle\Admin\MachineAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Liste des machines }
+            - { name: sonata.admin, manager_type: orm, group: Infos stagiaires, label: Liste des machines }
         arguments: [null, Explotic\TiersBundle\Entity\Machine, null]
     explotic_tiers.admin.entreprise:
         class: Explotic\TiersBundle\Admin\EntrepriseAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Liste des entreprises }
+            - { name: sonata.admin, manager_type: orm, group: Infos stagiaires, label: Liste des entreprises}
         arguments: [null, Explotic\TiersBundle\Entity\Entreprise, null]
+#############################################################################################
+    explotic_tiers.admin.organisme:
+        class: Explotic\TiersBundle\Admin\OrganismeAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des formations, label: Liste des organismes de formation}
+        arguments: [null, Explotic\TiersBundle\Entity\Organisme, null]
+#############################################################################################
+    explotic_tiers.admin.localisation:
+        class: Explotic\TiersBundle\Admin\LocalisationAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false}
+        arguments: [null, Explotic\TiersBundle\Entity\Localisation, null]        
+        
+    explotic_tiers.admin.geometry:
+        class: Explotic\TiersBundle\Admin\GeometryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false}
+        arguments: [null, Explotic\TiersBundle\Entity\Geometry, null]
+#############################################################################################
+    explotic_tiers.admin.bureau:
+        class: Explotic\TiersBundle\Admin\BureauAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des sites d'intervention, label: Liste des bureau}
+        arguments: [null, Explotic\TiersBundle\Entity\Bureau, null]        
+        parent: explotic_tiers.admin.site_intervention
+    explotic_tiers.admin.poste:
+        class: Explotic\TiersBundle\Admin\PosteAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des sites d'intervention, label: Liste des postes }
+        arguments: [null, Explotic\TiersBundle\Entity\Poste, null]       
+        parent: explotic_tiers.admin.site_intervention
+    explotic_tiers.admin.salle:
+        class: Explotic\TiersBundle\Admin\SalleAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Gestion des sites d'intervention, label: Liste des salles }
+        arguments: [null, Explotic\TiersBundle\Entity\Salle, null]       
+        parent: explotic_tiers.admin.site_intervention

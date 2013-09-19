@@ -1,30 +1,31 @@
 <?php
 namespace Explotic\TiersBundle\Admin;
 
+use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+
 /**
- * Description of ProfilAdmin
+ * Description of EntrepriseAdmin
  *
- * @author adarr
+ * @author Adrien Arraiolos
  */
-
-
-class GerantAdmin extends ProfilAdmin
+class PosteAdmin extends SiteInterventionAdmin
 {
-    
-    
-    /**
+        /**
      * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
-        parent::configureListFields($listMapper);
         $listMapper
-                ->add('entreprise')
-            ;
+                ->addIdentifier('nomChantier')
+                ->add('stagiaire')
+        ;
+        parent::configureListFields($listMapper);
+
+        
     }
 
     /**
@@ -32,10 +33,11 @@ class GerantAdmin extends ProfilAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $filterMapper)
     {
-        parent::configureDatagridFilters($filterMapper);
         $filterMapper
-                ->add('entreprise')
-           ;
+                ->add('nomChantier')
+                ->add('stagiaire')
+            ;
+        parent::configureDatagridFilters($filterMapper);
         
     }
 
@@ -43,26 +45,26 @@ class GerantAdmin extends ProfilAdmin
      * {@inheritdoc}
      */
     protected function configureShowFields(ShowMapper $showMapper)
-    {
-        parent::configureShowField($showMapper);
+    {   
         $showMapper
-                ->add('entreprise');
+                ->add('nomChantier')
+                ->add('stagiaire')
+        ;
+        parent::configureShowFields($showMapper);
     }
 
     /**
      * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
-    {
-        parent::configureFormFields($formMapper);
+    {   
         $formMapper
-                ->with('Profile')
-                    ->add('commentaires','textarea')
-                ->end()
-                ;
-
+                ->add('nomChantier')                
+            ;
+        parent::configureFormFields($formMapper);
+        
     }
-    
+
 }
 
 ?>
