@@ -474,6 +474,10 @@
                 <source>form.label_postes</source>
                 <target>Chantiers (sites de déploiement prévus)</target>
             </trans-unit>
+            <trans-unit id="form.label_programmes">
+                <source>form.label_programmes</source>
+                <target>Programme de formation du stagiaire</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

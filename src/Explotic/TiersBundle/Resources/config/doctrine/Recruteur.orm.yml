@@ -6,15 +6,18 @@ Explotic\TiersBundle\Entity\Recruteur:
     employeur:
       targetEntity: Explotic\TiersBundle\Entity\Entreprise
       inversedBy: employesrecruteurs
+      cascade: ["persist"]
   oneToMany:
     stagiaires:
       targetEntity: Explotic\TiersBundle\Entity\Stagiaire
       mappedBy: recruteur
-      nullable: true    
+      nullable: true     
+      cascade: ["persist"]
   manyToMany:
     entreprises:
       targetEntity: Entreprise
-      inversedBy: recruteurs
+      inversedBy: recruteurs      
+      cascade: ["persist"]
       joinTable:
         name: recruteurs_entreprises
         joinColumns:

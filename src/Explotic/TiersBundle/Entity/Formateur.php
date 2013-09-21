@@ -125,4 +125,10 @@ class Formateur extends \Explotic\AdminBundle\Entity\User
     {
         return $this->organisme;
     }
+    
+    public function setSessions(\Doctrine\Common\Collections\ArrayCollection $sessions) {
+        $this->sessions = $sessions;
+    }
+
+
 }

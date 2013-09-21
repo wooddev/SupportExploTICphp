@@ -14,21 +14,31 @@ class GMapsAddressPickerType extends AbstractType
     {
         $transformer = new BureauToGMapsAddressTransformer();
         $builder
-               ->add('address', null, array(
-                    'required'      => true,
-                ))              
-                ->add('city', 'hidden', array(
+                ->add('streetNumber', null, array(
                     'required'      => false,
+                    'attr'=>array('data-geo'=>'street_number')
                 ))
-                ->add('postalCode', 'hidden', array(
+                ->add('route', null, array(
                     'required'      => false,
+                    'attr'=>array('data-geo'=>'route')
                 ))
-                ->add('lat', 'hidden', array(
-                    'required'      => false
+                ->add('city', null, array(
+                    'required'      => false,
+                    'attr'=>array('data-geo'=>'locality')
                 ))
-                ->add('lon', 'hidden', array(
-                    'required'      => false                                  
-            ));
+                ->add('postalCode', null, array(
+                    'required'      => false,
+                    'attr'=>array('data-geo'=>'postal_code')
+                ))
+                ->add('lat', null, array(
+                    'required'      => false,
+                    'attr'=>array('data-geo'=>'lat')
+                ))
+                ->add('lon', null, array(
+                    'required'      => false    ,
+                    'attr'=>array('data-geo'=>'lng')              
+                ))
+                ;
         $builder->addModelTransformer($transformer);
         
     }

@@ -20,5 +20,6 @@ Explotic\TiersBundle\Entity\Localisation:
             length: 255
         cp:
             type: string
-            length: 255       
+            length: 255    
+            nullable: true
     lifecycleCallbacks: {  }

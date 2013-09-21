@@ -1,5 +1,5 @@
 <?php
-namespace Explotic\TiersBundle\Admin;
+namespace Explotic\FormationBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -13,7 +13,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
  */
 
 
-class BureauAdmin extends SiteInterventionAdmin{
+class InterventionAdmin extends Admin{
     
     
     /**
@@ -23,9 +23,9 @@ class BureauAdmin extends SiteInterventionAdmin{
     {
         
         $listMapper
-                ->add('adresseRue')
+                ->add('nom')
+                ->add('dureeJour')                          
             ;
-        parent::configureListFields($listMapper);
     }
 
 
@@ -35,23 +35,22 @@ class BureauAdmin extends SiteInterventionAdmin{
      */
     protected function configureShowFields(ShowMapper $showMapper)
     {
-        
         $showMapper
-                ->add('adresseRue')
+                ->add('nom')
+                ->add('dureeJour')                
         ;
-        parent::configureShowFields($showMapper);
     }
 
     /**
      * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
-    {        
+    {
         $formMapper
-                ->add('adresseRue')                
+                ->add('nom')                
+                ->add('dureeJour','number')                
+                
         ;
-        parent::configureFormFields($formMapper);
-
 
     }
     

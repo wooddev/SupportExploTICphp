@@ -7,10 +7,12 @@ Explotic\FormationBundle\Entity\Module:
         targetEntity: InterventionSalle
         mappedBy: module
         cascade: ["persist"]
+        nullable: true
       interventionEntreprises:
         targetEntity: InterventionEntreprise
         mappedBy: module
         cascade: ["persist"]
+        nullable: true
       programmes:
         targetEntity: Programme
         mappedBy: module

@@ -9,5 +9,5 @@ Explotic\FormationBundle\Entity\InterventionEntreprise:
     fields:
       stade:
         type: string
-        columnDefinition: ENUM("préparatoire","accompagnement","validation")
+        length: 255
     lifecycleCallbacks: {  }

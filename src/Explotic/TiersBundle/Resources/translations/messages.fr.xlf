@@ -15,8 +15,32 @@
                 <target>Code Postal</target>
             </trans-unit>
             <trans-unit id="nom_chantier">
-                <source>Nom Chantier</source>
+                <source>NomChantier</source>
                 <target>Nom du chantier</target>
+            </trans-unit>
+            <trans-unit id="address_bureau">
+                <source>Address</source>
+                <target>Adresse</target>
+            </trans-unit>
+            <trans-unit id="type_address">
+                <source>Type in an address</source>
+                <target>Rechercher une adresse</target>
+            </trans-unit>
+            <trans-unit id="street_number">
+                <source>Street number</source>
+                <target>N°</target>
+            </trans-unit>
+            <trans-unit id="route">
+                <source>Route</source>
+                <target>Rue</target>
+            </trans-unit>
+            <trans-unit id="city">
+                <source>City</source>
+                <target>Ville</target>
+            </trans-unit>
+            <trans-unit id="postal_code">
+                <source>Postal code</source>
+                <target>Code Postal</target>
             </trans-unit>
         </body>
     </file>

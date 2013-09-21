@@ -353,4 +353,9 @@ class Machine
     public function __toString(){
         return 'N°'.$this->numeroEntreprise.' '.$this->marque.' '.$this->modele;
     }
+    public function setStagiaires(\Doctrine\Common\Collections\Collection $stagiaires) {
+        $this->stagiaires = $stagiaires;
+    }
+
+
 }

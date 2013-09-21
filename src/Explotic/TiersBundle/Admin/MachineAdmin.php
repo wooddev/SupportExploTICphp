@@ -93,9 +93,21 @@ class MachineAdmin extends Admin{
                                 'required'=>false,))
                 ->add('email','email', array(
                                 'required'=>false,))
-                ->add('entreprise','sonata_type_model_list')
         ;
 
+    }
+    
+    public function prePersist($object) {
+        parent::prePersist($object);
+        if(!$object->getStagiaires()->isEmpty()){
+            $object->setEntreprise($object->getStagiaires()->last()->getEntreprise());
+        }
+    }
+    public function preUpdate($object) {
+        parent::preUpdate($object);
+        if(!$object->getStagiaires()->isEmpty()){
+            $object->setEntreprise($object->getStagiaires()->last()->getEntreprise());
+        }
     }
     
 }

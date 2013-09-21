@@ -2,8 +2,14 @@ Explotic\TiersBundle\Entity\Bureau:
     type: entity
     table: null
     repositoryClass: Explotic\TiersBundle\Entity\BureauRepository
-    fields:        
+    oneToOne:
+      entreprise:
+        targetEntity: Entreprise
+        inversedBy: bureau        
+    fields:  
+        adresseNumero:
+            type: integer
         adresseRue:
             type: string
-            length: 255
+            length: 255         
     lifecycleCallbacks: {  }

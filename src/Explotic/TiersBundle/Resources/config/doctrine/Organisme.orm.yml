@@ -6,9 +6,11 @@ Explotic\TiersBundle\Entity\Organisme:
       formateur:
         targetEntity: Formateur
         mappedBy: organisme
+        cascade: ["persist"]
       salles:
         targetEntity: Salle
         mappedBy: organisme
+        cascade: ["persist","remove"]
     fields:
         id:
             type: integer

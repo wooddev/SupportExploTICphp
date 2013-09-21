@@ -120,6 +120,9 @@ sonata_admin:
         # permission related to the objects
         object_permissions: [VIEW, EDIT, DELETE, UNDELETE, OPERATOR, MASTER, OWNER]
         
+sonata_doctrine_orm_admin:
+    templates:
+        form: [ExploticAdminBundle:Form:form_admin_fields.html.twig]
 sonata_block:
     default_contexts: [cms]
     blocks:

@@ -124,5 +124,15 @@ class Recruteur extends \Explotic\AdminBundle\Entity\User
         return $this->entreprises;
     }       
 
+    
+    public function setStagiaires(\Doctrine\Common\Collections\Collection $stagiaires) {
+        $this->stagiaires = $stagiaires;
+    }
+
+    public function setEntreprises(\Doctrine\Common\Collections\Collection $entreprises) {
+        $this->entreprises = $entreprises;
+    }
+
+
 
 }

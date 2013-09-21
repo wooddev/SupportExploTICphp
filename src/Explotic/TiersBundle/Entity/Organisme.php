@@ -135,4 +135,14 @@ class Organisme
     {
         return $this->salles;
     }
+    
+    public function setFormateur(\Doctrine\Common\Collections\Collection $formateur) {
+        $this->formateur = $formateur;
+    }
+
+    public function setSalles(\Doctrine\Common\Collections\Collection $salles) {
+        $this->salles = $salles;
+    }
+
+
 }

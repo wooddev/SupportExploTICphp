@@ -96,7 +96,24 @@ class EntrepriseAdmin extends Admin
     }
     
    
-
+    public function prePersist($object) {
+        parent::prePersist($object);
+        if($object->getBureau()){
+            $object->getBureau()->setEntreprise($object);
+        }
+        if($object->getGerant()){
+            $object->getGerant()->setEntreprise($object);
+        }
+    }
+    public function preUpdate($object) {
+        parent::preUpdate($object);
+        if($object->getBureau()){
+            $object->getBureau()->setEntreprise($object);
+        }
+        if($object->getGerant()){
+            $object->getGerant()->setEntreprise($object);
+        }
+    }
 }
 
 ?>

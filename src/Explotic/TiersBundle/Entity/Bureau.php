@@ -48,4 +48,62 @@ class Bureau extends SiteIntervention
         return 'lat: '.$this->getLocalisation()->getGeometry()->getLat().' - lon: '.$this->getLocalisation()->getGeometry()->getLon();
     }
 
+    /**
+     * @var integer
+     */
+    private $adresseNumero;
+
+
+    /**
+     * Set adresseNumero
+     *
+     * @param integer $adresseNumero
+     * @return Bureau
+     */
+    public function setAdresseNumero($adresseNumero)
+    {
+        $this->adresseNumero = $adresseNumero;
+    
+        return $this;
+    }
+
+    /**
+     * Get adresseNumero
+     *
+     * @return integer 
+     */
+    public function getAdresseNumero()
+    {
+        return $this->adresseNumero;
+    }   
+
+
+    /**
+     * @var \Explotic\TiersBundle\Entity\Entreprise
+     */
+    private $entreprise;
+
+
+    /**
+     * Set entreprise
+     *
+     * @param \Explotic\TiersBundle\Entity\Entreprise $entreprise
+     * @return Bureau
+     */
+    public function setEntreprise(\Explotic\TiersBundle\Entity\Entreprise $entreprise = null)
+    {
+        $this->entreprise = $entreprise;
+    
+        return $this;
+    }
+
+    /**
+     * Get entreprise
+     *
+     * @return \Explotic\TiersBundle\Entity\Entreprise 
+     */
+    public function getEntreprise()
+    {
+        return $this->entreprise;
+    }
 }

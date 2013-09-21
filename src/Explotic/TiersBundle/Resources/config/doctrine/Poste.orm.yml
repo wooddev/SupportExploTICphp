@@ -6,6 +6,7 @@ Explotic\TiersBundle\Entity\Poste:
       stagiaire:
         targetEntity: Stagiaire
         inversedBy: postes
+        cascade: ["persist"]
     fields:
         nomChantier:
             type: string

@@ -543,4 +543,22 @@ class Entreprise
     {
         return $this->email;
     }
+    
+    public function setStagiaires(\Doctrine\Common\Collections\Collection $stagiaires) {
+        $this->stagiaires = $stagiaires;
+    }
+
+    public function setMachines(\Doctrine\Common\Collections\Collection $machines) {
+        $this->machines = $machines;
+    }
+
+    public function setEmployesrecruteurs(\Doctrine\Common\Collections\Collection $employesrecruteurs) {
+        $this->employesrecruteurs = $employesrecruteurs;
+    }
+
+    public function setRecruteurs(\Doctrine\Common\Collections\Collection $recruteurs) {
+        $this->recruteurs = $recruteurs;
+    }
+
+
 }

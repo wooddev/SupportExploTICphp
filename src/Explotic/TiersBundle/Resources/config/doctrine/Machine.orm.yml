@@ -6,11 +6,13 @@ Explotic\TiersBundle\Entity\Machine:
       entreprise:
         targetEntity: Explotic\TiersBundle\Entity\Entreprise
         inversedBy: machines
+        cascade: ["persist"]
     oneToMany:
       stagiaires:
         targetEntity: Explotic\TiersBundle\Entity\Stagiaire
         mappedBy: machine
         nullable: true
+        cascade: ["persist"]   
     fields:
         id:
             type: integer

@@ -6,30 +6,39 @@ Explotic\TiersBundle\Entity\Entreprise:
       gerant:
         targetEntity: Explotic\TiersBundle\Entity\Gerant
         inversedBy: entreprise
+        cascade: ["persist"]        
+        orphanRemoval: true
       bureau:
         targetEntity: Explotic\TiersBundle\Entity\Bureau
+        mappedBy: entreprise
         joinColumn:
           name: bureau_id
           referencedColumnName: id
-        cascade: ["persist"]
+        cascade: ["all"]        
+        orphanRemoval: true
     oneToMany:
       stagiaires:
         targetEntity: Stagiaire
         mappedBy: entreprise
         nullable: true
+        cascade: ["persist"]
       machines:
         targetEntity: Machine
         mappedBy: entreprise
         nullable: true
+        cascade: ["persist"]        
+        orphanRemoval: true
       employesrecruteurs:
         targetEntity: Explotic\TiersBundle\Entity\Recruteur
         mappedBy: employeur
         nullable: true
+        cascade: ["persist"]
     manyToMany:
       recruteurs:
         targetEntity: Recruteur
         mappedBy: entreprises
         nullable: true
+        cascade: ["persist"]
     fields:
         id:
             type: integer

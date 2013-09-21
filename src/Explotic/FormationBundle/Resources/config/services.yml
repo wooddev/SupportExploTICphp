@@ -2,8 +2,29 @@ parameters:
 #    explotic_formation.example.class: Explotic\FormationBundle\Example
 
 services:
-#    explotic_tiers.admin.programme:
-#        class: Explotic\ProgrammeAdmin\Admin\ProgrammeAdmin
-#        tags:
-#            - { name: sonata.admin, manager_type: orm, group: Gestion des programmes, label: Liste des programmes}
-#        arguments: [null, Explotic\TiersBundle\Entity\Programme, null]
+    explotic_formation.admin.programme:
+        class:      Explotic\FormationBundle\Admin\ProgrammeAdmin
+        tags:
+                    - { name: sonata.admin, manager_type: orm, group: Gestion des formations, label: Liste des programmes}
+        arguments:  [null, Explotic\FormationBundle\Entity\Programme, null]
+        
+    explotic_formation.admin.module:
+        class:      Explotic\FormationBundle\Admin\ModuleAdmin
+        tags:
+                    - { name: sonata.admin, manager_type: orm, group: Gestion des formations, label: Liste des modules de formation}
+        arguments:  [null, Explotic\FormationBundle\Entity\Module, null]
+        
+    explotic_formation.admin.intervention:
+        abstract:   true
+    explotic_formation.admin.intervention_salle:
+        class:      Explotic\FormationBundle\Admin\InterventionSalleAdmin
+        tags:
+                    - { name: sonata.admin, manager_type: orm, group: Gestion des formations, label: Liste des interventions en salle}
+        arguments:  [null, Explotic\FormationBundle\Entity\InterventionSalle, null]
+        parent:     explotic_formation.admin.intervention
+    explotic_formation.admin.intervention_entreprise:
+        class:      Explotic\FormationBundle\Admin\InterventionEntrepriseAdmin
+        tags:
+                    - { name: sonata.admin, manager_type: orm, group: Gestion des formations, label: Liste des interventions en entreprise}
+        arguments:  [null, Explotic\FormationBundle\Entity\InterventionEntreprise, null]
+        parent:     explotic_formation.admin.intervention

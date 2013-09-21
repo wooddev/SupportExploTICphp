@@ -59,7 +59,7 @@ class PosteAdmin extends SiteInterventionAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {   
         $formMapper
-                ->add('nomChantier')                
+                ->add('nomChantier','text',array('label'=>"Nom du chantier"))                
             ;
         parent::configureFormFields($formMapper);
         

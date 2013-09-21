@@ -29,7 +29,8 @@ class BureauToGMapsAddressTransformer implements DataTransformerInterface
         $gmapsAddress->setPostalCode($bureau->getLocalisation()->getCp());
         $gmapsAddress->setLat($bureau->getLocalisation()->getGeometry()->getLat());
         $gmapsAddress->setLon($bureau->getLocalisation()->getGeometry()->getLon());
-        $gmapsAddress->setStreet($bureau->getAdresseRue());
+        $gmapsAddress->setRoute($bureau->getAdresseRue());
+        $gmapsAddress->setStreetNumber($bureau->getAdresseNumero());
         $gmapsAddress->autoAddress();
         return $gmapsAddress;
     }
@@ -59,8 +60,8 @@ class BureauToGMapsAddressTransformer implements DataTransformerInterface
             $localisation->setCp($gmapsAddress->getPostalCode());
             $localisation->setGeometry($geometry);
             $bureau->setlocalisation($localisation);
-            $bureau->setAdresseRue($gmapsAddress->getStreet());
-            
+            $bureau->setAdresseNumero($gmapsAddress->getStreetNumber());
+            $bureau->setAdresseRue($gmapsAddress->getRoute());
         }
         catch(Exception $e){
             throw new TransformationFailedException(sprintf(

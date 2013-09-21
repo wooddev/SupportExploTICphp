@@ -239,7 +239,19 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
     {
         return $this->postes;
     }
-    
+    public function setSessions(\Doctrine\Common\Collections\ArrayCollection $sessions) {
+        $this->sessions = $sessions;
+    }
+
+    public function setPostes(\Doctrine\Common\Collections\Collection $postes) {
+        $this->postes = $postes;
+    }
+
+    public function setProgrammes(\Doctrine\Common\Collections\Collection $programmes) {
+        $this->programmes = $programmes;
+    }
+
+        
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
