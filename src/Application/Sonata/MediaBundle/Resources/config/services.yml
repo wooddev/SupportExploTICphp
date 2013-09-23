@@ -1,0 +1,8 @@
+parameters:
+#    explotic_admin.example.class: Explotic\AdminBundle\Example
+
+services:
+    application.gallery_access:
+        class: Application\Sonata\MediaBundle\Services\GalleryAccess
+        arguments: ['@doctrine.orm.entity_manager','@security.context']
+

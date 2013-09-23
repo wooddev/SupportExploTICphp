@@ -1,0 +1,4 @@
+
+my_media_show:
+    pattern: /contenu/show/{id}
+    defaults: {_controller: "ApplicationSonataMediaBundle:Media:show"}

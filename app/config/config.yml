@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: "@ExploticMainBundle/Resources/config/services.yml" } 
+    - { resource: "@ApplicationSonataMediaBundle/Resources/config/services.yml" } 
       
 
 framework:

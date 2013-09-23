@@ -10,3 +10,4 @@ services:
     explotic_admin.user.access_control:
         class: Explotic\AdminBundle\Services\UserAccessControl
         arguments: ['@doctrine.orm.entity_manager','@security.context']
+        

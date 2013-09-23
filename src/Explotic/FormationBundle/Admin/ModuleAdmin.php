@@ -23,7 +23,8 @@ class ModuleAdmin extends Admin{
     {
         
         $listMapper
-                ->addIdentifier('nom')             
+                ->addIdentifier('reference')  
+                ->add('nom')
             ;
     }
 
@@ -46,6 +47,7 @@ class ModuleAdmin extends Admin{
     {
         $formMapper
                 ->with('Informations générales')
+                ->add("reference")
                 ->add('nom')
                 ->add('tarif',"money")
                 ->add('tarifplein','money')

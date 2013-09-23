@@ -1,0 +1,12 @@
+{%extends '::explotic.html.twig'%}
+
+{%block body%}
+<div class="navbar navbar-inverse" id="nav">    
+    <div class="navbar-inner">
+            {{knp_menu_render('ApplicationSonataMediaBundle:Builder:mainMenu',{'allow_safe_labels':true})}}        
+    </div>
+</div>
+    
+
+
+{%endblock%}

@@ -112,5 +112,37 @@ class Gallery extends BaseGallery
         return $this->parent;
     }
 
+   
+
+    /**
+     * @var string
+     */
+    private $authorization;
+
+    
+
+    /**
+     * Set authorization
+     *
+     * @param string $authorization
+     * @return Gallery
+     */
+    public function setAuthorization($authorization)
+    {
+        $this->authorization = $authorization;
+    
+        return $this;
+    }
+
+    /**
+     * Get authorization
+     *
+     * @return string 
+     */
+    public function getAuthorization()
+    {
+        return $this->authorization;
+    }
+
     
 }

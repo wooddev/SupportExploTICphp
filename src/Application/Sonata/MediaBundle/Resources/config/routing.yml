@@ -1,0 +1,7 @@
+my_gallery:
+    resource: "@ApplicationSonataMediaBundle/Resources/config/routing/gallery.yml"
+    prefix:   /documentation
+    
+my_media:
+    resource: "@ApplicationSonataMediaBundle/Resources/config/routing/media.yml"
+    prefix:   /documentation

@@ -41,7 +41,7 @@ class StagiaireController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);
-        $this->get('explotic_admin.user.acess_control')->ControlAccessToUser($entity);
+        $this->get('explotic_admin.user.access_control')->controlAccessToUser($entity);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Stagiaire entity.');
         }       
@@ -116,7 +116,7 @@ class StagiaireController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);
-        $this->get('explotic_admin.user.acess_control')->ControlAccessToUser($entity);
+        $this->get('explotic_admin.user.acess_control')->controlAccessToUser($entity);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Stagiaire entity.');
         }
@@ -140,7 +140,7 @@ class StagiaireController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);
-        $this->get('explotic_admin.user.acess_control')->ControlAccessToUser($entity);
+        $this->get('explotic_admin.user.acess_control')->controlAccessToUser($entity);
         
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Stagiaire entity.');
@@ -168,7 +168,7 @@ class StagiaireController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $stagiaire = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);      
-        $this->get('explotic_admin.user.acess_control')->ControlAccessToUser($stagiaire);
+        $this->get('explotic_admin.user.acess_control')->controlAccessToUser($stagiaire);
         if (!$stagiaire) {
             throw $this->createNotFoundException('Unable to find Stagiaire entity.');
         }
@@ -191,7 +191,7 @@ class StagiaireController extends Controller
         $em = $this->getDoctrine()->getManager();
         $stagiaire = $em->getRepository('ExploticTiersBundle:Stagiaire')->find($id);   
         
-        $this->get('explotic_admin.user.acess_control')->ControlAccessToUser($stagiaire);
+        $this->get('explotic_admin.user.acess_control')->controlAccessToUser($stagiaire);
         
         if (!$stagiaire) {
             throw $this->createNotFoundException('Unable to find Stagiaire entity.');

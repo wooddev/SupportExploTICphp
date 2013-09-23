@@ -1,0 +1,24 @@
+{%extends '::explotic.html.twig'%}
+
+{%block body%}
+    <div class="navbar navbar-inverse " id="nav">    
+        <div class="navbar-inner">
+                {{knp_menu_render('ApplicationSonataMediaBundle:Builder:mainMenu',{'allow_safe_labels':true})}}        
+        </div>
+    </div>
+<div class="well">
+
+        <ul class='nav nav-list'>
+            <li class='nav-header'>
+                <i class='icon-th'></i>
+                {{gallery.name}}
+            </li>
+            <ul class='nav nav-list'>               
+                {% include 'ApplicationSonataMediaBundle:Gallery:medias_tree.html.twig' with {'gallery':gallery} %}
+                {%include 'ApplicationSonataMediaBundle:Gallery:subgalleries_tree.html.twig' with {'gallery':gallery} %}
+            </ul>
+            
+            
+        </ul>                   
+</div>
+{%endblock%}

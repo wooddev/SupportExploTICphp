@@ -27,7 +27,10 @@ class GalleryAdmin extends ParentGalleryAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         parent::configureFormFields($formMapper);
-        $formMapper->add('parent','sonata_type_model_list',array('required' => false));
+        $formMapper
+                ->add('parent','sonata_type_model_list',array('required' => false))
+                ->add('authorization')
+            ;
     }
 
     /**

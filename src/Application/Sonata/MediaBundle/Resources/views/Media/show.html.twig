@@ -1,0 +1,30 @@
+{%extends '::explotic.html.twig'%}
+
+{%block body%}
+<div class="navbar navbar-inverse" id="nav">    
+    <div class="navbar-inner">
+            {{knp_menu_render('ApplicationSonataMediaBundle:Builder:mainMenu',{'allow_safe_labels':true})}}
+        
+    </div>
+</div>
+<div class='top-bar'>
+    <h3>{{media.name}}</h3>
+</div>
+<div class="well">
+    <p>{{media.description}}</p>
+    <ul> 
+    <li>Taille : {{ media.size }} Mo</li>
+    <li>Type de contenu : {{ media.contenttype }}</li>
+    <li>Copyright : {{ media.copyright }}</li>
+    <li>Auteur : {{ media.authorname }}</li>
+    </ul>
+    
+    <p>
+    {% media media, 'big'%}
+    </p>
+        
+    
+    <a href='{{path('sonata_media_download', {'id':media.id}) }}' class='btn btn-large'><i class='icon-cloud-download'></i>Télécharger</a>
+                  
+</div>
+{%endblock%}

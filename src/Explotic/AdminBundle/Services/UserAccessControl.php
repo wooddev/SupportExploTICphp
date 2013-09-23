@@ -8,7 +8,7 @@ namespace Explotic\AdminBundle\Services;
 /**
  * Description of UserAccesControl
  *
- * @author Grumpf
+ * @author adrien
  */
 class UserAccessControl 
 {   
@@ -20,12 +20,20 @@ class UserAccessControl
     public function __construct(\Doctrine\ORM\EntityManager $em,
                                 \Symfony\Component\Security\Core\SecurityContext $securityContext) 
     {
-        $this->em=$em;
-        $this->securityContext = $securityContext;        
-        $this->user = $securityContext->getToken()->getUser();
+        $this->securityContext=$securityContext;
+        if( is_object($this->securityContext->getToken())){
+           $user = $this->securityContext->getToken()->getUser();        
+            if(! is_object($user))
+            {
+               // throw new \Exception('Veuillez vous authentifier');          
+            }else{ 
+                $this->user=$user;
+            }
+        }
+        $this->em  = $em;
     }
     
-    public function ControlAccessToUser($givenUser){
+    public function controlAccessToUser($givenUser){
         
         // si current_user == given_user
         if($this->user->getId() == $givenUser->getId()){
@@ -147,7 +155,7 @@ class UserAccessControl
         $sessions = $this->em->getRepository('ExploticPlanningBundle:Session')->findByCalendrier($agenda);
         
         if(!stagiaires){ //On a récupéré un stagiaire
-            $this->ControlAccessToUser($stagiaires[0]);
+            $this->controlAccessToUser($stagiaires[0]);
         }
         if(!formateurs){                //On a récupéré un formateur   
             if($this->user->getId() == $formateurs[0]->getId()){
@@ -160,12 +168,33 @@ class UserAccessControl
         throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Accès non autorisé');        
     }
     
-    public function ControlAcessToEditAgenda($agenda){
+    public function controlAcessToEditAgenda($agenda){
         $this->controlAccessToShowAgenda($agenda);
         if($this->securityContext->isGranted('ROLE_ADMIN')){
             return true;
         }
         throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Accès non autorisé');        
+    }
+    
+    public function controlAccessToGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery){
+        if($this->securityContext->isGranted('ROLE_ADMIN')){
+            return true;
+        }
+        if($this->securityContext->isGranted('ROLE_FORMATEUR')){
+            return true;
+        }
+        if($this->securityContext->isGranted('ROLE_RECRUTEUR')){
+            return true;
+        }
+        if($this->securityContext->isGranted('ROLE_STAGIARE')){      
+            $user = $this->securityContext->getToken()->getUser();
+            if($user->getProgrammes()->getModule()->getReference==$gallery->getAuthorization()){
+                return true;
+            }
+            return false;        
+
+        }
+        return false;
     }
     
     

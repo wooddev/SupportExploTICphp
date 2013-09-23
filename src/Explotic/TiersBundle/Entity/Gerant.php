@@ -9,6 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Gerant extends \Explotic\AdminBundle\Entity\User
 {    
+    
+    public function __construct() {
+        parent::__construct();
+        $this->addRole('ROLE_GERANT');
+    }
     private $commentaires;
     
     public function getCommentaires() {

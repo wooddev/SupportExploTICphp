@@ -103,27 +103,31 @@ class StagiaireAdmin extends \Explotic\TiersBundle\Admin\ProfilAdmin
         
     }
     
-    public function prePersist($object) {
-        parent::prePersist($object);
+    public function prePersist($user) {
+        parent::prePersist($user);      
+        foreach($user->getPostes() as $poste){
+            $poste->setStagiaire($user);
+        }
+        $user->setPostes($user->getPostes());
+        foreach($user->getProgrammes() as $prog){
+            $prog->setStagiaire($user);
+        }
+        $user->setProgrammes($user->getProgrammes());
         
-        foreach($object->getPostes() as $poste){
-            $poste->setStagiaire($object);
+        if($user->getMachine()){                 
+            $user->getMachine()->addStagiaire($user);
+            $user->getMachine()->setEntreprise($user->getEntreprise());
+            $user->setMachine($user->getMachine());
         }
-        $object->setStagiaires($object->getStagiaires());
-        foreach($object->getProgrammes as $prog){
-            $prog->setStagiaire($object);
-        }
-        $object->setProgrammes($object->getProgrammes());
-        if($object->getMachine()){                 
-            $object->getMachine()->addStagiaire($object);
-            $object->setMachine($object->getMachine());
-        }
-        if($object->getEntreprise()){
-            $object->getEntreprise()->addStagiaire($object);
-            $object->setEntreprise($object->getEntreprise());
+        if($user->getEntreprise()){
+            $user->getEntreprise()->addStagiaire($user); 
+            if($user->getMachine()){ 
+                $user->getEntreprise()->addMachine($user->getMachine());
+            }
+            $user->setEntreprise($user->getEntreprise());
         }
     }
-    public function preUpdate($user) {
+    public function preUpdate( $user) {
         parent::preUpdate($user);
         
         foreach($user->getPostes() as $poste){
@@ -134,12 +138,19 @@ class StagiaireAdmin extends \Explotic\TiersBundle\Admin\ProfilAdmin
             $prog->setStagiaire($user);
         }
         $user->setProgrammes($user->getProgrammes());
+        
         if($user->getMachine()){                 
             $user->getMachine()->addStagiaire($user);
+            if($user->getEntreprise()){
+                $user->getMachine()->setEntreprise($user->getEntreprise());  
+            }
             $user->setMachine($user->getMachine());
         }
         if($user->getEntreprise()){
             $user->getEntreprise()->addStagiaire($user);
+            if($user->getMachine()){ 
+                $user->getEntreprise()->addMachine($user->getMachine());
+            }
             $user->setEntreprise($user->getEntreprise());
         }
     }

@@ -1,0 +1,6 @@
+my_gallery_homepage:
+    pattern:  /dossier
+    defaults: { _controller: "ApplicationSonataMediaBundle:Main:mediaHomepage" }
+my_gallery_show:
+    pattern: /dossier/show/{id}
+    defaults: {_controller: "ApplicationSonataMediaBundle:Gallery:show"}

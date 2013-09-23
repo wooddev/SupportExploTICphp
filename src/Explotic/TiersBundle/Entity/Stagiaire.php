@@ -50,7 +50,8 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
      * Constructor
      */
     public function __construct()
-    {   parent::__construct();
+    {   parent::__construct();    
+        $this->addRole('ROLE_STAGIAIRE');
         $this->sessions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->postes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->programmes = new \Doctrine\Common\Collections\ArrayCollection();

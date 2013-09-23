@@ -23,6 +23,9 @@ Explotic\FormationBundle\Entity\Module:
             id: true
             generator:
                 strategy: AUTO
+        reference:
+            type: string
+            length: 255            
         nom:
             type: string
             length: 255

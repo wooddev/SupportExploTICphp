@@ -10,13 +10,12 @@
     -->
     <entity
         name="Application\Sonata\MediaBundle\Entity\Gallery"
-        table="media__gallery"
-        >
+        table="media__gallery">
         <one-to-many field="children" target-entity="Gallery" mapped-by="parent" nullable="true"/>
         <many-to-one field="parent" target-entity="Gallery" inversed-by="children" nullable="true"/>        
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
-
+        <field name="authorization" type="string" />        
     </entity>
 </doctrine-mapping>

@@ -264,4 +264,32 @@ class Module
     {
         return $this->tarifplein;
     }
+    /**
+     * @var string
+     */
+    private $reference;
+
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     * @return Module
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+    
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string 
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
 }

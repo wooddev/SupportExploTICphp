@@ -1,10 +1,10 @@
 body{
     padding-top: 50px;
+    font-size: 14px;
 }
 body { padding-top: 50px; }                
 .logos img {max-height: 80px;}
 .top-bar h3 {font-size: 115%;}
-.well {font-size: 112%}
 .chosen-container-single .chosen-single, .chosen-container .chosen-choices{
     background-image: none;
 }
@@ -17,5 +17,18 @@ label{
 }
 
 .well{
+    font-size: 90%;
     background-color: #FFF ;
+}
+
+.nav-header{
+    font-size : 1.00em;
+    line-height: 24px;    
+    margin-left: -15px;
+    margin-right: -15px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.padding-bottom{
+    padding: 0 0 25px 0;
 }
