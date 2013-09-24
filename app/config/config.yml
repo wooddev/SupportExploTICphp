@@ -2,6 +2,8 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: '@TransferMainBundle/Resources/config/services.yml' }
+    - { resource: sonata_news.yml }
+    - { resource: sonata_formatter.yml }
 
 framework:
     #esi:             ~
@@ -29,6 +31,8 @@ twig:
     form:
       resources:
         - form_div_layout.html.twig
+        - SonataAdminBundle:Form:silex_form_div_layout.html.twig
+        - SonataFormatterBundle:Form:formatter.html.twig
 
 # Assetic Configuration
 assetic:
@@ -56,7 +60,7 @@ doctrine:
         mapping_types:
           enum: string
         types:
-            json: "Sonata\Doctrine\Types\JsonType"
+            json: Sonata\Doctrine\Types\JsonType
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         entity_managers:
@@ -66,6 +70,9 @@ doctrine:
                     FOSUserBundle: ~
                     SonataUserBundle: ~
                     ApplicationSonataUserBundle: ~
+                    SonataMediaBundle: ~
+                    ApplicationSonataMediaBundle: ~
+                    SonataNewsBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -81,9 +88,9 @@ swiftmailer:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: Transfer\MainBundle\Entity\User
+    user_class: Application\Sonata\UserBundle\Entity\User
     group:
-      group_class: Transfer\MainBundle\Entity\Group
+      group_class: Application\Sonata\UserBundle\Group
     profile:
         form:
             type:     fos_user.profile
@@ -147,8 +154,8 @@ sonata_block:
 sonata_user:
     security_acl:     true
     class:
-        user:         Transfer\MainBundle\Entity\User
-        group:         Transfer\MainBundle\Entity\Group
+        user:         Application\Sonata\UserBundle\Entity\User
+        group:        Application\Sonata\UserBundle\Entity\Group
     admin:                  # Admin Classes
         user:
             class:          Sonata\UserBundle\Admin\Entity\UserAdmin
@@ -165,3 +172,43 @@ sonata_user:
             handler:            sonata.user.profile.form.handler.default
             name:               sonata_user_profile_form
             validation_groups:  [Profile]
+
+sonata_media:
+    # if you don't use default namespace configuration
+    #class:
+    #    media: MyVendor\MediaBundle\Entity\Media
+    #    gallery: MyVendor\MediaBundle\Entity\Gallery
+    #    gallery_has_media: MyVendor\MediaBundle\Entity\GalleryHasMedia
+    default_context: default
+    db_driver: doctrine_orm   
+    # or doctrine_mongodb, doctrine_phpcr
+    contexts:        
+        default:  
+        # the default context is mandatory
+            providers:
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+            formats:
+                small: { width: 100 , quality: 70}
+                big:   { width: 500 , quality: 70}
+    
+        news:
+            providers:
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+            formats:
+                small: { width: 150 , quality: 95}
+                big:   { width: 500 , quality: 90} 
+                
+    cdn:
+        server:
+            path: /uploads/media 
+            # http://media.sonata-project.org/
+
+    filesystem:
+        local:
+            directory:  %kernel.root_dir%/../web/uploads/media
+            create:     false

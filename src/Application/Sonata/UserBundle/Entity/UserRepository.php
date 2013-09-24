@@ -1,6 +1,7 @@
 <?php
 
-namespace Transfer\MainBundle\Entity;
+
+namespace Application\Sonata\UserBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

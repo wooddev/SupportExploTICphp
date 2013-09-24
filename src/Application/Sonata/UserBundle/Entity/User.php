@@ -37,4 +37,24 @@ class User extends BaseUser
     {
         return $this->id;
     }
+    
+
+    protected static $roles_const = array();
+    
+    public function __construct() {
+        parent::__construct();
+        $this->setEnabled(true);    
+    }
+    
+    public function prePersistAction(){        
+        if(is_array(static::$roles_const)){ 
+            $roles = static::$roles_const;
+            foreach( $roles as $role){
+                $this->addRole($role);                
+            }
+        }
+        
+    }
+
+
 }

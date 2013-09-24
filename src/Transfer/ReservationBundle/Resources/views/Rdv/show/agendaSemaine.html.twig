@@ -2,91 +2,105 @@
 {%block body%}
     <div {{ block('widget_container_attributes') }}>    
         <style type=text/css>
-         div.agenda{
-             float:left;
-             width:100%;
-             margin: 35px 0;
-             font-family: Arial;
-             font-size: 1em;
-         }
+div.agenda{
+    /*float:left;*/
+    width:100%;
+    margin: 35px 0;
+    font-family: 'Segoe UI Light', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    text-shadow: none;
+    font-weight: 200;
+    font-size:  1.1em;
+    line-height: 16pt;
+}
 
-         div.agenda-header{
-             font-size:14px;
-         }
-         div.annee {
-             float: none;
-             display: left; 
-             width:100%;
-         }
+div.agenda-header{
+    font-size:14px;
+}
+div.annee {
+    float: none;
+    display: left; 
+    width:100%;
+}
 
-         div.semaine{
-             width:100%;
-             float: left;
-             display: left;
-         }
-         div.jour-container{
-             float: left;
-             width:100%;
-             
-         }   
+div.semaine{
+    width:100%;
+   /* float: left;*/
+    display: left;
+}
+div.jour-container{
+    /*float: left;*/
+    width:100%;
 
-         div.jour{
-             float:left;             
-         }
-         div.creneau{
-             float:none;
-             display:block;
-             border-style: solid;
-             border-width: 0px;
-             height: 15px;
-             min-width: 100px;
-             font-size: 0.9em;
-             padding :1px;
-             -moz-border-radius: 2px;
-             -webkit-border-radius: 2px;
-             border-radius: 2px;
-         }
-         .creneau-structure{
-             background: #b9d4b1;
-         }
-         .creneau-affiche{
-             background: #529924;
-         }
-         .creneau-vide{
-             background: #d6d6d5;
-         }
-         .creneau-content{
-             border : 1px solid black;
-             line-height: 18px;
-             width: auto;
-             padding : 0 5px;
-             height : 98%;
-             -moz-border-radius: 2px;
-             -webkit-border-radius: 2px;
-             border-radius: 2px;
-             -moz-box-shadow: 1px 1px 8px #aaa; 
-             -webkit-box-shadow: 1px 1px 8px #aaa;
-             box-shadow: 1px 1px 8px #aaa;
-         }
+}   
 
-         p{
-             margin:0;
-             padding:0;
-         }
-         .btn-success{
-             margin-top:-10px;
-             line-height:18px;
-             padding:1px;
-             font-size:10px;
-         }
-         form{
-             display:inline;
-             float:left;
-             margin : 0 2px;
-             padding : 0;
+div.jour{
+    float:left; 
+    margin-left: 8px;
+    margin-bottom: 8px;
+}
+div.creneau{
+   /* float:none;*/
+    display:block;
+    margin: 5px 0;
+    height: 15px;
+    min-width: 100px;
+    font-size: 0.9em;
+    padding :1px;
+    text-shadow: none;
+    letter-spacing: 0.01;
+}
+.creneau-structure{
+    background: #80f1a8;
 
-         }
+}
+.creneau-affiche{
+    background:  #529924;      
+    color:  white;
+}
+.creneau-selectable{
+    background: #FFF;
 
+}
+.creneau-unselectable{
+    background: #529924;
+
+}
+.creneau-vide{
+    background: #eeeeee;
+
+}
+.creneau-content{
+    line-height: 18px;
+    width: auto;
+    padding : 0 5px;
+    height : 98%;
+
+}
+
+p{
+    margin:0;
+    padding:0;
+}
+.btn-success{
+    margin-top:-10px;
+    line-height:18px;
+    padding:1px;
+    font-size:10px;
+}
+form{
+    display:inline;
+    /*float:left;*/
+    margin : 0 2px;
+    padding : 0;
+
+}
+
+.day_disp{
+    background:#696868;
+    color:#f2eded;
+    padding: 0 5px;
+}
          </style>      
 
  <h3>Planning hebdomadaire</h3>

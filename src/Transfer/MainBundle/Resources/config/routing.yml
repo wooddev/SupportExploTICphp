@@ -1,7 +1,3 @@
 Transfer_main_default:
     resource: "@TransferMainBundle/Resources/config/routing/Default.yml"
     prefix:   /
-    
-TransferMainBundle_user:
-    resource: "@TransferMainBundle/Resources/config/routing/user.yml"
-    prefix:   /user

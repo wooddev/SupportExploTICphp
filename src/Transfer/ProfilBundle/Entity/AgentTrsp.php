@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AgentTrsp
  */
-class AgentTrsp extends \Transfer\MainBundle\Entity\User
+class AgentTrsp extends \Application\Sonata\UserBundle\Entity\User
 {
      protected static $roles_const = array('ROLE_TRANSPORTEUR');
     /**

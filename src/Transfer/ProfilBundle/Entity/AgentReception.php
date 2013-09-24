@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AgentReception
  */
-class AgentReception extends \Transfer\MainBundle\Entity\User
+class AgentReception extends \Application\Sonata\UserBundle\Entity\User
 {
      protected static $roles_const=array("ROLE_RECEP");
 }

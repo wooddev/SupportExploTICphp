@@ -1,5 +1,5 @@
 Transfer\ProfilBundle\Entity\AgentDab:
   type: entity
-  table: agentdab
+  table: null
   repositoryClass: Transfer\ProfilBundle\Entity\AgentDabRepository
   lifecycleCallbacks: {  }

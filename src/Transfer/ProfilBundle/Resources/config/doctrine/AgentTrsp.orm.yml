@@ -1,6 +1,6 @@
 Transfer\ProfilBundle\Entity\AgentTrsp:
   type: entity
-  table: agenttrsp
+  table: null
   repositoryClass: Transfer\ProfilBundle\Entity\AgentTrspRepository
   manyToOne:
     transporteur:

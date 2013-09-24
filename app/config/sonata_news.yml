@@ -1,0 +1,38 @@
+sonata_news:
+    title:        TransFER / Flash Info
+    link:         http://www.fibre-excellence.fr
+    description:  Consultations des informations d'accès au site
+    salt:         'secureToken'
+    permalink_generator: sonata.news.permalink.date 
+    # sonata.news.permalink.category
+
+    comment:
+        notification:
+            emails:   [email@example.org, email2@example.org]
+            from:     no-reply@sonata-project.org
+            template: 'SonataNewsBundle:Mail:comment_notification.txt.twig'
+    class:
+        post:       Application\Sonata\NewsBundle\Entity\Post
+        tag:        Application\Sonata\NewsBundle\Entity\Tag
+        comment:    Application\Sonata\NewsBundle\Entity\Comment
+        category:   Application\Sonata\NewsBundle\Entity\Category
+        media:      Application\Sonata\MediaBundle\Entity\Media
+        user:       Transfer\ProfilBundle\Entity\AgentDab
+        
+    admin:
+          post:
+              class:       Application\Sonata\NewsBundle\Admin\PostAdmin
+              controller:  SonataAdminBundle:CRUD
+              translation: ApplicationSonataNewsBundle
+          comment:
+              class:       Sonata\NewsBundle\Admin\CommentAdmin
+              controller:  SonataAdminBundle:CRUD
+              translation: SonataNewsBundle
+          category:
+              class:       Sonata\NewsBundle\Admin\CategoryAdmin
+              controller:  SonataAdminBundle:CRUD
+              translation: SonataNewsBundle
+          tag:
+              class:       Sonata\NewsBundle\Admin\TagAdmin
+              controller:  SonataAdminBundle:CRUD
+              translation: SonataNewsBundle

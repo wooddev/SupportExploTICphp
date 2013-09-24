@@ -30,6 +30,14 @@ class AppKernel extends Kernel
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
+            new Sonata\MediaBundle\SonataMediaBundle(),
+            new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
+            new Sonata\NewsBundle\SonataNewsBundle(),
+            new Sonata\MarkItUpBundle\SonataMarkItUpBundle(),        
+            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new Sonata\FormatterBundle\SonataFormatterBundle(),
+            new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
+            new Application\Sonata\NewsBundle\ApplicationSonataNewsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
