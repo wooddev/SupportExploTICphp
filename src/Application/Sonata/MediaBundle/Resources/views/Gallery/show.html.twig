@@ -6,6 +6,16 @@
                 {{knp_menu_render('ApplicationSonataMediaBundle:Builder:mainMenu',{'allow_safe_labels':true})}}        
         </div>
     </div>
+    <ul class='breadcrumb'>
+    {%for dirGallery in gallery.galleriesDir%}
+        <li>
+            <a  href="{{path('my_gallery_show', {'id':dirGallery.id})}}">                
+                {{dirGallery.name}}
+            </a>
+            <span class="divider">/</span>
+        </li>
+    {%endfor%}
+    </ul>
 <div class="well">
 
         <ul class='nav nav-list'>

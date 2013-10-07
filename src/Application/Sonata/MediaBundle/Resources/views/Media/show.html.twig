@@ -7,6 +7,16 @@
         
     </div>
 </div>
+    <ul class='breadcrumb'>
+    {%for dirGallery in gallery.galleriesDir%}
+        <li>
+            <a  href="{{path('my_gallery_show', {'id':dirGallery.id})}}">                
+                {{dirGallery.name}}
+            </a>
+            <span class="divider">/</span>
+        </li>
+    {%endfor%}
+    </ul>
 <div class='top-bar'>
     <h3>{{media.name}}</h3>
 </div>

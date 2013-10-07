@@ -68,7 +68,9 @@ class Builder extends ContainerAware
             $menu->addChild($childMedia->getMedia()->getName(),array(
                 'route'=>'my_media_show',
                 'routeParameters'=>array(
-                    'id'=>$childMedia->getMedia()->getId()),
+                    'id'=>$childMedia->getMedia()->getId(),
+                    'galId'=>$gallery->getId(),
+                    ),
                 'extras'=>array('safe_label'=>'true'))/*,array('route'=>'#')*/);
             $menu[$childMedia->getMedia()->getName()]->setLabel('<i class="icon-file"></i>'.$childMedia->getMedia()->getName());
         }

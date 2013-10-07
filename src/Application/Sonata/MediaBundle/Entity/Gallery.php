@@ -143,6 +143,18 @@ class Gallery extends BaseGallery
     {
         return $this->authorization;
     }
+    
+    public function getGalleriesDir(){
+        $dirs = new \Doctrine\Common\Collections\ArrayCollection();
+        $dirs->add($this); 
+        if ($this->parent){
+            $dirs->add($this->parent);
+            while($dirs->last()->getParent()){
+                $dirs->add($dirs->last()->getParent());
+            }    
+        }
+        return array_reverse($dirs->toArray());
+    }
 
     
 }
