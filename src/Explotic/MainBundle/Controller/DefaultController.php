@@ -47,25 +47,16 @@ class DefaultController extends Controller
             throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Veuillez vous authentifier');          
         }
         
+        $extractAgendaForm = $this->extractAgendaForm($user);
         
-//        // Génération de l'agenda pour la semaine en cours
-//
-//        if (!(null===$user->getStagiaire())){
-//            if (!(null===$user->getStagiaire()->getCalendrier())){        
-//            $CalendrierStg =  $user->getStagiaire()->getCalendrier();
-//            $agendaStg = $this->container->get('explotic_planning.agenda_generator')->makeAgenda(array($CalendrierStg), time(), 4);
-//            }
-//        }    
-
-        // Conception de la carte
         
         $myUserMap = new \Explotic\MainBundle\Model\MyUserMap($this->get('ivory_google_map.map'), $user);       
        
         if (!(null===$user->getEntreprise())){
             $myUserMap->addProfil($user->getEntreprise());
         }
-        if (!(null===$user->getStagiaire())){
-            $myUserMap->addProfil($user->getStagiaire());
+        if (!(null===$user->hasRole('ROLE_STAGIAIRE'))){
+            $myUserMap->addProfil($user);
         }
         $myUserMap->addMarkersToGMaps();
         
@@ -88,52 +79,45 @@ class DefaultController extends Controller
         
         return $this->render('ExploticMainBundle:Default:monProfil.html.twig', array(
             'user' => $user,
-//            'agenda'=>$agendaStg,
+            'extractAgendaForm'=>$extractAgendaForm->createView(),
             'map' => $myUserMap->getMap(),
         ));        
     }
     
     
-    public function monAgendaAction(){
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        if(! is_object($user))
-        {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Veuillez vous authentifier');          
-        }
+    public function extractAgendaForm($user){
+
         
         $calendrierListe = new \Doctrine\Common\Collections\ArrayCollection();
         
         // Génération de l'agenda pour la semaine en cour, comme les 
        
-        if (!(null===$user->getStagiaire())){
-            $stagiaire = $user->getStagiaire();
-            if (!(null===$stagiaire->getCalendrier())){        
-            $idCalendrierStg =  $user->getStagiaire()->getCalendrier();
-            $calendrierListe->add(array("id"=>$idCalendrierStg,"nom"=> array("1"=>"Disponible")));            
-            }
-            if (!(null==$stagiaire->getSessions())){
-                foreach($stagiaire->getSessions() as $session){
-                    
-                    if(!(null===$session->getInterventionEntreprise())){
-                        $nom = array(   "Formation" => $session->getInterventionEntreprise()->getNom(),
-                                        "Etape" => $session->getInterventionEntreprise()->getStade()
-                            );                                               
-                    }elseif(!(null===$session->getInterventionSalle())){
-                        $nom = array(   "Formation" => $session->getInterventionSalle()->getNom(),
-                                        "Jour" => $session->getInterventionSalle()->getStade(),                                         
-                            );
-                    }
-                    $calendrierListe->add(array("id"=>$session->getCalendrier(),"nom"=>$nom));
-                }
-            }
-        }  
-        
-        $agenda = $this->container->get('explotic_planning.agenda_generator')->makeAgenda($calendrierListe, time(), 4);
-        
-        return $this->render('ExploticMainBundle:Default:monAgenda.html.twig', array(
-            'agenda'=>$agenda,
-        ));
+        if ($user->getCalendrier()){
+        $calendrierListe->add($user->getCalendrier());            
+        }
+        if ($user->getSessions()){
+            foreach($user->getSessions() as $session){
 
+                if($session->getInterventionEntreprise()){
+                    $nom = array(   "Formation" => $session->getInterventionEntreprise()->getNom(),
+                                    "Etape" => $session->getInterventionEntreprise()->getStade()
+                        );                                               
+                }elseif($session->getInterventionSalle()){
+                    $nom = array(   "Formation" => $session->getInterventionSalle()->getNom(),
+                                    "Jour" => $session->getInterventionSalle()->getStade(),                                         
+                        );
+                }
+                $calendrierListe->add($session->getCalendrier());
+            }
+        }        
+        $agendaExtractor = new \Explotic\AgendaBundle\Model\AgendaExtractor();
+        $now= new \DateTime();
+        $agendaExtractor->setYear((int)$now->format('o'));
+        $agendaExtractor->setWeek((int)$now->format('W'));
+        $agendaExtractor->setDuree(4);  
+        $agendaExtractor->setAgendaEntities($calendrierListe);
+        
+        return $this->createForm(new \Explotic\AgendaBundle\Form\AgendaExtractType(), $agendaExtractor);
         
     }
 }

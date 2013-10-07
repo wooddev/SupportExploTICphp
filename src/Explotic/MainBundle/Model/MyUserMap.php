@@ -71,7 +71,7 @@ class MyUserMap {
     
     public function addMarkersToGMaps(){
         $gMapsMarkers = new \Doctrine\Common\Collections\ArrayCollection();      
-        if($this->profils->count()>0){        
+        if(!$this->profils->isEmpty()){        
             $this->generateMarkers();
             foreach($this->markersCollections as $markers)
             {        

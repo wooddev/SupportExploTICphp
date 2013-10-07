@@ -44,10 +44,10 @@ $(function(){
                 }
             },
             marker:{
-            {%if form.lat.vars.value is defined and form.lon.vars.value is defined%}
+            /*{%if form.lat.vars.value is defined and form.lon.vars.value is defined%}*/
                latLng: [{{form.lat.vars.value}}, {{form.lon.vars.value}}]
-            {%endif%}
-            }
+            /*{%endif%}*/
+            }                
     });
 });
 </script>

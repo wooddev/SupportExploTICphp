@@ -1,7 +1,7 @@
 
 
 <div style="float:left">
-    <h5>{{ entity.prenom }} {{ entity.nom }}</h5>
+    <h5>{{ entity.firstname }} {{ entity.lastname }}</h5>
 <table class="table table-condensed">
     <tbody>
         <tr>
@@ -15,7 +15,7 @@
         </tr>
         <tr>
             <th>Datenaissance</th>
-            <td>{{ entity.dateNaissance|date('Y-m-d H:i:s') }}</td>
+            <td>{{ entity.dateofbirth|date('Y-m-d H:i:s') }}</td>
         </tr>
         <tr>
             <th>Opca</th>
@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <th>Téléphone</th>
-            <td>{{ entity.telephone }}</td>
+            <td>{{ entity.phone }}</td>
         </tr>
         <tr>
             <th>Forfait téléphonique</th>

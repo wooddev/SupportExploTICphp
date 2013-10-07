@@ -17,8 +17,24 @@ class AgendaExtractor {
     private $week;
     private $year;
     private $duree;
-    private $agendaEntity;
+    private $agendaEntities;    
+   
+    public function __construct() {
+        $this->agendaEntities=  new \Doctrine\Common\Collections\ArrayCollection();
+    }
     
+    public function getAgendaEntities() {
+        return $this->agendaEntities;
+    }
+
+    public function setAgendaEntities($agendaEntities) {
+        $this->agendaEntities = $agendaEntities;
+    }
+
+    
+    public function addAgendaEntity($agendaEntity){
+        $this->agendaEntities->add($agendaEntity);
+    }
     
     public function getDateDebut() {
         return $this->dateDebut;
@@ -59,29 +75,14 @@ class AgendaExtractor {
     public function setDuree($duree) {
         $this->duree = $duree;
     }
-    /**
-     * 
-     * @return \Explotic\AgendaBundle\Entity\Agenda
-     */
-
-    public function getAgendaEntity() {
-        return $this->agendaEntity;
-    }
-    /**
-     * 
-     * @param \Explotic\AgendaBundle\Entity\Agenda $agendaEntity
-     */
-    public function setAgendaEntity(\Explotic\AgendaBundle\Entity\Agenda $agendaEntity) {
-        $this->agendaEntity = $agendaEntity;
-    }        
-           
+   
     
-    public function init($week,$year, $agenda, $duree = 1){
+    public function init($week,$year, $agendas, $duree = 1){
         
         $this->week = (int) $week;
         $this->year = (int) $year;
         $this->duree= (int) $duree;
-        $this->agendaEntity = $agenda;
+        $this->agendaEntities = $agendas;
         
         $this->dateDebut = new \DateTime($this->year.'W'.$this->week."1");
         

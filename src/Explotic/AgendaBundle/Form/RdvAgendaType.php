@@ -47,7 +47,6 @@ class RdvAgendaType extends AbstractType
                     'query_builder'=> function(\Explotic\AgendaBundle\Entity\CreneauRdvRepository $er) use ($dateDebut,$dateFin)
                     {
                         return $er->createQueryBuilder('c')
-                                ->from('ExploticAgendaBundle:CreneauRdv','c')
                                 ->andWhere('c.dateHeureDebut >= :dateDebut')
                                 ->andWhere('c.dateHeureFin <= :dateFin')
                                 ->setParameters(array(

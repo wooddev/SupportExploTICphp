@@ -7,9 +7,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class AgendaExtractType extends AbstractType
-{
+{ 
+        
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        
         $builder
                 ->add('year','number',array(
                     'label'=> 'Année',
@@ -20,10 +22,10 @@ class AgendaExtractType extends AbstractType
                 ->add('duree','number',array(
                     'label'=>'Nombre de semaines affichées',
                 ))
-                ->add('agendaEntity','entity',array(
+                ->add('agendaEntities','entity',array(
                     'class'=>'ExploticAgendaBundle:Agenda',
-                    'label'=>'Numéro de l\'agenda',
-                    'read_only'=>true,
+                    'label'=>'Sélection des agendas',
+                    'multiple'=>true,                
                 ))                
         ;
     }

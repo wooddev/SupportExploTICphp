@@ -501,7 +501,7 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
         $markers = new \Explotic\MainBundle\Model\MyMarkers();
         $markers->setProfilName(get_class($this));
         // Récup du bureau
-        if(!(null===$this->getEntreprise()->getBureau())){
+        if($this->getEntreprise() && $this->getEntreprise()->getBureau()){
             $bureau = new \Explotic\MainBundle\Model\MyMarker();        
             $bureau->setLat($this->getEntreprise()->getBureau()->getLocalisation()->getGeometry()->getLat());
             $bureau->setLon($this->getEntreprise()->getBureau()->getLocalisation()->getGeometry()->getLon());

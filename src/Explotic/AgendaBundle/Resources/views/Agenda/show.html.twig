@@ -1,9 +1,4 @@
-{%extends '::explotic.html.twig'%}
-{%block topbar%}
-   <h3> Agenda {{agendaextractor.agendaEntity.id}}</h3>
-{%endblock%}
-   
-{%block well%}
+
     <div class='agenda'>             
         <div class="tab-pane" id="agenda">                    
             <div class="agenda">    
@@ -28,19 +23,14 @@
 
                                {%else%}
                                <div class="creneau creneau-{{creneau.type}}" style="min-height: 5px; height: {{0.3*creneau.duree - 10}}px">
-                                       <div class="creneau-content">      
-                                   
-
+                                       <div class="creneau-content">  
                                    {{creneau.dateTimeDebut|date('H:i')}}-{{creneau.dateTimeFin|date('H:i')}}                                          
                                    {%if creneau.creneauxAffiches is defined %} 
-
                                               {%for creneauAffiche in creneau.creneauxAffiches%}
                                                        {%if creneauAffiche.statutRdv is defined%}
-                                                       <br>{{creneauAffiche.statutRdv.nom}}                                                          
+                                                       <br>{{creneauAffiche.statutRdv}}                                                          
                                                        {%endif%}
-
                                               {%endfor%}
-
                                    {%endif%}
                                            </div>                                
                                   </div> 
@@ -57,4 +47,3 @@
            </div>
        </div>
     </div>         
-{%endblock%}

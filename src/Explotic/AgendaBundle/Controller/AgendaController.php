@@ -25,6 +25,21 @@ class AgendaController extends Controller
             'form'   => $form->createView(),
         ));
     }    
+      
+    public function showAction(Request $request){  
+            
+        $agendaExtractor = new \Explotic\AgendaBundle\Model\AgendaExtractor();
+        $form = $this->createForm(new AgendaExtractType(), $agendaExtractor);
+        
+        $form->bind($request);
+
+        if ($form->isValid()) {   
+            return $this->showParamAction($agendaExtractor);
+        }      
+        else{
+            throw new \Symfony\Component\Validator\Exception\InvalidArgumentException('Erreur dans le formulaire');
+        }        
+    } 
     
     public function showParamAction($agendaExtractor){
         
@@ -36,21 +51,6 @@ class AgendaController extends Controller
                 ));               
     }
     
-    public function showAction(Request $request){  
-            
-        $agendaExtractor = new \Explotic\AgendaBundle\Model\AgendaExtractor();
-        $form = $this->createForm(new AgendaExtractType(), $agendaExtractor);
-        
-        $form->bind($request);
-
-        if ($form->isValid()) {   
-            $this->showParamAction($agendaExtractor);
-        }      
-        else{
-            throw new \Symfony\Component\Validator\Exception\InvalidArgumentException('Erreur dans le formulaire');
-        }        
-    } 
-    
     public function buildAgenda($agendaExtractor){
         $em = $this->getDoctrine()->getManager();   
         $agendaExtractor->autoInitDates();
@@ -61,8 +61,13 @@ class AgendaController extends Controller
 
         $agendaViewer= new \Explotic\AgendaBundle\Model\Agenda();
         $agendaViewer->init($agendaExtractor->getWeek(),$agendaExtractor->getYear(),null,$agendaExtractor->getDuree());
-        $agendaViewer->generateAgenda($slots, $agendaExtractor->getAgendaEntity()->getRdvs(), 420, 1140);    
-        
+        $rdvs = array();
+        foreach($agendaExtractor->getAgendaEntities() as $agendaEntity){
+            foreach($agendaEntity->getRdvs() as $rdv){
+                $rdvs[]=$rdv;
+            }
+        }
+        $agendaViewer->generateAgenda($slots,$rdvs, 420, 1140); 
         return $agendaViewer;
     }
         

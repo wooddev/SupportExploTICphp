@@ -9,19 +9,6 @@
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 {%endblock%}
 
-<script>
-$(function(){
-    $("#accordion1").accordion({
-        collapsible : true,
-        heightStyle: "content"
-    });
-    $("#accordion2").accordion({
-        collapsible : true,
-        heightStyle: "content"
-    });
-});
-</script>
-
 <h3>Profil de l'utilisateur</h3>
 <div class="row-fluid">
     <div class="span6">
@@ -48,27 +35,23 @@ $(function(){
 {%endif%}
 </div>
 {% if is_granted('ROLE_STAGIAIRE') %}
-    {%if user.stagiaire.id is defined %}
-        <h3 > Fiche Stagiaire </h3>                       
-        {%include 'ExploticTiersBundle:Stagiaire:show/content_aggreg.html.twig' with {'entity':user.stagiaire} %}
-        {%endif%}
+
+<h3 > Fiche Stagiaire </h3>                       
+{%include 'ExploticTiersBundle:Stagiaire:show/content_aggreg.html.twig' with {'entity':user} %}
+        
 {%endif%}
 {% if is_granted('ROLE_FORMATEUR') %}
-        {%if user.formateur.id is defined %}    
-        <h3> Fiche Formateur </h3>        
-            {%include 'ExploticTiersBundle:Formateur:show/content.html.twig' with {'entity':user.formateur} %}
-        {%endif%}
+<h3> Fiche Formateur </h3>        
+{%include 'ExploticTiersBundle:Formateur:show/content.html.twig' with {'entity':user} %}
 {%endif%}
 {% if is_granted('ROLE_RECRUTEUR') %}
-    {%if user.recruteur.id is defined %}
-        <h3> Fiche Recruteur </h3>
-        {%include 'ExploticTiersBundle:Recruteur:show/content.html.twig' with {'entity':user.recruteur} %}
-    {%endif%}
+<h3> Fiche Recruteur </h3>
+{%include 'ExploticTiersBundle:Recruteur:show/content.html.twig' with {'entity':user} %}
 {%endif%}
-<h3>Informations géographiques</h3>
+
 <div class="row-fluid">
     <div class="span12">
-        <div class="top-bar"></div>
+        <div class="top-bar"><h3>Informations géographiques</h3></div>
         <div class="well">            
             <div id="myMap">   
             </div>
@@ -78,7 +61,55 @@ $(function(){
     </div>
 </div>
 
-   
+        
+<div class="top-bar">
+    <h3>Agenda</h3>
+</div>        
+        
+<div class="well">                
+    <form action="{{ path('agenda_show') }}" method="post" {{ form_enctype(extractAgendaForm) }}>
+                    {{ form_widget(extractAgendaForm) }} 
+    </form> 
+    <button id='submit_agenda' class='btn btn-success'>Afficher</button>
+    <div id='agenda_show'>
+    </div>
+</div>
+        
+<script>
+$(document).ready(function() {  
+    $.ajax({
+        type: "POST",
+        data: $('form').serialize(),
+        url: "{{ path('agenda_show')}}",
+        success: function(retour){           
+            //$('#modal-loader').modal('hide');
+            $('#agenda_show').html(retour);
+        },
+        error: function(){
+             $('#agenda_show').html('Impossible de charger le formulaire de gestion des créneaux pré-attribués');
+        }
+    });
+    
+    $('#submit_agenda').click(function(){          
+        //$('#modal-loader').modal('show');
+        $.ajax({
+            type: "POST",
+            data: $('form').serialize(),
+            url: "{{ path('agenda_show')}}",
+            success: function(retour){
+                $('#agenda_show').html(retour);
+                //$('#modal-loader').modal('hide');
+            },
+            error: function(){
+                 $('#agenda_show').html('Impossible de charger le formulaire de gestion des créneaux pré-attribués');
+                 //$('#modal-loader').modal('hide');
+                }
+        });
+        return false;
+    });
+});
+
+</script>
 
 {% endblock%}
 
