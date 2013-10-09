@@ -7,7 +7,8 @@
 	<meta name="description" content="Plateforme de support technique Explotic">
 	<meta name="author" content="xylolink">
 
-	<!-- Styles -->
+	<!-- Styles -->       
+
   	<link href='{{asset("bundles/exploticmain/template/css/chosen.css")}}' rel='stylesheet' tyle="text/css">
 	<link href="{{asset('bundles/exploticmain/template/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{asset('bundles/exploticmain/template/css/theme/avocado.css')}}" rel="stylesheet" type="text/css">
@@ -15,21 +16,17 @@
 	<link href='{{asset('bundles/exploticmain/template/css/fullcalendar.css')}}' rel='stylesheet' tyle="text/css">
 
 	<link href="{{asset('bundles/exploticmain/template/css/bootstrap-responsive.css')}}" rel="stylesheet">
-	<link href="{{asset('bundles/exploticmain/css_1/my_layout.css')}}" rel="stylesheet">
-	<link href="{{asset('bundles/exploticmain/css_1/agenda.css')}}" rel="stylesheet">
-	
+
+        <link href="{{asset('bundles/exploticmain/css_1/my_layout.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{asset('bundles/exploticmain/css_1/agenda.css')}}" rel="stylesheet" type="text/css">
 	<!-- JavaScript/jQuery, Pre-DOM -->
-	<script src="{{asset('bundles/sonatajquery/jquery-1.8.3.js')}}"></script> 
-	<script src="{{asset('bundles/exploticmain/template/js/charts/excanvas.min.js')}}"></script>
-	<script src="{{asset('bundles/exploticmain/template/js/charts/jquery.flot.js')}}"></script>
-	<script src="{{asset('bundles/exploticmain/template/js/jquery.jpanelmenu.min.js')}}"></script>
-	<script src="{{asset('bundles/exploticmain/template/js/jquery.cookie.js')}}"></script>
-	<script src="{{asset('bundles/exploticmain/template/js/avocado-custom-predom.js')}}"></script>
+
 
 	<!-- HTML5, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
 		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+
 
 </head>
 
@@ -295,7 +292,7 @@
                                         {% if is_granted('ROLE_USER')%}
 					<li class="dropdown">
 							<a href="{{path('my_gallery_homepage')}}" {#class="dropdown-toggle" data-toggle="dropdown"#}><i class="icon-book">
-								</i> Documentation <b class="caret"></b>
+								</i> Documentation 
 							</a>
 							{#<ul class="dropdown-menu">                                                                
                                                                 {%if is_granted('ROLE_USER')%}
@@ -310,7 +307,7 @@
 					<!-- / Main Navigation: Documentation -->
 
 					<!-- Main Navigation: Gestion des stagiaires -->
-                                        {% if is_granted('ROLE_RECRUTEUR')%}
+                                        {% if is_granted('ROLE_RECRUTEUR') or is_granted('ROLE_ADMIN')%}
 					<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<i class="icon-male"></i> Recrutements <b class="caret"></b>
@@ -418,7 +415,7 @@
                         Ver 1.0 - Dernière mise à jour : 30-08-2013 08:10
                     </p>   
                     <p><a href="#"> Mentions légales</a></p> 
-                    <p>  Copyright FCBA © ExploTIC, 2013</p> 
+                    <p>  Développé par XyloLink pour FCBA </p> 
                 </div>
                 <div class="span2">
                     <div class="logos">
@@ -461,6 +458,16 @@
 	<!-- Javascript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+        {#
+        <script src="{{asset('bundles/sonatajquery/jquery-1.8.3.js')}}"></script> #}
+	<script src="{{asset('bundles/exploticmain/template/js/charts/excanvas.min.js')}}"></script>
+	<script src="{{asset('bundles/exploticmain/template/js/charts/jquery.flot.js')}}"></script>
+	<script src="{{asset('bundles/exploticmain/template/js/jquery.jpanelmenu.min.js')}}"></script>
+	<script src="{{asset('bundles/exploticmain/template/js/jquery.cookie.js')}}"></script>
+	<script src="{{asset('bundles/exploticmain/template/js/avocado-custom-predom.js')}}"></script>
+        
 	<script src='{{asset("bundles/exploticmain/template/js/jquery.hotkeys.js")}}'></script>
 	<script src='{{asset("bundles/exploticmain/template/js/calendar/fullcalendar.min.js")}}'></script>
 	<script src='{{asset("bundles/exploticmain/template/js/jquery-ui-1.10.2.custom.min.js")}}'></script>

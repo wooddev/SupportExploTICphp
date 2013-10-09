@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Explotic\TiersBundle\Entity\Stagiaire;
 use Explotic\TiersBundle\Form\StagiaireType;
+use Ivory\GoogleMap\Controls\ControlPosition;
 
 /**
  * Stagiaire controller.
@@ -46,24 +47,48 @@ class StagiaireController extends Controller
             throw $this->createNotFoundException('Unable to find Stagiaire entity.');
         }       
             
-        // Génération de l'agenda pour la semaine en cours
-        $agenda = new \Explotic\MainBundle\Model\Agenda();        
-        $agenda->init((int)date('W'), (int) date('Y'));        
-            //Recherche des jours figurant dans cette partie du calendrier   
-        if (!(null===$entity->getCalendrier())){
-            $jours = $em->getRepository('ExploticPlanningBundle:Jour')
-                        ->findByCalendrierAndDate(
-                                $entity->getCalendrier()->getId(),
-                                $agenda->getDateDebut(),
-                                $agenda->getDateFin()
-                      );           
-        } else{
-            $jours = null;
-        }      
+        $agenda = $this->get('explotic_admin.user.access_control')->findUserAgenda($entity);
+        
+        $agendaExtractor = new \Explotic\AgendaBundle\Model\AgendaExtractor();
+        $now= new \DateTime();
+        $agendaExtractor->setYear((int)$now->format('o'));
+        $agendaExtractor->setWeek((int)$now->format('W'));
+        $agendaExtractor->setDuree(4);  
+        $agendaExtractor->setAgendaEntities($agenda['entities']);
+        
+        $type = new \Explotic\AgendaBundle\Form\AgendaExtractType();
+        $type->setAgendaList($agenda['ids']);
+
+        $extractAgendaForm = $this->createForm($type, $agendaExtractor);  
+ 
+        $myUserMap = new \Explotic\MainBundle\Model\MyUserMap(
+                $this->get('ivory_google_map.map'), 
+                $entity,
+                $this->get('explotic_main.icopaths')->getPaths());  
+        
+        $myUserMap->addProfil($entity); 
+
+        $myUserMap->addMarkersToGMaps();        
+        $myUserMap->getMap()->setStylesheetOptions(array(
+            'width'=>'915px',
+            'height'=>'450px',
+            ));
+
+        $myUserMap->getMap()->setPanControl('top_left');
+        $myUserMap->getMap()->setRotateControl(ControlPosition::BOTTOM_LEFT);
+        $myUserMap->getMap()->setZoomControl('top_left','default');
+        $myUserMap->getMap()->setScaleControl('bottom_left','default');
+        $myUserMap->getMap()->setMapTypeControl(
+                array('roadmap','satellite'),
+                'top_right',
+                'default');
+        $myUserMap->getMap()->setStreetViewControl('top_left');                
+        
 
         return $this->render('ExploticTiersBundle:Stagiaire:show.html.twig', array(
-            'entity'      => $entity,
-            'agenda' => $agenda->generate($jours),
+            'user'      => $entity,
+            'map'=> $myUserMap->getMap(),
+            'extractAgendaForm'=>$extractAgendaForm->createView(),
             'entreprise' => $entity->getEntreprise(),
             ));
     }

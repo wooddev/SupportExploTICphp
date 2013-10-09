@@ -45,26 +45,40 @@ class DefaultController extends Controller
         if(! is_object($user))
         {
             throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Veuillez vous authentifier');          
+        }       
+                
+        $extractAgendaForm = $this->extractAgendaForm();
+        $userClass=get_class($user);
+        
+ 
+        $myUserMap = new \Explotic\MainBundle\Model\MyUserMap(
+                $this->get('ivory_google_map.map'), 
+                $user, 
+                $this->get('explotic_main.icopaths')->getPaths());  
+               
+        switch($userClass){
+            case 'Explotic\TiersBundle\Entity\Stagiaire':
+                $myUserMap->addProfil($user);
+                break;
+            case 'Explotic\TiersBundle\Entity\Gerant':
+                $myUserMap->addProfil($user->getEntreprise()); 
+
+                break;
+            case 'Explotic\TiersBundle\Entity\Recruteur': 
+                foreach($user->getEntreprises() as $entreprise){
+                    $myUserMap->addProfil($entreprise);
+                }
+                break;
+            case 'Explotic\TiersBundle\Entity\Formateur': 
+                $myUserMap->addProfil($user->getOrganisme());
+                break;
         }
-        
-        $extractAgendaForm = $this->extractAgendaForm($user);
-        
-        
-        $myUserMap = new \Explotic\MainBundle\Model\MyUserMap($this->get('ivory_google_map.map'), $user);       
-       
-        if (!(null===$user->getEntreprise())){
-            $myUserMap->addProfil($user->getEntreprise());
-        }
-        if (!(null===$user->hasRole('ROLE_STAGIAIRE'))){
-            $myUserMap->addProfil($user);
-        }
-        $myUserMap->addMarkersToGMaps();
-        
+        $myUserMap->addMarkersToGMaps();        
         $myUserMap->getMap()->setStylesheetOptions(array(
             'width'=>'915px',
             'height'=>'450px',
             ));
-        
+
         $myUserMap->getMap()->setPanControl('top_left');
         $myUserMap->getMap()->setRotateControl(ControlPosition::BOTTOM_LEFT);
         $myUserMap->getMap()->setZoomControl('top_left','default');
@@ -74,50 +88,33 @@ class DefaultController extends Controller
                 'top_right',
                 'default');
         $myUserMap->getMap()->setStreetViewControl('top_left');
-        
+                  
+          
 
-        
         return $this->render('ExploticMainBundle:Default:monProfil.html.twig', array(
+            'type'=> $userClass,
             'user' => $user,
             'extractAgendaForm'=>$extractAgendaForm->createView(),
             'map' => $myUserMap->getMap(),
         ));        
     }
     
+
     
-    public function extractAgendaForm($user){
-
+    public function extractAgendaForm(){
         
-        $calendrierListe = new \Doctrine\Common\Collections\ArrayCollection();
+        $agenda = $this->get('explotic_admin.user.access_control')->findCurrentUserAgenda();
         
-        // Génération de l'agenda pour la semaine en cour, comme les 
-       
-        if ($user->getCalendrier()){
-        $calendrierListe->add($user->getCalendrier());            
-        }
-        if ($user->getSessions()){
-            foreach($user->getSessions() as $session){
-
-                if($session->getInterventionEntreprise()){
-                    $nom = array(   "Formation" => $session->getInterventionEntreprise()->getNom(),
-                                    "Etape" => $session->getInterventionEntreprise()->getStade()
-                        );                                               
-                }elseif($session->getInterventionSalle()){
-                    $nom = array(   "Formation" => $session->getInterventionSalle()->getNom(),
-                                    "Jour" => $session->getInterventionSalle()->getStade(),                                         
-                        );
-                }
-                $calendrierListe->add($session->getCalendrier());
-            }
-        }        
         $agendaExtractor = new \Explotic\AgendaBundle\Model\AgendaExtractor();
         $now= new \DateTime();
         $agendaExtractor->setYear((int)$now->format('o'));
         $agendaExtractor->setWeek((int)$now->format('W'));
         $agendaExtractor->setDuree(4);  
-        $agendaExtractor->setAgendaEntities($calendrierListe);
+        $agendaExtractor->setAgendaEntities($agenda['entities']);
         
-        return $this->createForm(new \Explotic\AgendaBundle\Form\AgendaExtractType(), $agendaExtractor);
-        
+        $type = new \Explotic\AgendaBundle\Form\AgendaExtractType();
+        $type->setAgendaList($agenda['ids']);
+
+        return $this->createForm($type, $agendaExtractor);
     }
 }

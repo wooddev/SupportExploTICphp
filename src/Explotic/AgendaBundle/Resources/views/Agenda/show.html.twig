@@ -10,13 +10,14 @@
                    <div class="semaine"> {#Année : {{agendaYear.val}} | Semaine : {{agendaWeek.val}}#}
                    <div class="jour-container">
                        {%for agendaDay in agendaWeek.agendasDay%}
-                       <div class="jour" style='width:{{95/(agendaWeek.agendasDay|length)}}%;'> 
+                       <div class="jour" style='width:{{92/(agendaWeek.agendasDay|length)}}%;'> 
                            <div class="day_disp">
-                               {{agendaDay.textVal}}
+                               {{agendaDay.textVal|trans({},"abbrev")}}
                                {%if agendaDay.date is defined %}
                                {{agendaDay.date | date('d/m/Y') }}
                                {%endif%}                                
-                           </div>                                    
+                           </div>
+                               
                             {%for creneau in agendaDay.creneaux %}
 
                                {%if creneau.type =='vide'%}

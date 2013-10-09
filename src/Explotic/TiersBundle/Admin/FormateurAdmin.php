@@ -23,9 +23,7 @@ class FormateurAdmin extends ProfilAdmin
     {
         parent::configureListFields($listMapper);
         $listMapper
-                ->add('entreprises')
-                ->add('stagiaires')
-                ->add('employeur')
+                ->add('organisme')
             ;
     }
 
@@ -36,9 +34,7 @@ class FormateurAdmin extends ProfilAdmin
     {
         parent::configureDatagridFilters($filterMapper);
         $filterMapper                
-                ->add('entreprises')                
-                ->add('stagiaires')
-                ->add('employeur')
+                -->add('organisme')
            ;
         
     }
@@ -51,7 +47,7 @@ class FormateurAdmin extends ProfilAdmin
         parent::configureShowField($showMapper);
         $showMapper
                 ->with('ExploTIC')
-                    ->add('entreprises')
+                    ->add('organisme')
                 ->end()
                 ;
     }
@@ -64,7 +60,7 @@ class FormateurAdmin extends ProfilAdmin
         parent::configureFormFields($formMapper);
         $formMapper   
                 ->with('ExploTIC')
-                    ->add('employeur','sonata_type_model_list')   
+                    ->add('organisme','sonata_type_model_list')   
                 ->end()
             ;
 

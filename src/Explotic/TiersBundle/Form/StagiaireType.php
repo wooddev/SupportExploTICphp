@@ -11,9 +11,9 @@ class StagiaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('prenom')
-            ->add('dateNaissance','date',array(
+            ->add('lastname')
+            ->add('firstname')
+            ->add('dateOfBirth','date',array(
                     'input'=> 'datetime',
                     'widget'=>'choice',
                     'format'=>'dd-MM-yyyy',
@@ -21,7 +21,7 @@ class StagiaireType extends AbstractType
                     'label'=>'Date de naissance',
                     ))
             ->add('marchePiedInfo','checkbox',array('required' => false))
-            ->add('telephone','text',array('required' => false))
+            ->add('phone','text',array('required' => false))
             ->add('opca','choice',array(
                 'choices'=> array('VIVEA'=>'VIVEA','FAFSEA'=>'FAFSEA','OPCA3+'=>'OPCA3+'),
                 'required'=> false,

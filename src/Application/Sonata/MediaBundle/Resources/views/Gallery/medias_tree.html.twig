@@ -1,6 +1,6 @@
 {%for galleryHasMedia in gallery.galleryHasMedias%}   
 <li>
-    <a href='{{path('my_media_show', {'id': galleryHasMedia.media.id, 'galId':gallery.id}) }}'> <i class='icon-file'></i>
+    <a href='{{path('my_media_show', {'id': galleryHasMedia.media.id, 'galId':gallery.id}) }}'> <i class='icon-long-arrow-right'></i>
         {{galleryHasMedia.media.name}}           
     </a>
 </li>

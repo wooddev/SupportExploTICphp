@@ -497,7 +497,7 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
      * @return \Explotic\MainBundle\Model\MyMarkers
      */
     
-    public function getMyMarkers(){
+    public function getMyMarkers($paths){
         $markers = new \Explotic\MainBundle\Model\MyMarkers();
         $markers->setProfilName(get_class($this));
         // Récup du bureau
@@ -505,7 +505,7 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
             $bureau = new \Explotic\MainBundle\Model\MyMarker();        
             $bureau->setLat($this->getEntreprise()->getBureau()->getLocalisation()->getGeometry()->getLat());
             $bureau->setLon($this->getEntreprise()->getBureau()->getLocalisation()->getGeometry()->getLon());
-            $bureau->setIcoPath('../bundles/exploticmain/images/workoffice.png');
+            $bureau->setIcoPath($paths['bureau']);
             $bureau->setLabel('Bureau de l\'entreprise');
             $bureau->setComment($this->getEntreprise()->getRaisonSociale());
         
@@ -519,7 +519,7 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
                 $posteM= new \Explotic\MainBundle\Model\MyMarker();
                 $posteM->setLat($poste->getLocalisation()->getGeometry()->getLat());
                 $posteM->setLon($poste->getLocalisation()->getGeometry()->getLon());
-                $posteM->setIcoPath('../bundles/exploticmain/images/forest2.png');
+                $posteM->setIcoPath($paths['poste']);
                 $posteM->setLabel('Poste de travail');
                 $posteM->setComment('Chantier :'.$poste->getNomChantier());
                 $markers->addMarker($posteM);

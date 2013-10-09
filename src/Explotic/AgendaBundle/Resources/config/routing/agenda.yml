@@ -1,6 +1,6 @@
-agenda_extract:
-    pattern:  /
-    defaults: { _controller: "ExploticAgendaBundle:Agenda:extract" }
+#agenda_extract:
+#    pattern:  /
+#    defaults: { _controller: "ExploticAgendaBundle:Agenda:extract" }
 
 agenda_show:
     pattern:  /show

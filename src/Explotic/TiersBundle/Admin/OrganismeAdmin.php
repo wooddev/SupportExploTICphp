@@ -60,10 +60,34 @@ class OrganismeAdmin extends Admin
         $formMapper
             ->with('ExploTIC')
                 ->add('raisonSociale','text')  
-                ->add('salles','sonata_type_collection')
+                ->add('salles','sonata_type_collection',
+                        array(
+                            "required"=>false,
+                            "by_reference"=>false,
+                            ),
+                        array(
+                            'inline'=>'natural',
+                            'edit'=>'inline',
+                            )
+                        )
+                
             ->end()
             ;
         
+    }
+    
+        public function prePersist($object) {
+        parent::prePersist($object);
+        foreach($object->getSalles() as $salle){
+            $salle->setOrganisme($object);
+        }
+
+    }
+    public function preUpdate($object) {
+        parent::preUpdate($object);
+        foreach($object->getSalles() as $salle){
+            $salle->setOrganisme($object);
+        }
     }
 
 }

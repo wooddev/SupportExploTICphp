@@ -12,6 +12,7 @@ class MyUserMap {
     private $map;
     private $markersCollections;
     private $profils;
+    private $icoPaths;
     
     /**
      * Constructeur de la classe
@@ -21,12 +22,13 @@ class MyUserMap {
      */
     
     
-    public function __construct($map,$user)
+    public function __construct($map,$user,$icoPaths)
     {
         $this->map = $map;
         $this->user= $user;
         $this->profils  = new \Doctrine\Common\Collections\ArrayCollection();
         $this->markersCollections  = new \Doctrine\Common\Collections\ArrayCollection(); // of Markers
+        $this->icoPaths = $icoPaths;
         return $this;
     }
     
@@ -40,7 +42,7 @@ class MyUserMap {
     private function generateMarkers()
     {
         foreach($this->profils as $profil){
-            $this->markersCollections->add($profil->getMyMarkers()); // Récupérations des objet "Markers" pour chaque profil
+            $this->markersCollections->add($profil->getMyMarkers($this->icoPaths)); // Récupérations des objet "Markers" pour chaque profil
         }
     }
     
@@ -65,6 +67,7 @@ class MyUserMap {
      * Transforme la collection de Markers en gmapsMarkers (service Ivory)
      * Assigne les gmapsMarkers à $this->map
      * 
+     * $paths : chemin vers les images à afficher (bureau/poste/salle)
      *  
      */
     

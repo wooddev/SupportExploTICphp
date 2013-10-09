@@ -32,3 +32,37 @@ label{
 .padding-bottom{
     padding: 0 0 25px 0;
 }
+
+.included_form div{  
+
+}
+.well .included_form .control-group{
+    width:100%;
+    float:left;    
+    padding-left: 0;
+    padding-right: 0;
+}
+.well .included_form .control-group .control-label{
+    position:relative;
+    float:none;
+    width:100%;
+
+    
+}
+.well .included_form .control-group .controls{
+    margin: 0;
+    width:100%;
+    float:none;    
+}
+.well .included_form .control-group .controls input,
+.well .included_form .control-group .controls select,
+.well .included_form .control-group .controls select div{
+    width:100%;
+    margin:0;
+    padding:4px 0; 
+    line-height: 1em;    
+    min-width:0;
+}
+.well .included_form .btn{
+    margin : 4px;
+}

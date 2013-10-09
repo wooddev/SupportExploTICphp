@@ -91,7 +91,12 @@ class Formateur extends \Explotic\AdminBundle\Entity\User
     
     
     public function __toString() {
-        return $this->prenom.' '.$this->nom;
+        if($this->getFirstname() && $this->getLastname())
+            return $this->getFirstname().' '.$this->getLastname();        
+        elseif($this->username)
+            return $this->username;
+        else
+            return '-';
     }
     /**
      * @var \Doctrine\Common\Collections\Collection

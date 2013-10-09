@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="lundi">
+                <source>lundi</source>
+                <target>lun.</target>
+            </trans-unit>
+            <trans-unit id="mardi">
+                <source>mardi</source>
+                <target>mar.</target>
+            </trans-unit>
+            <trans-unit id="mercredi">
+                <source>mercredi</source>
+                <target>merc.</target>
+            </trans-unit>
+            <trans-unit id="jeudi">
+                <source>jeudi</source>
+                <target>jeu.</target>
+            </trans-unit>
+            <trans-unit id="vendredi">
+                <source>vendredi</source>
+                <target>vend.</target>
+            </trans-unit>
+            <trans-unit id="samedi">
+                <source>samedi</source>
+                <target>sam.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

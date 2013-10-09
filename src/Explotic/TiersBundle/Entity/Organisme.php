@@ -144,5 +144,34 @@ class Organisme
         $this->salles = $salles;
     }
 
+    public function __toString() {
+        if($this->raisonSociale)
+            return $this->raisonSociale;
+        else
+            return '-';
+        
+    } 
+    
+    public function getMyMarkers($paths){
+        $markers = new \Explotic\MainBundle\Model\MyMarkers();
+        $markers->setProfilName(get_class($this));
 
+        // Récup des salles     
+
+        if(!(null===$this->getSalles()) && (!$this->getSalles()->isEmpty())){
+            foreach( $this->getSalles() as $salle) {
+                $salleM= new \Explotic\MainBundle\Model\MyMarker();
+                $salleM->setLat($salle->getLocalisation()->getGeometry()->getLat());
+                $salleM->setLon($salle->getLocalisation()->getGeometry()->getLon());
+                $salleM->setIcoPath($paths['salle']);
+                $salleM->setLabel('Salle de formation');
+                $salleM->setComment('Adresse :'.$salle->getAdresseRue().', '.$salle->getLocalisation()->getCommune());
+                $markers->addMarker($salleM);
+            }
+        }        
+        
+        return $markers;
+    
+        
+    }
 }

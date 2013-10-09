@@ -10,18 +10,22 @@ use Doctrine\Common\Collections\ArrayCollection;
 class AgendaController extends Controller
 {
     
-    public function extractAction(){
+    public function extractAction($user){
         
-        $entity = new \Explotic\AgendaBundle\Model\AgendaExtractor();
+        $agenda = $this->get('explotic_admin.user.access_control')->findUserAgenda($user);
+        
+        $agendaExtractor = new \Explotic\AgendaBundle\Model\AgendaExtractor();
         $now= new \DateTime();
-        $entity->setYear((int)$now->format('o'));
-        $entity->setWeek((int)$now->format('W'));
-        $entity->setDuree= 4;        
+        $agendaExtractor->setYear((int)$now->format('o'));
+        $agendaExtractor->setWeek((int)$now->format('W'));
+        $agendaExtractor->setDuree(4);  
+        $agendaExtractor->setAgendaEntities($agenda['entities']);
         
-        $form = $this->createForm(new AgendaExtractType(), $entity);
-        
+        $type = new \Explotic\AgendaBundle\Form\AgendaExtractType();
+        $type->setAgendaList($agenda['ids']);
+
+        $form =  $this->createForm($type, $agendaExtractor);  
         return $this->render('ExploticAgendaBundle:Agenda:extract.html.twig', array(
-            'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }    

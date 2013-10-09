@@ -20,10 +20,10 @@
     {% for entity in entities %}
         <tr>
             <td><a href="{{ path('stagiaire_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.nom }}</td>
-            <td>{{ entity.prenom }}</td>
+            <td>{{ entity.lastname }}</td>
+            <td>{{ entity.firstname }}</td>
             <td>{{ entity.marchePiedInfo }}</td>
-            <td>{{ entity.telephone }}</td>
+            <td>{{ entity.phone }}</td>
             <td>{{ entity.opca }}</td>
             <td>
                 <ul>

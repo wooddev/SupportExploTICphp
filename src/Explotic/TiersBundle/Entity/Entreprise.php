@@ -473,9 +473,9 @@ class Entreprise
                             $posteM= new \Explotic\MainBundle\Model\MyMarker();
                             $posteM->setLat($poste->getLocalisation()->getGeometry()->getLat());
                             $posteM->setLon($poste->getLocalisation()->getGeometry()->getLon());
-                            $posteM->setIcoPath('../bundles/exploticmain/images/forest2.png');
+                            $posteM->setIcoPath('bundles/exploticmain/images/forest2.png');
                             $posteM->setLabel('Poste de travail');
-                            $posteM->setComment('Chantier :'.$poste->getNomChantier().'<br>Stagiaire:'.$stagiaire->prenom.' '.$stagiaire->nom);
+                            $posteM->setComment('Chantier :'.$poste->getNomChantier().'<br>Stagiaire:'.$stagiaire->firstname.' '.$stagiaire->lastname);
                             $markers->addMarker($posteM);
                         }
                     }

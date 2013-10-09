@@ -196,7 +196,73 @@ class UserAccessControl
         }
         return false;
     }
+    
+    public function findUserAgenda($user){
         
+        $calendrierListe = new \Doctrine\Common\Collections\ArrayCollection();
+        $calendrierIds = array();
+        
+        if($user->hasRole('ROLE_STAGIAIRE') or $user->hasRole('ROLE_FORMATEUR')){
+            if ($user->getCalendrier()){
+            $calendrierListe->add($user->getCalendrier());   
+            $calendrierIds[]=$user->getCalendrier()->getId();
+            }        
+            if ($user->getSessions()){
+                foreach($user->getSessions() as $session){
+                    $calendrierListe->add($session->getCalendrier());                 
+                    $calendrierIds[]=$session->getCalendrier()->getId();
+                }
+            }  
+        }
+        
+        return array('entities'=>$calendrierListe,'ids'=>$calendrierIds);
+
+    }
+    
+    public function findCurrentUserAgenda(){
+        if($this->securityContext->isGranted('ROLE_ADMIN')){
+            $entities = new \Doctrine\Common\Collections\ArrayCollection(
+                            $this->em->getRepository('ExploticAgendaBundle:Agenda')->findAll()
+                        );
+            $ids = array();
+            foreach($entities as $entity){
+                $ids[]=$entity->getId();
+            }
+            return array('entities'=>$entities,'ids'=>$ids);
+        }
+        if($this->securityContext->isGranted('ROLE_GERANT')){
+            $entities = new \Doctrine\Common\Collections\ArrayCollection(
+                            $this->em->getRepository('ExploticAgendaBundle:Agenda')->findAll()
+                        );
+            $ids = array();
+            foreach($this->user->getEntreprise()->getStagiaires() as $stagiaire){
+                $agendaStg = $this->findUserAgenda($stagiaire);
+                $entities[]=$agendaStg['entities'];
+                $ids[]=$agendaStg['ids'];
+            }      
+            return array('entities'=>$entities,'ids'=>$ids);
+        }
+        if($this->securityContext->isGranted('ROLE_RECRUTEUR')){
+            $entities = new \Doctrine\Common\Collections\ArrayCollection(
+                            $this->em->getRepository('ExploticAgendaBundle:Agenda')->findAll()
+                        );
+            $ids = array();
+            foreach($this->user->getStagiaires() as $stagiaire){
+                $agendaStg = $this->findUserAgenda($stagiaire);
+                $entities[]=$agendaStg['entities'];
+                $ids[]=$agendaStg['ids'];
+            }      
+            return array('entities'=>$entities,'ids'=>$ids);
+        }
+        if($this->securityContext->isGranted('ROLE_FORMATEUR') or $this->securityContext->isGranted('ROLE_STAGIAIRE')){
+           return $this->findUserAgenda($this->user);
+        }
+
+        
+
+    }
+    
+    
     
 }
 

@@ -6,15 +6,19 @@
     <tbody>
         <tr>
             <td colspan="2" > <strong>
-{%if entity.gerant== true %}
+{%if entity.gerant is defined %}
                     Gérant de l'entreprise {{entity.entreprise.raisonsociale}}
 {% else %}
+                    {%if entity.entreprise %}
                     Employé de l'entreprise {{entity.entreprise.raisonsociale}}
+                    {%else%}
+                    Aucune entreprise rattachée
+                    {%endif%}
 {% endif %}
            </strong> </td>
         </tr>
         <tr>
-            <th>Datenaissance</th>
+            <th>dateOfBirth</th>
             <td>{{ entity.dateofbirth|date('Y-m-d H:i:s') }}</td>
         </tr>
         <tr>

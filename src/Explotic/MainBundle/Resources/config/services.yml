@@ -1,5 +1,7 @@
 parameters:
-#    explotic_main.example.class: Explotic\MainBundle\Example
+    explotic_main.icopath.salle : bundles/exploticmain/images/school.png
+    explotic_main.icopath.poste : bundles/exploticmain/images/forest2.png
+    explotic_main.icopath.bureau : bundles/exploticmain/images/workoffice.png
 
 services:
     form.type.gmaps_picker:
@@ -10,3 +12,6 @@ services:
         class: Explotic\MainBundle\Form\Type\GMapsAddressPickerType
         tags:
           - {name: form.type , alias : gmaps_address_picker }
+    explotic_main.icopaths:
+        class: Explotic\MainBundle\Model\icoPaths
+        arguments: [%explotic_main.icopath.salle%,%explotic_main.icopath.poste%,%explotic_main.icopath.bureau%,'@service_container']

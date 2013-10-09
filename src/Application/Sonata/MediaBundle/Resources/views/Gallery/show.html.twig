@@ -7,6 +7,12 @@
         </div>
     </div>
     <ul class='breadcrumb'>
+        <li>
+            <a  href="{{path('my_gallery_homepage')}}">                
+                <i class='icon-home'></i>
+            </a>
+            <span class="divider">/</span>
+        </li> 
     {%for dirGallery in gallery.galleriesDir%}
         <li>
             <a  href="{{path('my_gallery_show', {'id':dirGallery.id})}}">                
@@ -20,7 +26,7 @@
 
         <ul class='nav nav-list'>
             <li class='nav-header'>
-                <i class='icon-th'></i>
+                <i class='icon-caret-down'></i>
                 {{gallery.name}}
             </li>
             <ul class='nav nav-list'>               
