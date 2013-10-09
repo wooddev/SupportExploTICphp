@@ -9,6 +9,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Stagiaire extends \Explotic\AdminBundle\Entity\User
 {
+    
+    public function __toString() {
+        if($this->getLastname() && $this->getFirstname()){
+            return $this->getLastname().' '.$this->getFirstname().' - '.$this->getEntreprise();
+        }
+        if($this->getUsername()){
+            return $this->getUsername().' - '.$this->getEntreprise();
+        }
+        return '-';
+    }
     /**
      * @var boolean $marchePiedInfo
      */

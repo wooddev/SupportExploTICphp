@@ -64,7 +64,7 @@ class ProfilAdmin extends UserAdmin{
         $listMapper
                 ->add('_action', 'actions', array(
                     'actions' => array(
-                    'view' => array(),
+                    'show' => array(),
                     'edit' => array(),
                     )
                 ));

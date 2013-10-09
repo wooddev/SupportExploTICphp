@@ -125,15 +125,15 @@ class Entreprise
     public function __toString() {
 
         if(!$this->id){
-            return 'Nouvelle entrée';
+            return '-';
         }
         if (!$this->raisonSociale){
-            return parent::__toString();
+            return '-';
         }
         if(!is_object($this->getBureau())){
             return $this->getRaisonSociale();        
         } 
-        return $this->getRaisonSociale().' '.$this->getBureau()->getLocalisation()->getCommune();
+        return $this->getRaisonSociale();
 
     }
     /**

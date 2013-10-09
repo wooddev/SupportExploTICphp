@@ -21,15 +21,10 @@ class StagiaireController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        if($this->get('security.context')->isGranted('ROLE_ADMIN')){
-            $entities = $em->getRepository('ExploticTiersBundle:Stagiaire')->findAll();
-        }else{
-            $entities = $em->getRepository('ExploticTiersBundle:Stagiaire')->findAuthorized($this->get('security.context')->getToken()->getUser());
-        }
+        
         
         return $this->render('ExploticTiersBundle:Stagiaire:index.html.twig', array(
-            'entities' => $entities,
+            'entities' => $this->get('explotic_admin.user.access_control')->findAuthorizedStagiaires(),
         ));
     }
 

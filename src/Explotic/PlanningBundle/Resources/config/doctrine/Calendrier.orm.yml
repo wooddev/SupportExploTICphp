@@ -1,6 +1,10 @@
 Explotic\PlanningBundle\Entity\Calendrier:
     type: entity
     table: calendrier
-    repositoryClass: Explotic\PlanningBundle\Entity\CalendrierRepository        
+    repositoryClass: Explotic\PlanningBundle\Entity\CalendrierRepository
+    fields:    
+      label:
+        type: string
+        length: 255        
     lifecycleCallbacks: {  }
 

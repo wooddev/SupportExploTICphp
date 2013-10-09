@@ -20,7 +20,6 @@ class PosteAdmin extends SiteInterventionAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-                ->addIdentifier('nomChantier')
                 ->add('stagiaire')
         ;
         parent::configureListFields($listMapper);
@@ -34,7 +33,6 @@ class PosteAdmin extends SiteInterventionAdmin
     protected function configureDatagridFilters(DatagridMapper $filterMapper)
     {
         $filterMapper
-                ->add('nomChantier')
                 ->add('stagiaire')
             ;
         parent::configureDatagridFilters($filterMapper);
@@ -47,7 +45,6 @@ class PosteAdmin extends SiteInterventionAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {   
         $showMapper
-                ->add('nomChantier')
                 ->add('stagiaire')
         ;
         parent::configureShowFields($showMapper);
@@ -58,8 +55,7 @@ class PosteAdmin extends SiteInterventionAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {   
-        $formMapper
-                ->add('nomChantier','text',array('label'=>"Nom du chantier"))                
+        $formMapper              
             ;
         parent::configureFormFields($formMapper);
         

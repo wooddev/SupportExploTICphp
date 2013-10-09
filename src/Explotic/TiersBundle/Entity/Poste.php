@@ -9,39 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Poste extends SiteIntervention
 {
-    /**
-     * @var string $nomChantier
-     */
-    private $nomChantier;
+
     
         /**
      * @var \Explotic\TiersBundle\Entity\Stagiaire
      */
     private $stagiaire;
-
-    /**
-     * Set nomChantier
-     *
-     * @param string $nomChantier
-     * @return Poste
-     */
-    public function setNomChantier($nomChantier)
-    {
-        $this->nomChantier = $nomChantier;
-    
-        return $this;
-    }
-
-    /**
-     * Get nomChantier
-     *
-     * @return string 
-     */
-    public function getNomChantier()
-    {
-        return $this->nomChantier;
-    }
-
 
 
     /**
@@ -53,7 +26,7 @@ class Poste extends SiteIntervention
     public function setStagiaire(\Explotic\TiersBundle\Entity\Stagiaire $stagiaire = null)
     {
         $this->stagiaire = $stagiaire;
-    
+        $this->setCalendrier()->setLabel($this->label.'/'.$this->getStagiaire()->__toString());
         return $this;
     }
 
@@ -68,8 +41,8 @@ class Poste extends SiteIntervention
     }
     
     public function __toString() {
-        if(!(null===$this->getNomChantier())&&!(null===$this->getStagiaire())){
-            return $this->getNomChantier().' '.$this->getStagiaire()->getNom().' '.$this->getStagiaire()->getEntreprise()->getRaisonSociale();
+        if(!(null===$this->getLabel())&&!(null===$this->getStagiaire())){
+            return $this->getLabel().' '.$this->getStagiaire()->getNom().' '.$this->getStagiaire()->getEntreprise()->getRaisonSociale();
         }
         return 'Chantier en cours de création';
     }

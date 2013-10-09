@@ -12,19 +12,5 @@ use Doctrine\ORM\EntityRepository;
  */
 class StagiaireRepository extends EntityRepository
 {
-    public function findAuthorized(\Explotic\AdminBundle\Entity\User $user){
-        $query = $this->getEntityManager()->createQuery("
-            SELECT st
-            FROM ExploticTiersBundle:Stagiaire st
-            JOIN st.recruteur r
-            JOIN st.entreprise ent
-            JOIN st.session s
-            JOIN s.formateurs f
-            WHERE r.id = :userId
-            OR ent.id = :userId
-            OR f.id = :userId
-            ");
-        $query->setParameter('userId', $user->getId());
-        return $query->getResult();
-    }
+
 }

@@ -18,6 +18,9 @@ Explotic\TiersBundle\Entity\SiteIntervention:
             id: true
             generator:
                 strategy: AUTO
+        label:
+            type: string
+            length: 255
         commentaires:
             type: text
             nullable: true

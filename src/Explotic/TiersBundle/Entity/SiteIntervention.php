@@ -13,6 +13,13 @@ class SiteIntervention
      * @var integer $id
      */
     private $id;
+    
+    protected $label;
+    
+    public function __construct() {
+        $this->calendrier = new \Explotic\PlanningBundle\Entity\Calendrier();
+        $this->calendrier->setLabel($this->label);
+    }
 
     /**
      * @var Explotic\TiersBundle\Entity\Localisation
@@ -30,6 +37,16 @@ class SiteIntervention
         return $this->id;
     }
 
+    
+    public function getLabel() {
+        return $this->label;
+    }
+
+    public function setLabel($label) {
+        $this->label = $label;
+    }
+
+        
     /**
      * Set localisation
      *

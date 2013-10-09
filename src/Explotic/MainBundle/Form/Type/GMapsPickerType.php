@@ -12,10 +12,10 @@ class GMapsPickerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options )
     {
         $builder
-                ->add('lat', 'hidden', array(
+                ->add('lat', 'text', array(
                     'required'      => false
                 ))
-                ->add('lon', 'hidden', array(
+                ->add('lon', 'text', array(
                     'required'      => false
                 ))
         ;

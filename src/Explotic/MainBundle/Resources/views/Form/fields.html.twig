@@ -2,18 +2,19 @@
 {# src/Explotic/MainBundle/Resources/views/Form/fields.html.twig #}
  
 {% block gmaps_picker_widget %}</pre>
+
 <div id="gmaps_picker_widget">
 <div id="input">{{ block('form_widget') }}</div>
-<div id="map_canvas"></div>
+<div id="{{id}}_map_canvas"  style="width:400px; height: 400px;" ></div>
 </div>
 
 <script type="text/javascript">
 
 $(function(){
-    $('#map_canvas').width("400px").height("400px").gmap3({
+    $('#{{id}}_map_canvas').gmap3({
             map:{
                 options:{
-                    center:[44.32, -0.648],
+                    center:[ 44.359697,  -0.679464],
                     zoom:7,
                     mapTypeId: google.maps.MapTypeId.ROADMAP,
                     mapTypeControl: true,
@@ -47,9 +48,14 @@ $(function(){
             /*{%if form.lat.vars.value is defined and form.lon.vars.value is defined%}*/
                latLng: [{{form.lat.vars.value}}, {{form.lon.vars.value}}]
             /*{%endif%}*/
-            }                
+            },
+            trigger:"resize"
     });
-});
+    
+    $('#{{id}}_map_canvas').gmap3({trigger:"resize"});
+});    
+ 
+
 </script>
 
 {% endblock %}

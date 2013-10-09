@@ -11,7 +11,7 @@ class Salle extends SiteIntervention
 {
     public function __toString() {
         if(!(null===$this->getLocalisation())){
-            return $this->getLocalisation()->__toString();
+            return $this->getLabel().'/'.$this->getLocalisation()->__toString();
         }
         return 'Salle en cours de création';
     }

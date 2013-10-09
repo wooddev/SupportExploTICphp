@@ -2,14 +2,18 @@
 
 
 {% block body %} 
-<h1>Stagiaire list</h1>
+<div class='top-bar'>
+    <h3>Liste des stagiaires</h3>
+</div>
 
-<table class="records_list">
+<div class='well'>
+<table class="table">
     <thead>
         <tr>
-            <th>Id</th>
+            <th>Nom de connexion</th>
             <th>Nom</th>
             <th>Prenom</th>
+            <th>Entreprise</th>
             <th>Marchepiedinfo</th>
             <th>Telephone</th>
             <th>Opca</th>
@@ -19,38 +23,21 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('stagiaire_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td><a href="{{ path('stagiaire_show', { 'id': entity.id }) }}">{{ entity.username }}</a></td>
             <td>{{ entity.lastname }}</td>
             <td>{{ entity.firstname }}</td>
+            <td><a href="{{ path('entreprise_show', { 'id': entity.entreprise.id }) }}">{{ entity.entreprise.raisonSociale }}</a></td>            
             <td>{{ entity.marchePiedInfo }}</td>
             <td>{{ entity.phone }}</td>
             <td>{{ entity.opca }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('stagiaire_show', { 'id': entity.id }) }}">Voir Profil</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('stagiaire_edit', { 'id': entity.id }) }}">Editer Profil</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('stagiaire_programmation', { 'id': entity.id }) }}">Voir Programme</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('programme_new', { 'idStg': entity.id }) }}">Ajouter Programme</a>
-                    </li>
-                </ul>
+            <td>                   
+                <a class='btn btn-sucess' href="{{ path('stagiaire_show', { 'id': entity.id }) }}">Profil</a>
+                <a class='btn btn-primary'href="{{ path('stagiaire_programmation', { 'id': entity.id }) }}">Programme</a>
             </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
-
-<ul>
-    <li>
-        <a href="{{ path('stagiaire_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+        
+</div>
 {% endblock%}

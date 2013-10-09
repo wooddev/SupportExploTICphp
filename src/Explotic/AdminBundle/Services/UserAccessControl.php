@@ -4,7 +4,7 @@ namespace Explotic\AdminBundle\Services;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+use \Doctrine\Common\Collections\ArrayCollection;
 /**
  * Description of UserAccesControl
  *
@@ -256,14 +256,38 @@ class UserAccessControl
         }
         if($this->securityContext->isGranted('ROLE_FORMATEUR') or $this->securityContext->isGranted('ROLE_STAGIAIRE')){
            return $this->findUserAgenda($this->user);
-        }
-
-        
+        }        
 
     }
     
     
-    
+    public function findAuthorizedStagiaires(){
+        if($this->securityContext->isGranted('ROLE_ADMIN')){
+            return new ArrayCollection(
+                    $this->em->getRepository('ExploticTiersBundle:Stagiaire')
+                        ->findAll()
+                    );
+        }
+        if($this->securityContext->isGranted('ROLE_FORMATEUR')){
+            $stagiaires = new ArrayCollection();
+            foreach($this->user->getSessions() as $session){
+                foreach($session->getStagiaires() as $stg){
+                    $stagiaires->add($stg);
+                }
+            }
+            return $stagiaires;
+        }
+        if($this->securityContext->isGranted('ROLE_RECRUTEUR')){            
+            return $this->user->getStagiaires();
+        }
+        if($this->securityContext->isGranted('ROLE_GERANT')){
+            return $this->user->getEntreprise()->getStagiaires();
+        }
+        if($this->securityContext->isGranted('ROLE_STAGIARE')){          
+            return new ArrayCollection(array($this->user));
+        }
+        return false;
+    }        
 }
 
 ?>

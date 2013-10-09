@@ -9,6 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Bureau extends SiteIntervention
 {
+    public function __construct() {
+        $this->setLabel('bureau');        
+        parent::__construct();        
+    }
+    
     /**
      * @var string $adresseRue
      */
@@ -93,7 +98,7 @@ class Bureau extends SiteIntervention
     public function setEntreprise(\Explotic\TiersBundle\Entity\Entreprise $entreprise = null)
     {
         $this->entreprise = $entreprise;
-    
+        $this->getCalendrier()->setLabel($this->label.'/'.$this->getEntreprise());
         return $this;
     }
 

@@ -7,8 +7,4 @@ Explotic\TiersBundle\Entity\Poste:
         targetEntity: Stagiaire
         inversedBy: postes
         cascade: ["persist"]
-    fields:
-        nomChantier:
-            type: string
-            length: 255
     lifecycleCallbacks: {  }

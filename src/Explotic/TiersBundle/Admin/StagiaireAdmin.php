@@ -85,11 +85,12 @@ class StagiaireAdmin extends \Explotic\TiersBundle\Admin\ProfilAdmin
             ->with('Déploiement')
                 ->add('postes','sonata_type_collection',
                         array(
+                            'type_options'=>array('delete'=>true,'btn_delete'=>true,'btn_add'=>true),
                             "required"=>false,
                             "by_reference"=>false,
                             ),
                         array(
-                            'inline'=>'natural',
+                            'inline'=>'table',
                             'edit'=>'inline',
                             )
                         )
@@ -125,6 +126,11 @@ class StagiaireAdmin extends \Explotic\TiersBundle\Admin\ProfilAdmin
                 $user->getEntreprise()->addMachine($user->getMachine());
             }
             $user->setEntreprise($user->getEntreprise());
+        }  
+        
+        if(get_class($this->currentUser)=='Explotic\TiersBundle\Entity\Recruteur'){
+            $user->setRecruteur($this->currentUser);
+            $this->currentUser->addStagiaire($user);
         }
     }
     public function preUpdate( $user) {
@@ -152,6 +158,11 @@ class StagiaireAdmin extends \Explotic\TiersBundle\Admin\ProfilAdmin
                 $user->getEntreprise()->addMachine($user->getMachine());
             }
             $user->setEntreprise($user->getEntreprise());
+        }
+        
+        if(get_class($this->currentUser)=='Explotic\TiersBundle\Entity\Recruteur'){
+            $user->setRecruteur($this->currentUser);
+            $this->currentUser->addStagiaire($user);
         }
     }
 }

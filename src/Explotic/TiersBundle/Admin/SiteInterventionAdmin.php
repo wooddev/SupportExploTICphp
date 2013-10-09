@@ -20,6 +20,7 @@ class SiteInterventionAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->add('label')
             ->add('localisation')
             ->add('_action','actions',array(
                 'actions'=>array(
@@ -39,6 +40,7 @@ class SiteInterventionAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {   
         $showMapper
+                ->add('label')
                 ->add('localisation.commune')
                 ->add('localisation.cp')
                 ->add('localisation.geometry',null, array('template'=>'ExploticAdminBundle:Admin:show_localisation.html.twig'))
@@ -51,6 +53,7 @@ class SiteInterventionAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {   
         $formMapper
+                ->add('label')
                 ->add('localisation', 'sonata_type_admin',array(
                     'btn_delete'=>false,
                     'btn_add'=>false,
