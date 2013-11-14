@@ -8,6 +8,12 @@
     </div>
 </div>
     <ul class='breadcrumb'>
+        <li>
+            <a  href="{{path('my_gallery_homepage')}}">                
+                <i class='icon-home'></i>
+            </a>
+            <span class="divider">/</span>
+        </li> 
     {%for dirGallery in gallery.galleriesDir%}
         <li>
             <a  href="{{path('my_gallery_show', {'id':dirGallery.id})}}">                
@@ -21,7 +27,7 @@
     <h3>{{media.name}}</h3>
 </div>
 <div class="well">
-    <p>{{media.description}}</p>
+    <p>{{media.description| raw}}</p>
     <ul> 
     <li>Taille : {{ media.size }} Mo</li>
     <li>Type de contenu : {{ media.contenttype }}</li>

@@ -11,7 +11,7 @@
             <th>Stagiaire</th>
             <th>Entreprise</th>           
             {%endif%}
-            <th>Nomchantier</th>
+            <th>Nom</th>
             <th>Localisation</th>            
             <th>Actions</th>            
         </tr>
@@ -23,7 +23,7 @@
             <td>{{ entity.stagiaire }}</td>
             <td>{{entity.stagiaire.entreprise.raisonsociale }}</td>
             {%endif%}
-            <td>{{ entity.nomChantier }}</td>
+            <td>{{ entity.label }}</td>
             <td>{{ entity.localisation }}</td>
             <td>
 

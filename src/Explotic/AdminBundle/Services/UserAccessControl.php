@@ -5,6 +5,7 @@ namespace Explotic\AdminBundle\Services;
  * and open the template in the editor.
  */
 use \Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 /**
  * Description of UserAccesControl
  *
@@ -168,7 +169,7 @@ class UserAccessControl
         throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Accès non autorisé');        
     }
     
-    public function controlAcessToEditAgenda($agenda){
+    public function controlAccessToEditAgenda($agenda){
         $this->controlAccessToShowAgenda($agenda);
         if($this->securityContext->isGranted('ROLE_ADMIN')){
             return true;

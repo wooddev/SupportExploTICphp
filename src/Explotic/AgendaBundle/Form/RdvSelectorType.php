@@ -15,10 +15,22 @@ class RdvSelectorType extends AbstractType
         $builder
             ->add("agenda","entity",array(
                 'class'=>'Explotic\AgendaBundle\Entity\Agenda',
-                'label'=>'Sélection de l\'agenda où les dates seront bloquées',
+                'read_only'=>true,
+                'attr'=>array('style'=>'display:none',)
             ))                
-            ->add('bookingType','text')
-            ->add('dateDebut','date')
+            ->add('bookingType','text',array(
+                'read_only'=>true,
+                'attr'=>array('style'=>'display:none',)
+            ))
+            ->add('dateDebut','date', array(
+                'label'=> '',
+                'format'=> 'dd/MM/yyyy',
+                'widget'=>'single_text',
+                'attr'=>array(
+                    'readonly'=>false,
+                    'style'=>'cursor:pointer',
+                    )
+            ))
             ->add('period','integer',array(
                 'label'=>'Nombre de semaines à afficher'
             ))

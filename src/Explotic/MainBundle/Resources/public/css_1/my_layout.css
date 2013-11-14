@@ -13,7 +13,7 @@ label{
 }
 
 .invisible{
-    visibility: hidden;          
+    display: none;          
 }
 
 .well{
@@ -65,4 +65,9 @@ label{
 }
 .well .included_form .btn{
     margin : 4px;
+}
+
+.booking_type .control-group .controls{
+    margin:0 !important;
+    
 }

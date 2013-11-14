@@ -1,28 +1,37 @@
-{%extends '::explotic.html.twig'%}
-{%block body%}
+
 {% form_theme form 'ExploticAgendaBundle:Form:fields.html.twig' %}
     <form class='div-plain' action="{{ path('rdv_create_selected') }}" method="post" {{ form_enctype(form) }}>
-        <div class='top-bar'>
-        <h3>{{form_label(form.slots)}}</h3>        
+        <div class='booking_type'>
+            {{form_row(form.bookingSelectedOption)}} 
         </div>
-        <div class='well'> 
-            <p>
-                Agenda : {{generateur.agenda.id}}
-            </p>   
-            <p>
-                {{form_row(form.bookingSelectedOption)}}
-            </p>   
-            
-         {{ form_widget(form.slots) }}        
-        <div class='invisible'> 
-            {{form_rest(form)}}
-        </div>            
-        <p>
-            <button class="btn btn-large" type="submit">Attribuer ces créneaux</button>
-        </p>
-        </div>
+            {{ form_widget(form.slots) }}        
+            <div class='invisible'> 
+                {{form_rest(form)}}
+            </div>            
+
 </form>
+ <div id="submit_selected" class="btn btn-large btn-success" >Confirmer</div>
+  
+        
+<script>
+$(document).ready(function() {  
+    $('#submit_selected').click(function(){          
+        //$('#modal-loader').modal('show');
+        $.ajax({
+            type: "POST",
+            data: $('form').serialize(),
+            url: "{{ path('rdv_create_selected') }}",
+            success: function(retour){
+                $('#agenda_selected').html(retour);
+                //$('#modal-loader').modal('hide');
+            },
+            error: function(){
+                 $('#agenda_selected').html('Impossible de charger le formulaire de gestion des créneaux pré-attribués');
+                 //$('#modal-loader').modal('hide');
+                }
+        });
+        return false;
+    });
+});
 
-    
-
-{%endblock%}
+</script>

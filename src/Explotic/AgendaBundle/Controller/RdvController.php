@@ -184,12 +184,13 @@ class RdvController extends Controller
             ->getForm()
         ;
     }
-    
-    public function setSelectedRdvAction(){
+    //Sélecteur d'agenda à modifier
+    public function setSelectedRdvAction($agenda,$type){
         $rdvSelector = new \Explotic\AgendaBundle\Model\RdvSelector();
         $rdvSelector->setDateDebut(new \DateTime('last monday'));
         $rdvSelector->setPeriod('1');
-        $rdvSelector->setBookingType('tiers');
+        $rdvSelector->setAgenda($agenda);
+        $rdvSelector->setBookingType($type);
         $formType = new \Explotic\AgendaBundle\Form\RdvSelectorType();
         $form = $this->createForm($formType, $rdvSelector);
         
@@ -198,6 +199,8 @@ class RdvController extends Controller
             'form'   => $form->createView(),
         ));        
     }
+    
+    //unused
     public function newSelectedParamAction($rdvSelector){
         $em = $this->getDoctrine()->getManager();
 
@@ -244,6 +247,13 @@ class RdvController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
+            return $this->newSelected($rdvSelector);
+        }
+        return $this->redirect($this->generateUrl('profil'));
+    }
+    
+    
+    public function newSelected($rdvSelector){            
         
             $em = $this->getDoctrine()->getManager();
 
@@ -280,10 +290,13 @@ class RdvController extends Controller
                 'generateur' => $generateur,
                 'agendas' => $agendasView,
                 'form'   => $form->createView(),
-            ));
-        }
-        return $this->redirect($this->generateUrl('profil'));
+            ));        
+        
     }
+    
+    
+    
+    
     
     public function buildAgendas($slots,$agenda, \DateTime $dateDebut,  \DateTime $dateFin,$weeks){
         // récupérer ici la liste des rdv pour le transporteur associé à l'utilisateur en cours

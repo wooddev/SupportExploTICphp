@@ -155,6 +155,21 @@ class Gallery extends BaseGallery
         }
         return array_reverse($dirs->toArray());
     }
-
+    public function __toString() {
+        
+        if($this->getName()){
+            $string='';
+            foreach($this->getGalleriesDir() as $dir){            
+                $string = $string.'\\'.$dir->getName();
+            }
+            return $string;
+        }        
+        
+        return parent::__toString();
+        
+        
+        
+        
+    }
     
 }

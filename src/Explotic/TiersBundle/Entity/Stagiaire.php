@@ -531,7 +531,7 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
                 $posteM->setLon($poste->getLocalisation()->getGeometry()->getLon());
                 $posteM->setIcoPath($paths['poste']);
                 $posteM->setLabel('Poste de travail');
-                $posteM->setComment('Chantier :'.$poste->getNomChantier());
+                $posteM->setComment('Chantier :'.$poste->getLabel());
                 $markers->addMarker($posteM);
             }
         }        

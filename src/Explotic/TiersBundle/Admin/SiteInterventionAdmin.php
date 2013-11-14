@@ -24,7 +24,7 @@ class SiteInterventionAdmin extends Admin
             ->add('localisation')
             ->add('_action','actions',array(
                 'actions'=>array(
-                    'view'=>array(),
+                    'show'=>array(),
                     'edit'=>array(),
                 )
             ))

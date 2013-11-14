@@ -32,7 +32,7 @@ class MachineAdmin extends Admin{
                 ->add('numeroEntreprise')
                 ->add('_action', 'actions', array(
                     'actions' => array(
-                    'view' => array(),
+                    'show' => array(),
                     'edit' => array(),
                     )
                 ))

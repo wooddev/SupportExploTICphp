@@ -30,7 +30,7 @@ rdv_delete:
     requirements: { _method: post }
     
 rdv_set_selector:
-    pattern:  /selector
+    pattern:  /selector/{agenda}/{type}
     defaults: { _controller: "ExploticAgendaBundle:Rdv:setSelectedRdv" }
     
 rdv_new_selected:
