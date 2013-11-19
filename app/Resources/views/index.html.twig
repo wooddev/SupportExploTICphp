@@ -339,13 +339,13 @@
                                         
 					<!-- Main Navigation: Sessions -->
                                         {%if is_granted('ROLE_ADMIN')%}
-					{#<li class="dropdown">
+					<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								</i> Sessions <b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="{{path('session_new')}}"><i class="icon-plus"></i> Créer</a></li>
-								<li><a href="{{path('session')}}"><i class="icon-gear"></i> Gérer les sessions </a></li>								
+								{#<li><a href="{{path('session_new')}}"><i class="icon-plus"></i> Créer</a></li>
+								<li><a href="{{path('session')}}"><i class="icon-gear"></i> Gérer les sessions </a></li>	#}							
                                                                 <li class="dropdown-submenu">
                                                                         <a href="#">
                                                                         <i class="icon-gear"></i> Gérer les créneaux </a>
@@ -357,7 +357,7 @@
                                                                 
                                                                 
 							</ul>
-					</li>#}
+					</li>
                                         {%endif%}
 					<!-- / Main Navigation: Sessions -->
                                         
