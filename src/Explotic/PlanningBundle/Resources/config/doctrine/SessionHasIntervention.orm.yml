@@ -1,0 +1,32 @@
+Explotic\PlanningBundle\Entity\SessionHasIntervention:
+    type: entity
+    table: null
+    repositoryClass: Explotic\PlanningBundle\Entity\SessionHasInterventionRepository
+    oneToOne:
+      calendrier:
+        targetEntity: Calendrier
+        cascade: ['persist']
+    oneToMany:
+        interventionHasStagiaires:
+            targetEntity: Explotic\PlanningBundle\Entity\InterventionHasStagiaire
+            mappedBy: sessionHasIntervention
+            cascade: ['all']
+        interventionHasFormateurs:            
+            targetEntity: Explotic\PlanningBundle\Entity\InterventionHasFormateur
+            mappedBy: sessionHasIntervention
+            cascade: ['all']
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    inheritanceType: SINGLE_TABLE
+    discriminatorColumn:
+        name: typeIntervention
+        type: string
+        length: 255
+    discriminatorMap:
+        interventionSalle: SessionHasInterventionSalle
+        interventionEntreprise: SessionHasInterventionEntreprise
+    lifecycleCallbacks: {  }

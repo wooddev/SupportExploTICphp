@@ -161,6 +161,9 @@ sonata_media:
     db_driver: doctrine_orm # or doctrine_mongodb
     contexts:
         default:  # the default context is mandatory
+            download:
+                strategy: sonata.media.security.connected_strategy
+                mode: http
             providers:
                 - sonata.media.provider.dailymotion
                 - sonata.media.provider.youtube

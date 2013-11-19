@@ -29,7 +29,7 @@
                                    {%if creneau.creneauxAffiches is defined %} 
                                               {%for creneauAffiche in creneau.creneauxAffiches%}
                                                        {%if creneauAffiche.statutRdv is defined%}
-                                                       <br>{{creneauAffiche.statutRdv}}                                                          
+                                                       <div class='{{creneauAffiche.statutRdv}}'>{{creneauAffiche.statutRdv}} </div>                                                    
                                                        {%endif%}
                                               {%endfor%}
                                    {%endif%}

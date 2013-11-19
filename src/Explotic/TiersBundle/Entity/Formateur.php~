@@ -39,10 +39,6 @@ class Formateur extends \Explotic\AdminBundle\Entity\User
     }
 
 
-    /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     */
-    private $sessions;
 
     /**
      * Constructor
@@ -50,47 +46,23 @@ class Formateur extends \Explotic\AdminBundle\Entity\User
     public function __construct()
     {
         parent::__construct();
-        $this->sessions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->addRole('ROLE_FORMATEUR');        
         $this->calendrier = new \Explotic\PlanningBundle\Entity\Calendrier();
 
     }
     
-    /**
-     * Add sessions
-     *
-     * @param Explotic\PlanningBundle\Entity\Session $sessions
-     * @return Formateur
-     */
-    public function addSession(\Explotic\PlanningBundle\Entity\Session $sessions)
-    {
-        $this->sessions[] = $sessions;
-    
-        return $this;
-    }
 
-    /**
-     * Remove sessions
-     *
-     * @param Explotic\PlanningBundle\Entity\Session $sessions
-     */
-    public function removeSession(\Explotic\PlanningBundle\Entity\Session $sessions)
-    {
-        $this->sessions->removeElement($sessions);
-    }
     
-    /**
-     * Get sessions
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getSessions()
-    {
-        return $this->sessions;
-    }
+
     
     
     public function __toString() {
-        return $this->prenom.' '.$this->nom;
+        if($this->getFirstname() && $this->getLastname())
+            return $this->getFirstname().' '.$this->getLastname();        
+        elseif($this->username)
+            return $this->username;
+        else
+            return '-';
     }
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -100,6 +72,32 @@ class Formateur extends \Explotic\AdminBundle\Entity\User
      * @var \Explotic\TiersBundle\Entity\Organisme
      */
     private $organisme;
+
+
+
+    /**
+     * Set organisme
+     *
+     * @param \Explotic\TiersBundle\Entity\Organisme $organisme
+     * @return Formateur
+     */
+    public function setOrganisme(\Explotic\TiersBundle\Entity\Organisme $organisme = null)
+    {
+        $this->organisme = $organisme;
+    
+        return $this;
+    }
+
+    /**
+     * Get organisme
+     *
+     * @return \Explotic\TiersBundle\Entity\Organisme 
+     */
+    public function getOrganisme()
+    {
+        return $this->organisme;
+    }
+
 
 
 }

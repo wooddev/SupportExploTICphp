@@ -208,10 +208,16 @@ class UserAccessControl
             $calendrierListe->add($user->getCalendrier());   
             $calendrierIds[]=$user->getCalendrier()->getId();
             }        
-            if ($user->getSessions()){
-                foreach($user->getSessions() as $session){
-                    $calendrierListe->add($session->getCalendrier());                 
-                    $calendrierIds[]=$session->getCalendrier()->getId();
+            if ($user->hasRole('ROLE_STAGIAIRE') && $user->getInterventionHasStagiaires()){
+                foreach($user->getInterventionHasStagiaires() as $intervention){
+                    $calendrierListe->add($intervention->getSessionHasIntervention()->getCalendrier());                 
+                    $calendrierIds[]=$intervention->getSessionHasIntervention()->getCalendrier()->getId();
+                }
+            }  
+            if ($user->hasRole('ROLE_FORMATEUR') && $user->getInterventionHasFormateurs()){
+                foreach($user->getInterventionHasFormateurs() as $intervention){
+                    $calendrierListe->add($intervention->getSessionHasIntervention()->getCalendrier());                 
+                    $calendrierIds[]=$intervention->getSessionHasIntervention()->getCalendrier()->getId();
                 }
             }  
         }

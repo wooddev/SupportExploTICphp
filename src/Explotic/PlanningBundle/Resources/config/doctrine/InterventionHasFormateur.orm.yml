@@ -1,0 +1,18 @@
+Explotic\PlanningBundle\Entity\InterventionHasFormateur:
+    type: entity
+    table: null
+    repositoryClass: Explotic\PlanningBundle\Entity\InterventionHasFormateurRepository
+    manyToOne:
+        formateur:            
+            targetEntity: Explotic\TiersBundle\Entity\Formateur
+            inversedBy: interventionHasFormateurs
+        sessionHasIntervention:
+            targetEntity: Explotic\PlanningBundle\Entity\SessionHasIntervention
+            inversedBy: interventionHasFormateurs
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }

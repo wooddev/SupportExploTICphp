@@ -10,4 +10,34 @@ services:
     factory_service: doctrine.orm.default_entity_manager
     factory_method: getRepository
     arguments: ['ExploticPlanningBundle:Calendrier']  
- 
+  explotic_planning.admin.sessionHasIntervention:
+      abstract:   true
+  explotic_planning.admin.sessionHasInterventionSalle:
+      class:      Explotic\PlanningBundle\Admin\SessionHasInterventionSalleAdmin
+      tags:
+                  - { name: sonata.admin, manager_type: orm, group: Gestion des sessions, label: Interventions en planifiées salle}
+      arguments:  [null, Explotic\PlanningBundle\Entity\SessionHasInterventionSalle, null]
+      parent:     explotic_planning.admin.sessionHasIntervention
+  explotic_planning.admin.sessionHasInterventionEntreprise:
+      class:      Explotic\PlanningBundle\Admin\SessionHasInterventionEntrepriseAdmin
+      tags:
+                  - { name: sonata.admin, manager_type: orm, group: Gestion des sessions, label: Interventions planifiées en entreprise }
+      arguments:  [null, Explotic\PlanningBundle\Entity\SessionHasInterventionEntreprise, null]
+      parent:     explotic_planning.admin.sessionHasIntervention
+  explotic_planning.admin.session:
+      class:      Explotic\PlanningBundle\Admin\SessionAdmin
+      tags:
+                  - { name: sonata.admin, manager_type: orm, group: Gestion des sessions, label: Sessions planifiées}
+      arguments:  [null, Explotic\PlanningBundle\Entity\Session, null]
+  explotic_planning.admin.interventionHasStagiaire:
+      class:      Explotic\PlanningBundle\Admin\InterventionHasStagiaireAdmin
+      tags:
+                  - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: Gestion des sessions, label: Participants aux sessions}
+      arguments:  [null, Explotic\PlanningBundle\Entity\InterventionHasStagiaire, null]
+  explotic_planning.admin.interventionHasFormateur:
+      class:      Explotic\PlanningBundle\Admin\InterventionHasFormateurAdmin
+      tags:
+                  - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: Gestion des sessions, label: Formateurs assignés aux sessions}
+      arguments:  [null, Explotic\PlanningBundle\Entity\InterventionHasFormateur, null]
+      
+

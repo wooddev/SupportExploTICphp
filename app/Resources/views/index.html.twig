@@ -258,12 +258,12 @@
                                         
 					<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<i class="icon-user"></i> General <b class="caret"></b>
+								<i class="icon-user"></i> Profil <b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu">
 								<li><a href="{{path('mon_profil')}}"><i class="icon-eye-open"></i> Consulter</a></li>
-								<li><a href=""><i class="icon-edit-sign"></i> Modifier</a></li>
-								<li><a href="mon_agenda"><i class="icon-calendar"></i> Mon planning</a></li>
+								{#<li><a href=""><i class="icon-edit-sign"></i> Modifier</a></li>
+								<li><a href="mon_agenda"><i class="icon-calendar"></i> Mon planning</a></li>#}
 							</ul>
 					</li>
                                         
@@ -280,7 +280,8 @@
 								<li><a href="{{path('programme')}}"><i class="icon-bookmark"></i> Mes formations</a></li>
                                                                 {%endif%}
 								<li><a href="{{path('module')}}"><i class="icon-file-text"></i>Programmes de formation</a></li>
-								<li><a href="#"><i class="icon-calendar"></i>Sessions prévues</a></li>
+								
+                                                                {#<li><a href="#"><i class="icon-calendar"></i>Sessions prévues</a></li>#}
                                                                 {%if is_granted('ROLE_ADMIN')%}
 								<li><a href="{{path('formateur')}}"><i class="icon-group"></i> Formateurs</a></li>
                                                                 {%endif%}
@@ -314,8 +315,8 @@
 							</a>
 							<ul class="dropdown-menu">
 								<li><a href="{{path('stagiaire')}}"><i class="icon-group"></i> Mes recrutements</a></li>
-								<li><a href="{{path('stagiaire_new')}}"><i class="icon-plus"></i> Nouveau</a></li>
-								<li><a href="#"><i class="icon-bar-chart"></i> Statistiques</a></li>                                                                
+								{#<li><a href="{{path('stagiaire_new')}}"><i class="icon-plus"></i> Nouveau</a></li>
+								<li><a href="#"><i class="icon-bar-chart"></i> Statistiques</a></li>    #}                                                            
 							</ul>
 					</li>
                                         {%endif%}
@@ -336,9 +337,9 @@
                                         {%endif%}
 					<!-- / Main Navigation: Mon entreprise -->
                                         
-					<!-- Main Navigation: Mon entreprise -->
+					<!-- Main Navigation: Sessions -->
                                         {%if is_granted('ROLE_ADMIN')%}
-					<li class="dropdown">
+					{#<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								</i> Sessions <b class="caret"></b>
 							</a>
@@ -356,9 +357,9 @@
                                                                 
                                                                 
 							</ul>
-					</li>
+					</li>#}
                                         {%endif%}
-					<!-- / Main Navigation: Mon entreprise -->
+					<!-- / Main Navigation: Sessions -->
                                         
 					<!-- Main Navigation: Admin -->
                                         {%if is_granted('ROLE_ADMIN')%}

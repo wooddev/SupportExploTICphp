@@ -12,7 +12,7 @@ class Rdv
         /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
 
     /**
@@ -27,12 +27,12 @@ class Rdv
     /**
      * @var string
      */
-    private $statutRdv;
+    protected $statutRdv;
 
     /**
      * @var \Explotic\AgendaBundle\Entity\CreneauRdv
      */
-    private $creneauRdv;
+    protected $creneauRdv;
 
     /**
      * Set statutRdv
@@ -114,7 +114,7 @@ class Rdv
     /**
      * @var \Explotic\AgendaBundle\Entity\Agenda
      */
-    private $agenda;
+    protected $agenda;
 
 
     /**

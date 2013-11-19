@@ -13,17 +13,17 @@ class CreneauRdv extends Creneau
     /**
      * @var integer
      */
-    private $semaine;
+    protected $semaine;
 
     /**
      * @var integer
      */
-    private $annee;
+    protected $annee;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $rdvs;
+    protected $rdvs;
 
     /**
      * Constructor
@@ -128,12 +128,12 @@ class CreneauRdv extends Creneau
     /**
      * @var \DateTime
      */
-    private $dateHeureDebut;
+    protected $dateHeureDebut;
 
     /**
      * @var dateTime
      */
-    private $dateHeureFin;
+    protected $dateHeureFin;
 
 
     /**

@@ -39,10 +39,6 @@ class Formateur extends \Explotic\AdminBundle\Entity\User
     }
 
 
-    /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     */
-    private $sessions;
 
     /**
      * Constructor
@@ -50,44 +46,15 @@ class Formateur extends \Explotic\AdminBundle\Entity\User
     public function __construct()
     {
         parent::__construct();
-        $this->addRole('ROLE_FORMATEUR');
-        $this->sessions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->addRole('ROLE_FORMATEUR');        
         $this->calendrier = new \Explotic\PlanningBundle\Entity\Calendrier();
+        $this->interventionHasFormateurs = new \Doctrine\Common\Collections\ArrayCollection();
 
     }
     
-    /**
-     * Add sessions
-     *
-     * @param Explotic\PlanningBundle\Entity\Session $sessions
-     * @return Formateur
-     */
-    public function addSession(\Explotic\PlanningBundle\Entity\Session $sessions)
-    {
-        $this->sessions[] = $sessions;
-    
-        return $this;
-    }
 
-    /**
-     * Remove sessions
-     *
-     * @param Explotic\PlanningBundle\Entity\Session $sessions
-     */
-    public function removeSession(\Explotic\PlanningBundle\Entity\Session $sessions)
-    {
-        $this->sessions->removeElement($sessions);
-    }
     
-    /**
-     * Get sessions
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getSessions()
-    {
-        return $this->sessions;
-    }
+
     
     
     public function __toString() {
@@ -131,10 +98,45 @@ class Formateur extends \Explotic\AdminBundle\Entity\User
     {
         return $this->organisme;
     }
+
+
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $interventionHasFormateurs;
+
+
+    /**
+     * Add interventionHasFormateurs
+     *
+     * @param \Explotic\PlanningBundle\Entity\InterventionHasFormateur $interventionHasFormateurs
+     * @return Formateur
+     */
+    public function addInterventionHasFormateur(\Explotic\PlanningBundle\Entity\InterventionHasFormateur $interventionHasFormateurs)
+    {
+        $this->interventionHasFormateurs->add($interventionHasFormateurs);
     
-    public function setSessions(\Doctrine\Common\Collections\ArrayCollection $sessions) {
-        $this->sessions = $sessions;
+        return $this;
     }
 
+    /**
+     * Remove interventionHasFormateurs
+     *
+     * @param \Explotic\PlanningBundle\Entity\InterventionHasFormateur $interventionHasFormateurs
+     */
+    public function removeInterventionHasFormateur(\Explotic\PlanningBundle\Entity\InterventionHasFormateur $interventionHasFormateurs)
+    {
+        $this->interventionHasFormateurs->removeElement($interventionHasFormateurs);
+    }
 
+    /**
+     * Get interventionHasFormateurs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInterventionHasFormateurs()
+    {
+        return $this->interventionHasFormateurs;
+    }
 }

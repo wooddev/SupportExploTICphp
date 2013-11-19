@@ -1,0 +1,18 @@
+Explotic\PlanningBundle\Entity\InterventionHasStagiaire:
+    type: entity
+    table: null
+    repositoryClass: Explotic\PlanningBundle\Entity\InterventionHasStagiaireRepository
+    manyToOne:
+        stagiaire:
+            targetEntity: Explotic\TiersBundle\Entity\Stagiaire
+            inversedBy: interventionHasStagiaires       
+        sessionHasIntervention:
+            targetEntity: Explotic\PlanningBundle\Entity\SessionHasIntervention
+            inversedBy: interventionHasStagiaires
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }

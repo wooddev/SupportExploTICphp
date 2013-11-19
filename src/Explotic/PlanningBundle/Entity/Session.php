@@ -25,40 +25,18 @@ class Session
         return $this->id;
     }
     
-    public function getDateDebut()
-    {
-        $dateDebut = "01/01/2001";
-        return $dateDebut;
-    }
     /**
      * @var string $numero
      */
-    private $numero;
-
-    /**
-     * @var Explotic\PlanningBundle\Entity\Calendrier
-     */
-    private $calendrier;
-
-    /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     */
-    private $stagiaires;
-
-    /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     */
-    private $formateurs;
+    private $numero;   
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->stagiaires = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->formateurs = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->calendrier = new \Explotic\PlanningBundle\Entity\Calendrier();
-
+        $this->sessionHasInterventionEntreprises = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sessionHasInterventionSalles = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -83,210 +61,6 @@ class Session
     {
         return $this->numero;
     }
-
-    /**
-     * Set calendrier
-     *
-     * @param Explotic\PlanningBundle\Entity\Calendrier $calendrier
-     * @return Session
-     */
-    public function setCalendrier(\Explotic\PlanningBundle\Entity\Calendrier $calendrier = null)
-    {
-        $this->calendrier = $calendrier;
-    
-        return $this;
-    }
-
-    /**
-     * Get calendrier
-     *
-     * @return Explotic\PlanningBundle\Entity\Calendrier 
-     */
-    public function getCalendrier()
-    {
-        return $this->calendrier;
-    }
-   
-
-    /**
-     * Add stagiaires
-     *
-     * @param Explotic\TiersBundle\Entity\Stagiaire $stagiaires
-     * @return Session
-     */
-    public function addStagiaire(\Explotic\TiersBundle\Entity\Stagiaire $stagiaires)
-    {
-        $this->stagiaires[] = $stagiaires;
-    
-        return $this;
-    }
-
-    /**
-     * Remove stagiaires
-     *
-     * @param Explotic\TiersBundle\Entity\Stagiaire $stagiaires
-     */
-    public function removeStagiaire(\Explotic\TiersBundle\Entity\Stagiaire $stagiaires)
-    {
-        $this->stagiaires->removeElement($stagiaires);
-    }
-
-    /**
-     * Get stagiaires
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getStagiaires()
-    {
-        return $this->stagiaires;
-    }
-
-    /**
-     * Add formateurs
-     *
-     * @param Explotic\TiersBundle\Entity\Formateur $formateurs
-     * @return Session
-     */
-    public function addFormateur(\Explotic\TiersBundle\Entity\Formateur $formateurs)
-    {
-        $this->formateurs[] = $formateurs;
-    
-        return $this;
-    }
-
-    /**
-     * Remove formateurs
-     *
-     * @param Explotic\TiersBundle\Entity\Formateur $formateurs
-     */
-    public function removeFormateur(\Explotic\TiersBundle\Entity\Formateur $formateurs)
-    {
-        $this->formateurs->removeElement($formateurs);
-    }
-
-    /**
-     * Get formateurs
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getFormateurs()
-    {
-        return $this->formateurs;
-    }
-    /**
-     * @var \Explotic\TiersBundle\Entity\Salle
-     */
-    private $salle;
-
-    /**
-     * @var \Explotic\TiersBundle\Entity\Poste
-     */
-    private $poste;
-
-
-    /**
-     * Set salle
-     *
-     * @param \Explotic\TiersBundle\Entity\Salle $salle
-     * @return Session
-     */
-    public function setSalle(\Explotic\TiersBundle\Entity\Salle $salle = null)
-    {
-        $this->salle = $salle;
-    
-        return $this;
-    }
-
-    /**
-     * Get salle
-     *
-     * @return \Explotic\TiersBundle\Entity\Salle 
-     */
-    public function getSalle()
-    {
-        return $this->salle;
-    }
-
-    /**
-     * Set poste
-     *
-     * @param \Explotic\TiersBundle\Entity\Poste $poste
-     * @return Session
-     */
-    public function setPoste(\Explotic\TiersBundle\Entity\Poste $poste = null)
-    {
-        $this->poste = $poste;
-    
-        return $this;
-    }
-
-    /**
-     * Get poste
-     *
-     * @return \Explotic\TiersBundle\Entity\Poste 
-     */
-    public function getPoste()
-    {
-        return $this->poste;
-    }
-    
-    
-    /**
-     * @var \Explotic\FormationBundle\Entity\InterventionSalle
-     */
-    private $interventionSalle;
-
-    /**
-     * @var \Explotic\FormationBundle\Entity\InterventionEntreprise
-     */
-    private $interventionEntreprise;
-
-
-    /**
-     * Set interventionSalle
-     *
-     * @param \Explotic\FormationBundle\Entity\InterventionSalle $interventionSalle
-     * @return Session
-     */
-    public function setInterventionSalle(\Explotic\FormationBundle\Entity\InterventionSalle $interventionSalle = null)
-    {
-        $this->interventionSalle = $interventionSalle;
-    
-        return $this;
-    }
-
-    /**
-     * Get interventionSalle
-     *
-     * @return \Explotic\FormationBundle\Entity\InterventionSalle 
-     */
-    public function getInterventionSalle()
-    {
-        return $this->interventionSalle;
-    }
-
-    /**
-     * Set interventionEntreprise
-     *
-     * @param \Explotic\FormationBundle\Entity\InterventionEntreprise $interventionEntreprise
-     * @return Session
-     */
-    public function setInterventionEntreprise(\Explotic\FormationBundle\Entity\InterventionEntreprise $interventionEntreprise = null)
-    {
-        $this->interventionEntreprise = $interventionEntreprise;
-    
-        return $this;
-    }
-
-    /**
-     * Get interventionEntreprise
-     *
-     * @return \Explotic\FormationBundle\Entity\InterventionEntreprise 
-     */
-    public function getInterventionEntreprise()
-    {
-        return $this->interventionEntreprise;
-    }
     
     public function getModuleNom(){
         if (!(null === $this->interventionEntreprise)){
@@ -294,7 +68,138 @@ class Session
         }
         elseif (!(null === $this->interventionSalle)){
             $this->interventionSalle->getModule()->getNom();            
-        }
-        
+        }        
+    }
+    /**
+     * @var \DateTime
+     */
+    private $dateDebut;
+
+    /**
+     * @var \Explotic\FormationBundle\Entity\Module
+     */
+    private $module;
+
+
+    /**
+     * Set dateDebut
+     *
+     * @param \DateTime $dateDebut
+     * @return Session
+     */
+    public function setDateDebut($dateDebut)
+    {
+        $this->dateDebut = $dateDebut;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateDebut
+     *
+     * @return \DateTime 
+     */
+    public function getDateDebut()
+    {
+        return $this->dateDebut;
+    }
+
+    /**
+     * Set module
+     *
+     * @param \Explotic\FormationBundle\Entity\Module $module
+     * @return Session
+     */
+    public function setModule(\Explotic\FormationBundle\Entity\Module $module = null)
+    {
+        $this->module = $module;
+    
+        return $this;
+    }
+
+    /**
+     * Get module
+     *
+     * @return \Explotic\FormationBundle\Entity\Module 
+     */
+    public function getModule()
+    {
+        return $this->module;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sessionHasInterventionSalles;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sessionHasInterventionEntreprises;
+
+
+    /**
+     * Add sessionHasInterventionSalles
+     *
+     * @param \Explotic\PlanningBundle\Entity\SessionHasInterventionSalle $sessionHasInterventionSalles
+     * @return Session
+     */
+    public function addSessionHasInterventionSalle(\Explotic\PlanningBundle\Entity\SessionHasInterventionSalle $sessionHasInterventionSalles)
+    {
+        $this->sessionHasInterventionSalles->add($sessionHasInterventionSalles);
+    
+        return $this;
+    }
+
+    /**
+     * Remove sessionHasInterventionSalles
+     *
+     * @param \Explotic\PlanningBundle\Entity\SessionHasInterventionSalle $sessionHasInterventionSalles
+     */
+    public function removeSessionHasInterventionSalle(\Explotic\PlanningBundle\Entity\SessionHasInterventionSalle $sessionHasInterventionSalles)
+    {
+        $this->sessionHasInterventionSalles->removeElement($sessionHasInterventionSalles);
+    }
+
+    /**
+     * Get sessionHasInterventionSalles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSessionHasInterventionSalles()
+    {
+        return $this->sessionHasInterventionSalles;
+    }
+
+    /**
+     * Add sessionHasInterventionEntreprises
+     *
+     * @param \Explotic\PlanningBundle\Entity\SessionHasInterventionEntreprise $sessionHasInterventionEntreprises
+     * @return Session
+     */
+    public function addSessionHasInterventionEntreprise(\Explotic\PlanningBundle\Entity\SessionHasInterventionEntreprise $sessionHasInterventionEntreprises)
+    {
+        $this->sessionHasInterventionEntreprises->add($sessionHasInterventionEntreprises);
+    
+        return $this;
+    }
+
+    /**
+     * Remove sessionHasInterventionEntreprises
+     *
+     * @param \Explotic\PlanningBundle\Entity\SessionHasInterventionEntreprise $sessionHasInterventionEntreprises
+     */
+    public function removeSessionHasInterventionEntreprise(\Explotic\PlanningBundle\Entity\SessionHasInterventionEntreprise $sessionHasInterventionEntreprises)
+    {
+        $this->sessionHasInterventionEntreprises->removeElement($sessionHasInterventionEntreprises);
+    }
+
+    /**
+     * Get sessionHasInterventionEntreprises
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSessionHasInterventionEntreprises()
+    {
+        return $this->sessionHasInterventionEntreprises;
     }
 }

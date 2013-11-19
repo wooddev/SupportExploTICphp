@@ -2,30 +2,16 @@ Explotic\PlanningBundle\Entity\Session:
     type: entity
     table: session
     repositoryClass: Explotic\PlanningBundle\Entity\SessionRepository
-    oneToOne:
-      calendrier:
-        targetEntity: Calendrier
-        cascade: ['persist']
+    oneToMany:
+      sessionHasInterventionSalles:
+        targetEntity: Explotic\PlanningBundle\Entity\SessionHasInterventionSalle
+        mappedBy: session
+      sessionHasInterventionEntreprises:
+        targetEntity: Explotic\PlanningBundle\Entity\SessionHasInterventionEntreprise
+        mappedBy: session
     manyToOne:
-      salle:
-        targetEntity: Explotic\TiersBundle\Entity\Salle
-        nullable: true
-      poste:
-        targetEntity: Explotic\TiersBundle\Entity\Poste
-        nullable: true
-      interventionSalle:
-        targetEntity: Explotic\FormationBundle\Entity\InterventionSalle
-        nullable: true
-      interventionEntreprise:
-        targetEntity: Explotic\FormationBundle\Entity\InterventionEntreprise
-        nullable: true
-    manyToMany:
-      stagiaires:
-        targetEntity: Explotic\TiersBundle\Entity\Stagiaire
-        mappedBy: sessions
-      formateurs:
-        targetEntity: Explotic\TiersBundle\Entity\Formateur
-        mappedBy: sessions        
+      module:
+        targetEntity: Explotic\FormationBundle\Entity\Module
     fields:
         id:
             type: integer
@@ -35,4 +21,6 @@ Explotic\PlanningBundle\Entity\Session:
         numero:
           type: string
           length: 255
+        dateDebut:
+          type: date
     lifecycleCallbacks: {  }

@@ -79,3 +79,8 @@ div.creneau{
     color:#f2eded;
     padding: 0 5px;
 }
+
+.indisponible{
+    background: #5c5c5c;
+    font-weight: bold;
+}

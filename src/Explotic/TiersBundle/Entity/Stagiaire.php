@@ -45,10 +45,6 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
      */
     private $entreprise;
 
-    /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     */
-    private $sessions;
     
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -62,10 +58,10 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
     public function __construct()
     {   parent::__construct();    
         $this->addRole('ROLE_STAGIAIRE');
-        $this->sessions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->postes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->programmes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->calendrier = new \Explotic\PlanningBundle\Entity\Calendrier();
+        $this->interventionHasStagiaires =  new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     
@@ -185,38 +181,7 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
         return $this->entreprise;
     }
 
-    /**
-     * Add sessions
-     *
-     * @param Explotic\PlanningBundle\Entity\Session $sessions
-     * @return Stagiaire
-     */
-    public function addSession(\Explotic\PlanningBundle\Entity\Session $sessions)
-    {
-        $this->sessions[] = $sessions;
     
-        return $this;
-    }
-
-    /**
-     * Remove sessions
-     *
-     * @param Explotic\PlanningBundle\Entity\Session $sessions
-     */
-    public function removeSession(\Explotic\PlanningBundle\Entity\Session $sessions)
-    {
-        $this->sessions->removeElement($sessions);
-    }
-
-    /**
-     * Get sessions
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getSessions()
-    {
-        return $this->sessions;
-    }
     
     /**
      * Add postes
@@ -250,9 +215,7 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
     {
         return $this->postes;
     }
-    public function setSessions(\Doctrine\Common\Collections\ArrayCollection $sessions) {
-        $this->sessions = $sessions;
-    }
+
 
     public function setPostes(\Doctrine\Common\Collections\Collection $postes) {
         $this->postes = $postes;
@@ -539,4 +502,42 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
         return $markers;
     }
         
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $interventionHasStagiaires;
+
+
+    /**
+     * Add interventionHasStagiaires
+     *
+     * @param \Explotic\PlanningBundle\Entity\InterventionHasStagiaire $interventionHasStagiaires
+     * @return Stagiaire
+     */
+    public function addInterventionHasStagiaire(\Explotic\PlanningBundle\Entity\InterventionHasStagiaire $interventionHasStagiaires)
+    {
+        $this->interventionHasStagiaires->add($interventionHasStagiaires);
+    
+        return $this;
+    }
+
+    /**
+     * Remove interventionHasStagiaires
+     *
+     * @param \Explotic\PlanningBundle\Entity\InterventionHasStagiaire $interventionHasStagiaires
+     */
+    public function removeInterventionHasStagiaire(\Explotic\PlanningBundle\Entity\InterventionHasStagiaire $interventionHasStagiaires)
+    {
+        $this->interventionHasStagiaires->removeElement($interventionHasStagiaires);
+    }
+
+    /**
+     * Get interventionHasStagiaires
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInterventionHasStagiaires()
+    {
+        return $this->interventionHasStagiaires;
+    }
 }

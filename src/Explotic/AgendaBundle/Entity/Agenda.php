@@ -12,7 +12,7 @@ class Agenda
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
 
     /**
@@ -27,7 +27,7 @@ class Agenda
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $rdvs;
+    protected $rdvs;
 
     /**
      * Constructor

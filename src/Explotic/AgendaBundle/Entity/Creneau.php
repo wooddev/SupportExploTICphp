@@ -12,7 +12,7 @@ class Creneau
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
 
     /**
@@ -37,48 +37,48 @@ class Creneau
     /**
      * @var integer
      */
-    private $jour;
+    protected $jour;
 
     /**
      * @var integer
      */
-    private $heure;
+    protected $heure;
 
     /**
      * @var integer
      */
-    private $minute;
+    protected $minute;
 
     /**
      * @var integer
      */
-    private $duree;
+    protected $duree;
 
     /**
      * @var \DateTime
      */
-    private $heureDebut;
+    protected $heureDebut;
 
     /**
      * @var \DateTime
      */
-    private $heureFin;
+    protected $heureFin;
 
 
     /**
      * @var \DateTime
      */
-    private $dateCreation;
+    protected $dateCreation;
 
     /**
      * @var \DateTime
      */
-    private $dateArchivage;
+    protected $dateArchivage;
 
     /**
      * @var \DateTime
      */
-    private $dateModification;
+    protected $dateModification;
 
 
     /**

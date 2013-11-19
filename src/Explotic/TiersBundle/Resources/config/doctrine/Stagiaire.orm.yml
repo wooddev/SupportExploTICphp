@@ -20,6 +20,9 @@ Explotic\TiersBundle\Entity\Stagiaire:
         mappedBy: stagiaire 
         cascade: ["persist"]
         orphanRemoval: true
+      interventionHasStagiaires:
+          targetEntity: Explotic\PlanningBundle\Entity\InterventionHasStagiaire
+          mappedBy: stagiaire
     manyToOne:
       entreprise:
         targetEntity: Entreprise
@@ -34,21 +37,7 @@ Explotic\TiersBundle\Entity\Stagiaire:
       recruteur:
         targetEntity: Recruteur
         inversedBy: stagiaires 
-        nullable: true
-    manyToMany:
-      sessions:
-        targetEntity: Explotic\PlanningBundle\Entity\Session
-        inversedBy: stagiaires
-        nullable: true
-        cascade: ["persist"]
-        joinTable:
-          name: stagiaires_sessions
-          joinColumns:
-            stagiaire_id:
-              referencedColumnName: id
-          inverseJoinColumns:
-            session_id:
-              referencedColumnName: id             
+        nullable: true     
     fields:        
         marchePiedInfo:
             type: boolean        

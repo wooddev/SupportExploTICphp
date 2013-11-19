@@ -1,0 +1,13 @@
+Explotic\PlanningBundle\Entity\SessionHasInterventionSalle:
+    type: entity
+    table: null
+    repositoryClass: Explotic\PlanningBundle\Entity\SessionHasInterventionSalleRepository
+    manyToOne:
+        session:
+            targetEntity: Explotic\PlanningBundle\Entity\Session 
+            inversedBy: sessionHasInterventionSalles
+        intervention:
+          targetEntity: Explotic\FormationBundle\Entity\InterventionSalle      
+        salle:
+          targetEntity: Explotic\TiersBundle\Entity\Salle          
+    lifecycleCallbacks: {  }

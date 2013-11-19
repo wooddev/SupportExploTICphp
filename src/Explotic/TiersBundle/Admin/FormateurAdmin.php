@@ -34,7 +34,7 @@ class FormateurAdmin extends ProfilAdmin
     {
         parent::configureDatagridFilters($filterMapper);
         $filterMapper                
-                -->add('organisme')
+                ->add('organisme')
            ;
         
     }

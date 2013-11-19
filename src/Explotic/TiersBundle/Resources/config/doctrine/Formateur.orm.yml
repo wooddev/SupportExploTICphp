@@ -10,16 +10,8 @@ Explotic\TiersBundle\Entity\Formateur:
       organisme:
         targetEntity: Organisme
         inversedBy: formateur
-    manyToMany:
-      sessions:
-        targetEntity: Explotic\PlanningBundle\Entity\Session
-        inversedBy: formateurs
-        joinTable:
-          name: formateurs_sessions
-          joinColumns:
-            formateur_id:
-              referencedColumnName: id
-          inverseJoinColumns:
-            session_id:
-              referencedColumnName: id     
+    oneToMany:
+      interventionHasFormateurs:
+        targetEntity: Explotic\PlanningBundle\Entity\InterventionHasFormateur
+        mappedBy: formateurs        
     lifecycleCallbacks: {  }
