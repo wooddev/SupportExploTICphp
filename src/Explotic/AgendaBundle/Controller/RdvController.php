@@ -226,10 +226,10 @@ class RdvController extends Controller
             
             $agendasView= $this->buildAgendas($slots,$agenda,$rdvSelector->getDateDebut(),$dateFin,$weeks);
             
-            $bookingType = $this->container->getParameter('explotic_agenda.booking_types')[$rdvSelector->getBookingType()];
+            $bookingType = $this->container->getParameter('explotic_agenda.booking_types');
             
             $formType->init($agendasView,$rdvSelector->getDateDebut(),$rdvSelector->getPeriod(),
-                    $bookingType['status_options']);
+                    $bookingType[$rdvSelector->getBookingType()]['status_options']);
             
             $form = $this->createForm($formType, $generateur);                   
   
