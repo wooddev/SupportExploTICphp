@@ -182,7 +182,28 @@ sonata_media:
         local:
             directory:  %kernel.root_dir%/../web/uploads/media
             create:     false
-
+    providers:
+      file:
+        service: sonata.media.provider.file
+        allowed_extensions: ['pdf','exe', 'txt', 'rtf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pttx', 'odt', 'odg', 'odp', 'ods', 'odc', 'odf', 'odb', 'csv', 'xml']
+        allowed_mime_types: 
+                  - 'application/pdf'
+                  - 'application/x-pdf'
+                  - 'application/rtf'
+                  - 'text/html'
+                  - 'text/rtf'
+                  - 'text/plain'
+                  - 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                  - 'application/vnd.ms-excel'
+                  - 'application/vnd.ms-office'
+                  - 'application/zip'
+                  - 'application/x-dosexec'
+                  - 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                  - 'application/msword'
+                  - 'application/vnd.ms-powerpoint'
+                  - 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+                  
+                  
 #IvoryGoogleMap Bundle Configuration
 
 ivory_google_map:
