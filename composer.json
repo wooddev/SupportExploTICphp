@@ -21,7 +21,7 @@
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
         "winzou/console-bundle": "dev-master",
-        "sonata-project/admin-bundle": "2.2.*@dev",
+        "sonata-project/admin-bundle": "dev-master#d7402590f87334f5bff49f9ec268d304c7d410c0",
         "sonata-project/cache-bundle": "2.1.*@dev",
         "sonata-project/intl-bundle": "2.1.*@dev",        
         "sonata-project/easy-extends-bundle" : "dev-master",
