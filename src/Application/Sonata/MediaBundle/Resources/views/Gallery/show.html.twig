@@ -14,7 +14,7 @@
             <span class="divider">/</span>
         </li> 
     {%for dirGallery in gallery.galleriesDir%}
-        <li>
+        <li class=''>
             <a  href="{{path('my_gallery_show', {'id':dirGallery.id})}}">                
                 {{dirGallery.name}}
             </a>
@@ -22,19 +22,14 @@
         </li>
     {%endfor%}
     </ul>
-<div class="well">
-
-        <ul class='nav nav-list'>
-            <li class='nav-header'>
-                <i class='icon-caret-down'></i>
-                {{gallery.name}}
-            </li>
-            <ul class='nav nav-list'>               
-                {% include 'ApplicationSonataMediaBundle:Gallery:medias_tree.html.twig' with {'gallery':gallery} %}
-                {%include 'ApplicationSonataMediaBundle:Gallery:subgalleries_tree.html.twig' with {'gallery':gallery} %}
-            </ul>
-            
-            
-        </ul>                   
+<div class='row-fluid'>
+    <div class='span5'>
+        <div class="well well-small sidebar-nav">
+        {% set menuItem = knp_menu_get('ApplicationSonataMediaBundle:Builder:sideMenu', [], {'masterId':gallery.id}) %}  
+        {{knp_menu_render(menuItem, {'allow_safe_labels':true} )}}
+        </div>
+    </div>
+    <div class='span7'>
+    </div>
 </div>
 {%endblock%}

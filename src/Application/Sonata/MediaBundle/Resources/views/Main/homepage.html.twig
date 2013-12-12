@@ -14,20 +14,16 @@
             <span class="divider">/</span>
         </li>        
     </ul>
-<div class="well">
-    {%for gallery in galleries%}
-        <ul class='nav nav-list control-group'>
-            <li class='nav-header'>
-                <i class='icon-caret-down'></i>
-                {{gallery.name}}
-            </li>
-            <ul class='nav nav-list'>               
-                {% include 'ApplicationSonataMediaBundle:Gallery:medias_tree.html.twig' with {'gallery':gallery} %}
-                {%include 'ApplicationSonataMediaBundle:Gallery:subgalleries_tree.html.twig' with {'gallery':gallery} %}
-            </ul>  
-        </ul> 
-    {%endfor%}
-</div>    
+<div class='row-fluid'>
+    <div class='span5'>
+        <div class="well well-small sidebar-nav">
+        {% set menuItem = knp_menu_get('ApplicationSonataMediaBundle:Builder:sideMenu', []) %}  
+        {{knp_menu_render(menuItem, {'allow_safe_labels':true} )}}
+        </div>
+    </div>
+    
+    </div>
+</div>   
 
 
 {%endblock%}

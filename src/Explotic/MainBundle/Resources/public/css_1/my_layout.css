@@ -71,3 +71,14 @@ label{
     margin:0 !important;
     
 }
+
+.media_link{
+    text-transform: none ;
+}
+.media_link a {    
+    color: #3856b3 !important;
+    font-weight: normal !important;
+}
+.media_link a:hover {    
+    color: #022288 !important;
+}
