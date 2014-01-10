@@ -1,0 +1,8 @@
+receive_stagiaire_file:
+    pattern:  /file_stagiaire
+    defaults: { _controller: "ExploticAdminBundle:ExploticAdmin:receiveStagiaireFile" }
+
+import_stagiaire:
+    pattern:  /import_stagiaire
+    defaults: { _controller: "ExploticAdminBundle:ExploticAdmin:importStagiaire" }
+    requirements: { _method: post }

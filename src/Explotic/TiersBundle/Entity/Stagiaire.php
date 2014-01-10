@@ -540,4 +540,60 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
     {
         return $this->interventionHasStagiaires;
     }
+    /**
+     * @var string
+     */
+    private $numDevis;
+
+    /**
+     * @var \DateTime
+     */
+    private $dateDevis;
+
+
+    /**
+     * Set numDevis
+     *
+     * @param string $numDevis
+     * @return Stagiaire
+     */
+    public function setNumDevis($numDevis)
+    {
+        $this->numDevis = $numDevis;
+    
+        return $this;
+    }
+
+    /**
+     * Get numDevis
+     *
+     * @return string 
+     */
+    public function getNumDevis()
+    {
+        return $this->numDevis;
+    }
+
+    /**
+     * Set dateDevis
+     *
+     * @param \DateTime $dateDevis
+     * @return Stagiaire
+     */
+    public function setDateDevis($dateDevis)
+    {
+        $this->dateDevis = $dateDevis;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateDevis
+     *
+     * @return \DateTime 
+     */
+    public function getDateDevis()
+    {
+        return $this->dateDevis;
+    }
 }

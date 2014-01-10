@@ -4,3 +4,6 @@ explotic_admin_user:
 explotic_admin_crud:
     resource: "@ExploticAdminBundle/Resources/config/routing/crud.yml"
     prefix:   /crud
+explotic_import:
+    resource: "@ExploticAdminBundle/Resources/config/routing/import.yml"
+    prefix:   /import

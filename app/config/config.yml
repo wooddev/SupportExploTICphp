@@ -82,13 +82,15 @@ fos_user:
     firewall_name: main
     user_class: Explotic\AdminBundle\Entity\User
     group:
-        group_class:  Explotic\AdminBundle\Entity\Group
+        group_class:  Explotic\AdminBundle\Entity\Group    
     profile:  # Authentication Form
         form:
             type:               fos_user_profile
             handler:            fos_user.profile.form.handler.default
             name:               fos_user_profile_form
             #validation_groups:  [Authentication] # Please note : this is not the default value
+    service:
+        user_manager: explotic.user_manager
     
 #Sonata Admin Configuration
 sonata_admin:

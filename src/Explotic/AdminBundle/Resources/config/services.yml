@@ -10,4 +10,10 @@ services:
     explotic_admin.user.access_control:
         class: Explotic\AdminBundle\Services\UserAccessControl
         arguments: ['@doctrine.orm.entity_manager','@security.context']
+    explotic.user_manager:
+        class: Explotic\AdminBundle\Services\ExploticUserManager
+        arguments: ['@security.encoder_factory','@fos_user.util.username_canonicalizer','@fos_user.util.email_canonicalizer','@fos_user.entity_manager','%fos_user.model.user.class%']
+
+        
+
         

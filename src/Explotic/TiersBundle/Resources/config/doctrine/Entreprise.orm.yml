@@ -47,7 +47,10 @@ Explotic\TiersBundle\Entity\Entreprise:
                 strategy: AUTO
         raisonSociale:
             type: string
-            length: 255            
+            length: 255  
+        donneurOrdre:
+            type: string
+            length: 255
         telephone:
             type: string
             length: 255
@@ -74,5 +77,5 @@ Explotic\TiersBundle\Entity\Entreprise:
             nullable : true        
         commentaires:
           type: text
-          nullable: true
+          nullable: true          
     lifecycleCallbacks: {  }

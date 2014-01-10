@@ -1,0 +1,14 @@
+{# empty Twig template #}
+{%extends '::explotic.html.twig'%}
+
+{%block body%}
+<h1>Import des stagiaires par fichier csv</h1>
+
+<form action="{{ path('import_stagiaire') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Transmettre</button>
+    </p>
+</form>
+
+{%endblock%}

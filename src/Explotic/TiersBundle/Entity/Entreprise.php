@@ -561,4 +561,32 @@ class Entreprise
     }
 
 
+    /**
+     * @var string
+     */
+    private $donneurOrdre;
+
+
+    /**
+     * Set donneurOrdre
+     *
+     * @param string $donneurOrdre
+     * @return Entreprise
+     */
+    public function setDonneurOrdre($donneurOrdre)
+    {
+        $this->donneurOrdre = $donneurOrdre;
+    
+        return $this;
+    }
+
+    /**
+     * Get donneurOrdre
+     *
+     * @return string 
+     */
+    public function getDonneurOrdre()
+    {
+        return $this->donneurOrdre;
+    }
 }

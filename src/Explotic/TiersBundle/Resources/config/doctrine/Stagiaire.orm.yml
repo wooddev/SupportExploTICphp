@@ -58,6 +58,11 @@ Explotic\TiersBundle\Entity\Stagiaire:
         opca:
           type: string
           columnDefinition: ENUM("VIVEA","FAFSEA","OPCA3+")
+        numDevis:
+          type: string
+          length: 255
+        dateDevis:
+          type: date
         commentaire:
           type: text
           nullable: true
