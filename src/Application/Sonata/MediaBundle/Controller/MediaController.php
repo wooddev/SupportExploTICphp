@@ -22,6 +22,10 @@ class MediaController extends BaseController
             throw new \Doctrine\ORM\NoResultException('La ressource demandée est introuvable'); 
         }        
         
+        if(!$this->get('application.gallery_access')->controlAccessToGallery($gallery)){
+            throw new \Symfony\Component\Finder\Exception\AccessDeniedException('Vous n\'avez pas l\'autorisation d\'accèder à ce contenu !');
+        }
+        
         return $this->render("ApplicationSonataMediaBundle:Media:show.html.twig",array(
             'media'=>$media,
             'gallery'=>$gallery,

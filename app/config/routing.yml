@@ -1,6 +1,6 @@
 explotic_agenda:
     resource: "@ExploticAgendaBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /agenda
 
 explotic_main:
     resource: "@ExploticMainBundle/Resources/config/routing.yml"

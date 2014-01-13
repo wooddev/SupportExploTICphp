@@ -1,7 +1,6 @@
 <?php
 
 namespace Application\Sonata\MediaBundle\Services;
-
 /**
  * User controller.
  *
@@ -39,20 +38,24 @@ class GalleryAccess
         if($this->securityContext->isGranted('ROLE_ADMIN')){
             return true;
         }
-        if($this->securityContext->isGranted('ROLE_FORMATEUR')){
-            return true;
-        }
-        if($this->securityContext->isGranted('ROLE_RECRUTEUR')){
-            return true;
-        }
-        if($this->securityContext->isGranted('ROLE_STAGIAIRE')){      
-            $user = $this->securityContext->getToken()->getUser();
-            foreach($user->getProgrammes() as $prog){
-                if($prog->getModule()->getReference()==$gallery->getAuthorization()){
-                    return true;
-                }  
-            }     
-        }
+        
+        $role= $gallery->getMinRole();
+        $authorization = $gallery->getAuthorization();        
+                             
+        if($this->securityContext->isGranted($role) or $role=='tous' or $role==''){
+            if($authorization=='tous')
+                return true;
+            if($this->securityContext->isGranted('ROLE_STAGIAIRE') ){                
+                $user = $this->securityContext->getToken()->getUser();
+                foreach($user->getProgrammes() as $prog){
+                    if(strpos( $authorization, $prog->getModule()->getReference())>=0){
+                        return true;
+                    } 
+                }
+            }else
+                return true;  
+        }      
+        
         return false;
     }  
 

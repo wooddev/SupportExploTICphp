@@ -6,6 +6,3 @@ mon_agenda:
     pattern:  /mon_agenda
     defaults: { _controller: "ExploticMainBundle:Default:monAgenda" }
     
-homepage:
-    pattern:  /
-    defaults: { _controller: ExploticMainBundle:Default:index }
