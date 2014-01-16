@@ -65,6 +65,8 @@ class StagiaireAdmin extends \Explotic\TiersBundle\Admin\ProfilAdmin
                 ->add('typeEmploi','text')
             ->end()
             ->with('Formation')
+                ->add('numDevis')
+                ->add('dateDevis')
                 ->add('opca','choice', array(
                     'choices'=>array('VIVEA'=>'VIVEA','FAFSEA'=>'FAFSEA','OPCA3+'=>'OPCA3','Autre'=>'Autre')
                 ))
