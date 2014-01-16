@@ -79,7 +79,7 @@ class Builder extends ContainerAware
     
     public function addChildrenGalleriesSubMenus(\Knp\Menu\MenuItem $menu,$gallery,$i){
 
-        foreach($gallery->getChildren() as $childGallery){
+        foreach($this->container->get('application.gallery_access')->getAuthorizedChildGalleries($gallery) as $childGallery){
             if($i >5){return $menu;} //On s'arrete à 3 niveaux de menus  
             $menu->addChild($childGallery->getName(),array(
                 'route'=>'my_gallery_show',
@@ -186,7 +186,7 @@ class Builder extends ContainerAware
     
     public function addSideChildrenGalleriesSubMenus(\Knp\Menu\MenuItem $menu,$gallery,$i){
         $i++;
-        foreach($gallery->getChildren() as $childGallery){
+        foreach($this->container->get('application.gallery_access')->getAuthorizedChildGalleries($gallery)  as $childGallery){
             if($i >1){return $menu;} //On s'arrete à 3 niveaux de menus  
             $menu->addChild($childGallery->getName(),array(
                 'route'=>'my_gallery_show',

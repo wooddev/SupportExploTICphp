@@ -31,7 +31,19 @@ class GalleryAccess
             }
         }
         return $authorizedGalleries;
-    }    
+    }  
+    
+    public function getAuthorizedChildGalleries($masterGallery){
+                
+        $authorizedGalleries = array();
+        foreach($masterGallery->getChildren() as $entity){
+            if($this->controlAccessToGallery($entity)){
+                $authorizedGalleries[]=$entity;
+            }
+        }
+        return $authorizedGalleries;
+        
+    }
     
     
     public function controlAccessToGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery){
@@ -42,15 +54,16 @@ class GalleryAccess
         $role= $gallery->getMinRole();
         $authorization = $gallery->getAuthorization();        
                              
-        if($this->securityContext->isGranted($role) or $role=='tous' or $role==''){
-            if($authorization=='tous')
+        if($this->securityContext->isGranted($role) or $role=='tous' or $role=='' or $role=='-'){
+            if($authorization=='tous' or $authorization=='-' or $authorization=='' )
                 return true;
             if($this->securityContext->isGranted('ROLE_STAGIAIRE') ){                
                 $user = $this->securityContext->getToken()->getUser();
                 foreach($user->getProgrammes() as $prog){
-                    if(strpos( $authorization, $prog->getModule()->getReference())>=0){
+                    if(!stristr( $authorization, $prog->getModule()->getReference())){
+                        return false;
+                    }else 
                         return true;
-                    } 
                 }
             }else
                 return true;  
