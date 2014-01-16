@@ -1,7 +1,6 @@
 <?php
 
 namespace Application\Sonata\MediaBundle\Services;
-
 /**
  * User controller.
  *
@@ -32,27 +31,44 @@ class GalleryAccess
             }
         }
         return $authorizedGalleries;
-    }    
+    }  
+    
+    public function getAuthorizedChildGalleries($masterGallery){
+                
+        $authorizedGalleries = array();
+        foreach($masterGallery->getChildren() as $entity){
+            if($this->controlAccessToGallery($entity)){
+                $authorizedGalleries[]=$entity;
+            }
+        }
+        return $authorizedGalleries;
+        
+    }
     
     
     public function controlAccessToGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery){
         if($this->securityContext->isGranted('ROLE_ADMIN')){
             return true;
         }
-        if($this->securityContext->isGranted('ROLE_FORMATEUR')){
-            return true;
-        }
-        if($this->securityContext->isGranted('ROLE_RECRUTEUR')){
-            return true;
-        }
-        if($this->securityContext->isGranted('ROLE_STAGIAIRE')){      
-            $user = $this->securityContext->getToken()->getUser();
-            foreach($user->getProgrammes() as $prog){
-                if($prog->getModule()->getReference()==$gallery->getAuthorization()){
-                    return true;
-                }  
-            }     
-        }
+        
+        $role= $gallery->getMinRole();
+        $authorization = $gallery->getAuthorization();        
+                             
+        if($this->securityContext->isGranted($role) or $role=='tous' or $role=='' or $role=='-'){
+            if($authorization=='tous' or $authorization=='-' or $authorization=='' )
+                return true;
+            if($this->securityContext->isGranted('ROLE_STAGIAIRE') ){                
+                $user = $this->securityContext->getToken()->getUser();
+                foreach($user->getProgrammes() as $prog){
+                    if(!stristr( $authorization, $prog->getModule()->getReference())){
+                        return false;
+                    }else 
+                        return true;
+                }
+            }else
+                return true;  
+        }      
+        
         return false;
     }  
 

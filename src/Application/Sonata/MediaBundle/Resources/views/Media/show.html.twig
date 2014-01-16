@@ -36,7 +36,7 @@
         <div class="well">
             <p>{{media.description| raw}}</p>
             <ul> 
-            <li>Taille : {{ media.size }} Mo</li>
+                <li>Taille : {{ (media.size/1048576)|number_format(2,',',' ') }} Mo</li>
             <li>Type de contenu : {{ media.contenttype }}</li>
             <li>Copyright : {{ media.copyright }}</li>
             <li>Auteur : {{ media.authorname }}</li>

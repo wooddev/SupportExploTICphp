@@ -309,6 +309,22 @@
                 <source>filter.label_parent</source>
                 <target>Galerie racine</target>
             </trans-unit>            
+            <trans-unit id="gallery.form.label_authorization">
+                <source>form.label_authorization</source>
+                <target>Formation autorisée</target>
+            </trans-unit>            
+            <trans-unit id="gallery.list.label_authorization">
+                <source>list.label_authorization</source>
+                <target>Formation autorisée</target>
+            </trans-unit>            
+            <trans-unit id="gallery.form.label_min_role">
+                <source>form.label_min_role</source>
+                <target>Rôle minimal requis</target>
+            </trans-unit>            
+            <trans-unit id="gallery.list.label_min_role">
+                <source>list.label_min_role</source>
+                <target>Rôle minimal requis</target>
+            </trans-unit>            
         </body>
     </file>
 </xliff>

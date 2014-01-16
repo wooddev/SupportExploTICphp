@@ -92,7 +92,7 @@ class AgendaExtractor {
     }
     public function autoInitDates(){
                 
-        $this->dateDebut = new \DateTime($this->year.'W'.$this->week."1");
+        $this->dateDebut = new \DateTime($this->year.'W'.sprintf('%02d', $this->week)."1");
         
         $interval = new \DateInterval("P".$this->duree."W");
         $this->dateFin = clone $this->dateDebut;

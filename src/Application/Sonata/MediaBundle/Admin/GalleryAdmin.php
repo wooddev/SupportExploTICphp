@@ -30,6 +30,7 @@ class GalleryAdmin extends ParentGalleryAdmin
         $formMapper
                 ->add('parent','sonata_type_model_list',array('required' => false))
                 ->add('authorization')
+                ->add('minRole')
             ;
     }
 
@@ -39,7 +40,9 @@ class GalleryAdmin extends ParentGalleryAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         parent::configureListFields($listMapper);
-        $listMapper->add('parent');
+        $listMapper->add('parent')              
+                    ->add('authorization')
+                    ->add('minRole');
     }
 
     /**
@@ -48,6 +51,8 @@ class GalleryAdmin extends ParentGalleryAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         parent::configureDatagridFilters($datagridMapper);
-        $datagridMapper->add('parent');
+        $datagridMapper->add('parent')              
+                        ->add('authorization')
+                        ->add('minRole');
     }    
 }

@@ -89,7 +89,7 @@ class Agenda {
     }
     public function init($week,$year, $poste = null, $duree = 1){
         
-        $this->week = (int) $week;
+        $this->week = sprintf('%02d', $week);
         $this->year = (int) $year;
         $this->duree= (int) $duree;
         $this->poste = $poste;

@@ -172,4 +172,33 @@ class Gallery extends BaseGallery
         
     }
     
+    /**
+     * @var string
+     */
+    private $minRole;
+
+    /**
+     * Set minRole
+     *
+     * @param string $minRole
+     * @return Gallery
+     */
+    public function setMinRole($minRole)
+    {
+        $this->minRole = $minRole;
+    
+        return $this;
+    }
+
+    /**
+     * Get minRole
+     *
+     * @return string 
+     */
+    public function getMinRole()
+    {
+        return $this->minRole;
+    }
+
+
 }

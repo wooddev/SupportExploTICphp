@@ -17,5 +17,6 @@
             <generator strategy="AUTO"/>
         </id>
         <field name="authorization" type="string" />        
+        <field name="minRole" type="string" />        
     </entity>
 </doctrine-mapping>
