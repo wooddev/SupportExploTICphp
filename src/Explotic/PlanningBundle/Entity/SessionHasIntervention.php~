@@ -1,0 +1,168 @@
+<?php
+
+namespace Explotic\PlanningBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * SessionHasIntervention
+ */
+class SessionHasIntervention
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    /**
+     * @var \Explotic\PlanningBundle\Entity\Calendrier
+     */
+    private $calendrier;
+
+    /**
+     * @var \Explotic\PlanningBundle\Entity\Session
+     */
+    private $session;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $stagiaires;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $formateurs;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->stagiaires = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->formateurs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->calendrier=  new Calendrier();
+    }
+    
+    /**
+     * Set calendrier
+     *
+     * @param \Explotic\PlanningBundle\Entity\Calendrier $calendrier
+     * @return SessionHasIntervention
+     */
+    public function setCalendrier(\Explotic\PlanningBundle\Entity\Calendrier $calendrier = null)
+    {
+        $this->calendrier = $calendrier;
+    
+        return $this;
+    }
+
+    /**
+     * Get calendrier
+     *
+     * @return \Explotic\PlanningBundle\Entity\Calendrier 
+     */
+    public function getCalendrier()
+    {
+        return $this->calendrier;
+    }
+
+    /**
+     * Set session
+     *
+     * @param \Explotic\PlanningBundle\Entity\Session $session
+     * @return SessionHasIntervention
+     */
+    public function setSession(\Explotic\PlanningBundle\Entity\Session $session = null)
+    {
+        $this->session = $session;
+    
+        return $this;
+    }
+
+    /**
+     * Get session
+     *
+     * @return \Explotic\PlanningBundle\Entity\Session 
+     */
+    public function getSession()
+    {
+        return $this->session;
+    }
+
+    /**
+     * Add stagiaires
+     *
+     * @param \Explotic\TiersBundle\Entity\Stagiaire $stagiaires
+     * @return SessionHasIntervention
+     */
+    public function addStagiaire(\Explotic\TiersBundle\Entity\Stagiaire $stagiaires)
+    {
+        $this->stagiaires[] = $stagiaires;
+    
+        return $this;
+    }
+
+    /**
+     * Remove stagiaires
+     *
+     * @param \Explotic\TiersBundle\Entity\Stagiaire $stagiaires
+     */
+    public function removeStagiaire(\Explotic\TiersBundle\Entity\Stagiaire $stagiaires)
+    {
+        $this->stagiaires->removeElement($stagiaires);
+    }
+
+    /**
+     * Get stagiaires
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStagiaires()
+    {
+        return $this->stagiaires;
+    }
+
+    /**
+     * Add formateurs
+     *
+     * @param \Explotic\TiersBundle\Entity\Formateur $formateurs
+     * @return SessionHasIntervention
+     */
+    public function addFormateur(\Explotic\TiersBundle\Entity\Formateur $formateurs)
+    {
+        $this->formateurs[] = $formateurs;
+    
+        return $this;
+    }
+
+    /**
+     * Remove formateurs
+     *
+     * @param \Explotic\TiersBundle\Entity\Formateur $formateurs
+     */
+    public function removeFormateur(\Explotic\TiersBundle\Entity\Formateur $formateurs)
+    {
+        $this->formateurs->removeElement($formateurs);
+    }
+
+    /**
+     * Get formateurs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFormateurs()
+    {
+        return $this->formateurs;
+    }
+}
