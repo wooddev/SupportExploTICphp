@@ -82,12 +82,15 @@ class ExploticAdminController extends Controller {
                         $geom->setLat($data[11]);
                         $geom->setLon($data[12]);
                         $localisation->setGeometry($geom);
-                        $bureau->setLocalisation($localisation);     
-                        $entreprise->setBureau($bureau);                        
+                        $bureau->setLocalisation($localisation);  
+                        $bureau->setEntreprise($entreprise);                        
+                        $entreprise->setBureau($bureau);   
+                        $em->persist($entreprise);
                         $em->persist($geom);                        
                         $em->persist($localisation);
                         $em->persist($bureau);
-                        $em->persist($entreprise);                        
+                        $em->flush();
+                        
                     }// end if création entreprise
 
                     $userManager = $this->get('fos_user.user_manager');                   
@@ -114,7 +117,8 @@ class ExploticAdminController extends Controller {
                             $prog->setAccompagnement('nonRealise');
                             $prog->setFormationSalle('nonRealise');
                             $prog->setModule($module);
-                            $stagiaire->addProgramme($prog);
+                            $prog->setStagiaire($stagiaire);
+                            $em->persist($prog);
                         }
                     }
                     $stagiaire->setNumDevis($data[28]);
