@@ -55,26 +55,31 @@ class GalleryAccess
         $authorization = $gallery->getAuthorization();        
               
         if($role=='ROLE_STAGIAIRE'){ // Contrôle spécifique aux galleries role_stagiaire
-            if($this->securityContext->isGranted('ROLE_STAGIAIRE') ){                
+            if($this->securityContext->isGranted('ROLE_STAGIAIRE') ){
+                if($authorization=='tous' or $authorization=='-' or $authorization=='' )
+                    return true;
+                
                 $user = $this->securityContext->getToken()->getUser();
                 foreach($user->getProgrammes() as $prog){
-                    if(!stristr( $authorization, $prog->getModule()->getReference())){
-                        return false;
-                    }else 
+                    if(stristr( $authorization, $prog->getModule()->getReference())){
                         return true;
+                    }
+                return false;
                 }
-            }elseif($this->securityContext->isGranted('ROLE_GERANT') ) // On autorise l'accès aux gérants sur les galleries ROLE_STAGIAIRE
-                return true;  
+            }
+            elseif($this->securityContext->isGranted('ROLE_GERANT') ) // On autorise l'accès aux gérants sur les galleries ROLE_STAGIAIRE
+                return true;
+            
         }elseif($this->securityContext->isGranted($role) or $role=='tous' or $role=='' or $role=='-'){ // tous les autres cas
             if($authorization=='tous' or $authorization=='-' or $authorization=='' )
                 return true;
             if($this->securityContext->isGranted('ROLE_STAGIAIRE') ){                
                 $user = $this->securityContext->getToken()->getUser();
-                foreach($user->getProgrammes() as $prog){
-                    if(!stristr( $authorization, $prog->getModule()->getReference())){
-                        return false;
-                    }else 
+                foreach($user->getProgrammes() as $prog){                    
+                    if(stristr( $authorization, $prog->getModule()->getReference())){
                         return true;
+                    }
+                return false;
                 }
             }else
                 return true;  
