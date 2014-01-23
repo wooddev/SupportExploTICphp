@@ -51,6 +51,7 @@ Explotic\TiersBundle\Entity\Entreprise:
         donneurOrdre:
             type: string
             length: 255
+            nullable: true
         telephone:
             type: string
             length: 255

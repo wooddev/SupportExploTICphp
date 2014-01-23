@@ -12,5 +12,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class EntrepriseRepository extends EntityRepository
 {
-
+    public function recruteurMatchTest($entreprise,$recruteur){
+        $q = $this->getEntityManager()->createQuery(
+                "
+                SELECT count(e)
+                FROM ExploticTiersBundle:Entreprise e
+                JOIN e.recruteurs r
+                WHERE r.id = :rid
+                AND e.id = :eid                
+                "
+                );
+        $q->setParameters(array(
+            'rid'=> $recruteur->getId(),
+            'eid'=>$entreprise->getId(),
+        ));
+        
+        
+        if($q->getSingleScalarResult()>0)
+            return true;
+        return false;
+        
+    }
 }

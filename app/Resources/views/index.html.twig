@@ -363,7 +363,7 @@
 					<!-- / Main Navigation: Sessions -->
                                         
 					<!-- Main Navigation: Admin -->
-                                        {%if is_granted('ROLE_ADMIN')%}
+                                        {%if is_granted('ROLE_ADMIN') or is_granted('ROLE_RECRUTEUR')%}
 					<li>
                                             <a href="{{path('sonata_admin_dashboard')}}">
                                                     <i class="icon-gears"></i> Administration

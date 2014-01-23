@@ -4,7 +4,10 @@ namespace Explotic\AdminBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Sonata\AdminBundle\Security\Acl\Permission\MaskBuilder;
+use Doctrine\Common\Collections\Criteria;
 /**
  * ExploticAdminController controller.
  *
@@ -61,7 +64,15 @@ class ExploticAdminController extends Controller {
                             'lastname'=>$data[18],
                         ));
                 
-                if(!$stagiaireTest1 && !$stagiaireTest2){// Si aucun stagiaire identique trouvé dans la base                  
+                if(!$stagiaireTest1 && !$stagiaireTest2){// Si aucun stagiaire identique trouvé dans la base   
+                    
+                    $recruteur = $em->getRepository('ExploticTiersBundle:Recruteur')->findOneBy(array('username'=>$data[30]));
+                    
+                    if($recruteur)
+                        $user = $recruteur;
+                    else
+                        $user= $this->get('security.context')->getToken()->getUser();                   
+                                        
                     $entreprise = $em->getRepository('ExploticTiersBundle:Entreprise')->findOneBy(array('raisonSociale'=>$data[0]));
                     if(!$entreprise){
                         $entreprise = new \Explotic\TiersBundle\Entity\Entreprise();
@@ -91,8 +102,9 @@ class ExploticAdminController extends Controller {
                         $em->persist($bureau);
                         $em->flush();
                         
-                    }// end if création entreprise
+                    }// end if création entreprise                    
 
+                    
                     $userManager = $this->get('fos_user.user_manager');                   
                     
                     $stagiaire = $userManager->createStagiaire();
@@ -125,10 +137,41 @@ class ExploticAdminController extends Controller {
                     $stagiaire->setDateDevis(new \DateTime($data[29]));                                   
 
                     $userManager->updateUser($stagiaire);
+                    
+                    if($recruteur){
+                        $match = $em->getRepository('ExploticTiersBundle:Entreprise')->recruteurMatchTest($entreprise,$recruteur);
+                        if(!$match){
+                            $entreprise->addRecruteur($recruteur);
+                            $recruteur->addEntreprise($entreprise);
+                            $em->persist($entreprise);
+                        }                        
+                        $stagiaire->setRecruteur($recruteur);
+                        $recruteur->addStagiaire($stagiaire);
+                        
+                        $em->persist($recruteur);
+                    }           
                     $em->persist($stagiaire);
                     
-                    $em->flush();     
+                    $em->flush();   
                     
+                     // retrieving the security identity of the currently logged-in user
+                    $securityIdentity = UserSecurityIdentity::fromAccount($user);
+                   
+                    // creating the ACL
+                    $aclStg = $this->get('security.acl.provider')->createAcl(ObjectIdentity::fromDomainObject($stagiaire));
+                    
+                    try{
+                        $aclEnt= $this->get('security.acl.provider')->findAcl(ObjectIdentity::fromDomainObject($entreprise));
+                    }catch (\Symfony\Component\Security\Acl\Exception\AclNotFoundException $e){
+                        $aclEnt = $this->get('security.acl.provider')->createAcl(ObjectIdentity::fromDomainObject($entreprise));
+                    }
+                    // grant owner access
+                    $aclStg->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+                    $this->get('security.acl.provider')->updateAcl($aclStg);  
+                    
+                    $aclEnt->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+                    $this->get('security.acl.provider')->updateAcl($aclEnt);                  
+
                     $stagiaires[]= clone $stagiaire;                            
                 }
             }         

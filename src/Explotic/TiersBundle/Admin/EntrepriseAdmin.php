@@ -110,6 +110,14 @@ class EntrepriseAdmin extends Admin
             ->end()
             ;
         
+        if($this->isGranted('ROLE_ADMIN')){
+            $formMapper
+            ->with('Recruteurs')
+                ->add('recruteurs', 'sonata_type_model', array('required' => false, 'expanded' => true, 'multiple' => true))
+            ->end()
+            ;
+        }
+        
     }
     
    

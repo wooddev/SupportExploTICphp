@@ -15,39 +15,39 @@ services:
         class: Explotic\TiersBundle\Admin\GerantAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Gérants, label_catalogue: SonataUserBundle, label_translator_strategy: sonata.admin.label.strategy.underscore }
-        arguments: [null, Explotic\TiersBundle\Entity\Gerant, null]        
+        arguments: [null, Explotic\TiersBundle\Entity\Gerant, ExploticTiersBundle:ProfilCRUD]        
         parent: explotic_tiers.admin.profil
     explotic_tiers.admin.stagiaire:
         class: Explotic\TiersBundle\Admin\StagiaireAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Stagiaires, label_catalogue: SonataUserBundle, label_translator_strategy: sonata.admin.label.strategy.underscore }
-        arguments: [null, Explotic\TiersBundle\Entity\Stagiaire, null]        
+        arguments: [null, Explotic\TiersBundle\Entity\Stagiaire, ExploticTiersBundle:ProfilCRUD]        
         parent: explotic_tiers.admin.profil
     explotic_tiers.admin.recruteur:
         class: Explotic\TiersBundle\Admin\RecruteurAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Recruteurs ,label_catalogue: SonataUserBundle, label_translator_strategy: sonata.admin.label.strategy.underscore }
-        arguments: [null, Explotic\TiersBundle\Entity\Recruteur, null]        
+        arguments: [null, Explotic\TiersBundle\Entity\Recruteur, ExploticTiersBundle:ProfilCRUD]        
         parent: explotic_tiers.admin.profil
     explotic_tiers.admin.formateur:
         class: Explotic\TiersBundle\Admin\FormateurAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Formateurs ,label_catalogue: SonataUserBundle, label_translator_strategy: sonata.admin.label.strategy.underscore }
-        arguments: [null, Explotic\TiersBundle\Entity\Formateur, null]        
+        arguments: [null, Explotic\TiersBundle\Entity\Formateur, ExploticTiersBundle:ProfilCRUD]        
         parent: explotic_tiers.admin.profil
 #############################################################################################    
     explotic_tiers.admin.machine:
         class: Explotic\TiersBundle\Admin\MachineAdmin        
         tags:
             - { name: sonata.admin, manager_type: orm, group: Infos stagiaires, label: Machines }
-        arguments: [null, Explotic\TiersBundle\Entity\Machine, null]
+        arguments: [null, Explotic\TiersBundle\Entity\Machine, ExploticTiersBundle:ProfilCRUD]
     explotic_tiers.admin.entreprise:
         class: Explotic\TiersBundle\Admin\EntrepriseAdmin
         calls:
             - [ setSecurityContext, [ '@security.context' ] ]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Infos stagiaires, label: Entreprises}
-        arguments: [null, Explotic\TiersBundle\Entity\Entreprise, null]
+        arguments: [null, Explotic\TiersBundle\Entity\Entreprise, ExploticTiersBundle:ProfilCRUD]
 #############################################################################################
     explotic_tiers.admin.organisme:
         class: Explotic\TiersBundle\Admin\OrganismeAdmin

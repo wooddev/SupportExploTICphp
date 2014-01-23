@@ -102,6 +102,14 @@ class StagiaireAdmin extends \Explotic\TiersBundle\Admin\ProfilAdmin
                 ->add('commentaire','textarea',array('required'=>false))
             ->end()                   
         ;
+        
+        if($this->isGranted('ROLE_ADMIN')){
+            $formMapper
+            ->with('Recrutement')
+                ->add('recruteur')
+            ->end()                   
+        ;
+        }
                         
         
     }

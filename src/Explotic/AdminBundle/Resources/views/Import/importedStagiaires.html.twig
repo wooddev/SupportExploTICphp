@@ -17,9 +17,8 @@
            </th>
         </tr>       
     <thead>
-    <tbody>
-        <tr>
-            {%for stagiaire in stagiaires%}
+    <tbody>{%for stagiaire in stagiaires%}
+        <tr>            
             <td>  {{stagiaire.entreprise.raisonSociale}}          
             </td>
             <td> {{stagiaire.username}}
@@ -27,9 +26,8 @@
             <td> {{stagiaire.firstname}}
             </td>
             <td> {{stagiaire.lastname}}
-            </td>
-            {%endfor%}
-        </tr>           
+            </td>            
+        </tr>  {%endfor%}         
     </tbody>
 </table>
 
