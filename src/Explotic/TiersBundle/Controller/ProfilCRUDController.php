@@ -42,6 +42,17 @@ class ProfilCRUDController extends \Sonata\AdminBundle\Controller\CRUDController
      *
      * @return Response
      */
+    /**
+     * return the Response object associated to the edit action
+     *
+     *
+     * @param mixed $id
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     *
+     * @return Response
+     */
     public function editAction($id = null)
     {
         // the key used to lookup the template
@@ -55,8 +66,9 @@ class ProfilCRUDController extends \Sonata\AdminBundle\Controller\CRUDController
             throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
         }
 
-        if (false === $this->admin->isGranted('OWNER', $object) 
-                OR false == $this->admin->isGranted('ROLE_ADMIN')) {
+   
+        if ((false === $this->admin->isGranted('OWNER', $object))
+                AND (false == $this->admin->isGranted('ROLE_ADMIN'))) {
             throw new AccessDeniedException();
         }
 
@@ -74,7 +86,6 @@ class ProfilCRUDController extends \Sonata\AdminBundle\Controller\CRUDController
             // persist if the form was valid and if in preview mode the preview was approved
             if ($isFormValid && (!$this->isInPreviewMode() || $this->isPreviewApproved())) {
                 $this->admin->update($object);
-                $this->addFlash('sonata_flash_success', 'flash_edit_success');
 
                 if ($this->isXmlHttpRequest()) {
                     return $this->renderJson(array(
@@ -82,6 +93,8 @@ class ProfilCRUDController extends \Sonata\AdminBundle\Controller\CRUDController
                         'objectId'  => $this->admin->getNormalizedIdentifier($object)
                     ));
                 }
+
+                $this->addFlash('sonata_flash_success', 'flash_edit_success');
 
                 // redirect to edit mode
                 return $this->redirectTo($object);
@@ -110,6 +123,7 @@ class ProfilCRUDController extends \Sonata\AdminBundle\Controller\CRUDController
             'object' => $object,
         ));
     }
+    
 
     /**
      * redirect the user depend on this choice
@@ -172,7 +186,7 @@ class ProfilCRUDController extends \Sonata\AdminBundle\Controller\CRUDController
 
 
         if (false === $this->admin->isGranted('OWNER', $object) 
-                OR false == $this->admin->isGranted('ROLE_ADMIN')) {
+                AND false == $this->admin->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
 
