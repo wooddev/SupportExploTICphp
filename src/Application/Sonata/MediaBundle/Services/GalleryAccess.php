@@ -64,8 +64,8 @@ class GalleryAccess
                     if(stristr( $authorization, $prog->getModule()->getReference())){
                         return true;
                     }
-                return false;
                 }
+                return false;
             }
             elseif($this->securityContext->isGranted('ROLE_GERANT') ) // On autorise l'accès aux gérants sur les galleries ROLE_STAGIAIRE
                 return true;
@@ -78,9 +78,9 @@ class GalleryAccess
                 foreach($user->getProgrammes() as $prog){                    
                     if(stristr( $authorization, $prog->getModule()->getReference())){
                         return true;
-                    }
-                return false;
+                    }                
                 }
+                return false;
             }else
                 return true;  
         }   
