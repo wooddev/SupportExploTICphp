@@ -4,8 +4,8 @@ parameters:
 services:
     explotic_formation.admin.programme:
         class:      Explotic\FormationBundle\Admin\ProgrammeAdmin
-        tags:
-                    - { name: sonata.admin, manager_type: orm, group: Gestion des formations, label: Liste des programmes}
+        tags:                    
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false}
         arguments:  [null, Explotic\FormationBundle\Entity\Programme, null]
         
     explotic_formation.admin.module:

@@ -23,7 +23,7 @@ class ProgrammeAdmin extends Admin{
     {        
         $listMapper
                 ->add('module')
-                ->add('stagiare')
+                ->add('stagiaire')
                 ->add('accompagnement')
                 ->add('formationSalle')
                 ->add('_action', 'actions', array(
@@ -42,7 +42,7 @@ class ProgrammeAdmin extends Admin{
     {
         $showMapper
                 ->add('module')
-                ->add('stagiare')
+                ->add('stagiaire')
                 ->add('accompagnement')
                 ->add('formationSalle')
         ;

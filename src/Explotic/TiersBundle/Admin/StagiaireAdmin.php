@@ -16,6 +16,34 @@ use FOS\UserBundle\Model\UserManagerInterface;
  */
 class StagiaireAdmin extends \Explotic\TiersBundle\Admin\ProfilAdmin
 {
+    
+    private $em;
+    
+    public function setEntityManager(\Doctrine\ORM\EntityManager $em){
+        $this->em = $em;
+    }
+    
+        /**
+     * {@inheritdoc}
+     */
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery($context);
+        
+        if($this->isGranted('ROLE_ADMIN')){
+            return $query;
+        }elseif($this->isGranted('ROLE_RECRUTEUR')){
+            $repo = $this->em->getRepository('ExploticTiersBundle:Stagiaire');
+            $queryBuilder = $repo->createQueryBuilder('s')
+                    ->leftJoin('s.recruteur','r')
+                    ->where('r.id = :rid')
+                    ->setParameter('rid',$this->getSecurityContext()->getToken()->getUser()->getId());
+            return new \Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery($queryBuilder);
+        }else{
+            return $query;
+        } 
+    }
+    
         /**
      * {@inheritdoc}
      */
@@ -138,9 +166,9 @@ class StagiaireAdmin extends \Explotic\TiersBundle\Admin\ProfilAdmin
             $user->setEntreprise($user->getEntreprise());
         }  
         
-        if(get_class($this->currentUser)=='Explotic\TiersBundle\Entity\Recruteur'){
-            $user->setRecruteur($this->currentUser);
-            $this->currentUser->addStagiaire($user);
+        if(get_class($this->getSecurityContext()->getToken()->getUser())=='Explotic\TiersBundle\Entity\Recruteur'){
+            $user->setRecruteur($this->getSecurityContext()->getToken()->getUser());
+            $this->getSecurityContext()->getToken()->getUser()->addStagiaire($user);
         }
     }
     public function preUpdate( $user) {

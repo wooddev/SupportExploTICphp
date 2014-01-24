@@ -21,7 +21,9 @@ services:
         class: Explotic\TiersBundle\Admin\StagiaireAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Stagiaires, label_catalogue: SonataUserBundle, label_translator_strategy: sonata.admin.label.strategy.underscore }
-        arguments: [null, Explotic\TiersBundle\Entity\Stagiaire, ExploticTiersBundle:ProfilCRUD]        
+        arguments: [null, Explotic\TiersBundle\Entity\Stagiaire, ExploticTiersBundle:ProfilCRUD]      
+        calls:
+            - [ setEntityManager, [ '@doctrine.orm.entity_manager' ] ]
         parent: explotic_tiers.admin.profil
     explotic_tiers.admin.recruteur:
         class: Explotic\TiersBundle\Admin\RecruteurAdmin
@@ -45,6 +47,7 @@ services:
         class: Explotic\TiersBundle\Admin\EntrepriseAdmin
         calls:
             - [ setSecurityContext, [ '@security.context' ] ]
+            - [ setEntityManager, [ '@doctrine.orm.entity_manager' ] ]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Infos stagiaires, label: Entreprises}
         arguments: [null, Explotic\TiersBundle\Entity\Entreprise, ExploticTiersBundle:ProfilCRUD]

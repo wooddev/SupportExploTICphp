@@ -31,6 +31,35 @@ class EntrepriseAdmin extends Admin
         return $this->currentUser;
     }
     
+        private $em;
+    
+    public function setEntityManager(\Doctrine\ORM\EntityManager $em){
+        $this->em = $em;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery($context);
+        
+        if($this->isGranted('ROLE_ADMIN')){
+            return $query;
+        }elseif($this->isGranted('ROLE_RECRUTEUR')){
+            $repo = $this->em->getRepository('ExploticTiersBundle:Entreprise');
+            $queryBuilder = $repo->createQueryBuilder('e')
+                    ->leftJoin('e.recruteurs','r')
+                    ->where('r.id = :rid')
+                    ->setParameter('rid',$this->getSecurityContext()->getToken()->getUser()->getId());
+            return new \Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery($queryBuilder);
+        }else{
+            return $query;
+        } 
+    } 
+    
+
+    
     /**
      * {@inheritdoc}
      */
@@ -116,10 +145,8 @@ class EntrepriseAdmin extends Admin
                 ->add('recruteurs', 'sonata_type_model', array('required' => false, 'expanded' => true, 'multiple' => true))
             ->end()
             ;
-        }
-        
-    }
-    
+        }        
+    }    
    
     public function prePersist($object) {
         parent::prePersist($object);
@@ -128,6 +155,10 @@ class EntrepriseAdmin extends Admin
         }
         if($object->getGerant()){
             $object->getGerant()->setEntreprise($object);
+        }
+        if(get_class($this->securityContext->getToken()->getUser())=='Explotic\TiersBundle\Entity\Recruteur'){
+            $object->addRecruteur($this->securityContext->getToken()->getUser());
+            $this->securityContext->getToken()->getUser()->addEntreprise($object);
         }
     }
     public function preUpdate($object) {
@@ -138,10 +169,6 @@ class EntrepriseAdmin extends Admin
         if($object->getGerant()){
             $object->getGerant()->setEntreprise($object);
         }        
-        if(get_class($this->currentUser)=='Explotic\TiersBundle\Entity\Recruteur'){
-            $object->addRecruteur($this->currentUser);
-            $this->currentUser->addEntreprise($object);
-        }
     }
 }
 
