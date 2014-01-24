@@ -478,6 +478,14 @@
                 <source>form.label_programmes</source>
                 <target>Programme de formation du stagiaire</target>
             </trans-unit>
+            <trans-unit id="form.label_date_devis ">
+                <source>form.label_date_devis </source>
+                <target>Date de devis</target>
+            </trans-unit>
+            <trans-unit id="form.label_num_devis ">
+                <source>form.label_num_devis </source>
+                <target>Numéro de devis</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
