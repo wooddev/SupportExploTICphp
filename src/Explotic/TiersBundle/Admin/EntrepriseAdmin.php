@@ -133,7 +133,7 @@ class EntrepriseAdmin extends Admin
                 ->add('versionExplotic','text',array('required'=>false))
                 ->add('commentaires','textarea', array(
                                 'required'=>false,))
-                ->add('gerant','sonata_type_model',array(
+                ->add('gerant','sonata_type_model_list',array(
                                 'required'=>false,)
                         )   
                 ->add('bureau','gmaps_address_picker')

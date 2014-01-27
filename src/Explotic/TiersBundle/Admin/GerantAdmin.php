@@ -15,7 +15,34 @@ use Sonata\AdminBundle\Show\ShowMapper;
 class GerantAdmin extends ProfilAdmin
 {
     
+    private $em;
     
+    public function setEntityManager(\Doctrine\ORM\EntityManager $em){
+        $this->em = $em;
+    }
+    
+   /**
+     * {@inheritdoc}
+     */
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery($context);
+        
+        if($this->isGranted('ROLE_ADMIN')){
+            return $query;
+        }elseif($this->isGranted('ROLE_RECRUTEUR')){
+            $repo = $this->em->getRepository('ExploticTiersBundle:Gerant');
+            $queryBuilder = $repo->createQueryBuilder('g')
+                    ->leftJoin('g.entreprise','e')
+                    ->leftJoin('e.recruteurs','r')
+                    ->where('r.id = :rid')
+                    ->setParameter('rid',$this->getSecurityContext()->getToken()->getUser()->getId());
+            return new \Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery($queryBuilder);
+        }else{
+            return $query;
+        } 
+    }
+     
     /**
      * {@inheritdoc}
      */
