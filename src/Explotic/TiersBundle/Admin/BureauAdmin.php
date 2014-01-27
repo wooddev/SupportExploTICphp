@@ -48,10 +48,13 @@ class BureauAdmin extends SiteInterventionAdmin{
     protected function configureFormFields(FormMapper $formMapper)
     {        
         $formMapper
-                ->add('adresseRue')                
+                ->add('adresseNumero')
+                ->add('adresseRue')
         ;
         parent::configureFormFields($formMapper);
 
+                
+        $formMapper->remove('label');
 
     }
     

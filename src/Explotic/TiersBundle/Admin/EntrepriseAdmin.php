@@ -158,18 +158,20 @@ class EntrepriseAdmin extends Admin
         if($object->getGerant()){
             $object->getGerant()->setEntreprise($object);
         }
+        
         if(get_class($this->securityContext->getToken()->getUser())=='Explotic\TiersBundle\Entity\Recruteur'){
             $object->addRecruteur($this->securityContext->getToken()->getUser());
             $this->securityContext->getToken()->getUser()->addEntreprise($object);
         }
-        
-        foreach($object->getRecruteurs() as $recruteur){
-            if($recruteur){
-                        $match = $this->em->getRepository('ExploticTiersBundle:Entreprise')->recruteurMatchTest($object,$recruteur);
-                        if(!$match){
-                            $object->addRecruteur($recruteur);
-                            $recruteur->addEntreprise($object);
-                        }             
+        if($this->isGranted('ROLE_ADMIN')){
+            foreach($object->getRecruteurs() as $recruteur){
+                if($recruteur){
+                            $match = $this->em->getRepository('ExploticTiersBundle:Entreprise')->recruteurMatchTest($object,$recruteur);
+                            if(!$match){
+                                $object->addRecruteur($recruteur);
+                                $recruteur->addEntreprise($object);
+                            }             
+                }
             }
         }
     }
@@ -178,20 +180,31 @@ class EntrepriseAdmin extends Admin
     public function preUpdate($object) {
         parent::preUpdate($object);
         if($object->getBureau()){
-            $object->getBureau()->setEntreprise($object);
+            $bureaux=$this->em->getRepository('ExploticTiersBundle:Bureau')->findByEntreprise($object);
+            foreach($bureaux as $bureau){
+                $this->em->remove($bureau);                
+            }
+            $this->em->flush();
+            $bureau = $object->getBureau();
+            $object->setBureau($bureau);
+            $bureau->setEntreprise($object);            
+            $this->em->persist($bureau);            
         }
+        
         
         if($object->getGerant()){
             $object->getGerant()->setEntreprise($object);
         }  
              
-        foreach($object->getRecruteurs() as $recruteur){
-            if($recruteur){
-                        $match = $this->em->getRepository('ExploticTiersBundle:Entreprise')->recruteurMatchTest($object,$recruteur);
-                        if(!$match){
-                            $object->addRecruteur($recruteur);
-                            $recruteur->addEntreprise($object);
-                        }             
+        if($this->isGranted('ROLE_ADMIN')){
+            foreach($object->getRecruteurs() as $recruteur){
+                if($recruteur){
+                            $match = $this->em->getRepository('ExploticTiersBundle:Entreprise')->recruteurMatchTest($object,$recruteur);
+                            if(!$match){
+                                $object->addRecruteur($recruteur);
+                                $recruteur->addEntreprise($object);
+                            }             
+                }
             }
         }
 

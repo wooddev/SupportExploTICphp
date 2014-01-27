@@ -315,8 +315,10 @@
 							</a>
 							<ul class="dropdown-menu">
 								<li><a href="{{path('stagiaire')}}"><i class="icon-group"></i> Mes recrutements</a></li>
-								<li><a href="{{path('receive_stagiaire_file')}}"><i class="icon-group"></i> Importer</a></li>
-								{#<li><a href="{{path('stagiaire_new')}}"><i class="icon-plus"></i> Nouveau</a></li>
+								{%if is_granted('ROLE_ADMIN')%}
+                                                                <li><a href="{{path('receive_stagiaire_file')}}"><i class="icon-group"></i> Importer</a></li>
+								{%endif%}
+                                                                {#<li><a href="{{path('stagiaire_new')}}"><i class="icon-plus"></i> Nouveau</a></li>
 								<li><a href="#"><i class="icon-bar-chart"></i> Statistiques</a></li>    #}                                                            
 							</ul>
 					</li>
@@ -363,10 +365,17 @@
 					<!-- / Main Navigation: Sessions -->
                                         
 					<!-- Main Navigation: Admin -->
-                                        {%if is_granted('ROLE_ADMIN') or is_granted('ROLE_RECRUTEUR')%}
+                                        {%if is_granted('ROLE_ADMIN') %}
 					<li>
                                             <a href="{{path('sonata_admin_dashboard')}}">
                                                     <i class="icon-gears"></i> Administration
+                                            </a>
+					</li>
+                                        {%endif%}
+                                        {%if  is_granted('ROLE_RECRUTEUR')%}
+					<li>
+                                            <a href="{{path('sonata_admin_dashboard')}}">
+                                                    <i class="icon-gears"></i> Gestion des recrutements
                                             </a>
 					</li>
                                         {%endif%}

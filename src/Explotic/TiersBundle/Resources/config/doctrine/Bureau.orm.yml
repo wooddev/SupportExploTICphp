@@ -5,7 +5,8 @@ Explotic\TiersBundle\Entity\Bureau:
     oneToOne:
       entreprise:
         targetEntity: Entreprise
-        inversedBy: bureau        
+        inversedBy: bureau
+        cascade: ["persist"]        
     fields:  
         adresseNumero:
             type: integer
