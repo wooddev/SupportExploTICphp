@@ -160,15 +160,37 @@ class EntrepriseAdmin extends Admin
             $object->addRecruteur($this->securityContext->getToken()->getUser());
             $this->securityContext->getToken()->getUser()->addEntreprise($object);
         }
+        
+        foreach($object->getRecruteurs() as $recruteur){
+            if($recruteur){
+                        $match = $this->em->getRepository('ExploticTiersBundle:Entreprise')->recruteurMatchTest($object,$recruteur);
+                        if(!$match){
+                            $object->addRecruteur($recruteur);
+                            $recruteur->addEntreprise($object);
+                        }             
+            }
+        }
     }
     public function preUpdate($object) {
         parent::preUpdate($object);
         if($object->getBureau()){
             $object->getBureau()->setEntreprise($object);
         }
+        
         if($object->getGerant()){
             $object->getGerant()->setEntreprise($object);
-        }        
+        }  
+             
+        foreach($object->getRecruteurs() as $recruteur){
+            if($recruteur){
+                        $match = $this->em->getRepository('ExploticTiersBundle:Entreprise')->recruteurMatchTest($object,$recruteur);
+                        if(!$match){
+                            $object->addRecruteur($recruteur);
+                            $recruteur->addEntreprise($object);
+                        }             
+            }
+        }
+
     }
 }
 

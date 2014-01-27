@@ -179,7 +179,7 @@ class StagiaireAdmin extends \Explotic\TiersBundle\Admin\ProfilAdmin
         }
         $user->setPostes($user->getPostes());
         foreach($user->getProgrammes() as $prog){
-            $prog->setStagiaire($user);
+            $prog->setStagiaire($user);    
         }
         $user->setProgrammes($user->getProgrammes());
         

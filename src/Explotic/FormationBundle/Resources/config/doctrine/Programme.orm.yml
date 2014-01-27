@@ -17,8 +17,8 @@ Explotic\FormationBundle\Entity\Programme:
                 strategy: AUTO
         accompagnement:
           type: string
-          columnDefinition: ENUM("nonRealise","realise","enCours")
+          length: 255
         FormationSalle:
           type: string
-          columnDefinition: ENUM("nonRealise","realise","enCours")
+          length: 255
     lifecycleCallbacks: {  }

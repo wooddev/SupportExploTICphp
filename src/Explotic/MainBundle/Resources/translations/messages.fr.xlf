@@ -6,6 +6,19 @@
                 <source>form.label_parent</source>
                 <target>Gallerie racine</target>
             </trans-unit>
+
+            <trans-unit id="non_realise">
+                <source>nonRealise</source>
+                <target>Non Réalisé</target>
+            </trans-unit>
+            <trans-unit id="realise">
+                <source>realise</source>
+                <target>Réalisé</target>
+            </trans-unit>
+            <trans-unit id="encours">
+                <source>encours</source>
+                <target>En cours</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
