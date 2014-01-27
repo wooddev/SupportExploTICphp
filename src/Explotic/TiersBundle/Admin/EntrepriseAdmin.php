@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Security\Core\SecurityContext;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
  * Description of EntrepriseAdmin
@@ -148,6 +149,7 @@ class EntrepriseAdmin extends Admin
         }        
     }    
    
+    
     public function prePersist($object) {
         parent::prePersist($object);
         if($object->getBureau()){
@@ -171,6 +173,8 @@ class EntrepriseAdmin extends Admin
             }
         }
     }
+    
+    
     public function preUpdate($object) {
         parent::preUpdate($object);
         if($object->getBureau()){

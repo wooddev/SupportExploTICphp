@@ -26,7 +26,8 @@ class Poste extends SiteIntervention
     public function setStagiaire(\Explotic\TiersBundle\Entity\Stagiaire $stagiaire = null)
     {
         $this->stagiaire = $stagiaire;
-        $this->setCalendrier()->setLabel($this->label.'/'.$this->getStagiaire()->__toString());
+        if(stristr($this->getLabel(),$this->getStagiaire()->__toString())==false)
+            $this->setLabel($this->label.'/'.$this->getStagiaire()->__toString());
         return $this;
     }
 

@@ -47,7 +47,8 @@ class DefaultController extends Controller
             throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Veuillez vous authentifier');          
         }       
                 
-        $extractAgendaForm = $this->extractAgendaForm();
+        //INTEGRATION AGENDA :
+        //$extractAgendaForm = $this->extractAgendaForm();
         $userClass=get_class($user);
         
  
@@ -94,7 +95,8 @@ class DefaultController extends Controller
         return $this->render('ExploticMainBundle:Default:monProfil.html.twig', array(
             'type'=> $userClass,
             'user' => $user,
-            'extractAgendaForm'=>$extractAgendaForm->createView(),
+            // INTEGRATION AGENDA//
+            //'extractAgendaForm'=>$extractAgendaForm->createView(),
             'map' => $myUserMap->getMap(),
         ));        
     }

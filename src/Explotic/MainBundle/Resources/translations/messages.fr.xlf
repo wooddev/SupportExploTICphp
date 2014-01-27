@@ -16,7 +16,7 @@
                 <target>Réalisé</target>
             </trans-unit>
             <trans-unit id="encours">
-                <source>encours</source>
+                <source>enCours</source>
                 <target>En cours</target>
             </trans-unit>
         </body>

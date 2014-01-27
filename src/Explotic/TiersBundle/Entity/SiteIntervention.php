@@ -44,6 +44,12 @@ class SiteIntervention
 
     public function setLabel($label) {
         $this->label = $label;
+        if($this->calendrier){
+            $this->calendrier->setLabel($this->label);
+        }else{        
+            $this->calendrier = new \Explotic\PlanningBundle\Entity\Calendrier();
+            $this->calendrier->setLabel($this->label);
+        }
     }
 
         

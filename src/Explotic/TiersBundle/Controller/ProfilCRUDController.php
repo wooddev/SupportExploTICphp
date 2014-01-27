@@ -246,5 +246,150 @@ class ProfilCRUDController extends \Sonata\AdminBundle\Controller\CRUDController
             'csrf_token' => $this->getCsrfToken('sonata.batch'),
         ));
     }
+    
+    /**
+     * execute a batch delete
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     *
+     * @param \Sonata\AdminBundle\Datagrid\ProxyQueryInterface $query
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function batchActionDelete(ProxyQueryInterface $query)
+    {
+        if (false === $this->admin->isGranted('ADMIN')) {
+            throw new AccessDeniedException();
+        }
 
+        $modelManager = $this->admin->getModelManager();
+        try {
+            $modelManager->batchDelete($this->admin->getClass(), $query);
+            $this->addFlash('sonata_flash_success', 'flash_batch_delete_success');
+        } catch ( ModelManagerException $e ) {
+            $this->addFlash('sonata_flash_error', 'flash_batch_delete_error');
+        }
+
+        return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
+    }
+
+    /**
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException|\Symfony\Component\Security\Core\Exception\AccessDeniedException
+     *
+     * @param mixed $id
+     *
+     * @return Response|RedirectResponse
+     */
+    public function deleteAction($id)
+    {
+        $id     = $this->get('request')->get($this->admin->getIdParameter());
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        if (false === $this->admin->isGranted('ADMIN', $object)) {
+            throw new AccessDeniedException();
+        }
+
+        if ($this->getRestMethod() == 'DELETE') {
+            // check the csrf token
+            $this->validateCsrfToken('sonata.delete');
+
+            try {
+                $this->admin->delete($object);
+
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array('result' => 'ok'));
+                }
+
+                $this->addFlash('sonata_flash_success', 'flash_delete_success');
+
+            } catch (ModelManagerException $e) {
+
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array('result' => 'error'));
+                }
+
+                $this->addFlash('sonata_flash_error', 'flash_delete_error');
+            }
+
+            return new RedirectResponse($this->admin->generateUrl('list'));
+        }
+
+        return $this->render($this->admin->getTemplate('delete'), array(
+            'object'     => $object,
+            'action'     => 'delete',
+            'csrf_token' => $this->getCsrfToken('sonata.delete')
+        ));
+    }
+
+    
+     /**
+     * return the Response object associated to the acl action
+     *
+     * @param null $id
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     *
+     * @return Response
+     */
+    public function aclAction($id = null)
+    {
+        if(!$this->get('security.context')->isGranted('ROLE_ADMIN')){
+            throw new AccessDeniedException();
+        }
+        
+        if (!$this->admin->isAclEnabled()) {
+            throw new NotFoundHttpException('ACL are not enabled for this admin');
+        }
+
+        $id = $this->get('request')->get($this->admin->getIdParameter());
+
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        if (false === $this->admin->isGranted('MASTER', $object)) {
+            throw new AccessDeniedException();
+        }
+
+        $this->admin->setSubject($object);
+        $aclUsers = $this->getAclUsers();
+
+        $adminObjectAclManipulator = $this->get('sonata.admin.object.manipulator.acl.admin');
+        $adminObjectAclData = new AdminObjectAclData(
+            $this->admin,
+            $object,
+            $aclUsers,
+            $adminObjectAclManipulator->getMaskBuilderClass()
+        );
+
+        $form = $adminObjectAclManipulator->createForm($adminObjectAclData);
+
+        $request = $this->getRequest();
+        if ($request->getMethod() === 'POST') {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                $adminObjectAclManipulator->updateAcl($adminObjectAclData);
+
+                $this->addFlash('sonata_flash_success', 'flash_acl_edit_success');
+
+                return new RedirectResponse($this->admin->generateObjectUrl('acl', $object));
+            }
+        }
+
+        return $this->render($this->admin->getTemplate('acl'), array(
+            'action'      => 'acl',
+            'permissions' => $adminObjectAclData->getUserPermissions(),
+            'object'      => $object,
+            'users'       => $aclUsers,
+            'form'        => $form->createView()
+        ));
+    }
 }

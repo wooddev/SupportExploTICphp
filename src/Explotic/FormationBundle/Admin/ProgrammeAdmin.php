@@ -59,16 +59,16 @@ class ProgrammeAdmin extends Admin{
                 ))
                 ->add('accompagnement','choice',array(
                     'choices'=>array(
-                        'nonRealise',
-                        'realise',
-                        'encours'
+                        'nonRealise'=>'nonRealise',
+                        'realise'=>'realise',
+                        'enCours'=>'enCours',
                     )
                 ))
                 ->add('FormationSalle','choice',array(
                     'choices'=>array(
-                        'nonRealise',
-                        'realise',
-                        'encours'
+                        'nonRealise'=>'nonRealise',
+                        'realise'=>'realise',
+                        'enCours'=>'enCours',
                     )))
         ;
 

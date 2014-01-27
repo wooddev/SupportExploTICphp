@@ -27,7 +27,6 @@
             <td>{{ entity.localisation }}</td>
             <td>
 
-                        <a class="btn btn-primary" href="{{ path('poste_show', { 'id': entity.id }) }}">show</a>
                         {%if is_granted('ROLE_ADMIN')%}
                         <a class="btn btn-warning" href="{{ path('poste_edit', { 'id': entity.id }) }}">edit</a>
                         {%endif%}

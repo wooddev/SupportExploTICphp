@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
+use Sonata\AdminBundle\Route\RouteCollection;
 /**
  * Description of StagiaireAdmin
  *
@@ -141,7 +142,7 @@ class StagiaireAdmin extends \Explotic\TiersBundle\Admin\ProfilAdmin
                         
         
     }
-    
+           
     public function prePersist($user) {
         parent::prePersist($user);      
         foreach($user->getPostes() as $poste){

@@ -1,26 +1,26 @@
-_bureau:
-    resource: "@ExploticTiersBundle/Resources/config/routing/bureau.yml"
-    prefix:   /bureau
-_salle:
-    resource: "@ExploticTiersBundle/Resources/config/routing/salle.yml"
-    prefix:   /salle
-    
+#_bureau:
+#    resource: "@ExploticTiersBundle/Resources/config/routing/bureau.yml"
+#    prefix:   /bureau
+#_salle:
+#    resource: "@ExploticTiersBundle/Resources/config/routing/salle.yml"
+#    prefix:   /salle
+#    
 _poste:
     resource: "@ExploticTiersBundle/Resources/config/routing/poste.yml"
     prefix:   /poste
     
-_siteIntervention:
-    resource: "@ExploticTiersBundle/Resources/config/routing/siteintervention.yml"
-    prefix:   /siteintervention
-
-_localisation:
-    resource: "@ExploticTiersBundle/Resources/config/routing/localisation.yml"
-    prefix:   /localisation   
-
-_geometry:
-    resource: "@ExploticTiersBundle/Resources/config/routing/geometry.yml"
-    prefix:   /geometry
-    
+#_siteIntervention:
+#    resource: "@ExploticTiersBundle/Resources/config/routing/siteintervention.yml"
+#    prefix:   /siteintervention
+#
+#_localisation:
+#    resource: "@ExploticTiersBundle/Resources/config/routing/localisation.yml"
+#    prefix:   /localisation   
+#
+#_geometry:
+#    resource: "@ExploticTiersBundle/Resources/config/routing/geometry.yml"
+#    prefix:   /geometry
+#    
 _entreprise:
     resource: "@ExploticTiersBundle/Resources/config/routing/entreprise.yml"
     prefix:   /entreprise
@@ -29,17 +29,17 @@ _formateur:
     resource: "@ExploticTiersBundle/Resources/config/routing/formateur.yml"
     prefix:   /formateur
     
-_organisme:
-    resource: "@ExploticTiersBundle/Resources/config/routing/organisme.yml"
-    prefix:   /organisme
+#_organisme:
+#    resource: "@ExploticTiersBundle/Resources/config/routing/organisme.yml"
+#    prefix:   /organisme
     
 _stagiaire:
     resource: "@ExploticTiersBundle/Resources/config/routing/stagiaire.yml"
     prefix:   /stagiaire
-
-_machine:
-    resource: "@ExploticTiersBundle/Resources/config/routing/machine.yml"
-    prefix:   /machine
+#
+#_machine:
+#    resource: "@ExploticTiersBundle/Resources/config/routing/machine.yml"
+#    prefix:   /machine
 _recruteur:
     resource: "@ExploticTiersBundle/Resources/config/routing/recruteur.yml"
     prefix:   /recruteur

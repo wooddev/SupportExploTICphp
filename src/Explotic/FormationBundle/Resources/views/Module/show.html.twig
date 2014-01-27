@@ -8,8 +8,8 @@
 
     {%block text_body%}
     <div>
-        {{entity.description | raw}}
-            
+        <div style="margin: 1em 0 2em;">{{entity.description | raw}}
+        </div>              
         <p><strong>Tarif avec prise en charge FAFSEA/VIVEA : </strong>{{entity.tarif}} € HT
         </p>
         <p> <strong> Tarif hors dispositif de prise en charge :</strong> {{entity.tarifplein}} € HT

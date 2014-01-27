@@ -16,11 +16,10 @@
     {% for entity in entities %}
         <tr>         
             <td>{{ entity.module }}</td>
-            <td>{{ entity.accompagnement }}</td>
-            <td>{{ entity.FormationSalle }}</td>
+            <td>{{ entity.accompagnement |trans }}</td>
+            <td>{{ entity.FormationSalle|trans }}</td>
             <td>
-            <a class="btn btn-primary" href="{{ path('programme_show', { 'id': entity.id }) }}">show</a>
-            
+
             {%if is_granted('ROLE_ADMIN')%}
             <a class="btn btn-warning"href="{{ path('programme_edit', { 'id': entity.id }) }}">edit</a>
             {%endif%}

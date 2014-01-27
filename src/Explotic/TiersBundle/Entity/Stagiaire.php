@@ -65,6 +65,11 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
     }
     
     
+    public function setUsername($username) {
+        parent::setUsername($username);
+        $this->getCalendrier()->setLabel('stg/'.$username);
+    }
+    
     /**
      * Set marchePiedInfo
      *
@@ -122,6 +127,8 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
     {
         $this->calendrier = $calendrier;
     
+        
+        
         return $this;
     }
 
