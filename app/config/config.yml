@@ -214,6 +214,8 @@ sonata_media:
                   - 'application/x-dosexec'
                   - 'application/x-dosexec-program'
                   - 'application/x-ms-dos-executable'
+                  - 'application/x-msdos-executable'
+                  - 'application/octet-stream'
                   - 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
                   - 'application/msword'
                   - 'application/vnd.ms-powerpoint'
