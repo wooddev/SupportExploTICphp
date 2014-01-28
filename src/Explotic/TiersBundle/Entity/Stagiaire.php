@@ -311,8 +311,12 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
     public function setGerant($gerant)
     {
         $this->gerant = $gerant;
-    
-        $this->addRole('ROLE_GERANT');
+        
+        if($gerant)
+            if(!$this->hasRole('ROLE_GERANT'))
+                $this->addRole('ROLE_GERANT');
+        else
+                $this->removeRole('ROLE_GERANT');
         
         return $this;
     }

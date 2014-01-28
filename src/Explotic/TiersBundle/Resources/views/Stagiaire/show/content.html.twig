@@ -6,14 +6,16 @@
     <tbody>
         <tr>
             <td colspan="2" > <strong>
-{%if entity.gerant is defined %}
+        {%if entity.gerant is defined %}
+                {%if entity.gerant%}
                     Gérant de l'entreprise {{entity.entreprise.raisonsociale}}
-{% else %}
+                {%else%}
                     {%if entity.entreprise %}
                     Employé de l'entreprise {{entity.entreprise.raisonsociale}}
                     {%else%}
                     Aucune entreprise rattachée
                     {%endif%}
+            {%endif%}
 {% endif %}
            </strong> </td>
         </tr>
