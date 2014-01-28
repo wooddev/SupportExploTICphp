@@ -312,6 +312,8 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
     {
         $this->gerant = $gerant;
     
+        $this->addRole('ROLE_GERANT');
+        
         return $this;
     }
 
@@ -603,4 +605,9 @@ class Stagiaire extends \Explotic\AdminBundle\Entity\User
     {
         return $this->dateDevis;
     }
+    
+    
+
+
+
 }

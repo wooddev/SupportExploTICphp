@@ -15,21 +15,21 @@ class Entreprise
         return $this->id;
     }
     
-    private $gerant;
-    /**
-     * 
-     * @return \Explotic\TiersBundle\Entity\Geran
-     */
-    public function getGerant() {
-        return $this->gerant;
-    }
-    /**
-     * 
-     * @param \Explotic\TiersBundle\Entity\Gerant $gerant
-     */
-    public function setGerant(Gerant $gerant) {
-        $this->gerant = $gerant;
-    }
+//    private $gerant;
+//    /**
+//     * 
+//     * @return \Explotic\TiersBundle\Entity\Geran
+//     */
+//    public function getGerant() {
+//        return $this->gerant;
+//    }
+//    /**
+//     * 
+//     * @param \Explotic\TiersBundle\Entity\Gerant $gerant
+//     */
+//    public function setGerant(Gerant $gerant) {
+//        $this->gerant = $gerant;
+//    }
 
             
 

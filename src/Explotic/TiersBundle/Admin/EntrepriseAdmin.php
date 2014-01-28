@@ -133,9 +133,9 @@ class EntrepriseAdmin extends Admin
                 ->add('versionExplotic','text',array('required'=>false))
                 ->add('commentaires','textarea', array(
                                 'required'=>false,))
-                ->add('gerant','sonata_type_model_list',array(
-                                'required'=>false,)
-                        )   
+//                ->add('gerant','sonata_type_model_list',array(
+//                                'required'=>false,)
+//                        )   
                 ->add('bureau','gmaps_address_picker')
             ->end()
             ;
@@ -155,9 +155,9 @@ class EntrepriseAdmin extends Admin
         if($object->getBureau()){
             $object->getBureau()->setEntreprise($object);
         }
-        if($object->getGerant()){
-            $object->getGerant()->setEntreprise($object);
-        }
+//        if($object->getGerant()){
+//            $object->getGerant()->setEntreprise($object);
+//        }
         
         if(get_class($this->securityContext->getToken()->getUser())=='Explotic\TiersBundle\Entity\Recruteur'){
             $object->addRecruteur($this->securityContext->getToken()->getUser());
@@ -192,9 +192,9 @@ class EntrepriseAdmin extends Admin
         }
         
         
-        if($object->getGerant()){
-            $object->getGerant()->setEntreprise($object);
-        }  
+//        if($object->getGerant()){
+//            $object->getGerant()->setEntreprise($object);
+//        }  
              
         if($this->isGranted('ROLE_ADMIN')){
             foreach($object->getRecruteurs() as $recruteur){
