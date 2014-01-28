@@ -136,4 +136,9 @@ class Programme
     {
         return $this->stagiaire;
     }
+    
+    public function __construct() {
+        $this->accompagnement='nonRealise';
+        $this->FormationSalle='nonRealise';
+    }
 }

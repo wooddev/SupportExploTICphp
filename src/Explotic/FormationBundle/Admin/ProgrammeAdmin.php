@@ -56,21 +56,24 @@ class ProgrammeAdmin extends Admin{
         $formMapper
                 ->add('module','entity',array(
                     'class'=>'ExploticFormationBundle:Module'
-                ))
-                ->add('accompagnement','choice',array(
-                    'choices'=>array(
-                        'nonRealise'=>'nonRealise',
-                        'realise'=>'realise',
-                        'enCours'=>'enCours',
-                    )
-                ))
-                ->add('FormationSalle','choice',array(
-                    'choices'=>array(
-                        'nonRealise'=>'nonRealise',
-                        'realise'=>'realise',
-                        'enCours'=>'enCours',
-                    )))
-        ;
+                ));
+        if($this->isGranted('ROLE_ADMIN')){
+            $formMapper
+                    ->add('accompagnement','choice',array(
+                        'choices'=>array(
+                            'nonRealise'=>'nonRealise',
+                            'realise'=>'realise',
+                            'enCours'=>'enCours',
+                        )
+                    ))
+                    ->add('FormationSalle','choice',array(
+                        'choices'=>array(
+                            'nonRealise'=>'nonRealise',
+                            'realise'=>'realise',
+                            'enCours'=>'enCours',
+                        )))
+            ;        
+        }
 
     }
     public function prePersist($object) {
