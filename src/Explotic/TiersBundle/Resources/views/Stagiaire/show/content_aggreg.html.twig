@@ -18,21 +18,25 @@
         </div>
     </div>
 </div>
-
+{%if entity.programmes.isEmpty == false %}
 <div class="row-fluid">    
     <div class="span6">
             {%include 'ExploticFormationBundle:Programme:index/content.html.twig' with {'entities':entity.programmes,  'depuis':'stagiaire'} %}
     </div>
+    {%if entity.postes.isEmpty == false %}  
     <div class="span6">
                 {%include 'ExploticTiersBundle:Poste:index/content.html.twig' with {'entities':entity.postes, 'depuis':'stagiaire'} %}
     </div>
+    {%endif%}
 </div>
-
+{%endif%}
+{%if entity.machine%}
 <div class="row-fluid">    
     <div class="span12">
             {%include 'ExploticTiersBundle:Machine:show/content.html.twig' with {'entity':entity.machine, 'depuis':'stagiaire'} %}
     </div>
 </div>
+{%endif%}
 <br class="spacer" style="float: top">
 
 

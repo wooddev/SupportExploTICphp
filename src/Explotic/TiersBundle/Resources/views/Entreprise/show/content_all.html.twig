@@ -56,7 +56,7 @@
 </table>
     
     <div class='top-bar'>
-    <h3>Liste des stagiaires</h3>
+    <h3>Profils de l'entreprise</h3>
 </div>
 
 <div class='well'>
@@ -67,6 +67,7 @@
             <th>Nom</th>
             <th>Prenom</th>
             <th>Entreprise</th>
+            <th>Responsable</th>
             <th>Marchepiedinfo</th>
             <th>Telephone</th>
             <th>Opca</th>
@@ -81,13 +82,13 @@
             <td>{{ stagiaire.lastname }}</td>
             <td>{{ stagiaire.firstname }}</td>
             <td><a href="{{ path('entreprise_show', { 'id': stagiaire.entreprise.id }) }}">{{ stagiaire.entreprise.raisonSociale }}</a></td>            
+            <td>{%if stagiaire.gerant %}x{%endif%}</td>
             <td>{{ stagiaire.marchePiedInfo }}</td>
             <td>{{ stagiaire.phone }}</td>
             <td>{{ stagiaire.opca }}</td>
             <td>                   
                 <a class='btn btn-sucess' href="{{ path('stagiaire_show', { 'id': stagiaire.id }) }}">Profil</a>
-                <a class='btn btn-primary'href="{{ path('stagiaire_programmation', { 'id': stagiaire.id }) }}">Programme</a>
-            </td>
+                </td>
         </tr>
         {%endif%}
     {% endfor %}

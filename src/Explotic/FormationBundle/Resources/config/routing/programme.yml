@@ -1,30 +1,30 @@
-programme:
-    pattern:  /
-    defaults: { _controller: "ExploticFormationBundle:Programme:index" }
+#programme:
+#    pattern:  /
+#    defaults: { _controller: "ExploticFormationBundle:Programme:index" }
 
 programme_show:
     pattern:  /{id}/show
     defaults: { _controller: "ExploticFormationBundle:Programme:show" }
 
-programme_new:
-    pattern:  /new/{idStg}
-    defaults: { _controller: "ExploticFormationBundle:Programme:new", idStg : all}
-      
-programme_create:
-    pattern:  /create
-    defaults: { _controller: "ExploticFormationBundle:Programme:create" }
-    requirements: { _method: post }
-
-programme_edit:
-    pattern:  /{id}/edit
-    defaults: { _controller: "ExploticFormationBundle:Programme:edit" }
-
-programme_update:
-    pattern:  /{id}/update
-    defaults: { _controller: "ExploticFormationBundle:Programme:update" }
-    requirements: { _method: post }
-
-programme_delete:
-    pattern:  /{id}/delete
-    defaults: { _controller: "ExploticFormationBundle:Programme:delete" }
-    requirements: { _method: post }
+#programme_new:
+#    pattern:  /new/{idStg}
+#    defaults: { _controller: "ExploticFormationBundle:Programme:new", idStg : all}
+#      
+#programme_create:
+#    pattern:  /create
+#    defaults: { _controller: "ExploticFormationBundle:Programme:create" }
+#    requirements: { _method: post }
+#
+#programme_edit:
+#    pattern:  /{id}/edit
+#    defaults: { _controller: "ExploticFormationBundle:Programme:edit" }
+#
+#programme_update:
+#    pattern:  /{id}/update
+#    defaults: { _controller: "ExploticFormationBundle:Programme:update" }
+#    requirements: { _method: post }
+#
+#programme_delete:
+#    pattern:  /{id}/delete
+#    defaults: { _controller: "ExploticFormationBundle:Programme:delete" }
+#    requirements: { _method: post }

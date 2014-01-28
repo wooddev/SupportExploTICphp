@@ -420,7 +420,7 @@
             </trans-unit>
             <trans-unit id="breadcrumb.link_gerant_list">
                 <source>breadcrumb.link_gerant_list</source>
-                <target>Liste des gérants</target>
+                <target>Liste des responsables</target>
             </trans-unit>
             <trans-unit id="breadcrumb.link_recruteur_list">
                 <source>breadcrumb.link_recruteur_list</source>
@@ -440,7 +440,7 @@
             </trans-unit>
             <trans-unit id="form.label_gerant">
                 <source>form.label_gerant</source>
-                <target>Gérant de l'entreprise</target>
+                <target>Responsable / Cadre</target>
             </trans-unit>
             <trans-unit id="form.label_forfait_telephone ">
                 <source>form.label_forfait_telephone</source>

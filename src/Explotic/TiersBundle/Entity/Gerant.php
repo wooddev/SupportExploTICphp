@@ -24,21 +24,21 @@ class Gerant extends \Explotic\AdminBundle\Entity\User
         $this->commentaires = $commentaires;
     }
     
-    private $entreprise;
-    /**
-     *
-     * @return \Explotic\TiersBundle\Entity\Entreprise
-     */
-    public function getEntreprise() {
-        return $this->entreprise;
-    }
-    /**
-     * 
-     * @param \Explotic\TiersBundle\Entity\Entreprise $entreprise
-     */
-    public function setEntreprise(Entreprise $entreprise) {
-        $this->entreprise = $entreprise;
-    }
+//    private $entreprise;
+//    /**
+//     *
+//     * @return \Explotic\TiersBundle\Entity\Entreprise
+//     */
+//    public function getEntreprise() {
+//        return $this->entreprise;
+//    }
+//    /**
+//     * 
+//     * @param \Explotic\TiersBundle\Entity\Entreprise $entreprise
+//     */
+//    public function setEntreprise(Entreprise $entreprise) {
+//        $this->entreprise = $entreprise;
+//    }
 
 
 

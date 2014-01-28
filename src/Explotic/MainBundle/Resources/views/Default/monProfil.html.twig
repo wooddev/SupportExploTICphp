@@ -28,7 +28,7 @@
 {%endif%}
 </div>
 {% if is_granted('ROLE_STAGIAIRE') %}
-<h3 > Fiche Stagiaire </h3>                       
+<h3 > Fiche ExploTIC </h3>                       
 {%include 'ExploticTiersBundle:Stagiaire:show/content_aggreg.html.twig' with {'entity':user} %}
 {%endif%}
 {% if type == 'formateur' %}

@@ -86,6 +86,16 @@ class StagiaireAdmin extends \Explotic\TiersBundle\Admin\ProfilAdmin
 //        $currentStagiaireId = $this->getSecurityContext()->getToken()->getUser()->getId();
 //        $user = $this->currentUser;
         parent::configureFormFields($formMapper);
+        
+        
+        $queryMachine = $this->em->getRepository('ExploticTiersBundle:Machine')->createQueryBuilder('m')   
+                                                    ->leftJoin('m.entreprise','e')
+                                                    ->leftJoin('e.recruteurs','r')
+                                                    ->andWhere('r.id= :rid')
+                                                    ->setParameter('rid', $this->securityContext->getToken()->getUser()->getId());
+
+                                        
+        
         $formMapper
 
             ->with('Emploi')
@@ -125,7 +135,9 @@ class StagiaireAdmin extends \Explotic\TiersBundle\Admin\ProfilAdmin
                             'edit'=>'inline',
                             )
                         )
-                ->add('machine','sonata_type_model_list', array(
+                ->add('machine','sonata_type_model', array(
+                                'class'=>'ExploticTiersBundle:Machine',
+                                'query'=> $queryMachine,
                                 'required'=>false,)) 
                 ->add('forfaitTelephone','text',array('required'=>false))
                 ->add('commentaire','textarea',array('required'=>false))

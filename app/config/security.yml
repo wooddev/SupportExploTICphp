@@ -94,7 +94,7 @@ security:
         - { path: ^/planning, role: ROLE_USER }
         - { path: ^/formation/module, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/formation, role: ROLE_USER }
-        - { path: ^/tiers/formateur, role: ROLE_USER }
+        - { path: ^/tiers/formateur, role: ROLE_ADMIN }
         - { path: ^/tiers, role: [ROLE_RECRUTEUR, ROLE_ADMIN] }
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
         

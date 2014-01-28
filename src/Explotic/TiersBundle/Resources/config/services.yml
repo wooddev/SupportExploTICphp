@@ -11,14 +11,14 @@ services:
     explotic_tiers.admin.site_intervention:
         abstract: true   
 #############################################################################################
-    explotic_tiers.admin.gerant:
-        class: Explotic\TiersBundle\Admin\GerantAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Gérants, label_catalogue: SonataUserBundle, label_translator_strategy: sonata.admin.label.strategy.underscore }
-        arguments: [null, Explotic\TiersBundle\Entity\Gerant, ExploticTiersBundle:ProfilCRUD]        
-        calls:
-            - [ setEntityManager, [ '@doctrine.orm.entity_manager' ] ]
-        parent: explotic_tiers.admin.profil
+#    explotic_tiers.admin.gerant:
+#        class: Explotic\TiersBundle\Admin\GerantAdmin
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: Gestion des profils, label: Gérants, label_catalogue: SonataUserBundle, label_translator_strategy: sonata.admin.label.strategy.underscore }
+#        arguments: [null, Explotic\TiersBundle\Entity\Gerant, ExploticTiersBundle:ProfilCRUD]        
+#        calls:
+#            - [ setEntityManager, [ '@doctrine.orm.entity_manager' ] ]
+#        parent: explotic_tiers.admin.profil
     explotic_tiers.admin.stagiaire:
         class: Explotic\TiersBundle\Admin\StagiaireAdmin
         tags:
@@ -43,7 +43,11 @@ services:
     explotic_tiers.admin.machine:
         class: Explotic\TiersBundle\Admin\MachineAdmin        
         tags:
-            - { name: sonata.admin, manager_type: orm,  show_in_dashboard: false}
+            - { name: sonata.admin, manager_type: orm, group: Infos stagiaires, label: Machines} 
+            # show_in_dashboard: false}
+        calls:
+            - [ setSecurityContext, [ '@security.context' ] ]
+            - [ setEntityManager, [ '@doctrine.orm.entity_manager' ] ]
         arguments: [null, Explotic\TiersBundle\Entity\Machine, ExploticTiersBundle:ProfilCRUD]
     explotic_tiers.admin.entreprise:
         class: Explotic\TiersBundle\Admin\EntrepriseAdmin

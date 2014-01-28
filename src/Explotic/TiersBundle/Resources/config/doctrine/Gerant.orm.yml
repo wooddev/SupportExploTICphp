@@ -2,11 +2,11 @@ Explotic\TiersBundle\Entity\Gerant:
     type: entity
     table: gerant
     repositoryClass: Explotic\TiersBundle\Entity\GerantRepository
-    oneToOne:
-      entreprise:
-        targetEntity: Explotic\TiersBundle\Entity\Entreprise
-        mappedBy: gerant
-        cascade: ["persist"]    
+#    oneToOne:
+#      entreprise:
+#        targetEntity: Explotic\TiersBundle\Entity\Entreprise
+#        mappedBy: gerant
+#        cascade: ["persist"]    
     fields:       
         commentaires:
           type: text

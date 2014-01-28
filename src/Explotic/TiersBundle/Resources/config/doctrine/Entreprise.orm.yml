@@ -3,11 +3,11 @@ Explotic\TiersBundle\Entity\Entreprise:
     table: entreprise
     repositoryClass: Explotic\TiersBundle\Entity\EntrepriseRepository
     oneToOne:
-      gerant:
-        targetEntity: Explotic\TiersBundle\Entity\Gerant
-        inversedBy: entreprise
-        cascade: ["persist"]        
-        orphanRemoval: true
+#      gerant:
+#        targetEntity: Explotic\TiersBundle\Entity\Gerant
+#        inversedBy: entreprise
+#        cascade: ["persist"]        
+#        orphanRemoval: true
       bureau:
         targetEntity: Explotic\TiersBundle\Entity\Bureau
         mappedBy: entreprise
