@@ -32,7 +32,7 @@ class EntrepriseAdmin extends Admin
         return $this->currentUser;
     }
     
-        private $em;
+    private $em;
     
     public function setEntityManager(\Doctrine\ORM\EntityManager $em){
         $this->em = $em;

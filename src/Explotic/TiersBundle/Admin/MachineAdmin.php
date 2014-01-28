@@ -6,6 +6,8 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\Security\Core\SecurityContext;
 /**
  * Description of ProfilAdmin
  *
@@ -14,8 +16,44 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 
 class MachineAdmin extends Admin{
+    protected $securityContext;
     
+    public function setSecurityContext(SecurityContext $sc){
+        $this->securityContext = $sc;
+        if(!null===$this->currentUser = $this->securityContext->getToken()){
+            $this->currentUser = $this->securityContext->getToken()->getUser();
+        }
+    }
+    public function getSecurityContext(){
+        return $this->securityContext;
+    }
+    private $em;
     
+    public function setEntityManager(\Doctrine\ORM\EntityManager $em){
+        $this->em = $em;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery($context);
+        
+        if($this->isGranted('ROLE_ADMIN')){
+            return $query;
+        }elseif($this->isGranted('ROLE_RECRUTEUR')){
+            $repo = $this->em->getRepository('ExploticTiersBundle:Machine');
+            $queryBuilder = $repo->createQueryBuilder('m')
+                    ->leftJoin('m.entreprise','e')
+                    ->leftJoin('e.recruteurs','r')
+                    ->andWhere('r.id = :rid')
+                    ->setParameter('rid',$this->getSecurityContext()->getToken()->getUser()->getId());
+            return new \Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery($queryBuilder);
+        }else{
+            return $query;
+        } 
+    } 
     /**
      * {@inheritdoc}
      */
@@ -45,14 +83,30 @@ class MachineAdmin extends Admin{
      */
     protected function configureDatagridFilters(DatagridMapper $filterMapper)
     {
+        $secu = $this->securityContext;
+        if($this->isGranted('ROLE_ADMIN')){
+            $filterMapper->add('entreprise');        
+        }elseif($this->isGranted('ROLE_RECRUTEUR')){        
+            $filterMapper
+                ->add('entreprise',null,array(),null,array(
+                    'class'=>'ExploticTiersBundle:Entreprise',
+                    'query_builder'=> function(\Doctrine\ORM\EntityRepository $er) use ($secu){
+                        return $er->createQueryBuilder('e')                                
+                                ->leftJoin('e.recruteurs','r')
+                                ->andWhere('r.id= :rid')
+                                ->setParameter('rid', $secu->getToken()->getUser()->getId());
+            
+                    }
+                ));
+        }
         $filterMapper
-                ->add('entreprise')
                 ->add('marque')
                 ->add('modele')
                 ->add('logiciel')
            ;
         
-    }
+    }   
+    
 
     /**
      * {@inheritdoc}

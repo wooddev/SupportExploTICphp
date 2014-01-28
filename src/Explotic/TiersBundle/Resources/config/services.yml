@@ -43,7 +43,11 @@ services:
     explotic_tiers.admin.machine:
         class: Explotic\TiersBundle\Admin\MachineAdmin        
         tags:
-            - { name: sonata.admin, manager_type: orm,  show_in_dashboard: false}
+            - { name: sonata.admin, manager_type: orm, group: Infos stagiaires, label: Machines} 
+            # show_in_dashboard: false}
+        calls:
+            - [ setSecurityContext, [ '@security.context' ] ]
+            - [ setEntityManager, [ '@doctrine.orm.entity_manager' ] ]
         arguments: [null, Explotic\TiersBundle\Entity\Machine, ExploticTiersBundle:ProfilCRUD]
     explotic_tiers.admin.entreprise:
         class: Explotic\TiersBundle\Admin\EntrepriseAdmin
